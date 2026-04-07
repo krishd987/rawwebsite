@@ -10,6 +10,10 @@
     "generate-password": "node generate-password.js"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@types/nodemailer": "^7.0.4",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.23.25",
@@ -21,10 +25,5 @@
     "react-dom": "19.2.0",
     "typescript": "^5"
   },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19"
-  }
+  "devDependencies": {}
 }
