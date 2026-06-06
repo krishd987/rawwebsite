@@ -2,6 +2,10 @@
 
 A modern, futuristic frontend website built with **Next.js 16**, **React**, **Framer Motion**, and **CSS Modules**. No Tailwind CSS - pure CSS Modules for styling with a professional, robotics-themed design.
 
+## Test Update
+
+This README was updated to verify that push changes are working correctly.
+
 ## 🎨 Design Features
 
 - **Color Palette**: Navy Blue (#0A1A3A), Dark Steel (#0F0F17), Red Accent (#E10600), White (#ffffff)
