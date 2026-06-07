@@ -1,5 +1,5 @@
 /**
- * Competition Recureiment Page
+ * Recureiment Page
  * Author: Taksh Gandhi
  * Email: takshgandhi4@gmail.com
  */
@@ -237,7 +237,7 @@ export default function RegisterPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Competition <span className={styles.redAccent}>Recureiment</span>
+            <span className={styles.redAccent}>Recureiment</span>
           </motion.h1>
         </div>
       </motion.section>
