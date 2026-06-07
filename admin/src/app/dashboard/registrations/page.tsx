@@ -8,6 +8,8 @@ interface Registration {
   fullName: string;
   email: string;
   phone: string;
+  attachmentUrl?: string;
+  attachmentName?: string;
   competition: string;
   competitionId: string;
   whyJoin: string;
@@ -477,6 +479,27 @@ export default function RegistrationsPage() {
                     <label>Phone</label>
                     <p>{selectedRegistration.phone}</p>
                   </div>
+
+                {selectedRegistration.attachmentUrl && (
+                  <div className={styles.detailSection}>
+                    <h3>Uploaded File</h3>
+                    <div className={styles.detailItem}>
+                      <label>Download</label>
+                      <p>
+                        <a
+                          href={selectedRegistration.attachmentUrl}
+                          download={selectedRegistration.attachmentName || `${selectedRegistration.fullName}-attachment`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.viewBtn}
+                          style={{ display: 'inline-flex', textDecoration: 'none' }}
+                        >
+                          {selectedRegistration.attachmentName || 'Download Uploaded File'}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                )}
                   <div className={styles.detailItem}>
                     <label>Competition</label>
                     <p>{selectedRegistration.competition}</p>
