@@ -306,9 +306,9 @@ export default function RegisterPage() {
             transition={{ delay: 0.4 }}
           >
             <div className={styles.formHeader}>
-              <h2>Student Registration Form</h2>
+              <h2>Recruitment Form</h2>
               <p className={styles.tagline}>
-                Fill in your details to register for upcoming robotics competitions
+                Fill in your details to apply for upcoming robotics recruitment.
               </p>
             </div>
 
@@ -371,10 +371,10 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Selection */}
+              {/* Recruitment */}
               <div className={styles.formSection}>
-                <h3 className={styles.sectionTitle}>Select</h3>
-                <p className={styles.sectionDescription}>Choose what you want to register for</p>
+                <h3 className={styles.sectionTitle}>Recruitment Details</h3>
+                <p className={styles.sectionDescription}>Choose the robotics opportunity you want to apply for</p>
                 
                 <div className={styles.competitionsGrid}>
                   {competitionsData.map((comp) => {
