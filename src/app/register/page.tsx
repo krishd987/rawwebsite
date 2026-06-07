@@ -371,10 +371,10 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Competition Selection */}
+              {/* Selection */}
               <div className={styles.formSection}>
-                <h3 className={styles.sectionTitle}>Select Competition</h3>
-                <p className={styles.sectionDescription}>Choose the competition you want to register for</p>
+                <h3 className={styles.sectionTitle}>Select</h3>
+                <p className={styles.sectionDescription}>Choose what you want to register for</p>
                 
                 <div className={styles.competitionsGrid}>
                   {competitionsData.map((comp) => {
