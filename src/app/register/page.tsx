@@ -50,6 +50,7 @@ interface CustomField {
 }
 
 export default function RegisterPage() {
+  const STUDENT_EMAIL_DOMAIN = '@student.sfit.ac.in';
   const [competitionsData, setCompetitionsData] = useState<Competition[]>([]);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -60,6 +61,7 @@ export default function RegisterPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitError, setSubmitError] = useState('');
   const [selectedCompetition, setSelectedCompetition] = useState<Competition | null>(null);
   const [customFieldValues, setCustomFieldValues] = useState<Record<string, any>>({});
   const [notesAgreed, setNotesAgreed] = useState(false);
@@ -123,6 +125,7 @@ export default function RegisterPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    if (submitError) setSubmitError('');
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -178,6 +181,14 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
+
+    if (!formData.email.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
+      setSubmitStatus('error');
+      setSubmitError('Please use your @student.sfit.ac.in email address to submit.');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Submit to actual API endpoint
@@ -200,6 +211,7 @@ export default function RegisterPage() {
       
       if (result.success) {
         setSubmitStatus('success');
+        setSubmitError('');
         // Form will be reset after auto-redirect (20 seconds)
       } else {
         throw new Error(result.error || 'Submission failed');
@@ -207,6 +219,7 @@ export default function RegisterPage() {
     } catch (error) {
       console.error('Submission error:', error);
       setSubmitStatus('error');
+      setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -340,7 +353,9 @@ export default function RegisterPage() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      placeholder="your.email@example.com"
+                      placeholder="your.name@student.sfit.ac.in"
+                      pattern="^[^@\s]+@student\.sfit\.ac\.in$"
+                      title="Use your @student.sfit.ac.in email address"
                     />
                   </div>
                 </div>
@@ -605,7 +620,7 @@ export default function RegisterPage() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                     >
-                      ✗ Something went wrong. Please try again.
+                      ✗ {submitError || 'Something went wrong. Please try again.'}
                     </motion.div>
                   )}
 

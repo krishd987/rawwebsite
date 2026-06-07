@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 
+const STUDENT_EMAIL_DOMAIN = '@student.sfit.ac.in';
+
 // POST - Create new registration
 export async function POST(request: NextRequest) {
   try {
@@ -8,6 +10,13 @@ export async function POST(request: NextRequest) {
     const db = client.db('teamraw');
     
     const body = await request.json();
+
+    if (!body.email || typeof body.email !== 'string' || !body.email.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
+      return NextResponse.json(
+        { success: false, error: 'Please use your @student.sfit.ac.in email address to submit.' },
+        { status: 400 }
+      );
+    }
     
     const registration = {
       fullName: body.fullName,
