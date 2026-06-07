@@ -18,6 +18,8 @@ interface FormData {
   fullName: string;
   email: string;
   phone: string;
+  attachmentUrl: string;
+  attachmentName: string;
   
   // Competition Details
   competition: string;
@@ -56,6 +58,8 @@ export default function RegisterPage() {
     fullName: '',
     email: '',
     phone: '',
+    attachmentUrl: '',
+    attachmentName: '',
     competition: '',
   });
 
@@ -67,6 +71,7 @@ export default function RegisterPage() {
   const [notesAgreed, setNotesAgreed] = useState(false);
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
   const [formProgress, setFormProgress] = useState(0);
+  const [attachmentPreview, setAttachmentPreview] = useState('');
 
   // Fetch competitions from API
   useEffect(() => {
@@ -140,6 +145,53 @@ export default function RegisterPage() {
         phone: value,
       }));
     }
+  };
+
+  const handleAttachmentUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'text/plain',
+    ];
+
+    const allowedExtensions = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.txt'];
+    const fileName = file.name.toLowerCase();
+
+    const isAllowed = allowedTypes.includes(file.type) || allowedExtensions.some(ext => fileName.endsWith(ext));
+    if (!isAllowed) {
+      setSubmitStatus('error');
+      setSubmitError('Please upload a PDF, DOC, DOCX, PPT, PPTX, or TXT file.');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setSubmitStatus('error');
+      setSubmitError('Attachment size should be less than 10MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const attachmentData = reader.result as string;
+      setFormData(prev => ({
+        ...prev,
+        attachmentUrl: attachmentData,
+        attachmentName: file.name,
+      }));
+      setAttachmentPreview(file.name);
+      setSubmitError('');
+    };
+    reader.onerror = () => {
+      setSubmitStatus('error');
+      setSubmitError('Failed to read the uploaded file.');
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleCompetitionSelect = (competition: Competition) => {
@@ -382,6 +434,24 @@ export default function RegisterPage() {
                     <span className={styles.phoneHint}>
                       {10 - formData.phone.length} more digit{10 - formData.phone.length !== 1 ? 's' : ''} required
                     </span>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="attachment">Upload File (PDF / DOC / DOCX / PPT / PPTX / TXT)</label>
+                  <input
+                    type="file"
+                    id="attachment"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/plain"
+                    onChange={handleAttachmentUpload}
+                  />
+                  <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                    You can upload a supporting document from the main website.
+                  </small>
+                  {attachmentPreview && (
+                    <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--color-navy)' }}>
+                      Selected file: {attachmentPreview}
+                    </div>
                   )}
                 </div>
               </div>

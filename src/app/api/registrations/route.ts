@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
       fullName: body.fullName,
       email: body.email,
       phone: body.phone,
+      attachmentUrl: body.attachmentUrl || null,
+      attachmentName: body.attachmentName || '',
       competition: body.competition,
       competitionId: body.competitionId,
       whyJoin: body.whyJoin || '',
