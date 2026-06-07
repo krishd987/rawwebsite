@@ -199,7 +199,7 @@ function LoginForm() {
               onChange={(e) => handleEmailChange(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Enter your email"
-              disabled={isLoading || isSendingOtp || showOtpInput}
+              disabled={isLoading || isSendingOtp}
               autoComplete="email"
               autoFocus
             />
