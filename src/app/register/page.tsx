@@ -693,9 +693,8 @@ export default function RegisterPage() {
                           <div className={styles.contactItem}>
                             <span className={styles.contactIcon}>📞</span>
                             <div className={styles.contactNumbers}>
-                              <a href="tel:+919579368132">Nandini: 9579368132</a>
                               <a href="tel:+919969458306">Siddhant: 9969458306</a>
-                              <a href="tel:+918591991591">Amisha: 8591991591</a>
+                              <a href="tel:+918976988861">Dikshi: 8976988861</a>
                             </div>
                           </div>
                         </div>
