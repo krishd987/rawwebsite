@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
@@ -13,8 +13,7 @@ import styles from './login.module.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
@@ -43,51 +42,13 @@ function LoginForm() {
     setFieldErrors({ ...fieldErrors, email: '' });
   };
 
-  const handleOtpChange = (value: string) => {
-    setOtp(value);
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
     setError('');
     setFieldErrors({ ...fieldErrors, otp: '' });
   };
 
-  // Send OTP to email
-  const handleSendOtp = async () => {
-    if (!email) {
-      setFieldErrors({ ...fieldErrors, email: 'Email is required' });
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setFieldErrors({ ...fieldErrors, email: 'Please enter a valid email address' });
-      return;
-    }
-
-    setIsSendingOtp(true);
-    setError('');
-    setOtpSentMessage('');
-
-    try {
-      const response = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setShowOtpInput(true);
-        setOtpSentMessage('OTP sent successfully! Please check your email.');
-      } else {
-        setError(data.message || 'Failed to send OTP');
-      }
-    } catch (err) {
-      setError('Failed to send OTP. Please try again.');
-    } finally {
-      setIsSendingOtp(false);
-    }
-  };
+  // Handle input changes for password
 
   // Form validation
   const validateForm = () => {
@@ -102,11 +63,8 @@ function LoginForm() {
       isValid = false;
     }
 
-    if (showOtpInput && !otp) {
-      errors.otp = 'OTP is required';
-      isValid = false;
-    } else if (showOtpInput && otp.length !== 6) {
-      errors.otp = 'OTP must be 6 digits';
+    if (!password) {
+      errors.otp = 'Password is required';
       isValid = false;
     }
 
@@ -118,49 +76,32 @@ function LoginForm() {
     e.preventDefault();
     setError('');
 
-    // If OTP not sent yet, send it first
-    if (!showOtpInput) {
-      await handleSendOtp();
-      return;
-    }
-
     // Validate form
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsLoading(true);
-
     try {
-      const response = await fetch('/api/auth/verify-otp', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // Show success message briefly
         setSuccessMessage('✓ Login successful! Redirecting...');
         setError('');
-        
-        // Verify authentication and update context
         await verifyAuth();
-        
-        // Small delay to ensure cookie is set and auth state updated
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Always redirect to dashboard (avoid root redirect loop)
-        let redirect = searchParams.get('redirect') || '/dashboard';
-        if (redirect === '/' || redirect === '') {
-          redirect = '/dashboard';
-        }
+        await new Promise((r) => setTimeout(r, 500));
+        let redirect = '/dashboard';
+        const param = new URLSearchParams(window.location.search).get('redirect');
+        if (param && param !== '/' && param !== '') redirect = param;
         window.location.href = redirect;
       } else {
-        setError(data.message || 'Invalid OTP');
+        setError(data.message || 'Invalid credentials');
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -171,12 +112,12 @@ function LoginForm() {
 
   // Handle Enter key press
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && isFormValid && !isLoading && !isSendingOtp) {
+    if (e.key === 'Enter' && isFormValid && !isLoading) {
       handleSubmit(e as any);
     }
   };
 
-  const isFormValid = email && (showOtpInput ? otp && otp.length === 6 : true);
+  const isFormValid = email && password;
 
   return (
     <div className={styles.loginContainer}>
@@ -270,70 +211,50 @@ function LoginForm() {
             )}
           </motion.div>
 
-          {/* OTP Input */}
-          {showOtpInput && (
-            <motion.div
-              className={styles.formGroup}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <label htmlFor="otp">Enter OTP</label>
-              <input
-                type="text"
-                id="otp"
-                name="otp"
-                value={otp}
-                onChange={(e) => handleOtpChange(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Enter 6-digit OTP"
-                disabled={isLoading}
-                autoComplete="one-time-code"
-                autoFocus
-                maxLength={6}
-              />
-              {fieldErrors.otp && (
-                <p className={styles.fieldError}>
-                  <span>⚠️</span>
-                  {fieldErrors.otp}
-                </p>
-              )}
-              <button
-                type="button"
-                className={styles.resendButton}
-                onClick={handleSendOtp}
-                disabled={isSendingOtp}
-              >
-                {isSendingOtp ? 'Sending...' : 'Resend OTP'}
-              </button>
-            </motion.div>
-          )}
+          {/* Password Input */}
+          <motion.div
+            className={styles.formGroup}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.12 }}
+          >
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => handlePasswordChange(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Enter password"
+              disabled={isLoading}
+              autoComplete="current-password"
+              autoFocus
+            />
+            {fieldErrors.otp && (
+              <p className={styles.fieldError}>
+                <span>⚠️</span>
+                {fieldErrors.otp}
+              </p>
+            )}
+          </motion.div>
 
           {/* Submit Button */}
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={!isFormValid || isLoading || isSendingOtp}
+            disabled={!isFormValid || isLoading}
           >
             {isLoading ? (
               <>
                 <div className={styles.spinner} />
-                <span>Verifying OTP...</span>
-              </>
-            ) : isSendingOtp ? (
-              <>
-                <div className={styles.spinner} />
-                <span>Sending OTP...</span>
-              </>
-            ) : showOtpInput ? (
-              <>
-                <span>🔐</span>
-                <span>Verify & Sign In</span>
+                <span>Signing in...</span>
               </>
             ) : (
               <>
-                <span>📧</span>
-                <span>Send OTP</span>
+                <span>🔐</span>
+                <span>Sign In</span>
               </>
             )}
           </button>

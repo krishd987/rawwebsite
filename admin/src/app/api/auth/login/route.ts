@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createToken } from '@/lib/auth';
 
-const ADMIN_PASSWORD = 'HongKong2026Robocon';
+const ADMIN_PASSWORD = 'Robocon2026Raw';
 const ADMIN_EMAIL = 'teamraw@sfit.ac.in';
 
 export async function POST(req: NextRequest) {
