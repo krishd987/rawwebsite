@@ -319,9 +319,9 @@ export default function RegisterPage() {
             transition={{ delay: 0.4 }}
           >
             <div className={styles.formHeader}>
-              <h2>Recruitment Form</h2>
+              <h2>SFIT Student Recruitment Form</h2>
               <p className={styles.tagline}>
-                Fill in your details to apply for upcoming robotics recruitment.
+                This form is only for students of St. Francis Institute of Technology applying for upcoming robotics recruitment.
               </p>
             </div>
 
@@ -332,7 +332,7 @@ export default function RegisterPage() {
                 
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
-                    <label htmlFor="fullName">Student Name *</label>
+                    <label htmlFor="fullName">SFIT Student Name *</label>
                     <input
                       type="text"
                       id="fullName"
@@ -345,7 +345,7 @@ export default function RegisterPage() {
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="email">Email Address *</label>
+                    <label htmlFor="email">SFIT Student Email Address *</label>
                     <input
                       type="email"
                       id="email"
