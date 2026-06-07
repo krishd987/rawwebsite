@@ -27,6 +27,8 @@ interface Competition {
   deadline: string;
   teamSize: string;
   imageUrl?: string;
+  attachmentUrl?: string;
+  attachmentName?: string;
   notes?: string;
   isActive: boolean;
   registrationEnabled: boolean;
@@ -42,6 +44,8 @@ export default function CompetitionsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingCompetition, setEditingCompetition] = useState<Competition | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [attachmentNamePreview, setAttachmentNamePreview] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -51,6 +55,8 @@ export default function CompetitionsPage() {
     deadline: '',
     teamSize: '',
     imageUrl: '',
+    attachmentUrl: '',
+    attachmentName: '',
     notes: '',
     isActive: true,
     registrationEnabled: true,
@@ -96,6 +102,76 @@ export default function CompetitionsPage() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+
+    if (name === 'imageUrl') {
+      setImagePreview(value);
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size should be less than 5MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imageData = reader.result as string;
+      setFormData(prev => ({
+        ...prev,
+        imageUrl: imageData,
+      }));
+      setImagePreview(imageData);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleAttachmentUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'text/plain',
+    ];
+
+    const allowedExtensions = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.txt'];
+    const fileName = file.name.toLowerCase();
+
+    const isAllowed = allowedTypes.includes(file.type) || allowedExtensions.some(ext => fileName.endsWith(ext));
+    if (!isAllowed) {
+      alert('Please select a PDF, DOC, DOCX, PPT, PPTX, or TXT file');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Attachment size should be less than 10MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const attachmentData = reader.result as string;
+      setFormData(prev => ({
+        ...prev,
+        attachmentUrl: attachmentData,
+        attachmentName: file.name,
+      }));
+      setAttachmentNamePreview(file.name);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleAddField = () => {
@@ -205,6 +281,8 @@ export default function CompetitionsPage() {
       deadline: competition.deadline,
       teamSize: competition.teamSize,
       imageUrl: competition.imageUrl || '',
+      attachmentUrl: competition.attachmentUrl || '',
+      attachmentName: competition.attachmentName || '',
       notes: competition.notes || '',
       isActive: competition.isActive,
       registrationEnabled: competition.registrationEnabled ?? true,
@@ -212,6 +290,8 @@ export default function CompetitionsPage() {
       registrationEndDate: competition.registrationEndDate || '',
       customFields: competition.customFields || [],
     });
+    setImagePreview(competition.imageUrl || '');
+    setAttachmentNamePreview(competition.attachmentName || '');
     setShowForm(true);
   };
 
@@ -243,6 +323,8 @@ export default function CompetitionsPage() {
       deadline: '',
       teamSize: '',
       imageUrl: '',
+      attachmentUrl: '',
+      attachmentName: '',
       notes: '',
       isActive: true,
       registrationEnabled: true,
@@ -250,6 +332,8 @@ export default function CompetitionsPage() {
       registrationEndDate: '',
       customFields: [],
     });
+    setImagePreview('');
+    setAttachmentNamePreview('');
     setEditingCompetition(null);
     setShowForm(false);
   };
@@ -352,6 +436,29 @@ export default function CompetitionsPage() {
               </div>
 
               <div className={styles.formGroup}>
+                <label>Image Upload (Optional)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+                <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                  Upload an image for the competition card. It will be saved and shown on the public website.
+                </small>
+              </div>
+
+              {imagePreview && (
+                <div className={styles.imagePreviewWrap}>
+                  <label>Preview</label>
+                  <img
+                    src={imagePreview}
+                    alt="Competition preview"
+                    className={styles.imagePreview}
+                  />
+                </div>
+              )}
+
+              <div className={styles.formGroup}>
                 <label>Image URL (Optional)</label>
                 <input
                   type="url"
@@ -361,6 +468,25 @@ export default function CompetitionsPage() {
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
+
+              <div className={styles.formGroup}>
+                <label>Supporting File Upload (PDF / DOC / DOCX / PPT / PPTX / TXT)</label>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,text/plain"
+                  onChange={handleAttachmentUpload}
+                />
+                <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                  Upload a document or presentation to attach to this competition.
+                </small>
+              </div>
+
+              {attachmentNamePreview && (
+                <div className={styles.attachmentPreviewWrap}>
+                  <label>Selected File</label>
+                  <div className={styles.attachmentPreview}>{attachmentNamePreview}</div>
+                </div>
+              )}
 
               <div className={styles.formGroup}>
                 <label>Notes (Optional)</label>

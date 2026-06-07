@@ -93,6 +93,11 @@ const competitionsData = [
   },
 ];
 
+type CompetitionItem = (typeof competitionsData)[number] & {
+  attachmentUrl?: string;
+  attachmentName?: string;
+};
+
 const ACHIEVEMENT_BADGES = {
   'Coming Soon': '⏳ Coming Soon',
   'Pre-Registration Done': '📝 Pre-Registration',
@@ -111,15 +116,26 @@ export default function Competitions() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedDomains, setSelectedDomains] = useState<string[]>([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const [selectedCompetition, setSelectedCompetition] = useState<typeof competitionsData[0] | null>(null);
+  const [selectedCompetition, setSelectedCompetition] = useState<CompetitionItem | null>(null);
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
+  const [attachmentOverrides, setAttachmentOverrides] = useState<Record<string, { url: string; name?: string }>>({});
   
   // Temporary filter states for modal
   const [tempYear, setTempYear] = useState<number | null>(null);
   const [tempDomains, setTempDomains] = useState<string[]>([]);
 
+  const normalizeName = (name: string) => name.trim().toLowerCase();
+
+  const displayCompetitionsData = competitionsData.map((competition) => ({
+    ...competition,
+    imageUrl: imageOverrides[normalizeName(competition.name)] || competition.imageUrl,
+    attachmentUrl: attachmentOverrides[normalizeName(competition.name)]?.url,
+    attachmentName: attachmentOverrides[normalizeName(competition.name)]?.name,
+  }));
+
   // Get unique years and domains for filters
-  const years = Array.from(new Set(competitionsData.map(c => c.year))).sort((a, b) => b - a);
-  const allDomains = Array.from(new Set(competitionsData.flatMap(c => c.tags))).sort();
+  const years = Array.from(new Set(displayCompetitionsData.map(c => c.year))).sort((a, b) => b - a);
+  const allDomains = Array.from(new Set(displayCompetitionsData.flatMap(c => c.tags))).sort();
 
   // Domain groups for better organization
   const domainGroups = {
@@ -136,11 +152,46 @@ export default function Competitions() {
   const activeFilterCount = (selectedYear ? 1 : 0) + selectedDomains.length;
 
   // Filter competitions
-  const filteredCompetitions = competitionsData.filter(comp => {
+  const filteredCompetitions = displayCompetitionsData.filter(comp => {
     const yearMatch = !selectedYear || comp.year === selectedYear;
     const domainMatch = selectedDomains.length === 0 || comp.tags.some(tag => selectedDomains.includes(tag));
     return yearMatch && domainMatch;
   });
+
+  useEffect(() => {
+    const fetchCompetitionImages = async () => {
+      try {
+        const response = await fetch('/api/competitions?active=true');
+        const result = await response.json();
+
+        if (result.success && Array.isArray(result.data)) {
+          const overrides = result.data.reduce((acc: Record<string, string>, competition: any) => {
+            if (competition?.name && competition?.imageUrl) {
+              acc[normalizeName(competition.name)] = competition.imageUrl;
+            }
+            return acc;
+          }, {});
+
+          const attachmentMap = result.data.reduce((acc: Record<string, { url: string; name?: string }>, competition: any) => {
+            if (competition?.name && competition?.attachmentUrl) {
+              acc[normalizeName(competition.name)] = {
+                url: competition.attachmentUrl,
+                name: competition.attachmentName || 'Download file',
+              };
+            }
+            return acc;
+          }, {});
+
+          setImageOverrides(overrides);
+          setAttachmentOverrides(attachmentMap);
+        }
+      } catch (error) {
+        console.error('Error fetching competition images:', error);
+      }
+    };
+
+    fetchCompetitionImages();
+  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -402,6 +453,7 @@ export default function Competitions() {
                       width={400}
                       height={250}
                       className={styles.competitionImage}
+                      unoptimized={comp.imageUrl.startsWith('data:')}
                     />
                   </div>
                 )}
@@ -601,6 +653,7 @@ export default function Competitions() {
                       width={800}
                       height={400}
                       className={styles.detailsImage}
+                      unoptimized={selectedCompetition.imageUrl.startsWith('data:')}
                     />
                   </div>
                 )}
@@ -662,6 +715,24 @@ export default function Competitions() {
                       </div>
                     </div>
                   </div>
+
+                  {selectedCompetition.attachmentUrl && (
+                    <div className={styles.detailsDescription}>
+                      <h3>Attachment</h3>
+                      <p>
+                        <a
+                          href={selectedCompetition.attachmentUrl}
+                          download={selectedCompetition.attachmentName || selectedCompetition.name}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.detailsTag}
+                          style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}
+                        >
+                          {selectedCompetition.attachmentName || 'Download attachment'}
+                        </a>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
