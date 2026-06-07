@@ -12,10 +12,12 @@ import styles from './competitions.module.css';
 interface CustomField {
   id: string;
   label: string;
-  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox';
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox' | 'file';
   required: boolean;
   placeholder?: string;
   options?: string[];
+  fileAccept?: string;   // e.g. ".pdf,.docx,image/*"
+  fileMaxSizeMB?: number; // e.g. 5
 }
 
 interface Competition {
@@ -72,6 +74,8 @@ export default function CompetitionsPage() {
     required: false,
     placeholder: '',
     options: [],
+    fileAccept: '',
+    fileMaxSizeMB: 5,
   });
 
   // Fetch competitions
@@ -198,6 +202,8 @@ export default function CompetitionsPage() {
       required: false,
       placeholder: '',
       options: [],
+      fileAccept: '',
+      fileMaxSizeMB: 5,
     });
   };
 
@@ -578,6 +584,11 @@ export default function CompetitionsPage() {
                             Options: {field.options.join(', ')}
                           </span>
                         )}
+                        {field.type === 'file' && (
+                          <span className={styles.fieldMeta}>
+                            Accept: {field.fileAccept || 'Any'} • Max: {field.fileMaxSizeMB ?? 5}MB
+                          </span>
+                        )}
                       </div>
                       <div className={styles.fieldActions}>
                         <button
@@ -647,6 +658,7 @@ export default function CompetitionsPage() {
                       <option value="textarea">Text Area</option>
                       <option value="select">Dropdown</option>
                       <option value="checkbox">Checkbox</option>
+                      <option value="file">File Upload</option>
                     </select>
                   </div>
                 </div>
@@ -672,6 +684,33 @@ export default function CompetitionsPage() {
                       })}
                       placeholder="Option 1, Option 2, Option 3"
                     />
+                  </div>
+                )}
+
+                {newField.type === 'file' && (
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label>Accepted File Types (Optional)</label>
+                      <input
+                        type="text"
+                        value={newField.fileAccept || ''}
+                        onChange={(e) => setNewField({ ...newField, fileAccept: e.target.value })}
+                        placeholder="e.g. .pdf,.docx,image/*"
+                      />
+                      <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                        Leave empty to allow all files. Use MIME types or extensions like .pdf,.jpg,image/*
+                      </small>
+                    </div>
+                    <div className={styles.formGroup}>
+                      <label>Max File Size (MB)</label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={newField.fileMaxSizeMB ?? 5}
+                        onChange={(e) => setNewField({ ...newField, fileMaxSizeMB: Number(e.target.value) })}
+                      />
+                    </div>
                   </div>
                 )}
 

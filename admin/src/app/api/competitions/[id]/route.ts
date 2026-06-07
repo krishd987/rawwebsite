@@ -29,6 +29,8 @@ export async function PATCH(
       deadline: body.deadline,
       teamSize: body.teamSize,
       imageUrl: body.imageUrl || null,
+      attachmentUrl: body.attachmentUrl || null,
+      attachmentName: body.attachmentName || '',
       notes: body.notes || '',
       isActive: body.isActive ?? true,
       registrationEnabled: body.registrationEnabled ?? true,

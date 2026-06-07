@@ -523,12 +523,28 @@ export default function RegistrationsPage() {
                 <div className={styles.detailSection}>
                   <h3>Additional Information</h3>
                   <div className={styles.detailGrid}>
-                    {Object.entries(selectedRegistration.customFields).map(([key, value]) => (
-                      <div key={key} className={styles.detailItem}>
-                        <label>{getFieldLabel(key, selectedRegistration.competitionId)}</label>
-                        <p>{typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value}</p>
-                      </div>
-                    ))}
+                    {Object.entries(selectedRegistration.customFields).map(([key, value]) => {
+                      const label = getFieldLabel(key, selectedRegistration.competitionId);
+                      // File upload fields are stored as { dataUrl, name }
+                      const isFile = value && typeof value === 'object' && 'dataUrl' in value && 'name' in value;
+                      return (
+                        <div key={key} className={styles.detailItem}>
+                          <label>{label}</label>
+                          {isFile ? (
+                            <a
+                              href={(value as any).dataUrl}
+                              download={(value as any).name}
+                              className={styles.viewBtn}
+                              style={{ display: 'inline-flex', textDecoration: 'none' }}
+                            >
+                              📎 {(value as any).name}
+                            </a>
+                          ) : (
+                            <p>{typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value}</p>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}

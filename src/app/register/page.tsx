@@ -45,10 +45,12 @@ interface Competition {
 interface CustomField {
   id: string;
   label: string;
-  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox';
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox' | 'file';
   required: boolean;
   placeholder?: string;
   options?: string[];
+  fileAccept?: string;
+  fileMaxSizeMB?: number;
 }
 
 export default function RegisterPage() {
@@ -219,6 +221,30 @@ export default function RegisterPage() {
       ...prev,
       [fieldId]: value,
     }));
+  };
+
+  const handleCustomFileUpload = (fieldId: string, field: CustomField, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const maxBytes = (field.fileMaxSizeMB ?? 5) * 1024 * 1024;
+    if (file.size > maxBytes) {
+      alert(`File size must be less than ${field.fileMaxSizeMB ?? 5}MB`);
+      e.target.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setCustomFieldValues(prev => ({
+        ...prev,
+        [fieldId]: { dataUrl: reader.result as string, name: file.name },
+      }));
+    };
+    reader.onerror = () => {
+      alert('Failed to read the file. Please try again.');
+    };
+    reader.readAsDataURL(file);
   };
 
   const toggleDescription = (competitionId: string) => {
@@ -572,7 +598,7 @@ export default function RegisterPage() {
                           <div 
                             key={field.id} 
                             className={`${styles.formGroup} ${
-                              field.type === 'textarea' ? styles.formGroupFull : ''
+                              field.type === 'textarea' || field.type === 'file' ? styles.formGroupFull : ''
                             }`}
                           >
                             <label htmlFor={field.id}>
@@ -613,6 +639,25 @@ export default function RegisterPage() {
                                 />
                                 <span>{field.placeholder || field.label}</span>
                               </label>
+                            ) : field.type === 'file' ? (
+                              <>
+                                <input
+                                  type="file"
+                                  id={field.id}
+                                  accept={field.fileAccept || undefined}
+                                  onChange={(e) => handleCustomFileUpload(field.id, field, e)}
+                                  required={field.required && !customFieldValues[field.id]}
+                                />
+                                <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                                  {field.fileAccept ? `Accepted: ${field.fileAccept} • ` : ''}
+                                  Max size: {field.fileMaxSizeMB ?? 5}MB
+                                </small>
+                                {customFieldValues[field.id]?.name && (
+                                  <div style={{ marginTop: '0.4rem', fontSize: '0.9rem', color: 'var(--color-navy)' }}>
+                                    ✓ Selected: {customFieldValues[field.id].name}
+                                  </div>
+                                )}
+                              </>
                             ) : (
                               <input
                                 type={field.type}
