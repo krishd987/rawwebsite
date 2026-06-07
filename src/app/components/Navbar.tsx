@@ -21,7 +21,7 @@ export default function Navbar() {
     { label: 'Team', href: '/team' },
     { label: 'Sponsors', href: '/sponsors' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Recureiment', href: '/register' },
+    { label: 'Recruitment', href: '/register' },
   ];
 
   return (
