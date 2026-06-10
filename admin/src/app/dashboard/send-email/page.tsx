@@ -3,6 +3,18 @@
 import { useState, useEffect } from 'react';
 import styles from './send-email.module.css';
 
+interface Competition {
+  _id: string;
+  name: string;
+}
+
+interface Registrant {
+  _id: string;
+  fullName: string;
+  email: string;
+  status: string;
+}
+
 export default function SendEmailPage() {
   const [recipients, setRecipients] = useState<string>('');
   const [subject, setSubject] = useState('');
@@ -12,8 +24,16 @@ export default function SendEmailPage() {
   const [emailConfigured, setEmailConfigured] = useState<boolean | null>(null);
   const [attachments, setAttachments] = useState<File[]>([]);
 
+  // Competition email fetch state
+  const [competitions, setCompetitions] = useState<Competition[]>([]);
+  const [selectedCompetitionId, setSelectedCompetitionId] = useState<string>('');
+  const [registrants, setRegistrants] = useState<Registrant[]>([]);
+  const [selectedRegistrantIds, setSelectedRegistrantIds] = useState<Set<string>>(new Set());
+  const [loadingRegistrants, setLoadingRegistrants] = useState(false);
+
   useEffect(() => {
     checkEmailConfig();
+    fetchCompetitions();
   }, []);
 
   const checkEmailConfig = async () => {
@@ -27,57 +47,98 @@ export default function SendEmailPage() {
     }
   };
 
+  const fetchCompetitions = async () => {
+    try {
+      const response = await fetch('/api/competitions');
+      const result = await response.json();
+      if (result.success) {
+        setCompetitions(result.data);
+      }
+    } catch (error) {
+      console.error('Error fetching competitions:', error);
+    }
+  };
+
+  const fetchRegistrantsForCompetition = async (competitionId: string) => {
+    if (!competitionId) {
+      setRegistrants([]);
+      setSelectedRegistrantIds(new Set());
+      return;
+    }
+    setLoadingRegistrants(true);
+    try {
+      const response = await fetch(`/api/registrations?competitionId=${competitionId}`);
+      const result = await response.json();
+      if (result.success) {
+        setRegistrants(result.data);
+        // Pre-select all by default
+        setSelectedRegistrantIds(new Set(result.data.map((r: Registrant) => r._id)));
+      }
+    } catch (error) {
+      console.error('Error fetching registrants:', error);
+    } finally {
+      setLoadingRegistrants(false);
+    }
+  };
+
+  const handleCompetitionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const id = e.target.value;
+    setSelectedCompetitionId(id);
+    fetchRegistrantsForCompetition(id);
+  };
+
+  const toggleRegistrant = (id: string) => {
+    setSelectedRegistrantIds(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const selectAllRegistrants = () =>
+    setSelectedRegistrantIds(new Set(registrants.map(r => r._id)));
+
+  const clearAllRegistrants = () =>
+    setSelectedRegistrantIds(new Set());
+
+  const applySelectedEmails = () => {
+    const emails = registrants
+      .filter(r => selectedRegistrantIds.has(r._id))
+      .map(r => r.email);
+    setRecipients(prev => {
+      const existing = prev.trim();
+      return existing ? `${existing}\n${emails.join('\n')}` : emails.join('\n');
+    });
+  };
+
   const validateEmails = (emailString: string): string[] => {
-    const emails = emailString
-      .split(/[,\n;]/)
-      .map(email => email.trim())
-      .filter(email => email.length > 0);
-    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const validEmails = emails.filter(email => emailRegex.test(email));
-    
-    return validEmails;
+    return emailString
+      .split(/[,\n;]/)
+      .map(e => e.trim())
+      .filter(e => e.length > 0 && emailRegex.test(e));
   };
 
   const handleSendEmails = async () => {
-    if (!subject.trim()) {
-      alert('Please enter an email subject');
-      return;
-    }
-
-    if (!message.trim()) {
-      alert('Please enter an email message');
-      return;
-    }
-
-    if (!recipients.trim()) {
-      alert('Please enter at least one email address');
-      return;
-    }
+    if (!subject.trim()) { alert('Please enter an email subject'); return; }
+    if (!message.trim()) { alert('Please enter an email message'); return; }
+    if (!recipients.trim()) { alert('Please enter at least one email address'); return; }
 
     const validEmails = validateEmails(recipients);
-    
     if (validEmails.length === 0) {
       alert('No valid email addresses found. Please check your input.');
       return;
     }
 
-    const invalidCount = recipients.split(/[,\n;]/).length - validEmails.length;
+    const rawCount = recipients.split(/[,\n;]/).filter(e => e.trim()).length;
+    const invalidCount = rawCount - validEmails.length;
     if (invalidCount > 0) {
-      if (!confirm(`Found ${invalidCount} invalid email(s). Continue sending to ${validEmails.length} valid email(s)?`)) {
-        return;
-      }
+      if (!confirm(`Found ${invalidCount} invalid email(s). Continue sending to ${validEmails.length} valid email(s)?`)) return;
     }
 
     setSending(true);
     try {
-      let response;
-
-      // Calculate total attachment size
-      const totalAttachmentSize = attachments.reduce((sum, file) => sum + file.size, 0);
-      const totalSizeMB = totalAttachmentSize / (1024 * 1024);
-
-      // Warn if total size is large (Vercel has limits)
+      const totalSizeMB = attachments.reduce((sum, f) => sum + f.size, 0) / (1024 * 1024);
       if (totalSizeMB > 10) {
         if (!confirm(`Total attachment size is ${totalSizeMB.toFixed(2)}MB. Large attachments may fail on deployment. Continue?`)) {
           setSending(false);
@@ -85,55 +146,32 @@ export default function SendEmailPage() {
         }
       }
 
-      console.log('Sending email to', validEmails.length, 'recipients');
-      console.log('Total attachment size:', totalSizeMB.toFixed(2), 'MB');
+      let response: Response;
 
-      // Use FormData if there are attachments, otherwise use JSON
       if (attachments.length > 0) {
-        console.log('Sending with', attachments.length, 'attachments');
         const formData = new FormData();
         formData.append('recipients', JSON.stringify(validEmails));
         formData.append('subject', subject);
         formData.append('message', message);
         formData.append('templateType', templateType);
-
-        // Add attachments
-        attachments.forEach((file) => {
-          formData.append('attachments', file);
-        });
-
-        response = await fetch('/api/send-direct-email', {
-          method: 'POST',
-          body: formData,
-        });
+        attachments.forEach(file => formData.append('attachments', file));
+        response = await fetch('/api/send-direct-email', { method: 'POST', body: formData });
       } else {
-        console.log('Sending without attachments');
         response = await fetch('/api/send-direct-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            recipients: validEmails,
-            subject,
-            message,
-            templateType,
-          }),
+          body: JSON.stringify({ recipients: validEmails, subject, message, templateType }),
         });
       }
 
-      console.log('Response status:', response.status);
-
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Response error:', errorText);
         throw new Error(`HTTP ${response.status}: ${errorText}`);
       }
 
       const result = await response.json();
-      console.log('Response result:', result);
-
       if (result.success) {
         alert(`Email sent successfully to ${result.sentCount} recipient(s)!`);
-        // Clear form
         setRecipients('');
         setSubject('');
         setMessage('');
@@ -144,7 +182,7 @@ export default function SendEmailPage() {
     } catch (error) {
       console.error('Error sending emails:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      alert('Error sending emails: ' + errorMessage + '\n\nPlease check:\n- Email configuration (EMAIL_USER and EMAIL_PASS)\n- Network connection\n- Browser console for details');
+      alert('Error sending emails: ' + errorMessage);
     } finally {
       setSending(false);
     }
@@ -163,18 +201,94 @@ export default function SendEmailPage() {
         <div className={styles.warningBanner}>
           <span className={styles.warningIcon}>⚠️</span>
           <span>
-            Email is not configured. To send emails, please set up EMAIL_USER and EMAIL_PASS environment variables. 
+            Email is not configured. Please set up EMAIL_USER and EMAIL_PASS environment variables.
             See <strong>EMAIL_SETUP.md</strong> for instructions.
           </span>
         </div>
       )}
 
       <div className={styles.formContainer}>
+
+        {/* ── Fetch Emails by Competition ── */}
+        <div className={styles.formSection}>
+          <h3>🏆 Fetch Emails by Competition</h3>
+          <p className={styles.helpText}>
+            Select a competition to load all registered students and choose who to contact
+          </p>
+
+          <select
+            className={styles.templateSelect}
+            value={selectedCompetitionId}
+            onChange={handleCompetitionChange}
+            disabled={sending}
+          >
+            <option value="">— Select a competition —</option>
+            {competitions.map(c => (
+              <option key={c._id} value={c._id}>{c.name}</option>
+            ))}
+          </select>
+
+          {loadingRegistrants && (
+            <p className={styles.helpText} style={{ marginTop: '0.75rem' }}>Loading registrants…</p>
+          )}
+
+          {!loadingRegistrants && selectedCompetitionId && registrants.length === 0 && (
+            <p className={styles.helpText} style={{ marginTop: '0.75rem', color: '#e10600' }}>
+              No registrations found for this competition.
+            </p>
+          )}
+
+          {!loadingRegistrants && registrants.length > 0 && (
+            <div className={styles.registrantBox}>
+              <div className={styles.registrantHeader}>
+                <span className={styles.registrantCount}>
+                  {selectedRegistrantIds.size} / {registrants.length} selected
+                </span>
+                <div className={styles.registrantActions}>
+                  <button type="button" onClick={selectAllRegistrants} className={styles.smallBtn}>
+                    Select All
+                  </button>
+                  <button type="button" onClick={clearAllRegistrants} className={styles.smallBtn}>
+                    Clear All
+                  </button>
+                </div>
+              </div>
+
+              <div className={styles.registrantList}>
+                {registrants.map(r => (
+                  <label key={r._id} className={styles.registrantItem}>
+                    <input
+                      type="checkbox"
+                      checked={selectedRegistrantIds.has(r._id)}
+                      onChange={() => toggleRegistrant(r._id)}
+                    />
+                    <span className={styles.registrantName}>{r.fullName}</span>
+                    <span className={styles.registrantEmail}>{r.email}</span>
+                    <span className={`${styles.statusChip} ${
+                      r.status === 'approved' ? styles.chipApproved :
+                      r.status === 'rejected' ? styles.chipRejected :
+                      styles.chipPending
+                    }`}>{r.status}</span>
+                  </label>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={applySelectedEmails}
+                className={styles.applyBtn}
+                disabled={selectedRegistrantIds.size === 0}
+              >
+                ➕ Add {selectedRegistrantIds.size} email{selectedRegistrantIds.size !== 1 ? 's' : ''} to Recipients
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* ── Template ── */}
         <div className={styles.formSection}>
           <h3>📝 Select Email Template</h3>
-          <p className={styles.helpText}>
-            Choose a pre-built template or use custom message format
-          </p>
+          <p className={styles.helpText}>Choose a pre-built template or use custom message format</p>
           <select
             className={styles.templateSelect}
             value={templateType}
@@ -191,10 +305,11 @@ export default function SendEmailPage() {
           </select>
         </div>
 
+        {/* ── Recipients ── */}
         <div className={styles.formSection}>
           <h3>Recipients</h3>
           <p className={styles.helpText}>
-            Enter email addresses separated by commas, semicolons, or new lines
+            Enter email addresses separated by commas, semicolons, or new lines — or use the competition picker above
           </p>
           <textarea
             className={styles.recipientsInput}
@@ -211,6 +326,7 @@ export default function SendEmailPage() {
           )}
         </div>
 
+        {/* ── Subject ── */}
         <div className={styles.formSection}>
           <h3>Subject</h3>
           <input
@@ -223,10 +339,11 @@ export default function SendEmailPage() {
           />
         </div>
 
+        {/* ── Message ── */}
         <div className={styles.formSection}>
           <h3>Message</h3>
           <p className={styles.helpText}>
-            Compose your message. It will be sent with Team RAW's professional email template.
+            Compose your message. It will be sent with Team RAW&apos;s professional email template.
           </p>
           <textarea
             className={styles.messageInput}
@@ -238,10 +355,11 @@ export default function SendEmailPage() {
           />
         </div>
 
+        {/* ── Attachments ── */}
         <div className={styles.formSection}>
           <h3>📎 Attachments</h3>
           <p className={styles.helpText}>
-            Add files to attach. <strong>Important:</strong> Total size should be under 4MB for reliable delivery on free hosting. Each file max 25MB.
+            Add files to attach. <strong>Important:</strong> Total size should be under 4MB for reliable delivery. Each file max 25MB.
           </p>
           <input
             type="file"
@@ -254,16 +372,11 @@ export default function SendEmailPage() {
                 e.target.value = '';
                 return;
               }
-              
-              // Check total size
               const currentSize = attachments.reduce((sum, f) => sum + f.size, 0);
               const newSize = files.reduce((sum, f) => sum + f.size, 0);
-              const totalSize = currentSize + newSize;
-              
-              if (totalSize > 4 * 1024 * 1024) {
-                alert(`Total attachment size would be ${(totalSize / (1024 * 1024)).toFixed(2)}MB. This may fail on deployment. Limit: 4MB recommended.`);
+              if (currentSize + newSize > 4 * 1024 * 1024) {
+                alert(`Total attachment size would exceed 4MB recommended limit.`);
               }
-              
               setAttachments(prev => [...prev, ...files]);
               e.target.value = '';
             }}
@@ -294,13 +407,15 @@ export default function SendEmailPage() {
         <div className={styles.templatePreview}>
           <h4>📋 Email Template Info</h4>
           <p style={{ fontSize: '14px', marginBottom: '10px', color: '#444' }}>
-            <strong>Selected:</strong> {templateType === 'custom' ? 'Custom Message' : 
+            <strong>Selected:</strong> {
+              templateType === 'custom' ? 'Custom Message' :
               templateType === 'inquiry' ? 'General Inquiry Response' :
               templateType === 'collaboration' ? 'Collaboration Request' :
               templateType === 'licensing' ? 'Licensing/Permission Request' :
               templateType === 'event' ? 'Event Invitation' :
               templateType === 'recruitment' ? 'Recruitment Communication' :
-              'Quick Professional Response'}
+              'Quick Professional Response'
+            }
           </p>
           <ul>
             <li>Uses EMAIL_TEMPLATE.txt format</li>
@@ -336,6 +451,7 @@ export default function SendEmailPage() {
             🗑️ Clear
           </button>
         </div>
+
       </div>
     </div>
   );

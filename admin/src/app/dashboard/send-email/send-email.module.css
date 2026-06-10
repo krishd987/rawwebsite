@@ -300,3 +300,137 @@
     width: 100%;
   }
 }
+
+/* ── Competition registrant picker ── */
+
+.registrantBox {
+  margin-top: 1rem;
+  border: 2px solid rgba(10, 26, 58, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.registrantHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #f0f4ff;
+  border-bottom: 1px solid rgba(10, 26, 58, 0.1);
+}
+
+.registrantCount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0A1A3A;
+}
+
+.registrantActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.smallBtn {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1.5px solid #0A1A3A;
+  background: white;
+  color: #0A1A3A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.smallBtn:hover {
+  background: #0A1A3A;
+  color: white;
+}
+
+.registrantList {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.registrantItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgba(10, 26, 58, 0.06);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.registrantItem:last-child {
+  border-bottom: none;
+}
+
+.registrantItem:hover {
+  background: #f7f9ff;
+}
+
+.registrantItem input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: #E10600;
+}
+
+.registrantName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0A1A3A;
+  min-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.registrantEmail {
+  font-size: 0.85rem;
+  color: #555;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statusChip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.chipPending  { background: #fff3cd; color: #856404; }
+.chipApproved { background: #d4edda; color: #155724; }
+.chipRejected { background: #f8d7da; color: #721c24; }
+
+.applyBtn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #0A1A3A 0%, #1a2f5a 100%);
+  color: white;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.applyBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #E10600 0%, #b20500 100%);
+}
+
+.applyBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
