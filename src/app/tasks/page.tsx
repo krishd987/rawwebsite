@@ -170,7 +170,7 @@ export default function TasksPage() {
       >
         <h2 className={styles.ctaTitle}>Ready to apply?</h2>
         <p className={styles.ctaText}>
-          Start by filling the Recruitment form first — then download your domain task, complete it, and mention it in your application.
+          Start by filling the Recruitment form first — then download your domain task and complete it.
         </p>
         <motion.a
           href="/register"
