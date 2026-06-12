@@ -320,6 +320,77 @@
   transform: translateY(-1px);
 }
 
+/* dropdown download button */
+.downloadDropdown {
+  position: relative;
+  flex: 1;
+  display: inline-block;
+}
+
+.btnDownloadMain {
+  width: 100%;
+  text-align: center;
+  padding: 0.55rem 0.75rem;
+  border-radius: 7px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnDownloadMain:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.downloadDropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownItem {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  color: #333;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: background 0.15s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.dropdownItem:hover {
+  background: #f8f9fa;
+  color: #0a1a3a;
+}
+
 /* ── CTA ──────────────────────────────────────────────────────────────────── */
 
 .cta {

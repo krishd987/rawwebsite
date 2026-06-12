@@ -249,22 +249,40 @@ export default function TasksPage() {
                       >
                         👁 View
                       </a>
-                      <a
-                        href={`/tasks/${task.file}`}
-                        download
-                        className={styles.btnDownload}
-                        style={{ background: cat.color }}
-                      >
-                        ⬇ PDF
-                      </a>
-                      {task.zipFile && (
+                      
+                      {task.zipFile ? (
+                        <div className={styles.downloadDropdown}>
+                          <button 
+                            className={styles.btnDownloadMain}
+                            style={{ background: cat.color }}
+                          >
+                            ⬇ Download ▼
+                          </button>
+                          <div className={styles.dropdownMenu}>
+                            <a
+                              href={`/tasks/${task.file}`}
+                              download
+                              className={styles.dropdownItem}
+                            >
+                              📄 PDF Only
+                            </a>
+                            <a
+                              href={`/tasks/${task.zipFile}`}
+                              download
+                              className={styles.dropdownItem}
+                            >
+                              🗜️ ZIP Bundle
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
                         <a
-                          href={`/tasks/${task.zipFile}`}
+                          href={`/tasks/${task.file}`}
                           download
                           className={styles.btnDownload}
                           style={{ background: cat.color }}
                         >
-                          🗜️ ZIP
+                          ⬇ Download
                         </a>
                       )}
                     </div>
