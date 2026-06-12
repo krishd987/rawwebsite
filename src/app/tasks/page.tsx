@@ -141,9 +141,8 @@ export default function TasksPage() {
       <section className={styles.howSection}>
         <div className={styles.howInner}>
           {[
-            { step: '01', icon: '📥', text: 'Download your domain task PDF' },
-            { step: '02', icon: '🛠️', text: 'Complete the task on your own' },
-            { step: '03', icon: '📝', text: 'Register and mention the task done' },
+            { step: '01', icon: '📝', text: 'Register and mention the task done' },
+            { step: '02', icon: '📥', text: 'Download your domain task PDF' },
           ].map((s, i) => (
             <motion.div
               key={i}
