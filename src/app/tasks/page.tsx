@@ -10,6 +10,7 @@ import styles from './tasks.module.css';
 interface TaskFile {
   label: string;
   file: string; // path under /tasks/
+  zipFile?: string; // optional zip bundle path
 }
 
 interface Category {
@@ -29,9 +30,8 @@ const categories: Category[] = [
     description: 'Circuit design, PCB layout, embedded systems and sensor interfacing tasks.',
     color: '#0a7ecb',
     tasks: [
-      { label: 'Electronics Task 1', file: 'E_1.pdf' },
+      { label: 'Electronics Task 1', file: 'E_1.pdf', zipFile: 'Electronics_Tasks.zip' },
       { label: 'Electronics Task 2', file: 'E_2.pdf' },
-      { label: 'Electronics Tasks (All Files)', file: 'Electronics_Tasks.zip' },
     ],
   },
   {
@@ -41,9 +41,8 @@ const categories: Category[] = [
     description: 'CAD modelling, fabrication, structural design and mechanism tasks.',
     color: '#e10600',
     tasks: [
-      { label: 'Mechanical Task 1', file: 'M_1.pdf' },
+      { label: 'Mechanical Task 1', file: 'M_1.pdf', zipFile: 'Mechanical_Tasks.zip' },
       { label: 'Mechanical Task 2', file: 'M_2.pdf' },
-      { label: 'Mechanical Tasks (All Files)', file: 'Mechanical_Tasks.zip' },
     ],
   },
   {
@@ -230,38 +229,44 @@ export default function TasksPage() {
                         className={styles.taskCardIconWrap}
                         style={{ background: `${cat.color}18`, border: `1.5px solid ${cat.color}30` }}
                       >
-                        <span className={styles.taskCardIcon}>
-                          {task.file.endsWith('.zip') ? '🗜️' : '📄'}
-                        </span>
+                        <span className={styles.taskCardIcon}>📄</span>
                       </div>
                       <div>
                         <p className={styles.taskCardLabel}>{task.label}</p>
                         <p className={styles.taskCardFormat}>
-                          {task.file.endsWith('.zip') ? 'ZIP Archive' : 'PDF Document'}
+                          PDF Document{task.zipFile ? ' + ZIP Bundle' : ''}
                         </p>
                       </div>
                     </div>
 
                     <div className={styles.taskCardActions}>
-                      {!task.file.endsWith('.zip') && (
-                        <a
-                          href={`/tasks/${task.file}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={styles.btnView}
-                          style={{ borderColor: cat.color, color: cat.color }}
-                        >
-                          👁 View
-                        </a>
-                      )}
+                      <a
+                        href={`/tasks/${task.file}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={styles.btnView}
+                        style={{ borderColor: cat.color, color: cat.color }}
+                      >
+                        👁 View
+                      </a>
                       <a
                         href={`/tasks/${task.file}`}
                         download
                         className={styles.btnDownload}
                         style={{ background: cat.color }}
                       >
-                        ⬇ Download
+                        ⬇ PDF
                       </a>
+                      {task.zipFile && (
+                        <a
+                          href={`/tasks/${task.zipFile}`}
+                          download
+                          className={styles.btnDownload}
+                          style={{ background: cat.color }}
+                        >
+                          🗜️ ZIP
+                        </a>
+                      )}
                     </div>
                   </motion.div>
                 ))}

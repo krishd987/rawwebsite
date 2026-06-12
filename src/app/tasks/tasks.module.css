@@ -282,6 +282,7 @@
 .taskCardActions {
   display: flex;
   gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .btnView,
@@ -296,6 +297,7 @@
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
+  min-width: 65px;
 }
 
 .btnView {
