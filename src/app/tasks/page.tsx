@@ -31,7 +31,7 @@ const categories: Category[] = [
     color: '#0a7ecb',
     tasks: [
       { label: 'Electronics Task 1', file: 'E_1.pdf', zipFile: 'Electronics_Tasks.zip' },
-      { label: 'Electronics Task 2', file: 'E_2.pdf' },
+      { label: 'Electronics Task 2', file: 'E_2.pdf', zipFile: 'Electronics_Tasks.zip' },
     ],
   },
   {
@@ -42,7 +42,7 @@ const categories: Category[] = [
     color: '#e10600',
     tasks: [
       { label: 'Mechanical Task 1', file: 'M_1.pdf', zipFile: 'Mechanical_Tasks.zip' },
-      { label: 'Mechanical Task 2', file: 'M_2.pdf' },
+      { label: 'Mechanical Task 2', file: 'M_2.pdf', zipFile: 'Mechanical_Tasks.zip' },
     ],
   },
   {
