@@ -31,6 +31,7 @@ const categories: Category[] = [
     tasks: [
       { label: 'Electronics Task 1', file: 'E_1.pdf' },
       { label: 'Electronics Task 2', file: 'E_2.pdf' },
+      { label: 'Electronics Tasks (All Files)', file: 'Electronics_Tasks.zip' },
     ],
   },
   {
@@ -42,6 +43,7 @@ const categories: Category[] = [
     tasks: [
       { label: 'Mechanical Task 1', file: 'M_1.pdf' },
       { label: 'Mechanical Task 2', file: 'M_2.pdf' },
+      { label: 'Mechanical Tasks (All Files)', file: 'Mechanical_Tasks.zip' },
     ],
   },
   {
@@ -228,24 +230,30 @@ export default function TasksPage() {
                         className={styles.taskCardIconWrap}
                         style={{ background: `${cat.color}18`, border: `1.5px solid ${cat.color}30` }}
                       >
-                        <span className={styles.taskCardIcon}>📄</span>
+                        <span className={styles.taskCardIcon}>
+                          {task.file.endsWith('.zip') ? '🗜️' : '📄'}
+                        </span>
                       </div>
                       <div>
                         <p className={styles.taskCardLabel}>{task.label}</p>
-                        <p className={styles.taskCardFormat}>PDF Document</p>
+                        <p className={styles.taskCardFormat}>
+                          {task.file.endsWith('.zip') ? 'ZIP Archive' : 'PDF Document'}
+                        </p>
                       </div>
                     </div>
 
                     <div className={styles.taskCardActions}>
-                      <a
-                        href={`/tasks/${task.file}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={styles.btnView}
-                        style={{ borderColor: cat.color, color: cat.color }}
-                      >
-                        👁 View
-                      </a>
+                      {!task.file.endsWith('.zip') && (
+                        <a
+                          href={`/tasks/${task.file}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.btnView}
+                          style={{ borderColor: cat.color, color: cat.color }}
+                        >
+                          👁 View
+                        </a>
+                      )}
                       <a
                         href={`/tasks/${task.file}`}
                         download
