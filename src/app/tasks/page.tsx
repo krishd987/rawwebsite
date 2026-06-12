@@ -126,8 +126,8 @@ export default function TasksPage() {
             Recruitment <span className={styles.accent}>Tasks</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Download your domain task below, complete it, and submit it along with your
-            registration. Tasks are available across all technical and non-technical domains.
+            First submit your registration, then download and complete your domain task. 
+            Tasks are available across all technical and non-technical domains.
           </p>
           <div className={styles.heroMeta}>
             <span className={styles.heroMetaItem}>📁 {totalTasks} Tasks Available</span>
