@@ -170,7 +170,7 @@ export default function TasksPage() {
       >
         <h2 className={styles.ctaTitle}>Ready to apply?</h2>
         <p className={styles.ctaText}>
-          Complete your domain task and submit your application through the Recruitment form.
+          Start by filling the Recruitment form first — then download your domain task, complete it, and mention it in your application.
         </p>
         <motion.a
           href="/register"
@@ -178,7 +178,7 @@ export default function TasksPage() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
         >
-          Go to Recruitment Form →
+          Fill the Form First →
         </motion.a>
       </motion.section>
 
@@ -262,28 +262,6 @@ export default function TasksPage() {
           ))}
         </div>
       </section>
-
-      {/* ── CTA ── */}
-      <motion.section
-        className={styles.cta}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className={styles.ctaTitle}>Ready to apply?</h2>
-        <p className={styles.ctaText}>
-          Complete your domain task and submit your application through the Recruitment form.
-        </p>
-        <motion.a
-          href="/register"
-          className={styles.ctaBtn}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
-        >
-          Go to Recruitment Form →
-        </motion.a>
-      </motion.section>
 
       <Footer />
     </main>
