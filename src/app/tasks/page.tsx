@@ -59,12 +59,12 @@ const categories: Category[] = [
   {
     id: 'hardware',
     icon: '🔧',
-    title: 'Hardware Circuit',
+    title: 'Hardware',
     description: 'Hands-on hardware circuit building, testing and troubleshooting tasks.',
     color: '#8e44ad',
     tasks: [
-      { label: 'Hardware Circuit Task 1', file: 'HC_1.pdf' },
-      { label: 'Hardware Circuit Task 2', file: 'HC_2.pdf' },
+      { label: 'Hardware Task 1', file: 'HC_1.pdf' },
+      { label: 'Hardware Task 2', file: 'HC_2.pdf' },
     ],
   },
   {
@@ -159,6 +159,28 @@ export default function TasksPage() {
           ))}
         </div>
       </section>
+
+      {/* ── Ready to apply CTA ── */}
+      <motion.section
+        className={styles.cta}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className={styles.ctaTitle}>Ready to apply?</h2>
+        <p className={styles.ctaText}>
+          Complete your domain task and submit your application through the Recruitment form.
+        </p>
+        <motion.a
+          href="/register"
+          className={styles.ctaBtn}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+        >
+          Go to Recruitment Form →
+        </motion.a>
+      </motion.section>
 
       {/* ── Category sections ── */}
       <section className={styles.categoriesSection}>
