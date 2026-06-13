@@ -69,13 +69,13 @@ const categories: Category[] = [
     ],
   },
   {
-    id: 'matplotlib',
+    id: 'mathlabs',
     icon: '📊',
-    title: 'Matplotlib / Data',
-    description: 'Data analysis, visualisation and Python plotting tasks using Matplotlib.',
+    title: 'Mathlabs / Data',
+    description: 'Data analysis, visualisation and Python plotting tasks using Mathlabs.',
     color: '#e67e22',
     tasks: [
-      { label: 'Matplotlib Task 1', file: 'ML_1.pdf' },
+      { label: 'Mathlabs Task 1', file: 'ML_1.pdf' },
     ],
   },
   {
