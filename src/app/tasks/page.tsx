@@ -112,30 +112,17 @@ export default function TasksPage() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [submitFormData, setSubmitFormData] = useState({
     fullName: '',
-    email: '',
-    phone: '',
     pid: '',
-    domain: '',
     driveLink: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const allTaskOptions = categories.flatMap((cat) =>
-    cat.tasks.map((task) => `${cat.title} - ${task.label}`)
-  );
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
-
-    if (!submitFormData.email.toLowerCase().endsWith('@student.sfit.ac.in')) {
-      setSubmitError('Please use your @student.sfit.ac.in email address.');
-      setIsSubmitting(false);
-      return;
-    }
 
     try {
       const response = await fetch('/api/submissions', {
@@ -365,6 +352,20 @@ export default function TasksPage() {
         </div>
       </section>
 
+      {/* ── Bottom Submit CTA ── */}
+      <section className={styles.bottomCta}>
+        <div className={styles.bottomCtaContent}>
+          <h2>Finished your task?</h2>
+          <p>Submit your Google Drive folder link containing all work files directly to our reviewers.</p>
+          <button 
+            className={styles.bottomCtaBtn}
+            onClick={() => setIsSubmitModalOpen(true)}
+          >
+            Submit Completed Task →
+          </button>
+        </div>
+      </section>
+
       {/* ── Submission Modal ── */}
       <AnimatePresence>
         {isSubmitModalOpen && (
@@ -402,10 +403,7 @@ export default function TasksPage() {
                         setSubmitSuccess(false);
                         setSubmitFormData({
                           fullName: '',
-                          email: '',
-                          phone: '',
                           pid: '',
-                          domain: '',
                           driveLink: '',
                         });
                       }}
@@ -483,45 +481,6 @@ export default function TasksPage() {
                         />
                       </div>
 
-                      <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Student Email Address *</label>
-                        <input
-                          type="email"
-                          required
-                          className={styles.formInput}
-                          placeholder="your.name@student.sfit.ac.in"
-                          value={submitFormData.email}
-                          onChange={(e) => setSubmitFormData({ ...submitFormData, email: e.target.value })}
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Phone Number *</label>
-                        <input
-                          type="tel"
-                          required
-                          pattern="\d{10}"
-                          className={styles.formInput}
-                          placeholder="e.g. 9876543210"
-                          value={submitFormData.phone}
-                          onChange={(e) => setSubmitFormData({ ...submitFormData, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Select Task Domain *</label>
-                        <select
-                          required
-                          className={styles.formSelect}
-                          value={submitFormData.domain}
-                          onChange={(e) => setSubmitFormData({ ...submitFormData, domain: e.target.value })}
-                        >
-                          <option value="">-- Select Task --</option>
-                          {allTaskOptions.map(opt => (
-                            <option key={opt} value={opt}>{opt}</option>
-                          ))}
-                        </select>
-                      </div>
 
                       <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Google Drive Link *</label>

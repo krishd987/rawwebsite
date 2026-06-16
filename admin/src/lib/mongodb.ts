@@ -8,8 +8,10 @@ import { MongoClient, Db } from 'mongodb';
 
 const uri: string = process.env.MONGODB_URI || '';
 
-if (!uri && process.env.NODE_ENV !== 'development') {
-  console.warn('MongoDB URI is not set. Database features will not work.');
+if (!uri) {
+  if (process.env.NODE_ENV !== 'development') {
+    console.warn('MongoDB URI is not set. Database features will not work.');
+  }
 }
 
 const options = {};
@@ -21,7 +23,9 @@ declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (!uri) {
+  clientPromise = Promise.reject(new Error('MongoDB connection URI is not set.'));
+} else if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!global._mongoClientPromise) {

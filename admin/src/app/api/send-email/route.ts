@@ -3,7 +3,6 @@ import { MongoClient, ObjectId } from 'mongodb';
 import nodemailer from 'nodemailer';
 
 const uri = process.env.MONGODB_URI || '';
-const client = new MongoClient(uri);
 
 interface Registration {
   _id: ObjectId;
@@ -26,6 +25,7 @@ interface Competition {
 }
 
 export async function POST(request: NextRequest) {
+  let client: MongoClient | null = null;
   try {
     const { registrationIds, subject, message, selectedEmails } = await request.json();
 
@@ -58,7 +58,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!uri) {
+      return NextResponse.json(
+        { success: false, error: 'MongoDB connection URI is not set.' },
+        { status: 500 }
+      );
+    }
+
     // Connect to MongoDB
+    client = new MongoClient(uri);
     await client.connect();
     const database = client.db('teamraw');
     const registrationsCollection = database.collection('registrations');
@@ -255,6 +263,8 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   } finally {
-    await client.close();
+    if (client) {
+      await client.close();
+    }
   }
 }

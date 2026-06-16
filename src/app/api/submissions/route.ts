@@ -16,20 +16,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Full name is required.' }, { status: 400 });
     }
 
-    if (!body.email || typeof body.email !== 'string' || !body.email.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
-      return NextResponse.json({ success: false, error: 'Please use your official @student.sfit.ac.in email address.' }, { status: 400 });
-    }
-
     if (!body.pid || typeof body.pid !== 'string' || !/^\d{6}$/.test(body.pid.trim())) {
       return NextResponse.json({ success: false, error: 'PID must be a valid 6-digit number.' }, { status: 400 });
-    }
-
-    if (!body.phone || typeof body.phone !== 'string' || body.phone.trim() === '') {
-      return NextResponse.json({ success: false, error: 'Phone number is required.' }, { status: 400 });
-    }
-
-    if (!body.domain || typeof body.domain !== 'string' || body.domain.trim() === '') {
-      return NextResponse.json({ success: false, error: 'Please select a domain/task.' }, { status: 400 });
     }
 
     if (!body.driveLink || typeof body.driveLink !== 'string' || body.driveLink.trim() === '') {
@@ -45,10 +33,7 @@ export async function POST(request: NextRequest) {
 
     const submission = {
       fullName: body.fullName.trim(),
-      email: body.email.toLowerCase().trim(),
       pid: body.pid.trim(),
-      phone: body.phone.trim(),
-      domain: body.domain.trim(),
       driveLink: body.driveLink.trim(),
       status: 'pending', // pending, reviewed
       submittedAt: new Date().toISOString(),
