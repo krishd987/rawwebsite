@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { useState } from 'react';
+import { motion, type Variants, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './tasks.module.css';
@@ -108,6 +109,58 @@ const cardVariants: Variants = {
 export default function TasksPage() {
   const totalTasks = categories.reduce((s, c) => s + c.tasks.length, 0);
 
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [submitFormData, setSubmitFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    pid: '',
+    domain: '',
+    driveLink: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const allTaskOptions = categories.flatMap((cat) =>
+    cat.tasks.map((task) => `${cat.title} - ${task.label}`)
+  );
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    if (!submitFormData.email.toLowerCase().endsWith('@student.sfit.ac.in')) {
+      setSubmitError('Please use your @student.sfit.ac.in email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitFormData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitSuccess(true);
+      } else {
+        setSubmitError(result.error || 'Failed to submit. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitError('An unexpected error occurred. Please check your connection.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main>
       <Navbar />
@@ -141,12 +194,20 @@ export default function TasksPage() {
       <section className={styles.howSection}>
         <div className={styles.howInner}>
           {[
-            { step: '01', icon: '📝', text: 'Register and mention the task done' },
+            { step: '01', icon: '📝', text: 'Register and select domain' },
             { step: '02', icon: '📥', text: 'Download your domain task PDF' },
+            { 
+              step: '03', 
+              icon: '📤', 
+              text: 'Submit Drive Link of your completed tasks',
+              isInteractive: true,
+              onClick: () => setIsSubmitModalOpen(true)
+            },
           ].map((s, i) => (
             <motion.div
               key={i}
-              className={styles.howCard}
+              className={`${styles.howCard} ${s.isInteractive ? styles.howCardInteractive : ''}`}
+              onClick={s.onClick}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -155,6 +216,17 @@ export default function TasksPage() {
               <span className={styles.howStep}>{s.step}</span>
               <span className={styles.howIcon}>{s.icon}</span>
               <p className={styles.howText}>{s.text}</p>
+              {s.isInteractive && (
+                <button 
+                  className={styles.howCardBtn} 
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    s.onClick?.(); 
+                  }}
+                >
+                  Submit Task →
+                </button>
+              )}
             </motion.div>
           ))}
         </div>
@@ -292,6 +364,206 @@ export default function TasksPage() {
           ))}
         </div>
       </section>
+
+      {/* ── Submission Modal ── */}
+      <AnimatePresence>
+        {isSubmitModalOpen && (
+          <div className={styles.modalOverlay} onClick={() => setIsSubmitModalOpen(false)}>
+            <motion.div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className={styles.modalHeader}>
+                <h2 className={styles.modalTitle}>
+                  Task Submission <span className={styles.accent}>Portal</span>
+                </h2>
+                <button className={styles.btnClose} onClick={() => setIsSubmitModalOpen(false)}>
+                  &times;
+                </button>
+              </div>
+
+              <div className={styles.modalBody}>
+                {submitSuccess ? (
+                  <div className={styles.successCard}>
+                    <div className={styles.successIcon}>✓</div>
+                    <h3 className={styles.successTitle}>Submission Successful!</h3>
+                    <p className={styles.successMsg}>
+                      Thank you for submitting your task. Your Google Drive folder link has been received successfully.
+                      Our domain reviewers will evaluate your submission.
+                    </p>
+                    <button
+                      className={styles.btnDone}
+                      onClick={() => {
+                        setIsSubmitModalOpen(false);
+                        setSubmitSuccess(false);
+                        setSubmitFormData({
+                          fullName: '',
+                          email: '',
+                          phone: '',
+                          pid: '',
+                          domain: '',
+                          driveLink: '',
+                        });
+                      }}
+                    >
+                      Done
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {/* Column 1: Instructions */}
+                    <div className={styles.instructionsCol}>
+                      <div className={styles.instructionSection}>
+                        <h3 className={styles.sectionTitle}>📁 Google Drive Naming</h3>
+                        <ul>
+                          <li>Create a Google Drive folder containing all the files related to your work (images/photos, videos, code files, reports/documents, simulations/design files, etc.).</li>
+                          <li>Name the main folder strictly as: <strong>PID_Name</strong> (Example: <code>123123_JohnDoe</code>).</li>
+                          <li>Each file within the folder must be properly titled.</li>
+                        </ul>
+                      </div>
+
+                      <div className={styles.instructionSection}>
+                        <h3 className={styles.sectionTitle}>📂 Folder Structure & Links</h3>
+                        <ul>
+                          <li>If submitting multiple tasks, create subfolders: <code>E_1</code>, <code>SW_1</code>, <code>M_1</code> or other domain identifiers.</li>
+                          <li>If using external links (GitHub, YouTube, Wokwi, etc.), include a separate document named <strong>Links</strong>.</li>
+                          <li>List link titles clearly, paste corresponding links below them, and verify accessibility.</li>
+                        </ul>
+                      </div>
+
+                      <div className={styles.instructionSection}>
+                        <h3 className={styles.sectionTitle}>🖼️ Images & Reports</h3>
+                        <ul>
+                          <li>Add appropriate titles or captions to all images in your report.</li>
+                          <li>Ensure photos, screenshots, and videos clearly represent the completed work.</li>
+                          <li>Name files logically so they are easy to identify.</li>
+                        </ul>
+                      </div>
+
+                      <div className={styles.alertBox}>
+                        <h4>⚠️ Important Checklist</h4>
+                        <ul>
+                          <li><strong>Enable View Access:</strong> Give the necessary access permissions so it can be viewed by the reviewers.</li>
+                          <li>Upload only <strong>ONE</strong> Drive folder link on the submission portal.</li>
+                          <li>Incomplete or restricted Drive folders will lead to evaluation issues.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Column 2: Form */}
+                    <form className={styles.formCol} onSubmit={handleFormSubmit}>
+                      <h3>Submit Your Work</h3>
+                      
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Full Name *</label>
+                        <input
+                          type="text"
+                          required
+                          className={styles.formInput}
+                          placeholder="e.g. John Doe"
+                          value={submitFormData.fullName}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, fullName: e.target.value })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>PID (6 digits) *</label>
+                        <input
+                          type="text"
+                          required
+                          pattern="\d{6}"
+                          className={styles.formInput}
+                          placeholder="e.g. 123123"
+                          value={submitFormData.pid}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, pid: e.target.value.replace(/\D/g, '').slice(0, 6) })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Student Email Address *</label>
+                        <input
+                          type="email"
+                          required
+                          className={styles.formInput}
+                          placeholder="your.name@student.sfit.ac.in"
+                          value={submitFormData.email}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, email: e.target.value })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Phone Number *</label>
+                        <input
+                          type="tel"
+                          required
+                          pattern="\d{10}"
+                          className={styles.formInput}
+                          placeholder="e.g. 9876543210"
+                          value={submitFormData.phone}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Select Task Domain *</label>
+                        <select
+                          required
+                          className={styles.formSelect}
+                          value={submitFormData.domain}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, domain: e.target.value })}
+                        >
+                          <option value="">-- Select Task --</option>
+                          {allTaskOptions.map(opt => (
+                            <option key={opt} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Google Drive Link *</label>
+                        <input
+                          type="url"
+                          required
+                          className={styles.formInput}
+                          placeholder="https://drive.google.com/drive/folders/..."
+                          value={submitFormData.driveLink}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, driveLink: e.target.value })}
+                        />
+                        <span className={styles.infoHint}>Ensure general access is set to "Anyone with the link".</span>
+                      </div>
+
+                      {submitError && (
+                        <div className={styles.errorMessage}>
+                          {submitError}
+                        </div>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={styles.btnSubmit}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <span className={styles.spinner}></span>
+                            Submitting...
+                          </>
+                        ) : (
+                          'Submit Task Link'
+                        )}
+                      </button>
+                    </form>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </main>
