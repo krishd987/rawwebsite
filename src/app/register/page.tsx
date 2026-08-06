@@ -276,7 +276,7 @@ export default function RegisterPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <span className={styles.redAccent}>Recruitment</span>
+            <span className={styles.redAccent}>Registration</span>
           </motion.h1>
         </div>
       </motion.section>
@@ -345,9 +345,9 @@ export default function RegisterPage() {
             transition={{ delay: 0.4 }}
           >
             <div className={styles.formHeader}>
-              <h2>SFIT Student Recruitment Form</h2>
+              <h2>SFIT Student Registration Form</h2>
               <p className={styles.tagline}>
-                This form is only for students of St. Francis Institute of Technology applying for upcoming robotics recruitment.
+                This form is only for students of St. Francis Institute of Technology registering for upcoming robotics registration.
               </p>
             </div>
 
@@ -414,10 +414,10 @@ export default function RegisterPage() {
 
               </div>
 
-              {/* Recruitment */}
+              {/* Registration */}
               <div className={styles.formSection}>
-                <h3 className={styles.sectionTitle}>Recruitment Details</h3>
-                <p className={styles.sectionDescription}>Choose the robotics opportunity you want to apply for</p>
+                <h3 className={styles.sectionTitle}>Registration Details</h3>
+                <p className={styles.sectionDescription}>Choose the robotics opportunity you want to register for</p>
                 
                 <div className={styles.competitionsGrid}>
                   {competitionsData.map((comp) => {

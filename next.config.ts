@@ -45,11 +45,6 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
-      {
-        source: '/register',
-        destination: '/',
-        permanent: false,
-      },
     ];
   },
 };
