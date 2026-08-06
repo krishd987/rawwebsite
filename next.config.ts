@@ -37,6 +37,21 @@ const nextConfig: NextConfig = {
 
   compress: true,
   poweredByHeader: false,
+
+  async redirects() {
+    return [
+      {
+        source: '/tasks/:path*',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/register',
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
