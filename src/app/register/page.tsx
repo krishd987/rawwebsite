@@ -345,7 +345,7 @@ export default function RegisterPage() {
             transition={{ delay: 0.4 }}
           >
             <div className={styles.formHeader}>
-              <h2>SFIT Student Registration Form</h2>
+              <h2>Registration Form</h2>
               <p className={styles.tagline}>
                 This form is only for students of St. Francis Institute of Technology registering for upcoming robotics registration.
               </p>
