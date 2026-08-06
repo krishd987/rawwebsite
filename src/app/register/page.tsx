@@ -519,92 +519,6 @@ export default function RegisterPage() {
               {/* Additional Fields - Show only after competition selection */}
               {selectedCompetition && (
                 <div id="additional-fields">
-                  {/* Custom Fields from Competition */}
-                  {selectedCompetition?.customFields && selectedCompetition.customFields.length > 0 && (
-                    <div className={styles.formSection}>
-                      <h3 className={styles.sectionTitle}>Additional Information</h3>
-                      <p className={styles.sectionDescription}>Complete the required fields below</p>
-                      
-                      <div className={styles.additionalFieldsGrid}>
-                        {selectedCompetition.customFields.map((field) => (
-                          <div 
-                            key={field.id} 
-                            className={`${styles.formGroup} ${
-                              field.type === 'textarea' || field.type === 'file' ? styles.formGroupFull : ''
-                            }`}
-                          >
-                            <label htmlFor={field.id}>
-                              {field.label} {field.required && <span className={styles.required}>*</span>}
-                            </label>
-                            
-                            {field.type === 'textarea' ? (
-                              <textarea
-                                id={field.id}
-                                value={customFieldValues[field.id] || ''}
-                                onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                required={field.required}
-                                placeholder={field.placeholder}
-                                rows={3}
-                              />
-                            ) : field.type === 'select' ? (
-                              <select
-                                id={field.id}
-                                value={customFieldValues[field.id] || ''}
-                                onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                required={field.required}
-                              >
-                                <option value="">Select an option</option>
-                                {field.options?.map((option) => (
-                                  <option key={option} value={option}>
-                                    {option}
-                                  </option>
-                                ))}
-                              </select>
-                            ) : field.type === 'checkbox' ? (
-                              <label className={styles.checkboxLabel}>
-                                <input
-                                  type="checkbox"
-                                  id={field.id}
-                                  checked={customFieldValues[field.id] || false}
-                                  onChange={(e) => handleCustomFieldChange(field.id, e.target.checked)}
-                                  required={field.required}
-                                />
-                                <span>{field.placeholder || field.label}</span>
-                              </label>
-                            ) : field.type === 'file' ? (
-                              <>
-                                <input
-                                  type="file"
-                                  id={field.id}
-                                  accept={field.fileAccept || undefined}
-                                  onChange={(e) => handleCustomFileUpload(field.id, field, e)}
-                                  required={field.required && !customFieldValues[field.id]}
-                                />
-                                <small style={{ color: '#666', fontSize: '0.85rem' }}>
-                                  {field.fileAccept ? `Accepted: ${field.fileAccept} • ` : ''}
-                                  Max size: {field.fileMaxSizeMB ?? 5}MB
-                                </small>
-                                {customFieldValues[field.id]?.name && (
-                                  <div style={{ marginTop: '0.4rem', fontSize: '0.9rem', color: 'var(--color-navy)' }}>
-                                    ✓ Selected: {customFieldValues[field.id].name}
-                                  </div>
-                                )}
-                              </>
-                            ) : (
-                              <input
-                                type={field.type}
-                                id={field.id}
-                                value={customFieldValues[field.id] || ''}
-                                onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                required={field.required}
-                                placeholder={field.placeholder}
-                              />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
 
                   {/* Competition Notes Agreement */}
                   {selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && (
@@ -693,8 +607,8 @@ export default function RegisterPage() {
                           <div className={styles.contactItem}>
                             <span className={styles.contactIcon}>📞</span>
                             <div className={styles.contactNumbers}>
-                              <a href="tel:+919969458306">Siddhant: 9969458306</a>
-                              <a href="tel:+918976988861">Dikshi: 8976988861</a>
+                              <a href="tel:+918976357005">Jhoshua Coutinho : 89763 57005</a>
+                              <a href="tel:+917208697241">Pal Rajak : 72086 97241</a>
                             </div>
                           </div>
                         </div>

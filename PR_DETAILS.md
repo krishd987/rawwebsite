@@ -1,28 +1,27 @@
 ## 🎯 Objective
-This PR hides the **Tasks** and **Recruitment** pages from the main navigation and configures URL redirects to prevent direct access.
+This PR:
+1. Hides the **Tasks** page and redirects its traffic to the homepage.
+2. Unhides and re-enables the **Registration** form (`/register`).
+3. Renames the recruitment wording to **"Student Registration Form"** and updates contact info.
+4. Removes the **"Additional Information"** (custom fields) section from the registration form.
 
 
 ## 📋 Changes Made
-- [x] Removed "Tasks" and "Recruitment" links from the navbar ([Navbar.tsx](file:///e:/GitHub/rawwebsite/src/app/components/Navbar.tsx)).
-- [x] Added temporary redirects in [next.config.ts](file:///e:/GitHub/rawwebsite/next.config.ts) for `/tasks`, `/tasks/:path*`, and `/register` back to the homepage (`/`).
+- [x] Removed **Tasks** navigation option from desktop & mobile menus in [Navbar.tsx](file:///e:/GitHub/rawwebsite/src/app/components/Navbar.tsx).
+- [x] Configured temporary redirect for `/tasks` and `/tasks/:path*` to point to the homepage (`/`) in [next.config.ts](file:///e:/GitHub/rawwebsite/next.config.ts).
+- [x] Unhid the `/register` route and renamed the navigation link to **"Registration"**.
+- [x] Updated all form headings, hero titles, taglines, and descriptions in [page.tsx](file:///e:/GitHub/rawwebsite/src/app/register/page.tsx) from "Recruitment" to "Student Registration Form".
+- [x] Deleted the custom fields (Additional Information) section from the registration form.
+- [x] Updated help contact numbers for Jhoshua Coutinho and Pal Rajak in the footer helper card.
 
 
 ## 🔍 How to Test
 1. Pull the branch: `hide-tasks-recruitment`
 2. Start the dev server: `npm run dev`
-3. Verify that the 'Tasks' and 'Recruitment' options are no longer visible in the navigation bar.
-4. Try to directly visit:
-   - `http://localhost:3000/tasks`
-   - `http://localhost:3000/register`
-   - Verify both URLs redirect you back to `http://localhost:3000/`.
-
-
-## 📸 Screenshots (if UI changes)
-*(Not applicable, elements removed from Navbar)*
-
-
-## 🚀 Related Issues
-Closes # (none specified)
+3. Verify that the **Registration** option is visible in the Navbar (and **Tasks** is gone).
+4. Navigate to `/register` and verify it loads the "SFIT Student Registration Form" correctly.
+5. Select a competition/category and verify no "Additional Information" fields are displayed.
+6. Try navigating to `/tasks` and verify it redirects to the homepage.
 
 
 ## ✅ Checklist
@@ -34,12 +33,8 @@ Closes # (none specified)
 
 
 ## 📝 Type of Change
-- [x] Documentation update / Configuration adjust
-- [x] Minor feature adjustment
-
-
-## 💡 Notes
-The redirects are easily revertible in [next.config.ts](file:///e:/GitHub/rawwebsite/next.config.ts) when recruitment season begins or tasks need to be displayed again.
+- [x] New feature / Configuration adjustment
+- [x] Refactor / UI text change
 
 
 ---
