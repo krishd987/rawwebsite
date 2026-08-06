@@ -19,11 +19,10 @@ export default function Navbar() {
     { label: 'Competitions', href: '/competitions' },
     { label: 'Robots & Gallery', href: '/robots-gallery' },
     { label: 'Team', href: '/team' },
-    { label: 'Tasks', href: '/tasks' },
     { label: 'Sponsors', href: '/sponsors' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Recruitment', href: '/register' },
   ];
+
 
   return (
     <>
