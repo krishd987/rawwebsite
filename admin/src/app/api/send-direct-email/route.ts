@@ -12,7 +12,7 @@ function generateEmailBody(message: string, templateType: string = 'custom'): st
 Best Regards,
 
 Team RAW
-Robotics and Aviation Wing
+Robotics and Automation Wing
 St. Francis Institute of Technology
 Room 027, SFIT, Borivali West, Mumbai 400103
 
@@ -26,7 +26,7 @@ LinkedIn: https://www.linkedin.com/company/team-raw-sfit`;
 Best Regards,
 
 Team RAW
-Robotics and Aviation Wing
+Robotics and Automation Wing
 St. Francis Institute of Technology
 Mumbai
 
@@ -36,7 +36,7 @@ Instagram: https://www.instagram.com/teamraw_sfit
 LinkedIn: https://www.linkedin.com/company/team-raw-sfit`;
 
   const header = `-----------------------------------------------------------
-TEAM RAW - ROBOTICS AND AVIATION WING
+TEAM RAW - ROBOTICS AND AUTOMATION WING
 St. Francis Institute of Technology, Mumbai
 -----------------------------------------------------------
 
@@ -48,14 +48,14 @@ St. Francis Institute of Technology, Mumbai
 
   switch (templateType) {
     case 'inquiry':
-      return header + `Thank you for reaching out to Team RAW - Robotics and Aviation Wing at St. Francis Institute of Technology.
+      return header + `Thank you for reaching out to Team RAW - Robotics and Automation Wing at St. Francis Institute of Technology.
 
 ${message}
 
 If you have any further questions or would like to discuss this in more detail, please feel free to contact us.` + signature + footer;
     
     case 'collaboration':
-      return header + `Team RAW - Robotics and Aviation Wing at St. Francis Institute of Technology, Mumbai, would like to explore collaboration opportunities with your organization.
+      return header + `Team RAW - Robotics and Automation Wing at St. Francis Institute of Technology, Mumbai, would like to explore collaboration opportunities with your organization.
 
 ${message}
 
@@ -77,14 +77,14 @@ ${message}
 For formal licensing inquiries, please provide details about your intended use and we will review your request.` + signature + footer;
     
     case 'event':
-      return header + `Team RAW - Robotics and Aviation Wing at St. Francis Institute of Technology is pleased to invite you to our event.
+      return header + `Team RAW - Robotics and Automation Wing at St. Francis Institute of Technology is pleased to invite you to our event.
 
 ${message}
 
 We look forward to your participation.` + signature + footer;
     
     case 'recruitment':
-      return header + `Team RAW - Robotics and Aviation Wing at St. Francis Institute of Technology, Mumbai.
+      return header + `Team RAW - Robotics and Automation Wing at St. Francis Institute of Technology, Mumbai.
 
 ${message}
 

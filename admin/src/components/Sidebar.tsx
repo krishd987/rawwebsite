@@ -28,7 +28,7 @@ export default function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
-        <img src="/logo-colored.png" alt="Team Raw Logo" className={styles.logoImg} />
+        <span>🚀</span>
         <h2>Team Raw</h2>
       </div>
 

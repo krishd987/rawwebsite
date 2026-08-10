@@ -5,7 +5,7 @@
 
 import { MongoClient, Db } from 'mongodb';
 
-const uri: string = (process.env.MONGODB_URI || '').trim().replace(/[\r\n]/g, '');
+const uri: string = process.env.MONGODB_URI || '';
 
 if (!uri) {
   if (process.env.NODE_ENV !== 'development') {

@@ -26,12 +26,13 @@ interface Category {
 const categories: Category[] = [
   {
     id: 'electronics',
-    icon: '📊',
-    title: 'PPT Format',
-    description: "Official PitchSprint '26 Idea Presentation format. Download the template to prepare your pitch deck.",
-    color: '#e10600',
+    icon: '🔌',
+    title: 'Electronics',
+    description: 'Circuit design, PCB layout, embedded systems and sensor interfacing tasks.',
+    color: '#0a7ecb',
     tasks: [
-      { label: "PitchSprint '26 Idea Presentation Format", file: '../pitchsprint-files/PitchSprint26-IDEA-Presentation-Format.pdf' },
+      { label: 'Electronics Task 1', file: 'E_1.pdf', zipFile: 'Electronics_Tasks.zip' },
+      { label: 'Electronics Task 2', file: 'E_2.pdf' },
     ],
   },
   {
@@ -91,285 +92,6 @@ const categories: Category[] = [
   },
 ];
 
-interface HackathonSection {
-  id: number;
-  icon: string;
-  title: string;
-  badge?: string;
-  content: React.ReactNode;
-}
-
-const hackathonSections = (styles: Record<string, string>): HackathonSection[] => [
-  {
-    id: 1,
-    icon: '',
-    title: "What is PitchSprint '26?",
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          <strong>PitchSprint &apos;26</strong> is SFIT&apos;s college-level internal hackathon. It provides students with a platform to solve pressing real-world challenges, showcase engineering excellence, and present their ideas.
-        </p>
-        <div className={styles.sihHighlightCard}>
-          <h4>Inculcating Innovation</h4>
-          <p>PitchSprint &apos;26 aims to nurture a culture of product design, engineering excellence, and collaborative problem-solving among engineering and technology students.</p>
-        </div>
-        <ul className={styles.sihList}>
-          <li><strong>Edition:</strong> PitchSprint &apos;26</li>
-          <li><strong>Format:</strong> Internal hackathon screening and evaluation by industry experts.</li>
-          <li><strong>Eligibility:</strong> Open to all active students of St. Francis Institute of Technology (SFIT).</li>
-        </ul>
-      </div>
-    )
-  },
-  {
-    id: 2,
-    icon: '',
-    title: 'Who Can Participate?',
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          Participation in PitchSprint &apos;26 must follow these strict composition guidelines:
-        </p>
-        <div className={styles.sihGrid}>
-          <div className={styles.sihCardItem}>
-
-            <h5>Team Size</h5>
-            <p>Exactly <strong>6 members</strong> per team. No more, no less.</p>
-          </div>
-          <div className={styles.sihCardItem}>
-
-            <h5>Gender Diversity</h5>
-            <p>At least <strong>1 female member</strong> is mandatory in every team.</p>
-          </div>
-          <div className={styles.sihCardItem}>
-
-            <h5>Same College</h5>
-            <p>All members must be active students of <strong>SFIT</strong>.</p>
-          </div>
-          <div className={styles.sihCardItem}>
-
-            <h5>Interdepartmental</h5>
-            <p>Interdepartmental teams are allowed. Members can be from <strong>different branches</strong>.</p>
-          </div>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 3,
-    icon: '',
-    title: 'Note for Registrations',
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          To register your team for PitchSprint &apos;26, please review these key instructions:
-        </p>
-        <div className={styles.sihHighlightCard}>
-          <h4>Team Leader Registration Only</h4>
-          <p>
-            Only the <strong>Team Leader</strong> should fill out and submit the registration form for the entire team. Individual team members do not need to register separately.
-          </p>
-        </div>
-        <div className={styles.sihHighlightCard} style={{ marginTop: '1rem', borderLeftColor: '#25D366', background: 'rgba(37, 211, 102, 0.05)' }}>
-          <h4 style={{ color: '#128C7E' }}>Join Official WhatsApp Group</h4>
-          <p>
-            It is mandatory for the Team Leader to join the official coordination group to receive announcements, problem statements, and pitching guidelines:
-          </p>
-          <a
-            href="https://chat.whatsapp.com/placeholder-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              marginTop: '0.75rem',
-              padding: '0.6rem 1.25rem',
-              backgroundColor: '#25D366',
-              color: '#fff',
-              textDecoration: 'none',
-              borderRadius: '6px',
-              fontWeight: '600',
-              fontSize: '0.88rem',
-              boxShadow: '0 2px 8px rgba(37, 211, 102, 0.3)'
-            }}
-          >
-            💬 Join WhatsApp Group
-          </a>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 4,
-    icon: '',
-    title: 'Important Dates',
-    badge: 'Critical',
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          Please keep a close eye on these milestones. Missing deadlines will result in automatic disqualification from the round.
-        </p>
-        <div className={styles.tableContainer}>
-          <table className={styles.sihTable}>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Milestone / Event</th>
-                <th>Deadline / Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Internal Team Registration</td>
-                <td><span className={styles.dateBadge}>17th - 22nd August 2026</span></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Problem Statement Submission</td>
-                <td><span className={styles.dateBadge}>25th - 28th August 2026</span></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>SFIT PitchSprint &apos;26 Hackathon Round (Jury Pitch)</td>
-                <td><span className={styles.dateBadge}>29th August 2026</span></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>PitchSprint &apos;26 Grand Finale Announcement</td>
-                <td><span className={styles.dateBadge}>TBA</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 5,
-    icon: '',
-    title: 'Tracks & Problem Statements',
-    content: (
-      <div className={styles.sihHighlightCard}>
-        <h4>Important Notice</h4>
-        <p>Problem statements will be released on <strong>24th of August</strong>.</p>
-      </div>
-    )
-  },
-  {
-    id: 6,
-    icon: '',
-    title: "How PitchSprint '26 Works",
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          The road from team formation to the PitchSprint &apos;26 final round:
-        </p>
-        <div className={styles.sihTimeline}>
-          <div className={styles.sihTimelineItem}>
-            <div className={styles.sihTimelineBadge}>1</div>
-            <div className={styles.sihTimelineContent}>
-              <h6>Team Setup & Registration</h6>
-              <p>Form your team of 6 (minimum 1 female). Submit the internal registration form before the deadline.</p>
-            </div>
-          </div>
-          <div className={styles.sihTimelineItem}>
-            <div className={styles.sihTimelineBadge}>2</div>
-            <div className={styles.sihTimelineContent}>
-              <h6>Domain Tasks & Code Review</h6>
-              <p>Complete the domain recruitment tasks (listed below) to qualify and show technical execution capabilities.</p>
-            </div>
-          </div>
-          <div className={styles.sihTimelineItem}>
-            <div className={styles.sihTimelineBadge}>3</div>
-            <div className={styles.sihTimelineContent}>
-              <h6>Jury Presentation Pitch</h6>
-              <p>Present your solution PPT and MVP/simulation at the SFIT PitchSprint &apos;26 Hackathon round.</p>
-            </div>
-          </div>
-          <div className={styles.sihTimelineItem}>
-            <div className={styles.sihTimelineBadge}>4</div>
-            <div className={styles.sihTimelineContent}>
-              <h6>Final Pitching</h6>
-              <p>Selected top teams will pitch at the grand PitchSprint &apos;26 finale.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 7,
-    icon: '',
-    title: 'Common Mistakes to Avoid',
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          Pay extreme attention to these common pitfalls that have led to immediate disqualification in previous editions:
-        </p>
-        <div style={{ background: 'rgba(225, 6, 0, 0.05)', borderLeft: '4px solid #e10600', padding: '1rem', borderRadius: '4px' }}>
-          <ul className={styles.sihList} style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', margin: 0, paddingLeft: '1.25rem' }}>
-            <li><strong>1. No Female Teammate:</strong> Absolute showstopper. At least <strong>1 female</strong> is <strong>strictly required</strong>.</li>
-            <li><strong>2. Incomplete PPT:</strong> Changing slide layouts, omitting team names, or deleting the <strong>problem statement ID slide</strong>.</li>
-            <li><strong>3. Plagiarized Projects:</strong> Copy-pasting popular GitHub repos. <strong>Plagiarism scans</strong> are run by national organizers.</li>
-            <li><strong>4. Hardcoded Mockups:</strong> Showing screens that have <strong>zero actual logic</strong> or functionality during evaluation.</li>
-            <li><strong>5. Poor Pitch Timing:</strong> Not allocating time for the <strong>prototype demo</strong> during the short jury pitch.</li>
-            <li><strong>6. Siloed Contributions:</strong> If the speaker knows everything but other teammates <strong>cannot answer simple questions</strong>.</li>
-            <li><strong>7. Choosing Incompatible Tracks:</strong> Submitting a pure software solution under the <strong>hardware track</strong> to avoid software competition.</li>
-          </ul>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 8,
-    icon: '',
-    title: 'Contact & Queries',
-    content: (
-      <div>
-        <p className={styles.sihText}>
-          For queries regarding team registration, event rules, or submissions, reach out to the PitchSprint &apos;26 coordinators:
-        </p>
-        <div className={styles.contactsGrid}>
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconWrap}></div>
-            <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
-              <h5 className={styles.contactName}>Pal Rajak</h5>
-              <a href="tel:+917208697241" className={styles.contactPhone}>+91 72086 97241</a>
-            </div>
-          </div>
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconWrap}></div>
-            <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
-              <h5 className={styles.contactName}>Jhoshua Coutinho</h5>
-              <a href="tel:+918976357005" className={styles.contactPhone}>+91 89763 57005</a>
-            </div>
-          </div>
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconWrap}></div>
-            <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
-              <h5 className={styles.contactName}>Zion Naranje</h5>
-              <a href="tel:+918355818735" className={styles.contactPhone}>+91 83558 18735</a>
-            </div>
-          </div>
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconWrap}></div>
-            <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
-              <h5 className={styles.contactName}>Rich Rodrigues</h5>
-              <a href="tel:+918828242446" className={styles.contactPhone}>+91 88282 42446</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-];
-
 // ─── Animations ───────────────────────────────────────────────────────────────
 
 const containerVariants: Variants = {
@@ -386,16 +108,6 @@ const cardVariants: Variants = {
 
 export default function TasksPage() {
   const totalTasks = categories.reduce((s, c) => s + c.tasks.length, 0);
-
-  const [activeTab, setActiveTab] = useState(0);
-  const sections = hackathonSections(styles);
-
-  const getFileUrl = (file: string) => {
-    if (file.startsWith('..')) {
-      return file.substring(2);
-    }
-    return `/pitchsprint-26/${file}`;
-  };
 
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [submitFormData, setSubmitFormData] = useState({
@@ -449,14 +161,62 @@ export default function TasksPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <span className={styles.heroEyebrow}>PITCHSPRINT &apos;26</span>
+          <span className={styles.heroEyebrow}>TEAM RAW · SFIT RECRUITMENT</span>
           <h1 className={styles.heroTitle}>
-            PitchSprint &apos;26 <span className={styles.accent}>Information Portal</span>
+            Recruitment <span className={styles.accent}>Tasks</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Review the PitchSprint &apos;26 rules, team specifications, crucial deadlines, and resources. Solve your domain tasks below to apply.
+            First submit your registration, then download and complete your domain task. 
+            Tasks are available across all technical and non-technical domains.
           </p>
+          <div className={styles.heroMeta}>
+            <span className={styles.heroMetaItem}>📁 {totalTasks} Tasks Available</span>
+            <span className={styles.heroMetaDivider}>·</span>
+            <span className={styles.heroMetaItem}>📂 {categories.length} Domains</span>
+          </div>
         </motion.div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section className={styles.howSection}>
+        <div className={styles.howInner}>
+          {[
+            { step: '01', icon: '📝', text: 'Register and select domain' },
+            { step: '02', icon: '📥', text: 'Download your domain task PDF' },
+            { 
+              step: '03', 
+              icon: '📤', 
+              text: 'Submit Drive Link of your completed tasks',
+              isInteractive: true,
+              onClick: () => setIsSubmitModalOpen(true)
+            },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              className={`${styles.howCard} ${s.isInteractive ? styles.howCardInteractive : ''}`}
+              onClick={s.onClick}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.12, duration: 0.4 }}
+            >
+              <span className={styles.howStep}>{s.step}</span>
+              <span className={styles.howIcon}>{s.icon}</span>
+              <p className={styles.howText}>{s.text}</p>
+              {s.isInteractive && (
+                <button 
+                  className={styles.howCardBtn} 
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    s.onClick?.(); 
+                  }}
+                >
+                  Submit Task →
+                </button>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* ── Ready to apply CTA ── */}
@@ -481,69 +241,10 @@ export default function TasksPage() {
         </motion.a>
       </motion.section>
 
-      {/* ── PitchSprint Information Section ── */}
-      <section className={styles.sihSection} id="pitchsprint-info">
-        <div className={styles.sihDashboard}>
-          {/* Tabs Navigation */}
-          <div className={styles.sihTabsList}>
-            {sections.map((sec, idx) => (
-              <button
-                key={sec.id}
-                className={`${styles.sihTabButton} ${activeTab === idx ? styles.sihTabActive : ''}`}
-                onClick={() => setActiveTab(idx)}
-              >
-                <span className={styles.sihTabNumber}>{String(sec.id).padStart(2, '0')}</span>
-                <span className={styles.sihTabIcon}>{sec.icon}</span>
-                <span className={styles.sihTabLabel}>{sec.title}</span>
-                {sec.badge && (
-                  <span
-                    className={styles.sihTabBadge}
-                    style={{
-                      background: sec.badge === 'Critical' ? '#e10600' : '#00a651'
-                    }}
-                  >
-                    {sec.badge}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* Content Pane */}
-          <div className={styles.sihContentPane}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className={styles.sihContentBody}
-              >
-                <div className={styles.sihContentHeader}>
-                  <span className={styles.sihContentIcon}>{sections[activeTab].icon}</span>
-                  <div>
-                    <span className={styles.sihContentEyebrow}>
-                      Section {String(sections[activeTab].id).padStart(2, '0')}
-                    </span>
-                    <h3 className={styles.sihContentTitle}>{sections[activeTab].title}</h3>
-                  </div>
-                </div>
-                <div className={styles.sihContentDetail}>
-                  {sections[activeTab].content}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </section>
-
-
-
       {/* ── Category sections ── */}
       <section className={styles.categoriesSection}>
         <div className={styles.categoriesInner}>
-          {categories.filter(cat => cat.id === 'electronics').map((cat) => (
+          {categories.map((cat) => (
             <motion.div
               key={cat.id}
               className={styles.categoryBlock}
@@ -598,7 +299,7 @@ export default function TasksPage() {
 
                     <div className={styles.taskCardActions}>
                       <a
-                        href={getFileUrl(task.file)}
+                        href={`/tasks/${task.file}`}
                         target="_blank"
                         rel="noreferrer"
                         className={styles.btnView}
@@ -606,10 +307,10 @@ export default function TasksPage() {
                       >
                         👁 View
                       </a>
-
+                      
                       {task.zipFile ? (
                         <div className={styles.downloadDropdown}>
-                          <button
+                          <button 
                             className={styles.btnDownloadMain}
                             style={{ background: cat.color }}
                           >
@@ -617,14 +318,14 @@ export default function TasksPage() {
                           </button>
                           <div className={styles.dropdownMenu}>
                             <a
-                              href={`/pitchsprint-26/${task.file}`}
+                              href={`/tasks/${task.file}`}
                               download
                               className={styles.dropdownItem}
                             >
                               📄 PDF Only
                             </a>
                             <a
-                              href={`/pitchsprint-26/${task.zipFile}`}
+                              href={`/tasks/${task.zipFile}`}
                               download
                               className={styles.dropdownItem}
                             >
@@ -634,7 +335,7 @@ export default function TasksPage() {
                         </div>
                       ) : (
                         <a
-                          href={getFileUrl(task.file)}
+                          href={`/tasks/${task.file}`}
                           download
                           className={styles.btnDownload}
                           style={{ background: cat.color }}
@@ -654,9 +355,9 @@ export default function TasksPage() {
       {/* ── Bottom Submit CTA ── */}
       <section className={styles.bottomCta}>
         <div className={styles.bottomCtaContent}>
-          <h2>Finished your Project?</h2>
+          <h2>Finished your task?</h2>
           <p>Submit your Google Drive folder link containing all work files directly to our reviewers.</p>
-          <button
+          <button 
             className={styles.bottomCtaBtn}
             onClick={() => setIsSubmitModalOpen(true)}
           >
@@ -664,8 +365,6 @@ export default function TasksPage() {
           </button>
         </div>
       </section>
-
-
 
       {/* ── Submission Modal ── */}
       <AnimatePresence>
@@ -756,7 +455,7 @@ export default function TasksPage() {
                     {/* Column 2: Form */}
                     <form className={styles.formCol} onSubmit={handleFormSubmit}>
                       <h3>Submit Your Work</h3>
-
+                      
                       <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Full Name *</label>
                         <input

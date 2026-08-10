@@ -2,7 +2,7 @@
  * Author: Taksh Gandhi
  * Email: takshgandhi4@gmail.com
  * 
- * Copyright (c) 2024-2026 TEAM RAW - Robotics and Aviation Wing, SFIT Mumbai
+ * Copyright (c) 2024-2026 TEAM RAW - Robotics and Automation Wing, SFIT Mumbai
  * All Rights Reserved. Proprietary and Confidential.
  * 
  * This code is the property of TEAM RAW. Unauthorized copying, modification,
@@ -41,21 +41,21 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: {
-    default: 'TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai',
+    default: 'TEAM RAW – Robotics and Automation Wing | SFIT Mumbai',
     template: '%s | TEAM RAW – SFIT Mumbai'
   },
-  description: 'TEAM RAW is the Robotics and Aviation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative automation projects, and drive technological excellence.',
+  description: 'TEAM RAW is the Robotics and Automation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative automation projects, and drive technological excellence.',
   keywords: [
     'TEAM RAW',
     'SFIT Robotics',
-    'Robotics and Aviation Wing SFIT',
+    'Robotics and Automation Wing SFIT',
     'College Robotics Team Mumbai',
     'St. Francis Institute of Technology',
     'SFIT Mumbai',
     'ABU Robocon',
     'Robotics Competition',
     'Engineering Projects Mumbai',
-    'Aviation Wing SFIT',
+    'Automation Wing SFIT',
     'Team RAW SFIT'
   ],
   authors: [{ name: 'TEAM RAW', url: 'https://rawwebsite-seven.vercel.app' }],
@@ -70,22 +70,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: 'https://rawwebsite-seven.vercel.app',
-    title: 'TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai',
-    description: 'Official website of TEAM RAW - Robotics and Aviation Wing of St. Francis Institute of Technology, Mumbai. Building the next generation of autonomous robots.',
+    title: 'TEAM RAW – Robotics and Automation Wing | SFIT Mumbai',
+    description: 'Official website of TEAM RAW - Robotics and Automation Wing of St. Francis Institute of Technology, Mumbai. Building the next generation of autonomous robots.',
     siteName: 'TEAM RAW',
     images: [
       {
         url: '/logo.png',
         width: 1200,
         height: 630,
-        alt: 'TEAM RAW - Robotics and Aviation Wing SFIT Mumbai'
+        alt: 'TEAM RAW - Robotics and Automation Wing SFIT Mumbai'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai',
-    description: 'TEAM RAW - Robotics and Aviation Wing of SFIT Mumbai. National robotics competitions, innovative automation projects, and engineering excellence.',
+    title: 'TEAM RAW – Robotics and Automation Wing | SFIT Mumbai',
+    description: 'TEAM RAW - Robotics and Automation Wing of SFIT Mumbai. National robotics competitions, innovative automation projects, and engineering excellence.',
     images: ['/logo.png'],
   },
   robots: {

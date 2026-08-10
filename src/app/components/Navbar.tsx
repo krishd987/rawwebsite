@@ -16,14 +16,12 @@ export default function Navbar() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Registration', href: '/register' },
-    { label: "PitchSprint '26", href: '/pitchsprint-26' },
     { label: 'Competitions', href: '/competitions' },
     { label: 'Robots & Gallery', href: '/robots-gallery' },
     { label: 'Team', href: '/team' },
     { label: 'Sponsors', href: '/sponsors' },
     { label: 'Contact', href: '/contact' },
-
+    { label: 'Registration', href: '/register' },
   ];
 
 
@@ -45,10 +43,10 @@ export default function Navbar() {
           >
             <Link href="/">
               <div className={styles.logoWrapper}>
-                <Image
-                  src="/logo 1.png"
-                  alt="Team RAW"
-                  width={45}
+                <Image 
+                  src="/logo 1.png" 
+                  alt="Team RAW" 
+                  width={45} 
                   height={45}
                   priority
                   className={styles.logoImage}
@@ -57,10 +55,10 @@ export default function Navbar() {
               <span className={styles.logoText}>TEAM RAW</span>
               <div className={styles.logoDivider}></div>
               <div className={styles.sfitLogoContainer}>
-                <Image
-                  src="/collegelogo.jpg"
-                  alt="St. Francis Institute of Technology"
-                  width={38}
+                <Image 
+                  src="/collegelogo.jpg" 
+                  alt="St. Francis Institute of Technology" 
+                  width={38} 
                   height={38}
                   priority
                   className={styles.sfitLogo}

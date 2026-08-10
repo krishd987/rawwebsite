@@ -15,10 +15,9 @@ interface CustomField {
   type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox' | 'file';
   required: boolean;
   placeholder?: string;
-  options?: string[];       // for select and checkbox types
-  multiSelect?: boolean;    // for checkbox: allow many vs one
-  fileAccept?: string;      // e.g. ".pdf,.docx,image/*"
-  fileMaxSizeMB?: number;   // e.g. 5
+  options?: string[];
+  fileAccept?: string;   // e.g. ".pdf,.docx,image/*"
+  fileMaxSizeMB?: number; // e.g. 5
 }
 
 interface Competition {
@@ -49,8 +48,6 @@ export default function CompetitionsPage() {
   const [editingCompetition, setEditingCompetition] = useState<Competition | null>(null);
   const [imagePreview, setImagePreview] = useState('');
   const [attachmentNamePreview, setAttachmentNamePreview] = useState('');
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const [checkboxOptionInput, setCheckboxOptionInput] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -77,7 +74,6 @@ export default function CompetitionsPage() {
     required: false,
     placeholder: '',
     options: [],
-    multiSelect: false,
     fileAccept: '',
     fileMaxSizeMB: 5,
   });
@@ -206,11 +202,9 @@ export default function CompetitionsPage() {
       required: false,
       placeholder: '',
       options: [],
-      multiSelect: false,
       fileAccept: '',
       fileMaxSizeMB: 5,
     });
-    setCheckboxOptionInput('');
   };
 
   const handleRemoveField = (fieldId: string) => {
@@ -249,42 +243,7 @@ export default function CompetitionsPage() {
   const handleEditField = (index: number) => {
     const field = formData.customFields[index];
     setNewField(field);
-    setCheckboxOptionInput('');
     handleRemoveField(field.id);
-  };
-
-  // ─── Drag-and-drop handlers ───
-  const handleDragStart = (index: number) => {
-    setDragIndex(index);
-  };
-
-  const handleDragOver = (e: React.DragEvent, overIndex: number) => {
-    e.preventDefault();
-    if (dragIndex === null || dragIndex === overIndex) return;
-    setFormData(prev => {
-      const newFields = [...prev.customFields];
-      const [moved] = newFields.splice(dragIndex, 1);
-      newFields.splice(overIndex, 0, moved);
-      return { ...prev, customFields: newFields };
-    });
-    setDragIndex(overIndex);
-  };
-
-  const handleDragEnd = () => setDragIndex(null);
-
-  // ─── Checkbox option helpers ───
-  const addCheckboxOption = () => {
-    const trimmed = checkboxOptionInput.trim();
-    if (!trimmed) return;
-    setNewField(prev => ({ ...prev, options: [...(prev.options || []), trimmed] }));
-    setCheckboxOptionInput('');
-  };
-
-  const removeCheckboxOption = (idx: number) => {
-    setNewField(prev => ({
-      ...prev,
-      options: (prev.options || []).filter((_, i) => i !== idx),
-    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -358,82 +317,6 @@ export default function CompetitionsPage() {
     } catch (error) {
       console.error('Error deleting competition:', error);
       alert('Failed to delete competition');
-    }
-  };
-
-  const downloadRegistrationsCSV = async (competitionId: string, competitionName: string) => {
-    try {
-      const response = await fetch(`/api/registrations?competitionId=${competitionId}`);
-      const result = await response.json();
-      
-      if (!result.success || !result.data || result.data.length === 0) {
-        alert('No registrations found for this competition.');
-        return;
-      }
-
-      const registrations = result.data;
-
-      const headers = [
-        'Full Name',
-        'Email',
-        'Phone',
-        'Competition',
-        'Status',
-        'Submitted At',
-        'Why Join',
-        'Expectations'
-      ];
-
-      const comp = competitions.find(c => c._id === competitionId);
-      const customFieldIds = comp?.customFields?.map(f => f.id) || [];
-      const customFieldLabels = comp?.customFields?.map(f => f.label) || [];
-
-      const allHeaders = [...headers, ...customFieldLabels];
-
-      const escapeCSV = (val: any) => {
-        if (val === null || val === undefined) return '';
-        let str = typeof val === 'object' ? JSON.stringify(val) : String(val);
-        str = str.replace(/"/g, '""');
-        if (str.includes(',') || str.includes('\n') || str.includes('"')) {
-          return `"${str}"`;
-        }
-        return str;
-      };
-
-      const rows = registrations.map((reg: any) => {
-        const rowData = [
-          reg.fullName,
-          reg.email,
-          reg.phone,
-          reg.competition,
-          reg.status,
-          new Date(reg.submittedAt).toLocaleString(),
-          reg.whyJoin,
-          reg.expectations
-        ];
-
-        customFieldIds.forEach(id => {
-          rowData.push(reg.customFields?.[id] ?? '');
-        });
-
-        return rowData.map(escapeCSV).join(',');
-      });
-
-      const csvContent = [allHeaders.join(','), ...rows].join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.setAttribute('href', url);
-      
-      const filename = `registrations_${competitionName.toLowerCase().replace(/[^a-z0-9]+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`;
-      link.setAttribute('download', filename);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error downloading CSV:', error);
-      alert('Failed to download CSV. Please try again.');
     }
   };
 
@@ -623,31 +506,25 @@ export default function CompetitionsPage() {
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.switchLabel}>
-                  <div className={styles.switch}>
-                    <input
-                      type="checkbox"
-                      name="isActive"
-                      checked={formData.isActive}
-                      onChange={handleInputChange}
-                    />
-                    <span className={styles.slider}></span>
-                  </div>
+                <label className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={handleInputChange}
+                  />
                   <span>Active (Show in competitions list)</span>
                 </label>
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.switchLabel}>
-                  <div className={styles.switch}>
-                    <input
-                      type="checkbox"
-                      name="registrationEnabled"
-                      checked={formData.registrationEnabled}
-                      onChange={handleInputChange}
-                    />
-                    <span className={styles.slider}></span>
-                  </div>
+                <label className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    name="registrationEnabled"
+                    checked={formData.registrationEnabled}
+                    onChange={handleInputChange}
+                  />
                   <span>Enable Registration (Allow students to register)</span>
                 </label>
               </div>
@@ -688,22 +565,14 @@ export default function CompetitionsPage() {
               {formData.customFields.length > 0 && (
                 <div className={styles.customFieldsList}>
                   {formData.customFields.map((field, index) => (
-                    <div
-                      key={field.id}
-                      className={`${styles.customFieldItem} ${dragIndex === index ? styles.dragging : ''}`}
-                      draggable
-                      onDragStart={() => handleDragStart(index)}
-                      onDragOver={(e) => handleDragOver(e, index)}
-                      onDragEnd={handleDragEnd}
-                    >
-                      <div className={styles.dragHandle} title="Drag to reorder">⠿</div>
+                    <div key={field.id} className={styles.customFieldItem}>
                       <div className={styles.fieldOrder}>
                         <span className={styles.orderNumber}>{index + 1}</span>
                       </div>
                       <div className={styles.fieldInfo}>
                         <strong>{field.label}</strong>
                         <span className={styles.fieldMeta}>
-                          Type: {field.type}{field.type === 'checkbox' ? ` (${field.multiSelect ? 'multi-select' : 'single-select'})` : ''} • {field.required ? 'Required' : 'Optional'}
+                          Type: {field.type} • {field.required ? 'Required' : 'Optional'}
                         </span>
                         {field.placeholder && (
                           <span className={styles.fieldPlaceholder}>
@@ -722,6 +591,24 @@ export default function CompetitionsPage() {
                         )}
                       </div>
                       <div className={styles.fieldActions}>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveFieldUp(index)}
+                          className={styles.btnMove}
+                          disabled={index === 0}
+                          title="Move Up"
+                        >
+                          ▲
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMoveFieldDown(index)}
+                          className={styles.btnMove}
+                          disabled={index === formData.customFields.length - 1}
+                          title="Move Down"
+                        >
+                          ▼
+                        </button>
                         <button
                           type="button"
                           onClick={() => handleEditField(index)}
@@ -776,126 +663,67 @@ export default function CompetitionsPage() {
                   </div>
                 </div>
 
-                {newField.type !== 'checkbox' && newField.type !== 'file' && (
-                  <div className={styles.formGroup}>
-                    <label>Placeholder (Optional)</label>
-                    <input
-                      type="text"
-                      value={newField.placeholder || ''}
-                      onChange={(e) => setNewField({ ...newField, placeholder: e.target.value })}
-                      placeholder="Placeholder text..."
-                    />
-                  </div>
-                )}
+                <div className={styles.formGroup}>
+                  <label>Placeholder (Optional)</label>
+                  <input
+                    type="text"
+                    value={newField.placeholder}
+                    onChange={(e) => setNewField({ ...newField, placeholder: e.target.value })}
+                    placeholder="Placeholder text..."
+                  />
+                </div>
 
                 {newField.type === 'select' && (
                   <div className={styles.formGroup}>
                     <label>Options (comma-separated)</label>
                     <input
                       type="text"
-                      value={newField.options?.join(', ') || ''}
                       onChange={(e) => setNewField({ 
                         ...newField, 
-                        options: e.target.value.split(',').map(o => o.trim()).filter(Boolean)
+                        options: e.target.value.split(',').map(o => o.trim())
                       })}
                       placeholder="Option 1, Option 2, Option 3"
                     />
                   </div>
                 )}
 
-                {newField.type === 'checkbox' && (
-                  <div className={styles.checkboxOptionsBuilder}>
-                    <label>Checkbox Options</label>
-                    <p className={styles.checkboxOptionsHint}>Add selectable options for this checkbox field.</p>
-
-                    {/* Existing options list */}
-                    {(newField.options || []).length > 0 && (
-                      <div className={styles.checkboxOptionsList}>
-                        {(newField.options || []).map((opt, i) => (
-                          <div key={i} className={styles.checkboxOptionTag}>
-                            <span>{opt}</span>
-                            <button
-                              type="button"
-                              className={styles.checkboxOptionRemove}
-                              onClick={() => removeCheckboxOption(i)}
-                              title="Remove option"
-                            >✕</button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {/* Add new option */}
-                    <div className={styles.checkboxOptionInputRow}>
+                {newField.type === 'file' && (
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label>Accepted File Types (Optional)</label>
                       <input
                         type="text"
-                        value={checkboxOptionInput}
-                        onChange={(e) => setCheckboxOptionInput(e.target.value)}
-                        onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCheckboxOption(); } }}
-                        placeholder="Type an option and press Enter or Add"
+                        value={newField.fileAccept || ''}
+                        onChange={(e) => setNewField({ ...newField, fileAccept: e.target.value })}
+                        placeholder="e.g. .pdf,.docx,image/*"
                       />
-                      <button
-                        type="button"
-                        className={styles.btnAddOption}
-                        onClick={addCheckboxOption}
-                      >+ Add</button>
+                      <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                        Leave empty to allow all files. Use MIME types or extensions like .pdf,.jpg,image/*
+                      </small>
                     </div>
-
-                    {/* Single vs multi-select toggle */}
-                    <label className={styles.switchLabel} style={{ marginTop: '0.75rem' }}>
-                      <div className={styles.switch}>
-                        <input
-                          type="checkbox"
-                          checked={!!newField.multiSelect}
-                          onChange={(e) => setNewField({ ...newField, multiSelect: e.target.checked })}
-                        />
-                        <span className={styles.slider}></span>
-                      </div>
-                      <span>Allow multiple selections</span>
-                    </label>
+                    <div className={styles.formGroup}>
+                      <label>Max File Size (MB)</label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={50}
+                        value={newField.fileMaxSizeMB ?? 5}
+                        onChange={(e) => setNewField({ ...newField, fileMaxSizeMB: Number(e.target.value) })}
+                      />
+                    </div>
                   </div>
                 )}
 
-              {newField.type === 'file' && (
-                <div className={styles.formRow}>
-                  <div className={styles.formGroup}>
-                    <label>Accepted File Types (Optional)</label>
-                    <input
-                      type="text"
-                      value={newField.fileAccept || ''}
-                      onChange={(e) => setNewField({ ...newField, fileAccept: e.target.value })}
-                      placeholder="e.g. .pdf,.docx,image/*"
-                    />
-                    <small style={{ color: '#666', fontSize: '0.85rem' }}>
-                      Leave empty to allow all files. Use MIME types or extensions like .pdf,.jpg,image/*
-                    </small>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>Max File Size (MB)</label>
-                    <input
-                      type="number"
-                      min={1}
-                      max={50}
-                      value={newField.fileMaxSizeMB ?? 5}
-                      onChange={(e) => setNewField({ ...newField, fileMaxSizeMB: Number(e.target.value) })}
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div className={styles.formGroup}>
-                <label className={styles.switchLabel}>
-                  <div className={styles.switch}>
+                <div className={styles.formGroup}>
+                  <label className={styles.checkbox}>
                     <input
                       type="checkbox"
                       checked={newField.required}
                       onChange={(e) => setNewField({ ...newField, required: e.target.checked })}
                     />
-                    <span className={styles.slider}></span>
-                  </div>
-                  <span>Required Field</span>
-                </label>
-              </div>
+                    <span>Required Field</span>
+                  </label>
+                </div>
 
                 <button
                   type="button"
@@ -996,13 +824,6 @@ export default function CompetitionsPage() {
                     className={styles.btnEdit}
                   >
                     Edit
-                  </button>
-                  <button
-                    onClick={() => downloadRegistrationsCSV(competition._id, competition.name)}
-                    className={styles.btnDownload}
-                    title="Download Registrations CSV"
-                  >
-                    Download CSV
                   </button>
                   <button
                     onClick={() => handleDelete(competition._id)}

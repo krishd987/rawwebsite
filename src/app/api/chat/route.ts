@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-const SYSTEM_PROMPT = `You are the TeamRAW assistant - an expert ONLY on robotics, automation, engineering, and TeamRAW (Robotics & Aviation Wing).
+const SYSTEM_PROMPT = `You are the TeamRAW assistant - an expert ONLY on robotics, automation, engineering, and TeamRAW (Robotics & Automation Wing).
 
 STRICT RULES:
 - ONLY answer questions about robotics, automation, AI, engineering, technology, and TeamRAW

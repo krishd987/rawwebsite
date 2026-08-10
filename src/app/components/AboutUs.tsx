@@ -56,7 +56,7 @@ export default function AboutUs() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            Team RAW (Robotics & Aviation Wing) is a dynamic student organization dedicated to 
+            Team RAW (Robotics & Automation Wing) is a dynamic student organization dedicated to 
             advancing robotics and automation technology. Founded with a vision to foster innovation, 
             our team brings together talented engineers and enthusiasts from diverse domains.
           </motion.p>

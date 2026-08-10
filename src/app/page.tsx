@@ -49,7 +49,7 @@ export default function Home() {
               color: 'var(--color-navy)',
               marginBottom: '1rem',
             }}>
-              TEAM RAW – Robotics and Aviation Wing of <span style={{ color: 'var(--color-red)', textShadow: '0 0 10px rgba(225, 6, 0, 0.2)' }}>SFIT</span>
+              TEAM RAW – Robotics and Automation Wing of <span style={{ color: 'var(--color-red)', textShadow: '0 0 10px rgba(225, 6, 0, 0.2)' }}>SFIT</span>
             </h1>
             <div style={{ width: '60px', height: '3px', background: 'linear-gradient(90deg, var(--color-red), var(--color-navy))', margin: '1rem auto', borderRadius: '2px' }} />
             <p style={{

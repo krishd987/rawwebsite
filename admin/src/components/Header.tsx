@@ -31,12 +31,7 @@ export default function Header() {
           <span className={styles.userName}>
             {admin?.name || admin?.email || 'Admin'}
           </span>
-          <img 
-            src="/logo-white.png" 
-            alt="Team Raw Avatar" 
-            className={styles.avatar} 
-            style={{ objectFit: 'contain', padding: '4px', background: 'var(--primary)' }} 
-          />
+          <span className={styles.avatar}>{getInitials()}</span>
         </div>
         <button onClick={handleLogout} className={styles.logoutBtn}>
           🚪 Logout

@@ -308,113 +308,6 @@ export default function RegistrationsPage() {
     }
   };
 
-  const downloadCSV = () => {
-    if (registrations.length === 0) {
-      alert('No registrations available to download.');
-      return;
-    }
-
-    const headers = [
-      'Full Name',
-      'Email',
-      'Phone',
-      'Competition',
-      'Status',
-      'Submitted At',
-      'Why Join',
-      'Expectations'
-    ];
-
-    let customFieldIds: string[] = [];
-    let customFieldLabels: Record<string, string> = {};
-
-    if (selectedCompetition !== 'all') {
-      const comp = competitions.find(c => c._id === selectedCompetition);
-      if (comp && comp.customFields) {
-        comp.customFields.forEach(f => {
-          customFieldIds.push(f.id);
-          customFieldLabels[f.id] = f.label;
-        });
-      }
-    } else {
-      const idsSet = new Set<string>();
-      registrations.forEach(reg => {
-        if (reg.customFields) {
-          Object.keys(reg.customFields).forEach(key => {
-            idsSet.add(key);
-          });
-        }
-      });
-      customFieldIds = Array.from(idsSet);
-      customFieldIds.forEach(id => {
-        let foundLabel = id;
-        for (const comp of competitions) {
-          const field = comp.customFields?.find(f => f.id === id);
-          if (field) {
-            foundLabel = field.label;
-            break;
-          }
-        }
-        customFieldLabels[id] = foundLabel;
-      });
-    }
-
-    const allHeaders = [...headers, ...customFieldIds.map(id => customFieldLabels[id])];
-
-    const escapeCSV = (val: any) => {
-      if (val === null || val === undefined) return '';
-      let str = typeof val === 'object' ? JSON.stringify(val) : String(val);
-      str = str.replace(/"/g, '""');
-      if (str.includes(',') || str.includes('\n') || str.includes('"')) {
-        return `"${str}"`;
-      }
-      return str;
-    };
-
-    const rows = registrations.map(reg => {
-      const rowData = [
-        reg.fullName,
-        reg.email,
-        reg.phone,
-        reg.competition,
-        reg.status,
-        formatDate(reg.submittedAt),
-        reg.whyJoin,
-        reg.expectations
-      ];
-
-      customFieldIds.forEach(id => {
-        rowData.push(reg.customFields?.[id] ?? '');
-      });
-
-      return rowData.map(escapeCSV).join(',');
-    });
-
-    const csvContent = [allHeaders.join(','), ...rows].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    
-    let filename = 'registrations';
-    if (selectedCompetition !== 'all') {
-      const comp = competitions.find(c => c._id === selectedCompetition);
-      if (comp) {
-        filename += `_${comp.name.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`;
-      }
-    }
-    if (selectedStatus !== 'all') {
-      filename += `_${selectedStatus}`;
-    }
-    filename += `_${new Date().toISOString().split('T')[0]}.csv`;
-
-    link.setAttribute('download', filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -465,10 +358,6 @@ export default function RegistrationsPage() {
 
         <button onClick={fetchRegistrations} className={styles.refreshBtn}>
           🔄 Refresh
-        </button>
-
-        <button onClick={downloadCSV} className={styles.downloadBtn}>
-          📥 Download CSV
         </button>
 
         <button 
