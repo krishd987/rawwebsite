@@ -299,39 +299,58 @@ export default function RobotsGallery() {
   }
 
   return (
-    <section id="robots-gallery" style={{ paddingTop: '4rem', paddingBottom: '4rem', background: 'linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%)' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-        {/* Combined Header - Premium */}
-        <motion.div
-          style={{ textAlign: 'center', marginBottom: '3.5rem' }}
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 style={{ 
-            fontSize: '3.5rem', 
-            marginBottom: '1rem', 
-            color: 'var(--color-navy)', 
-            fontWeight: 700,
-            fontFamily: 'Orbitron, sans-serif',
-          }}>
-            Meet Our <span style={{ color: 'var(--color-red)' }}>Robots & Gallery</span>
-          </h2>
-          <p style={{ 
-            fontSize: '1.2rem', 
-            color: 'var(--color-gray-dark)', 
-            maxWidth: '600px', 
-            margin: '0 auto',
-          }}>
-            Precision-engineered machines and moments that showcase our innovation
-          </p>
-          {/* Dynamic counter showing filtered results */}
-          <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.75rem', fontFamily: 'Inter, sans-serif' }}>
-            {filteredRobots.length} robot{filteredRobots.length !== 1 ? 's' : ''} • {filteredGallery.length} gallery item{filteredGallery.length !== 1 ? 's' : ''} • Total: {filteredItems.length}
-          </p>
-        </motion.div>
+    <section id="robots-gallery" style={{ background: '#ffffff', paddingBottom: '4rem' }}>
+      {/* Dark Navy Glowing Gradient Header Container */}
+      <div style={{ 
+        paddingTop: '5rem', 
+        paddingBottom: '3.5rem', 
+        background: 'radial-gradient(circle at 50% -20%, rgba(225, 6, 0, 0.18), transparent 70%), linear-gradient(180deg, #020b1e 0%, #0a1a3a 100%)',
+        width: '100%'
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
+          {/* Combined Header - Premium */}
+          <motion.div
+            style={{ textAlign: 'center' }}
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 style={{ 
+              fontSize: '3.5rem', 
+              marginBottom: '1rem', 
+              color: '#ffffff', 
+              fontWeight: 700,
+              fontFamily: 'Orbitron, sans-serif',
+            }}>
+              Meet Our <span style={{ color: '#e10600', textShadow: '0 0 15px rgba(225, 6, 0, 0.5)' }}>Robots & Gallery</span>
+            </h2>
+            <p style={{ 
+              fontSize: '1.2rem', 
+              color: '#a0aec0', 
+              maxWidth: '600px', 
+              margin: '0 auto',
+            }}>
+              Precision-engineered machines and moments that showcase our innovation
+            </p>
+            {/* Dynamic counter showing filtered results in separate capsules */}
+            <div className={styles.counterContainer}>
+              <span className={styles.counterCapsule}>
+                {filteredRobots.length} Robot{filteredRobots.length !== 1 ? 's' : ''}
+              </span>
+              <span className={styles.counterCapsule}>
+                {filteredGallery.length} Gallery Item{filteredGallery.length !== 1 ? 's' : ''}
+              </span>
+              <span className={styles.counterCapsule}>
+                Total: {filteredItems.length}
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
+      {/* Main Content Area - White Background */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3.5rem 2rem 0' }}>
         {/* Year Filter - Compact style above category filters */}
         {availableYears.length > 0 && (
           <motion.div

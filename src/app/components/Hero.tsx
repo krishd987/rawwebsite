@@ -83,7 +83,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.h2 variants={itemVariants} className={styles.subtitle}>
-            Robotics & Automation Wing
+            Robotics & Aviation Wing
           </motion.h2>
 
           <motion.p variants={itemVariants} className={styles.description}>

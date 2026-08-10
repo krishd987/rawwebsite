@@ -703,6 +703,30 @@
   opacity: 0.6;
 }
 
+.downloadBtn {
+  padding: 0.75rem 1.5rem;
+  background: #107c41;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-end;
+}
+
+.downloadBtn:hover:not(:disabled) {
+  background: #0b592e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 124, 65, 0.3);
+}
+
+.downloadBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .header {
@@ -747,7 +771,8 @@
   }
 
   .emailBtn,
-  .refreshBtn {
+  .refreshBtn,
+  .downloadBtn {
     width: 100%;
     padding: 0.875rem 1rem;
   }
@@ -916,4 +941,60 @@
     height: 32px;
     font-size: 1.5rem;
   }
+}
+/* Custom Select Dropdown Styling */
+.filterGroup select,
+.statusSelect,
+.statusSelectLarge {
+  appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a1a3a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 1rem !important;
+  padding-right: 2.5rem !important;
+  cursor: pointer;
+}
+
+/* Custom Checkboxes in Registrations Table */
+.table th input[type="checkbox"],
+.table td input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid rgba(10, 26, 58, 0.25) !important;
+  border-radius: 4px !important;
+  background: white !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+}
+
+.table th input[type="checkbox"]:hover,
+.table td input[type="checkbox"]:hover {
+  border-color: #E10600 !important;
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1) !important;
+}
+
+.table th input[type="checkbox"]:checked,
+.table td input[type="checkbox"]:checked {
+  background-color: #E10600 !important;
+  border-color: #E10600 !important;
+}
+
+.table th input[type="checkbox"]:checked::after,
+.table td input[type="checkbox"]:checked::after {
+  content: "" !important;
+  display: block !important;
+  width: 4px !important;
+  height: 8px !important;
+  border: solid white !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+  position: absolute !important;
+  top: 1px !important;
+  left: 5px !important;
 }

@@ -520,6 +520,140 @@ export default function RegisterPage() {
               {selectedCompetition && (
                 <div id="additional-fields">
 
+                  {/* Dynamic Custom Fields */}
+                  {selectedCompetition.customFields && selectedCompetition.customFields.length > 0 && (
+                    <div className={styles.formSection}>
+                      <h3 className={styles.sectionTitle}>Additional Information</h3>
+                      <p className={styles.sectionDescription}>
+                        Please fill in the details requested for this competition.
+                      </p>
+                      
+                      <div className={styles.additionalFieldsGrid}>
+                        {selectedCompetition.customFields.map((field) => {
+                          const isFullWidth = ['textarea', 'checkbox'].includes(field.type);
+                          
+                          return (
+                            <div 
+                              key={field.id} 
+                              className={`${styles.formGroup} ${isFullWidth ? styles.formGroupFull : ''}`}
+                            >
+                              {field.type !== 'checkbox' && (
+                                <label htmlFor={field.id}>
+                                  {field.label} {field.required && <span className={styles.required}>*</span>}
+                                </label>
+                              )}
+
+                              {field.type === 'textarea' && (
+                                <textarea
+                                  id={field.id}
+                                  required={field.required}
+                                  placeholder={field.placeholder || `Enter ${field.label}`}
+                                  value={customFieldValues[field.id] || ''}
+                                  onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                />
+                              )}
+
+                              {field.type === 'select' && (
+                                <select
+                                  id={field.id}
+                                  required={field.required}
+                                  value={customFieldValues[field.id] || ''}
+                                  onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                  style={{ appearance: 'auto', WebkitAppearance: 'auto' as any }}
+                                >
+                                  <option value="">Select an option</option>
+                                  {field.options?.map((opt) => (
+                                    <option key={opt} value={opt}>
+                                      {opt}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+
+                              {field.type === 'checkbox' && (
+                                <div className={styles.checkboxOptionsGroup}>
+                                  {(field.options && field.options.length > 0) ? (
+                                    // Option-based checkbox/radio group
+                                    field.options.map((opt, oi) => (
+                                      <label key={oi} className={styles.checkboxOptionRow}>
+                                        <input
+                                          type={field.multiSelect ? 'checkbox' : 'radio'}
+                                          name={field.id}
+                                          value={opt}
+                                          required={field.required && oi === 0}
+                                          checked={
+                                            field.multiSelect
+                                              ? Array.isArray(customFieldValues[field.id]) && (customFieldValues[field.id] as string[]).includes(opt)
+                                              : customFieldValues[field.id] === opt
+                                          }
+                                          onChange={(e) => {
+                                            if (field.multiSelect) {
+                                              const current: string[] = Array.isArray(customFieldValues[field.id]) ? customFieldValues[field.id] as string[] : [];
+                                              if (e.target.checked) {
+                                                handleCustomFieldChange(field.id, [...current, opt]);
+                                              } else {
+                                                handleCustomFieldChange(field.id, current.filter(v => v !== opt));
+                                              }
+                                            } else {
+                                              handleCustomFieldChange(field.id, opt);
+                                            }
+                                          }}
+                                        />
+                                        <span>{opt}</span>
+                                      </label>
+                                    ))
+                                  ) : (
+                                    // Simple boolean toggle (no options defined)
+                                    <label className={styles.checkboxLabel}>
+                                      <input
+                                        type="checkbox"
+                                        id={field.id}
+                                        required={field.required}
+                                        checked={customFieldValues[field.id] || false}
+                                        onChange={(e) => handleCustomFieldChange(field.id, e.target.checked)}
+                                      />
+                                      <span>
+                                        {field.label} {field.required && <span className={styles.required}>*</span>}
+                                      </span>
+                                    </label>
+                                  )}
+                                </div>
+                              )}
+
+                              {field.type === 'file' && (
+                                <div className={styles.fileInputContainer}>
+                                  <input
+                                    type="file"
+                                    id={field.id}
+                                    required={field.required && !customFieldValues[field.id]}
+                                    accept={field.fileAccept}
+                                    onChange={(e) => handleCustomFileUpload(field.id, field, e)}
+                                  />
+                                  {customFieldValues[field.id] && (
+                                    <div className={styles.fileHint} style={{ color: 'var(--color-navy)', marginTop: '0.5rem' }}>
+                                      Selected file: <strong>{customFieldValues[field.id].name}</strong>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {['text', 'email', 'tel'].includes(field.type) && (
+                                <input
+                                  type={field.type}
+                                  id={field.id}
+                                  required={field.required}
+                                  placeholder={field.placeholder || `Enter ${field.label}`}
+                                  value={customFieldValues[field.id] || ''}
+                                  onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                />
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Competition Notes Agreement */}
                   {selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && (
                     <div className={styles.formSection}>

@@ -6,9 +6,9 @@
 
 /* Hero Section */
 .hero {
-  padding-top: 100px;
-  padding-bottom: 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding-top: 120px;
+  padding-bottom: 3.5rem;
+  background: radial-gradient(circle at 80% 20%, rgba(225, 6, 0, 0.15), transparent 50%), linear-gradient(135deg, #020b1e 0%, #0a1a3a 50%, #05122c 100%);
   min-height: 30vh;
   display: flex;
   align-items: center;
@@ -57,21 +57,21 @@
 .heroContent h1 {
   font-size: 3.5rem;
   font-family: 'Orbitron', sans-serif;
-  color: var(--color-navy);
+  color: #ffffff;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
 
 .heroContent p {
   font-size: 1.2rem;
-  color: var(--color-gray-dark);
+  color: #a0aec0;
   max-width: 700px;
   margin: 0 auto;
 }
 
 .redAccent {
-  color: var(--color-red);
-  text-shadow: 0 0 10px rgba(225, 6, 0, 0.15);
+  color: #e10600;
+  text-shadow: 0 0 15px rgba(225, 6, 0, 0.5);
 }
 
 /* Main Section */
@@ -304,7 +304,7 @@
 .registrationStatusBadge {
   position: absolute;
   top: 0.75rem;
-  left: 0.75rem;
+  right: 0.75rem;
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -316,6 +316,7 @@
 }
 
 .competitionHeader {
+  margin-top: 1.2rem;
   margin-bottom: 0.75rem;
 }
 
@@ -331,8 +332,8 @@
 
 .selectedBadge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.75rem;
+  left: 0.75rem;
   background: linear-gradient(135deg, var(--color-red) 0%, #b20500 100%);
   color: #ffffff;
   padding: 0.4rem 0.9rem;
@@ -456,6 +457,43 @@
   line-height: 1.5;
   font-size: 0.95rem;
 }
+
+/* Option-based checkbox / radio group */
+.checkboxOptionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.checkboxOptionRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  background: rgba(10, 26, 58, 0.02);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: var(--color-navy);
+  font-size: 0.95rem;
+}
+
+.checkboxOptionRow:hover {
+  background: rgba(10, 26, 58, 0.05);
+  border-color: rgba(10, 26, 58, 0.1);
+}
+
+.checkboxOptionRow input[type="checkbox"],
+.checkboxOptionRow input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--color-red);
+  flex-shrink: 0;
+}
+
 
 /* Competition Instructions Card */
 .instructionCard {
@@ -1333,7 +1371,8 @@
 
   .selectedBadge {
     top: 0.85rem;
-    right: 0.85rem;
+    left: 0.85rem;
+    right: auto;
     padding: 0.5rem 1.1rem;
     font-size: 0.78rem;
   }
@@ -1701,7 +1740,8 @@
 
   .selectedBadge {
     top: 0.75rem;
-    right: 0.75rem;
+    left: 0.75rem;
+    right: auto;
     padding: 0.45rem 0.95rem;
     font-size: 0.75rem;
   }
