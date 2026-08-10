@@ -21,6 +21,7 @@ export default function Footer() {
       { label: 'Team', href: '/team' },
       { label: 'Gallery', href: '/robots-gallery' },
       { label: 'Contact', href: '/contact' },
+      { label: "PitchSprint '26", href: '/pitchsprint-26' },
     ],
     social: [
       { label: 'Instagram', href: 'https://www.instagram.com/teamraw_sfit', icon: '📷' },
@@ -73,7 +74,7 @@ export default function Footer() {
               />
             </div>
             <h3 className={styles.brandTitle}>TEAM RAW</h3>
-            <p className={styles.brandSubtitle}>Robotics & Automation Wing</p>
+            <p className={styles.brandSubtitle}>Robotics & Aviation Wing</p>
             <p className={styles.description}>
               Building the next generation of autonomous robots through innovation, engineering excellence, and 
               collaborative teamwork.
@@ -163,7 +164,7 @@ export default function Footer() {
           transition={{ delay: 0.5 }}
         >
           <p className={styles.copyright}>
-            © {currentYear} TEAM RAW – Robotics and Automation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai. All rights reserved.
+            © {currentYear} TEAM RAW – Robotics and Aviation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai. All rights reserved.
           </p>
           <div className={styles.credits}>
             <p>Crafted with ❤️ by the Team RAW Community</p>
