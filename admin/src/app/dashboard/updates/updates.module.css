@@ -148,9 +148,43 @@
 }
 
 .checkboxLabel input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid rgba(10, 26, 58, 0.25) !important;
+  border-radius: 4px !important;
+  background: white !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+.checkboxLabel input[type="checkbox"]:hover {
+  border-color: #E10600 !important;
+  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1) !important;
+}
+
+.checkboxLabel input[type="checkbox"]:checked {
+  background-color: #E10600 !important;
+  border-color: #E10600 !important;
+}
+
+.checkboxLabel input[type="checkbox"]:checked::after {
+  content: "" !important;
+  display: block !important;
+  width: 4px !important;
+  height: 8px !important;
+  border: solid white !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+  position: absolute !important;
+  top: 1px !important;
+  left: 5px !important;
 }
 
 .formActions {

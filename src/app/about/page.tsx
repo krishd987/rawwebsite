@@ -58,7 +58,7 @@ export default function AboutPage() {
           </motion.p>
         </div>
       </motion.section>
-      
+
       {/* SFIT Identity Section */}
       <motion.section
         style={{
@@ -113,7 +113,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            Team RAW is the official <span style={{ color: '#e10600', fontWeight: 700 }}>Robotics & Automation Wing</span> of <br/>
+            Team RAW is the official <span style={{ color: '#e10600', fontWeight: 700 }}>Robotics & Aviation Wing</span> of <br />
             <span style={{ fontSize: '1.4rem', fontWeight: 700 }}>St. Francis Institute of Technology</span>
           </motion.p>
           <motion.p
@@ -131,7 +131,7 @@ export default function AboutPage() {
           </motion.p>
         </div>
       </motion.section>
-      
+
       <AboutUs />
       <Footer />
     </main>

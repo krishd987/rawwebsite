@@ -30,6 +30,7 @@ export default function ProfilePage() {
     email: 'admin@teamraw.com',
     role: 'Administrator',
     phone: '+91 98765 43210',
+    avatar: '/logo-white.png',
     lastLogin: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
   });
 
@@ -169,7 +170,8 @@ export default function ProfilePage() {
                     style={{ 
                       width: '100%', 
                       height: '100%', 
-                      objectFit: 'cover', 
+                      objectFit: profile.avatar === '/logo-white.png' ? 'contain' : 'cover', 
+                      padding: profile.avatar === '/logo-white.png' ? '12px' : '0', 
                       borderRadius: '50%' 
                     }} 
                   />
