@@ -28,10 +28,10 @@ const categories: Category[] = [
     id: 'electronics',
     icon: '📊',
     title: 'PPT Format',
-    description: "Official PitchSprint '26 Idea Presentation format. Download the template to prepare your pitch deck.",
+    description: "Official NAVKRITI '26 Idea Presentation format. Download the template to prepare your pitch deck.",
     color: '#e10600',
     tasks: [
-      { label: "PitchSprint '26 Idea Presentation Format", file: '../pitchsprint-files/PitchSprint26-IDEA-Presentation-Format.pdf' },
+      { label: "NAVKRITI '26 Idea Presentation Format", file: '../pitchsprint-files/PitchSprint26-IDEA-Presentation-Format.pdf' },
     ],
   },
   {
@@ -103,18 +103,18 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
   {
     id: 1,
     icon: '',
-    title: "What is PitchSprint '26?",
+    title: "What is NAVKRITI '26?",
     content: (
       <div>
         <p className={styles.sihText}>
-          <strong>PitchSprint &apos;26</strong> is SFIT&apos;s college-level internal hackathon. It provides students with a platform to solve pressing real-world challenges, showcase engineering excellence, and present their ideas.
+          <strong>NAVKRITI &apos;26</strong> is SFIT&apos;s college-level internal hackathon for Smart India Hackathon 2026. It provides students with a platform to solve pressing real-world challenges, showcase engineering excellence, and present their ideas.
         </p>
         <div className={styles.sihHighlightCard}>
           <h4>Inculcating Innovation</h4>
-          <p>PitchSprint &apos;26 aims to nurture a culture of product design, engineering excellence, and collaborative problem-solving among engineering and technology students.</p>
+          <p>NAVKRITI &apos;26 aims to nurture a culture of product design, engineering excellence, and collaborative problem-solving among engineering and technology students.</p>
         </div>
         <ul className={styles.sihList}>
-          <li><strong>Edition:</strong> PitchSprint &apos;26</li>
+          <li><strong>Edition:</strong> NAVKRITI &apos;26</li>
           <li><strong>Format:</strong> Internal hackathon screening and evaluation by industry experts.</li>
           <li><strong>Eligibility:</strong> Open to all active students of St. Francis Institute of Technology (SFIT).</li>
         </ul>
@@ -128,7 +128,7 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
     content: (
       <div>
         <p className={styles.sihText}>
-          Participation in PitchSprint &apos;26 must follow these strict composition guidelines:
+          Participation in NAVKRITI &apos;26 must follow these strict composition guidelines:
         </p>
         <div className={styles.sihGrid}>
           <div className={styles.sihCardItem}>
@@ -162,7 +162,7 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
     content: (
       <div>
         <p className={styles.sihText}>
-          To register your team for PitchSprint &apos;26, please review these key instructions:
+          To register your team for NAVKRITI &apos;26, please review these key instructions:
         </p>
         <div className={styles.sihHighlightCard}>
           <h4>Team Leader Registration Only</h4>
@@ -232,12 +232,12 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
               </tr>
               <tr>
                 <td>3</td>
-                <td>SFIT PitchSprint &apos;26 Hackathon Round (Jury Pitch)</td>
+                <td>SFIT NAVKRITI &apos;26 Hackathon Round (Jury Pitch)</td>
                 <td><span className={styles.dateBadge}>29th August 2026</span></td>
               </tr>
               <tr>
                 <td>4</td>
-                <td>PitchSprint &apos;26 Grand Finale Announcement</td>
+                <td>NAVKRITI &apos;26 Grand Finale Announcement</td>
                 <td><span className={styles.dateBadge}>TBA</span></td>
               </tr>
             </tbody>
@@ -260,11 +260,11 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
   {
     id: 6,
     icon: '',
-    title: "How PitchSprint '26 Works",
+    title: "How NAVKRITI '26 Works",
     content: (
       <div>
         <p className={styles.sihText}>
-          The road from team formation to the PitchSprint &apos;26 final round:
+          The road from team formation to the NAVKRITI &apos;26 final round:
         </p>
         <div className={styles.sihTimeline}>
           <div className={styles.sihTimelineItem}>
@@ -285,14 +285,14 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
             <div className={styles.sihTimelineBadge}>3</div>
             <div className={styles.sihTimelineContent}>
               <h6>Jury Presentation Pitch</h6>
-              <p>Present your solution PPT and MVP/simulation at the SFIT PitchSprint &apos;26 Hackathon round.</p>
+              <p>Present your solution PPT and MVP/simulation at the SFIT NAVKRITI &apos;26 Hackathon round.</p>
             </div>
           </div>
           <div className={styles.sihTimelineItem}>
             <div className={styles.sihTimelineBadge}>4</div>
             <div className={styles.sihTimelineContent}>
               <h6>Final Pitching</h6>
-              <p>Selected top teams will pitch at the grand PitchSprint &apos;26 finale.</p>
+              <p>Selected top teams will pitch at the grand NAVKRITI &apos;26 finale.</p>
             </div>
           </div>
         </div>
@@ -329,13 +329,13 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
     content: (
       <div>
         <p className={styles.sihText}>
-          For queries regarding team registration, event rules, or submissions, reach out to the PitchSprint &apos;26 coordinators:
+          For queries regarding team registration, event rules, or submissions, reach out to the NAVKRITI &apos;26 coordinators:
         </p>
         <div className={styles.contactsGrid}>
           <div className={styles.contactCard}>
             <div className={styles.contactIconWrap}></div>
             <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
+              <span className={styles.contactRole}>NAVKRITI &apos;26 Coordinator</span>
               <h5 className={styles.contactName}>Pal Rajak</h5>
               <a href="tel:+917208697241" className={styles.contactPhone}>+91 72086 97241</a>
             </div>
@@ -343,7 +343,7 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
           <div className={styles.contactCard}>
             <div className={styles.contactIconWrap}></div>
             <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
+              <span className={styles.contactRole}>NAVKRITI &apos;26 Coordinator</span>
               <h5 className={styles.contactName}>Jhoshua Coutinho</h5>
               <a href="tel:+918976357005" className={styles.contactPhone}>+91 89763 57005</a>
             </div>
@@ -351,7 +351,7 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
           <div className={styles.contactCard}>
             <div className={styles.contactIconWrap}></div>
             <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
+              <span className={styles.contactRole}>NAVKRITI &apos;26 Coordinator</span>
               <h5 className={styles.contactName}>Zion Naranje</h5>
               <a href="tel:+918355818735" className={styles.contactPhone}>+91 83558 18735</a>
             </div>
@@ -359,8 +359,8 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
           <div className={styles.contactCard}>
             <div className={styles.contactIconWrap}></div>
             <div className={styles.contactDetails}>
-              <span className={styles.contactRole}>PitchSprint &apos;26 Coordinator</span>
-              <h5 className={styles.contactName}>Rich Rodrigues</h5>
+              <span className={styles.contactRole}>NAVKRITI &apos;26 Coordinator</span>
+              <h5 className={styles.contactName}>Rich Rebello</h5>
               <a href="tel:+918828242446" className={styles.contactPhone}>+91 88282 42446</a>
             </div>
           </div>
@@ -394,7 +394,7 @@ export default function TasksPage() {
     if (file.startsWith('..')) {
       return file.substring(2);
     }
-    return `/pitchsprint-26/${file}`;
+    return `/navkriti-26/${file}`;
   };
 
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
@@ -449,12 +449,21 @@ export default function TasksPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <span className={styles.heroEyebrow}>PITCHSPRINT &apos;26</span>
+          <span className={styles.heroEyebrow}>NAVKRITI &apos;26</span>
           <h1 className={styles.heroTitle}>
-            PitchSprint &apos;26 <span className={styles.accent}>Information Portal</span>
+            <span style={{ textShadow: '0 0 18px rgba(255,255,255,0.05), 0 0 40px rgba(255,255,255,0.15), 0 0 80px rgba(255,255,255,0.03)' }}>
+              NAVKRITI &apos;26
+            </span>
+            <span style={{ display: 'block', fontSize: '0.25em', color: 'rgba(255,255,255,0.45)', fontWeight: 600, letterSpacing: '0.02em', fontStyle: 'italic', margin: '0.2em 0' }}>
+              ( नवकृतिः : नवमेषः राष्ट्रहितार्थम् )
+            </span>
+            <span className={styles.accent}>Information Portal</span>
           </h1>
+          <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.25)', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+            Internal Hackathon for Smart India Hackathon 2026
+          </p>
           <p className={styles.heroSubtitle}>
-            Review the PitchSprint &apos;26 rules, team specifications, crucial deadlines, and resources. Solve your domain tasks below to apply.
+            Review the NAVKRITI &apos;26 rules, team specifications, crucial deadlines, and resources. Solve your domain tasks below to apply.
           </p>
         </motion.div>
       </section>
@@ -481,7 +490,7 @@ export default function TasksPage() {
         </motion.a>
       </motion.section>
 
-      {/* ── PitchSprint Information Section ── */}
+      {/* ── NAVKRITI Information Section ── */}
       <section className={styles.sihSection} id="pitchsprint-info">
         <div className={styles.sihDashboard}>
           {/* Tabs Navigation */}
@@ -617,14 +626,14 @@ export default function TasksPage() {
                           </button>
                           <div className={styles.dropdownMenu}>
                             <a
-                              href={`/pitchsprint-26/${task.file}`}
+                              href={`/navkriti-26/${task.file}`}
                               download
                               className={styles.dropdownItem}
                             >
                               📄 PDF Only
                             </a>
                             <a
-                              href={`/pitchsprint-26/${task.zipFile}`}
+                              href={`/navkriti-26/${task.zipFile}`}
                               download
                               className={styles.dropdownItem}
                             >
