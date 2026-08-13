@@ -31,12 +31,7 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar */}
-      <motion.nav
-        className={styles.navbar}
-        initial={{ y: 0, backdropFilter: 'blur(0px)' }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: false }}
-      >
+      <nav className={styles.navbar}>
         <div className={styles.container}>
           <motion.div
             className={styles.logo}
@@ -122,7 +117,7 @@ export default function Navbar() {
             {/* Join the Team mobile button removed */}
           </motion.div>
         )}
-      </motion.nav>
+      </nav>
     </>
   );
 }

@@ -7,16 +7,17 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(248, 249, 250, 0.7);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(10, 26, 58, 0.08);
-  box-shadow: 0 2px 10px rgba(10, 26, 58, 0.03);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
   transition: all 0.3s ease;
 }
 
 .navbar:hover {
-  background: rgba(248, 249, 250, 0.85);
-  box-shadow: 0 4px 20px rgba(10, 26, 58, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .container {
@@ -71,6 +72,7 @@
   letter-spacing: 0.15em;
   color: var(--color-navy);
   text-shadow: 0 0 10px rgba(225, 6, 0, 0.1);
+  white-space: nowrap;
 }
 
 .logoDivider {
@@ -129,6 +131,7 @@
   color: var(--color-navy);
   position: relative;
   transition: color 0.3s ease;
+  white-space: nowrap;
 
   &::after {
     content: '';
@@ -310,5 +313,23 @@
     width: 28px;
     height: 28px;
     padding: 2px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .desktopMenu {
+    gap: 1.5rem;
+  }
+
+  .links {
+    gap: 1.1rem;
+  }
+
+  .link {
+    font-size: 0.85rem;
+  }
+
+  .logoDivider {
+    margin: 0 0.4rem;
   }
 }

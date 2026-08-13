@@ -31,7 +31,7 @@ const categories: Category[] = [
     description: "Official NAVKRITI '26 Idea Presentation format. Download the template to prepare your pitch deck.",
     color: '#e10600',
     tasks: [
-      { label: "NAVKRITI '26 Idea Presentation Format", file: '../pitchsprint-files/PitchSprint26-IDEA-Presentation-Format.pdf' },
+      { label: "NAVKRITI '26 Idea Presentation Format", file: '../navkriti-files/Navkriti26-IDEA-Presentation-Format.pdf' },
     ],
   },
   {
@@ -561,7 +561,7 @@ export default function TasksPage() {
       </motion.section>
 
       {/* ── NAVKRITI Information Section ── */}
-      <section className={styles.sihSection} id="pitchsprint-info">
+      <section className={styles.sihSection} id="navkriti-info">
         <div className={styles.sihDashboard}>
           {/* Tabs Navigation */}
           <div className={styles.sihTabsList}>
