@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, type Variants, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -383,6 +383,17 @@ const cardVariants: Variants = {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function TasksPage() {
+  useEffect(() => {
+    document.title = "NAVKRITI '26 | Team RAW Hackathon Portal";
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', "Official NAVKRITI '26 hackathon and task submission portal of Robotics and Aviation Wing (RAW) for Smart India Hackathon.");
+  }, []);
+
   const totalTasks = categories.reduce((s, c) => s + c.tasks.length, 0);
 
   const [activeTab, setActiveTab] = useState(0);
