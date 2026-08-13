@@ -490,6 +490,8 @@ export default function TasksPage() {
 
   return (
     <main>
+      <title>NAVKRITI &apos;26 | Team RAW Hackathon Portal</title>
+      <meta name="description" content="Official NAVKRITI '26 hackathon and task submission portal of Robotics and Aviation Wing (RAW) for Smart India Hackathon." />
       <Navbar />
 
       {/* ── Hero ── */}
