@@ -8,8 +8,6 @@ interface Submission {
   fullName: string;
   pid: string;
   driveLink: string;
-  teamName?: string;
-  problemStatement?: string;
   status: 'pending' | 'reviewed';
   submittedAt: string;
   notes?: string;
@@ -115,7 +113,7 @@ export default function SubmissionsPage() {
       return;
     }
 
-    const headers = ['Student Name', 'PID', 'Team Name', 'Problem Statement', 'File Link', 'Submitted Date', 'Status'];
+    const headers = ['Student Name', 'PID', 'Google Drive Link', 'Submitted Date', 'Status'];
 
     const escapeCSV = (val: any) => {
       if (val === null || val === undefined) return '';
@@ -130,8 +128,6 @@ export default function SubmissionsPage() {
     const rows = submissions.map(sub => [
       sub.fullName,
       sub.pid,
-      sub.teamName || '',
-      sub.problemStatement || '',
       sub.driveLink,
       formatDate(sub.submittedAt),
       sub.status
@@ -215,9 +211,7 @@ export default function SubmissionsPage() {
               <tr>
                 <th>Student Name</th>
                 <th>PID</th>
-                <th>Team Name</th>
-                <th>Problem Statement</th>
-                <th>PPT File Link</th>
+                <th>Google Drive Folder Link</th>
                 <th>Submitted Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -228,8 +222,6 @@ export default function SubmissionsPage() {
                 <tr key={sub._id}>
                   <td className={styles.nameCell}>{sub.fullName}</td>
                   <td className={styles.pidCell}>{sub.pid}</td>
-                  <td>{sub.teamName || '—'}</td>
-                  <td>{sub.problemStatement || '—'}</td>
                   <td>
                     <a 
                       href={sub.driveLink} 
@@ -237,7 +229,7 @@ export default function SubmissionsPage() {
                       rel="noopener noreferrer" 
                       className={styles.driveLink}
                     >
-                      View PPT 📁
+                      Open Google Drive Folder 📤
                     </a>
                   </td>
                   <td className={styles.dateCell}>{formatDate(sub.submittedAt)}</td>
@@ -282,7 +274,7 @@ export default function SubmissionsPage() {
 
             <div className={styles.modalBody}>
               <div className={styles.detailSection}>
-                <h3>Submission Information</h3>
+                <h3>Student Information</h3>
                 <div className={styles.detailGrid}>
                   <div className={styles.detailItem}>
                     <label>Team Name</label>
@@ -309,7 +301,7 @@ export default function SubmissionsPage() {
                         rel="noopener noreferrer" 
                         className={styles.driveLinkLarge}
                       >
-                        View PowerPoint Presentation ↗
+                        {selectedSubmission.driveLink}
                       </a>
                     </p>
                   </div>
