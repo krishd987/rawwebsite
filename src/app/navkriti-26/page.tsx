@@ -524,7 +524,7 @@ export default function TasksPage() {
               <span className={styles.scriptK}>K</span>
               <span className={styles.spartanPart}>RITI&apos;26</span>
             </span>
-            <span style={{ display: 'block', fontSize: '0.25em', color: 'rgba(255,255,255,0.45)', fontWeight: 600, letterSpacing: '0.02em', fontStyle: 'italic', margin: '0.5em 0 0.2em 0', position: 'relative', top: '22px' }}>
+            <span style={{ display: 'block', fontSize: '0.25em', color: 'rgba(255,255,255,0.45)', fontWeight: 600, letterSpacing: '0.08em', fontStyle: 'italic', margin: '0.6em 0 0.4em 0' }}>
               ( नवकृतिः : नवमेषः राष्ट्रहितार्थम् )
             </span>
             <span className={styles.accent}>Information Portal</span>
