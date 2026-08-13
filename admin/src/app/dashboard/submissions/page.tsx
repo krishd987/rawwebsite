@@ -285,16 +285,16 @@ export default function SubmissionsPage() {
                 <h3>Submission Information</h3>
                 <div className={styles.detailGrid}>
                   <div className={styles.detailItem}>
-                    <label>Full Name</label>
+                    <label>Team Name</label>
+                    <p>{selectedSubmission.teamName || '—'}</p>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <label>Leader Name</label>
                     <p>{selectedSubmission.fullName}</p>
                   </div>
                   <div className={styles.detailItem}>
                     <label>PID</label>
                     <p>{selectedSubmission.pid}</p>
-                  </div>
-                  <div className={styles.detailItem}>
-                    <label>Team Name</label>
-                    <p>{selectedSubmission.teamName || '—'}</p>
                   </div>
                   <div className={styles.detailItem}>
                     <label>Problem Statement</label>

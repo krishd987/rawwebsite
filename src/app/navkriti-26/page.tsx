@@ -858,7 +858,19 @@ export default function TasksPage() {
                       <h3>Submit Your Work</h3>
 
                       <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Full Name *</label>
+                        <label className={styles.formLabel}>Team Name *</label>
+                        <input
+                          type="text"
+                          required
+                          className={styles.formInput}
+                          placeholder="e.g. Team Alfa"
+                          value={submitFormData.teamName}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, teamName: e.target.value })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Leader Name *</label>
                         <input
                           type="text"
                           required
@@ -879,18 +891,6 @@ export default function TasksPage() {
                           placeholder="e.g. 270270"
                           value={submitFormData.pid}
                           onChange={(e) => setSubmitFormData({ ...submitFormData, pid: e.target.value.replace(/\D/g, '').slice(0, 6) })}
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Team Name *</label>
-                        <input
-                          type="text"
-                          required
-                          className={styles.formInput}
-                          placeholder="e.g. Team Alfa"
-                          value={submitFormData.teamName}
-                          onChange={(e) => setSubmitFormData({ ...submitFormData, teamName: e.target.value })}
                         />
                       </div>
 
