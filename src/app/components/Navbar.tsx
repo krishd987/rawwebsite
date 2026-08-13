@@ -17,7 +17,7 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Registration', href: '/register' },
-    { label: "PitchSprint '26", href: '/pitchsprint-26' },
+    { label: "NAVKRITI '26", href: '/navkriti-26' },
     { label: 'Competitions', href: '/competitions' },
     { label: 'Robots & Gallery', href: '/robots-gallery' },
     { label: 'Team', href: '/team' },
