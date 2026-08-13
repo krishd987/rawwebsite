@@ -277,7 +277,11 @@ export default function SubmissionsPage() {
                 <h3>Student Information</h3>
                 <div className={styles.detailGrid}>
                   <div className={styles.detailItem}>
-                    <label>Full Name</label>
+                    <label>Team Name</label>
+                    <p>{selectedSubmission.teamName || '—'}</p>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <label>Leader Name</label>
                     <p>{selectedSubmission.fullName}</p>
                   </div>
                   <div className={styles.detailItem}>
@@ -285,7 +289,11 @@ export default function SubmissionsPage() {
                     <p>{selectedSubmission.pid}</p>
                   </div>
                   <div className={styles.detailItem}>
-                    <label>Drive Folder URL</label>
+                    <label>Problem Statement</label>
+                    <p>{selectedSubmission.problemStatement || '—'}</p>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <label>PPT File Link</label>
                     <p>
                       <a 
                         href={selectedSubmission.driveLink} 
