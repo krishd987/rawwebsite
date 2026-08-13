@@ -5,19 +5,30 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Registration', href: '/register' },
-    { label: "PitchSprint '26", href: '/pitchsprint-26' },
+    { label: "NAVKRITI '26", href: '/navkriti-26' },
     { label: 'Competitions', href: '/competitions' },
     { label: 'Robots & Gallery', href: '/robots-gallery' },
     { label: 'Team', href: '/team' },
@@ -32,8 +43,8 @@ export default function Navbar() {
     <>
       {/* Desktop Navbar */}
       <motion.nav
-        className={styles.navbar}
-        initial={{ y: 0, backdropFilter: 'blur(0px)' }}
+        className={`${styles.navbar} ${scrolled ? styles.scrolled : styles.transparent}`}
+        initial={{ y: 0 }}
         whileInView={{ y: 0 }}
         viewport={{ once: false }}
       >
@@ -72,17 +83,26 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className={styles.desktopMenu}>
             <div className={styles.links}>
-              {navLinks.map((link) => (
-                <motion.div
-                  key={link.label}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <a href={link.href} className={styles.link}>
-                    {link.label}
-                  </a>
-                </motion.div>
-              ))}
+              {navLinks.map((link) => {
+                const isActive =
+                  link.href === '/'
+                    ? pathname === '/'
+                    : pathname.startsWith(link.href);
+                return (
+                  <motion.div
+                    key={link.label}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <a
+                      href={link.href}
+                      className={`${styles.link} ${isActive ? styles.activeLink : ''}`}
+                    >
+                      {link.label}
+                    </a>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Join the Team button removed */}
@@ -108,17 +128,23 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                className={styles.mobileLink}
-                onClick={() => setIsOpen(false)}
-                whileHover={{ x: 5 }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(link.href);
+              return (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  className={`${styles.mobileLink} ${isActive ? styles.activeMobileLink : ''}`}
+                  onClick={() => setIsOpen(false)}
+                  whileHover={{ x: 5 }}
+                >
+                  {link.label}
+                </motion.a>
+              );
+            })}
             {/* Join the Team mobile button removed */}
           </motion.div>
         )}
