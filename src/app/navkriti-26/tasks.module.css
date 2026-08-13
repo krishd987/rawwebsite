@@ -35,7 +35,7 @@
   letter-spacing: 3px;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.8rem;
   padding: 0.3rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
@@ -49,6 +49,7 @@
   line-height: 1.1;
   letter-spacing: 0.02em;
   margin-bottom: 1.25rem;
+  overflow: visible;
 }
 
 .logoContainer {
@@ -68,9 +69,10 @@
   font-weight: normal;
   color: #ffffff;
   position: relative;
-  top: -0.08em;
-  line-height: 1;
+  top: 0;
+  line-height: 1.2;
   margin: 0 -0.05em;
+  display: inline-block;
 }
 
 .accent {
