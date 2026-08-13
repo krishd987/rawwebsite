@@ -410,8 +410,10 @@ export default function TasksPage() {
 
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [submitFormData, setSubmitFormData] = useState({
+    teamName: '',
     fullName: '',
     pid: '',
+    problemStatement: '',
     driveLink: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -714,8 +716,10 @@ export default function TasksPage() {
                         setIsSubmitModalOpen(false);
                         setSubmitSuccess(false);
                         setSubmitFormData({
+                          teamName: '',
                           fullName: '',
                           pid: '',
+                          problemStatement: '',
                           driveLink: '',
                         });
                       }}

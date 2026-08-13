@@ -5,8 +5,10 @@ import styles from './submissions.module.css';
 
 interface Submission {
   _id: string;
+  teamName?: string;
   fullName: string;
   pid: string;
+  problemStatement?: string;
   driveLink: string;
   status: 'pending' | 'reviewed';
   submittedAt: string;
