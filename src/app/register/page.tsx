@@ -49,6 +49,7 @@ interface CustomField {
   options?: string[];
   fileAccept?: string;
   fileMaxSizeMB?: number;
+  multiSelect?: boolean;
 }
 
 export default function RegisterPage() {
