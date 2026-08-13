@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, type Variants, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -383,6 +383,17 @@ const cardVariants: Variants = {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function TasksPage() {
+  useEffect(() => {
+    document.title = "NAVKRITI '26 | Team RAW Hackathon Portal";
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', "Official NAVKRITI '26 hackathon and task submission portal of Robotics and Aviation Wing (RAW) for Smart India Hackathon.");
+  }, []);
+
   const totalTasks = categories.reduce((s, c) => s + c.tasks.length, 0);
 
   const [activeTab, setActiveTab] = useState(0);
@@ -847,7 +858,19 @@ export default function TasksPage() {
                       <h3>Submit Your Work</h3>
 
                       <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Full Name *</label>
+                        <label className={styles.formLabel}>Team Name *</label>
+                        <input
+                          type="text"
+                          required
+                          className={styles.formInput}
+                          placeholder="e.g. Team Alfa"
+                          value={submitFormData.teamName}
+                          onChange={(e) => setSubmitFormData({ ...submitFormData, teamName: e.target.value })}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Leader Name *</label>
                         <input
                           type="text"
                           required
@@ -868,18 +891,6 @@ export default function TasksPage() {
                           placeholder="e.g. 270270"
                           value={submitFormData.pid}
                           onChange={(e) => setSubmitFormData({ ...submitFormData, pid: e.target.value.replace(/\D/g, '').slice(0, 6) })}
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.formLabel}>Team Name *</label>
-                        <input
-                          type="text"
-                          required
-                          className={styles.formInput}
-                          placeholder="e.g. Team Alfa"
-                          value={submitFormData.teamName}
-                          onChange={(e) => setSubmitFormData({ ...submitFormData, teamName: e.target.value })}
                         />
                       </div>
 

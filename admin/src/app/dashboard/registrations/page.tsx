@@ -30,6 +30,7 @@ interface CustomField {
   id: string;
   label: string;
   type: string;
+  multiSelect?: boolean;
 }
 
 export default function RegistrationsPage() {
