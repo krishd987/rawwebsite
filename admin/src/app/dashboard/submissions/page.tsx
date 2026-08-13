@@ -107,6 +107,51 @@ export default function SubmissionsPage() {
     });
   };
 
+  const downloadCSV = () => {
+    if (submissions.length === 0) {
+      alert('No submissions available to download.');
+      return;
+    }
+
+    const headers = ['Student Name', 'PID', 'Google Drive Link', 'Submitted Date', 'Status'];
+
+    const escapeCSV = (val: any) => {
+      if (val === null || val === undefined) return '';
+      let str = String(val);
+      str = str.replace(/"/g, '""');
+      if (str.includes(',') || str.includes('\n') || str.includes('"')) {
+        return `"${str}"`;
+      }
+      return str;
+    };
+
+    const rows = submissions.map(sub => [
+      sub.fullName,
+      sub.pid,
+      sub.driveLink,
+      formatDate(sub.submittedAt),
+      sub.status
+    ].map(escapeCSV).join(','));
+
+    const csvContent = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+
+    let filename = 'task_submissions';
+    if (selectedStatus !== 'all') {
+      filename += `_${selectedStatus}`;
+    }
+    filename += `_${new Date().toISOString().split('T')[0]}.csv`;
+
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -146,6 +191,10 @@ export default function SubmissionsPage() {
 
         <button onClick={fetchSubmissions} className={styles.refreshBtn}>
           🔄 Refresh
+        </button>
+
+        <button onClick={downloadCSV} className={styles.downloadBtn}>
+          📥 Download CSV
         </button>
       </div>
 

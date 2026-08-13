@@ -26,8 +26,11 @@
   border-radius: 8px;
 }
 
-.logo span {
-  font-size: 1.5rem;
+.logoImg {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .logo h2 {
