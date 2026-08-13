@@ -548,7 +548,7 @@ export default function TasksPage() {
       >
         <h2 className={styles.ctaTitle}>Ready to apply?</h2>
         <p className={styles.ctaText}>
-          Start by filling the Recruitment form first — then download your domain task and complete it.
+          Start by filling the Registration form first — then download your domain task and complete it.
         </p>
         <motion.a
           href="/register"
@@ -760,6 +760,7 @@ export default function TasksPage() {
           <div className={styles.modalOverlay} onClick={() => setIsSubmitModalOpen(false)}>
             <motion.div
               className={styles.modalContent}
+              style={submitSuccess ? { maxWidth: '550px' } : {}}
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -775,7 +776,7 @@ export default function TasksPage() {
                 </button>
               </div>
 
-              <div className={styles.modalBody}>
+              <div className={styles.modalBody} style={submitSuccess ? { display: 'block', padding: '2rem 1.5rem' } : {}}>
                 {submitSuccess ? (
                   <div className={styles.successCard}>
                     <div className={styles.successIcon}>✓</div>
@@ -784,15 +785,49 @@ export default function TasksPage() {
                       Thank you for submitting your task. Your PPT presentation file has been uploaded and received successfully.
                       Our reviewers will evaluate your submission.
                     </p>
-                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+                    
+                    <div style={{ 
+                      marginTop: '1.5rem', 
+                      marginBottom: '1.5rem', 
+                      padding: '1.25rem', 
+                      border: '1px solid rgba(37, 211, 102, 0.3)', 
+                      background: 'rgba(37, 211, 102, 0.08)', 
+                      borderRadius: '8px', 
+                      textAlign: 'center', 
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <h4 style={{ color: '#25D366', margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: '700' }}>Join Official WhatsApp Group</h4>
+                      <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '0.9rem', margin: '0 0 1.25rem 0', lineHeight: '1.5', maxWidth: '500px' }}>
+                        It is mandatory for the Team Leader to join the official coordination group to receive announcements, problem statements, and pitching guidelines.
+                      </p>
                       <a
-                        href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK"
+                        href="https://chat.whatsapp.com/placeholder-link"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={styles.btnWhatsapp}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.65rem 1.5rem',
+                          backgroundColor: '#25D366',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          borderRadius: '6px',
+                          fontWeight: '600',
+                          fontSize: '0.88rem',
+                          boxShadow: '0 4px 12px rgba(37, 211, 102, 0.25)',
+                          cursor: 'pointer'
+                        }}
                       >
                         💬 Join WhatsApp Group
                       </a>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
                       <button
                         className={styles.btnDone}
                         onClick={() => {
@@ -903,7 +938,7 @@ export default function TasksPage() {
                           onChange={(e) => setSubmitFormData({ ...submitFormData, problemStatement: e.target.value })}
                         >
                           <option value="" disabled>Select a Track / Theme</option>
-                          <option value="SIH 2026 Track">Kuch BHi</option>
+                          <option value="TBD">TBD / Default Track</option>
                         </select>
                       </div>
 
