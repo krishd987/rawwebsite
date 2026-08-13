@@ -21,20 +21,30 @@ export async function POST(request: NextRequest) {
     }
 
     if (!body.driveLink || typeof body.driveLink !== 'string' || body.driveLink.trim() === '') {
-      return NextResponse.json({ success: false, error: 'Google Drive folder link is required.' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Submission link is required.' }, { status: 400 });
     }
 
     // Simple URL regex check to ensure it looks like a valid drive/external link
     try {
       new URL(body.driveLink.trim());
     } catch (_) {
-      return NextResponse.json({ success: false, error: 'Please enter a valid Google Drive folder URL.' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Please submit a valid file URL.' }, { status: 400 });
+    }
+
+    if (!body.teamName || typeof body.teamName !== 'string' || body.teamName.trim() === '') {
+      return NextResponse.json({ success: false, error: 'Team name is required.' }, { status: 400 });
+    }
+
+    if (!body.problemStatement || typeof body.problemStatement !== 'string' || body.problemStatement.trim() === '') {
+      return NextResponse.json({ success: false, error: 'Problem statement is required.' }, { status: 400 });
     }
 
     const submission = {
       fullName: body.fullName.trim(),
       pid: body.pid.trim(),
       driveLink: body.driveLink.trim(),
+      teamName: body.teamName.trim(),
+      problemStatement: body.problemStatement.trim(),
       status: 'pending', // pending, reviewed
       submittedAt: new Date().toISOString(),
     };

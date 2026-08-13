@@ -21,7 +21,7 @@ export default function Footer() {
       { label: 'Team', href: '/team' },
       { label: 'Gallery', href: '/robots-gallery' },
       { label: 'Contact', href: '/contact' },
-      { label: "PitchSprint '26", href: '/pitchsprint-26' },
+      { label: "NAVKRITI '26", href: '/navkriti-26' },
     ],
     social: [
       { label: 'Instagram', href: 'https://www.instagram.com/teamraw_sfit', icon: '📷' },
