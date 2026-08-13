@@ -7,31 +7,17 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid transparent;
-  transition: background 0.35s ease, backdrop-filter 0.35s ease,
-              box-shadow 0.35s ease, border-color 0.35s ease;
+  background: rgba(248, 249, 250, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(10, 26, 58, 0.08);
+  box-shadow: 0 2px 10px rgba(10, 26, 58, 0.03);
+  transition: all 0.3s ease;
 }
 
-/* At the very top — fully transparent */
-.transparent {
-  background: transparent;
-  backdrop-filter: blur(0px);
-  box-shadow: none;
-  border-color: transparent;
+.navbar:hover {
+  background: rgba(248, 249, 250, 0.85);
+  box-shadow: 0 4px 20px rgba(10, 26, 58, 0.08);
 }
-
-/* After scrolling 20px — frosted-glass solid bar */
-.scrolled {
-  background: rgba(248, 249, 250, 0.88);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 4px 24px rgba(10, 26, 58, 0.10);
-  border-color: rgba(10, 26, 58, 0.08);
-}
-
-.scrolled:hover {
-  background: rgba(248, 249, 250, 0.95);
-}
-
 
 .container {
   max-width: 1200px;
@@ -164,15 +150,6 @@
   }
 }
 
-/* Active page indicator — desktop */
-.activeLink {
-  color: var(--color-red) !important;
-
-  &::after {
-    width: 100% !important;
-  }
-}
-
 .ctaButton {
   background: var(--color-red);
   color: var(--color-white);
@@ -247,13 +224,6 @@
     color: var(--color-red);
     padding-left: 0.5rem;
   }
-}
-
-/* Active page indicator — mobile */
-.activeMobileLink {
-  color: var(--color-red) !important;
-  padding-left: 0.5rem;
-  border-left: 3px solid var(--color-red);
 }
 
 .mobileCtaButton {
