@@ -8,8 +8,6 @@
 
 import { useEffect, useState } from 'react';
 import styles from './robotsgallery.module.css';
-import { storage } from '../../../lib/firebase-client';
-import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 
 interface Robot {
   _id: string;
