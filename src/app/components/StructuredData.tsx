@@ -13,7 +13,7 @@ export default function StructuredData() {
     alternateName: 'Team RAW SFIT',
     url: 'https://rawwebsite-seven.vercel.app',
     logo: 'https://rawwebsite-seven.vercel.app/logo.png',
-    description: 'TEAM RAW is the Robotics and Aviation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative automation projects, and drive technological excellence.',
+    description: 'TEAM RAW is the Robotics and Aviation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative aviation projects, and drive technological excellence.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Mt. Poinsur, S.V.P. Road, Borivali West',

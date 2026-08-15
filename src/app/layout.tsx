@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     default: 'TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai',
     template: '%s | TEAM RAW – SFIT Mumbai'
   },
-  description: 'TEAM RAW is the Robotics and Aviation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative automation projects, and drive technological excellence.',
+  description: 'TEAM RAW is the Robotics and Aviation Wing of St. Francis Institute of Technology (SFIT), Mumbai. We participate in national robotics competitions, build innovative aviation projects, and drive technological excellence.',
   keywords: [
     'TEAM RAW',
     'SFIT Robotics',
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai',
-    description: 'TEAM RAW - Robotics and Aviation Wing of SFIT Mumbai. National robotics competitions, innovative automation projects, and engineering excellence.',
+    description: 'TEAM RAW - Robotics and Aviation Wing of SFIT Mumbai. National robotics competitions, innovative aviation projects, and engineering excellence.',
     images: ['/logo.png'],
   },
   robots: {
