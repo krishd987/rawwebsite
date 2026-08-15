@@ -1,21 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MongoClient, ObjectId } from 'mongodb';
+import { db } from '../../../lib/firebase-admin';
 import nodemailer from 'nodemailer';
 
-const uri = process.env.MONGODB_URI || '';
-
 interface Registration {
-  _id: ObjectId;
+  _id: string;
   fullName: string;
   email: string;
   competition: string;
-  competitionId: ObjectId;
+  competitionId: string;
   phone?: string;
   customFields?: Record<string, any>;
 }
 
 interface Competition {
-  _id: ObjectId;
+  _id: string;
   name: string;
   customFields?: Array<{
     id: string;
@@ -25,7 +23,6 @@ interface Competition {
 }
 
 export async function POST(request: NextRequest) {
-  let client: MongoClient | null = null;
   try {
     const { registrationIds, subject, message, selectedEmails } = await request.json();
 
@@ -58,25 +55,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!uri) {
-      return NextResponse.json(
-        { success: false, error: 'MongoDB connection URI is not set.' },
-        { status: 500 }
-      );
-    }
-
-    // Connect to MongoDB
-    client = new MongoClient(uri);
-    await client.connect();
-    const database = client.db('teamraw');
-    const registrationsCollection = database.collection('registrations');
-    const competitionsCollection = database.collection('competitions');
-
-    // Fetch registrations
-    const objectIds = registrationIds.map((id: string) => new ObjectId(id));
-    const registrations = await registrationsCollection
-      .find({ _id: { $in: objectIds } })
-      .toArray() as unknown as Registration[];
+    // Fetch registrations from Firestore
+    const regRefs = registrationIds.map((id: string) => db.collection('registrations').doc(id));
+    const regSnapshots = await db.getAll(...regRefs);
+    const registrations = regSnapshots
+      .filter((doc) => doc.exists)
+      .map((doc) => ({ _id: doc.id, ...doc.data() } as Registration));
 
     if (registrations.length === 0) {
       return NextResponse.json(
@@ -87,9 +71,11 @@ export async function POST(request: NextRequest) {
 
     // Fetch all related competitions to get field labels
     const competitionIds = [...new Set(registrations.map(r => r.competitionId))];
-    const competitions = await competitionsCollection
-      .find({ _id: { $in: competitionIds } })
-      .toArray() as unknown as Competition[];
+    const compRefs = competitionIds.map((id: string) => db.collection('competitions').doc(id));
+    const compSnapshots = await db.getAll(...compRefs);
+    const competitions = compSnapshots
+      .filter((doc) => doc.exists)
+      .map((doc) => ({ _id: doc.id, ...doc.data() } as unknown as Competition));
 
     // Create a map for quick lookup
     const competitionMap = new Map(competitions.map(c => [c._id.toString(), c]));
@@ -262,9 +248,5 @@ export async function POST(request: NextRequest) {
       { success: false, error: 'Failed to send emails' },
       { status: 500 }
     );
-  } finally {
-    if (client) {
-      await client.close();
-    }
   }
 }

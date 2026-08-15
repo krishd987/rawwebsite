@@ -115,7 +115,7 @@ export default function SubmissionsPage() {
       return;
     }
 
-    const headers = ['Student Name', 'PID', 'Google Drive Link', 'Submitted Date', 'Status'];
+    const headers = ['Student Name', 'PID', 'Presentation Link', 'Submitted Date', 'Status'];
 
     const escapeCSV = (val: any) => {
       if (val === null || val === undefined) return '';
@@ -159,7 +159,7 @@ export default function SubmissionsPage() {
       <div className={styles.header}>
         <div>
           <h1>Task Submissions</h1>
-          <p className={styles.subtitle}>View and manage student Google Drive folder links</p>
+          <p className={styles.subtitle}>View and manage student PPT submissions</p>
         </div>
         <div className={styles.stats}>
           <div className={styles.statCard}>
@@ -213,7 +213,7 @@ export default function SubmissionsPage() {
               <tr>
                 <th>Student Name</th>
                 <th>PID</th>
-                <th>Google Drive Folder Link</th>
+                <th>Uploaded PPT Link</th>
                 <th>Submitted Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -225,14 +225,12 @@ export default function SubmissionsPage() {
                   <td className={styles.nameCell}>{sub.fullName}</td>
                   <td className={styles.pidCell}>{sub.pid}</td>
                   <td>
-                    <a 
-                      href={sub.driveLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className={styles.driveLink}
+                    <button 
+                      onClick={() => viewDetails(sub)} 
+                      className={styles.viewBtn}
                     >
-                      Open Google Drive Folder 📤
-                    </a>
+                      👁️ View PPT
+                    </button>
                   </td>
                   <td className={styles.dateCell}>{formatDate(sub.submittedAt)}</td>
                   <td>
@@ -294,18 +292,27 @@ export default function SubmissionsPage() {
                     <label>Problem Statement</label>
                     <p>{selectedSubmission.problemStatement || '—'}</p>
                   </div>
-                  <div className={styles.detailItem}>
-                    <label>PPT File Link</label>
-                    <p>
+                  <div className={styles.detailItem} style={{ gridColumn: '1 / -1' }}>
+                    <label>PPT Preview</label>
+                    <div style={{ marginTop: '10px', border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden' }}>
+                      <iframe 
+                        src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(selectedSubmission.driveLink)}`} 
+                        width="100%" 
+                        height="450px" 
+                        frameBorder="0"
+                        title="PPT Preview"
+                      ></iframe>
+                    </div>
+                    <div style={{ marginTop: '10px' }}>
                       <a 
                         href={selectedSubmission.driveLink} 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className={styles.driveLinkLarge}
                       >
-                        {selectedSubmission.driveLink}
+                        Download Original File 📥
                       </a>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>

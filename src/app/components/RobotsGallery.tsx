@@ -555,19 +555,19 @@ export default function RobotsGallery() {
                 cursor: 'pointer',
                 borderRadius: '18px',
                 overflow: 'hidden',
-                background: 'linear-gradient(180deg, #0d1f3e 0%, #1a3254 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: '#ffffff',
+                border: '1px solid rgba(10, 26, 58, 0.08)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
                 position: 'relative',
-                boxShadow: '0 4px 12px rgba(10, 26, 58, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                boxShadow: '0 4px 12px rgba(10, 26, 58, 0.08)',
               }}
               whileHover={{ 
                 y: -6, 
-                boxShadow: '0 12px 32px rgba(178, 0, 29, 0.2), 0 0 0 1px rgba(178, 0, 29, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-                borderColor: 'rgba(178, 0, 29, 0.3)'
+                boxShadow: '0 12px 32px rgba(10, 26, 58, 0.15)',
+                borderColor: 'rgba(10, 26, 58, 0.12)',
               }}
             >
               {/* Image Container */}
@@ -648,12 +648,12 @@ export default function RobotsGallery() {
                 display: 'flex', 
                 flexDirection: 'column', 
                 flexGrow: 1,
-                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%)',
+                background: '#ffffff',
               }}>
                 <h3 style={{ 
                   margin: '0 0 0.5rem 0', 
                   fontSize: '1.4rem', 
-                  color: '#ffffff', 
+                  color: '#0a1a3a', 
                   fontWeight: 700, 
                   lineHeight: 1.3,
                   letterSpacing: '-0.02em',
@@ -684,7 +684,7 @@ export default function RobotsGallery() {
                 <p style={{ 
                   margin: '0 0 1rem 0', 
                   fontSize: '0.95rem', 
-                  color: 'rgba(255, 255, 255, 0.7)', 
+                  color: '#64748b', 
                   lineHeight: 1.6, 
                   flexGrow: 1,
                   fontFamily: 'Inter, sans-serif',
@@ -696,12 +696,12 @@ export default function RobotsGallery() {
                   {robot.specs?.slice(0, 2).map((spec: string, idx: number) => (
                     <span key={idx} style={{
                       fontSize: '0.75rem',
-                      background: 'transparent',
-                      color: 'rgba(255, 255, 255, 0.85)',
+                      background: '#f8fafc',
+                      color: '#475569',
                       padding: '0.4rem 0.85rem',
                       borderRadius: '20px',
-                      fontWeight: 500,
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      fontWeight: 600,
+                      border: '1px solid rgba(10, 26, 58, 0.1)',
                       fontFamily: 'Inter, sans-serif',
                     }}>
                       {spec}

@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -24,12 +23,10 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('gallery');
-    
-    const image = await collection.findOne({ _id: new ObjectId(id) });
+    const docRef = db.collection('gallery').doc(id);
+    const doc = await docRef.get();
 
-    if (!image) {
+    if (!doc.exists) {
       const response = NextResponse.json(
         {
           success: false,
@@ -43,7 +40,7 @@ export async function GET(
 
     const response = NextResponse.json({
       success: true,
-      data: image,
+      data: { _id: doc.id, ...doc.data() },
     });
 
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -74,8 +71,18 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const db = await getDatabase();
-    const collection = db.collection('gallery');
+    const docRef = db.collection('gallery').doc(id);
+
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Gallery image not found',
+        },
+        { status: 404 }
+      );
+    }
 
     // Prepare update data with all supported fields
     const updateData: any = {};
@@ -92,28 +99,15 @@ export async function PATCH(
     if (body.participants !== undefined) updateData.participants = body.participants;
     if (body.highlights !== undefined) updateData.highlights = body.highlights;
 
-    const result = await collection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: updateData },
-      { returnDocument: 'after' }
-    );
+    await docRef.update(updateData);
+    const updatedDoc = await docRef.get();
 
-    if (!result) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Gallery image not found',
-        },
-        { status: 404 }
-      );
-    }
-
-    console.log('✅ Gallery image updated in MongoDB:', id);
+    console.log('✅ Gallery image updated in Firestore:', id);
 
     const response = NextResponse.json({
       success: true,
       message: 'Gallery image updated successfully',
-      data: result,
+      data: { _id: updatedDoc.id, ...updatedDoc.data() },
     });
 
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -143,22 +137,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('gallery');
+    const docRef = db.collection('gallery').doc(id);
 
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    await docRef.delete();
 
-    if (result.deletedCount === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Gallery image not found',
-        },
-        { status: 404 }
-      );
-    }
-
-    console.log('✅ Gallery image deleted from MongoDB:', id);
+    console.log('✅ Gallery image deleted from Firestore:', id);
 
     const response = NextResponse.json({
       success: true,

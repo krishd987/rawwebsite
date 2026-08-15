@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -62,18 +61,16 @@ export async function POST(request: NextRequest) {
       imageUrl: body.imageUrl || null,
     };
 
-    // Save to MongoDB
-    const db = await getDatabase();
-    const collection = db.collection('updates');
-    const result = await collection.insertOne(newUpdate);
+    // Save to Firestore
+    const docRef = await db.collection('updates').add(newUpdate);
 
-    console.log('✅ Update created in MongoDB:', result.insertedId);
+    console.log('✅ Update created in Firestore:', docRef.id);
 
     const response = NextResponse.json(
       {
         success: true,
         message: 'Update created successfully',
-        data: { id: result.insertedId, ...newUpdate },
+        data: { _id: docRef.id, ...newUpdate },
       },
       { status: 201 }
     );
@@ -102,16 +99,14 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const activeOnly = searchParams.get('active') === 'true';
 
-    const db = await getDatabase();
-    const collection = db.collection('updates');
+    const snapshot = await db.collection('updates').orderBy('timestamp', 'desc').get();
+    let updates = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() as Update }));
 
-    const filter = activeOnly ? { isActive: true } : {};
-    const updates = await collection
-      .find(filter)
-      .sort({ timestamp: -1 })
-      .toArray();
+    if (activeOnly) {
+      updates = updates.filter(update => update.isActive === true);
+    }
 
-    console.log('✅ Updates fetched from MongoDB:', updates.length, 'updates');
+    console.log('✅ Updates fetched from Firestore:', updates.length, 'updates');
 
     const response = NextResponse.json({
       success: true,

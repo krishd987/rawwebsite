@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -68,18 +67,16 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    // Save to MongoDB
-    const db = await getDatabase();
-    const collection = db.collection('robots');
-    const result = await collection.insertOne(newRobot);
+    // Save to Firestore
+    const docRef = await db.collection('robots').add(newRobot);
 
-    console.log('✅ Robot created in MongoDB:', result.insertedId);
+    console.log('✅ Robot created in Firestore:', docRef.id);
 
     const response = NextResponse.json(
       {
         success: true,
         message: 'Robot created successfully',
-        data: { id: result.insertedId, ...newRobot },
+        data: { _id: docRef.id, ...newRobot },
       },
       { status: 201 }
     );
@@ -109,19 +106,17 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const status = searchParams.get('status');
 
-    const db = await getDatabase();
-    const collection = db.collection('robots');
+    const snapshot = await db.collection('robots').orderBy('createdAt', 'desc').get();
+    let robots = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() as Robot }));
 
-    const filter: any = {};
-    if (category) filter.category = category;
-    if (status) filter.status = status;
+    if (category) {
+      robots = robots.filter(robot => robot.category === category);
+    }
+    if (status) {
+      robots = robots.filter(robot => robot.status === status);
+    }
 
-    const robots = await collection
-      .find(filter)
-      .sort({ createdAt: -1 })
-      .toArray();
-
-    console.log('✅ Robots fetched from MongoDB:', robots.length, 'robots');
+    console.log('✅ Robots fetched from Firestore:', robots.length, 'robots');
 
     const response = NextResponse.json({
       success: true,

@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -66,18 +65,16 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    // Save to MongoDB
-    const db = await getDatabase();
-    const collection = db.collection('gallery');
-    const result = await collection.insertOne(newImage);
+    // Save to Firestore
+    const docRef = await db.collection('gallery').add(newImage);
 
-    console.log('✅ Gallery image created in MongoDB:', result.insertedId);
+    console.log('✅ Gallery image created in Firestore:', docRef.id);
 
     const response = NextResponse.json(
       {
         success: true,
         message: 'Gallery image created successfully',
-        data: { id: result.insertedId, ...newImage },
+        data: { _id: docRef.id, ...newImage },
       },
       { status: 201 }
     );
@@ -106,20 +103,14 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
 
-    const db = await getDatabase();
-    const collection = db.collection('gallery');
+    const snapshot = await db.collection('gallery').orderBy('createdAt', 'desc').get();
+    let images = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() as GalleryImage }));
 
-    const filter: any = {};
     if (category && category !== 'all') {
-      filter.category = category;
+      images = images.filter(img => img.category === category);
     }
 
-    const images = await collection
-      .find(filter)
-      .sort({ createdAt: -1 })
-      .toArray();
-
-    console.log('✅ Gallery images fetched from MongoDB:', images.length, 'images');
+    console.log('✅ Gallery images fetched from Firestore:', images.length, 'images');
 
     const response = NextResponse.json({
       success: true,

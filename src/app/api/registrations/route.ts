@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
+import { db } from '@/lib/firebase-admin';
 
 const STUDENT_EMAIL_DOMAIN = '@student.sfit.ac.in';
 
 // POST - Create new registration
 export async function POST(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const body = await request.json();
 
     if (!body.email || typeof body.email !== 'string' || !body.email.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
@@ -33,11 +30,11 @@ export async function POST(request: NextRequest) {
       submittedAt: new Date().toISOString(),
     };
 
-    const result = await db.collection('registrations').insertOne(registration);
+    const docRef = await db.collection('registrations').add(registration);
     
     return NextResponse.json({
       success: true,
-      data: { _id: result.insertedId, ...registration },
+      data: { _id: docRef.id, ...registration },
     });
   } catch (error) {
     console.error('Error creating registration:', error);
@@ -51,22 +48,19 @@ export async function POST(request: NextRequest) {
 // GET - Get all registrations (for admin)
 export async function GET(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const { searchParams } = new URL(request.url);
     const competitionId = searchParams.get('competitionId');
     const status = searchParams.get('status');
     
-    const filter: any = {};
-    if (competitionId) filter.competitionId = competitionId;
-    if (status) filter.status = status;
+    const snapshot = await db.collection('registrations').orderBy('submittedAt', 'desc').get();
+    let registrations = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() as any }));
     
-    const registrations = await db
-      .collection('registrations')
-      .find(filter)
-      .sort({ submittedAt: -1 })
-      .toArray();
+    if (competitionId) {
+      registrations = registrations.filter(reg => reg.competitionId === competitionId);
+    }
+    if (status) {
+      registrations = registrations.filter(reg => reg.status === status);
+    }
     
     return NextResponse.json({
       success: true,

@@ -93,7 +93,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
       setError(null);
 
-      // Fetch from MongoDB API
+      // Fetch from Firestore API
       const [robotsRes, galleryRes] = await Promise.all([
         fetch('/api/robots').catch(() => null),
         fetch('/api/gallery').catch(() => null)
@@ -130,8 +130,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
         teamCount: teamData.length,
         robotsCount: loadedRobots.length,
         source: {
-          robots: (robotsRes && robotsRes.ok) ? 'MongoDB API' : 'Static Data',
-          gallery: (galleryRes && galleryRes.ok) ? 'MongoDB API' : 'Static Data',
+          robots: (robotsRes && robotsRes.ok) ? 'Firestore API' : 'Static Data',
+          gallery: (galleryRes && galleryRes.ok) ? 'Firestore API' : 'Static Data',
           team: 'Static Data'
         }
       });

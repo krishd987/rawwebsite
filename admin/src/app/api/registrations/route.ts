@@ -1,25 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../lib/mongodb';
+import { db } from '../../../lib/firebase-admin';
 
 // GET - Get all registrations
 export async function GET(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const { searchParams } = new URL(request.url);
     const competitionId = searchParams.get('competitionId');
     const status = searchParams.get('status');
     
-    const filter: any = {};
-    if (competitionId) filter.competitionId = competitionId;
-    if (status) filter.status = status;
+    let query: FirebaseFirestore.Query = db.collection('registrations');
+    if (competitionId) query = query.where('competitionId', '==', competitionId);
+    if (status) query = query.where('status', '==', status);
     
-    const registrations = await db
-      .collection('registrations')
-      .find(filter)
-      .sort({ submittedAt: -1 })
-      .toArray();
+    const snapshot = await query.orderBy('submittedAt', 'desc').get();
+    const registrations = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
     
     return NextResponse.json({
       success: true,

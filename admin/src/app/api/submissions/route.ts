@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../lib/mongodb';
+import { db } from '../../../lib/firebase-admin';
 
 // GET - Retrieve all task submissions
 export async function GET(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-
-    const submissions = await db
-      .collection('task_submissions')
-      .find({})
-      .sort({ submittedAt: -1 })
-      .toArray();
+    const snapshot = await db.collection('task_submissions').orderBy('submittedAt', 'desc').get();
+    const submissions = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
 
     return NextResponse.json({
       success: true,

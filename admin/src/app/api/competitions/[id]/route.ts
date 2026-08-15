@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../../lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '../../../../lib/firebase-admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,11 +15,18 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const body = await request.json();
     
+    const docRef = db.collection('competitions').doc(id);
+    const doc = await docRef.get();
+    
+    if (!doc.exists) {
+      return NextResponse.json(
+        { success: false, error: 'Competition not found' },
+        { status: 404 }
+      );
+    }
+
     const updateData = {
       name: body.name,
       organizer: body.organizer,
@@ -40,23 +46,12 @@ export async function PATCH(
       updatedAt: new Date().toISOString(),
     };
 
-    const result = await db
-      .collection('competitions')
-      .updateOne(
-        { _id: new ObjectId(id) },
-        { $set: updateData }
-      );
-
-    if (result.matchedCount === 0) {
-      return NextResponse.json(
-        { success: false, error: 'Competition not found' },
-        { status: 404 }
-      );
-    }
+    await docRef.update(updateData);
+    const updatedDoc = await docRef.get();
 
     return NextResponse.json({
       success: true,
-      data: { _id: id, ...updateData },
+      data: { _id: id, ...updatedDoc.data() },
     });
   } catch (error) {
     console.error('Error updating competition:', error);
@@ -74,19 +69,9 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
+    const docRef = db.collection('competitions').doc(id);
 
-    const result = await db
-      .collection('competitions')
-      .deleteOne({ _id: new ObjectId(id) });
-
-    if (result.deletedCount === 0) {
-      return NextResponse.json(
-        { success: false, error: 'Competition not found' },
-        { status: 404 }
-      );
-    }
+    await docRef.delete();
 
     return NextResponse.json({
       success: true,

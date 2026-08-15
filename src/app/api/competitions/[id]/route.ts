@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,8 +15,6 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
     
     const body = await request.json();
     
@@ -40,19 +37,17 @@ export async function PATCH(
       updatedAt: new Date().toISOString(),
     };
 
-    const result = await db
-      .collection('competitions')
-      .updateOne(
-        { _id: new ObjectId(id) },
-        { $set: updateData }
-      );
+    const docRef = db.collection('competitions').doc(id);
+    const docSnap = await docRef.get();
 
-    if (result.matchedCount === 0) {
+    if (!docSnap.exists) {
       return NextResponse.json(
         { success: false, error: 'Competition not found' },
         { status: 404 }
       );
     }
+
+    await docRef.update(updateData);
 
     return NextResponse.json({
       success: true,
@@ -74,19 +69,18 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
 
-    const result = await db
-      .collection('competitions')
-      .deleteOne({ _id: new ObjectId(id) });
+    const docRef = db.collection('competitions').doc(id);
+    const docSnap = await docRef.get();
 
-    if (result.deletedCount === 0) {
+    if (!docSnap.exists) {
       return NextResponse.json(
         { success: false, error: 'Competition not found' },
         { status: 404 }
       );
     }
+    
+    await docRef.delete();
 
     return NextResponse.json({
       success: true,

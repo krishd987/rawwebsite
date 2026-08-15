@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -24,12 +23,11 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('robots');
     
-    const robot = await collection.findOne({ _id: new ObjectId(id) });
+    const docRef = db.collection('robots').doc(id);
+    const doc = await docRef.get();
 
-    if (!robot) {
+    if (!doc.exists) {
       const response = NextResponse.json(
         {
           success: false,
@@ -40,6 +38,8 @@ export async function GET(
       response.headers.set('Access-Control-Allow-Origin', '*');
       return response;
     }
+
+    const robot = { _id: doc.id, ...doc.data() };
 
     const response = NextResponse.json({
       success: true,
@@ -74,17 +74,12 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const db = await getDatabase();
-    const collection = db.collection('robots');
 
-    // Find and update the robot
-    const result = await collection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: body },
-      { returnDocument: 'after' }
-    );
-
-    if (!result) {
+    const docRef = db.collection('robots').doc(id);
+    
+    // Check existence first
+    const doc = await docRef.get();
+    if (!doc.exists) {
       return NextResponse.json(
         {
           success: false,
@@ -94,12 +89,15 @@ export async function PATCH(
       );
     }
 
-    console.log('✅ Robot updated in MongoDB:', id);
+    await docRef.update(body);
+    const updatedDoc = await docRef.get();
+
+    console.log('✅ Robot updated in Firestore:', id);
 
     const response = NextResponse.json({
       success: true,
       message: 'Robot updated successfully',
-      data: result,
+      data: { _id: updatedDoc.id, ...updatedDoc.data() },
     });
 
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -129,22 +127,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('robots');
+    const docRef = db.collection('robots').doc(id);
 
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    await docRef.delete();
 
-    if (result.deletedCount === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Robot not found',
-        },
-        { status: 404 }
-      );
-    }
-
-    console.log('✅ Robot deleted from MongoDB:', id);
+    console.log('✅ Robot deleted from Firestore:', id);
 
     const response = NextResponse.json({
       success: true,

@@ -8,6 +8,8 @@
 
 import { useEffect, useState } from 'react';
 import styles from './robotsgallery.module.css';
+import { storage } from '../../../lib/firebase-client';
+import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 
 interface Robot {
   _id: string;
@@ -267,16 +269,36 @@ export default function RobotsGalleryEnhancedPage() {
 
     try {
       setImageFile(file);
-      showToast('Compressing image...', 'success');
+      showToast('Compressing and uploading image...', 'success');
       const compressedBase64 = await compressImage(file, 1200, 0.7);
-      setImagePreview(compressedBase64);
-      setFormData({ ...formData, imageUrl: compressedBase64 });
       
-      // Calculate size
-      const sizeKB = Math.round((compressedBase64.length * 0.75) / 1024);
-      console.log(`✅ Image compressed: ${sizeKB}KB`);
+      const filename = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9]/g, '_')}.jpg`;
+      
+      // Upload via Server API to bypass Firebase Storage Client Rules
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileData: compressedBase64,
+          filename: filename,
+          folder: 'images'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image to server');
+      }
+
+      const data = await response.json();
+      const downloadURL = data.url;
+
+      setImagePreview(downloadURL);
+      setFormData({ ...formData, imageUrl: downloadURL });
+      
+      console.log(`✅ Image uploaded to Firebase Storage: ${downloadURL}`);
+      showToast('Image uploaded successfully', 'success');
     } catch (error) {
-      console.error('Error compressing image:', error);
+      console.error('Error processing image:', error);
       showToast('Failed to process image', 'error');
     }
   };
@@ -313,19 +335,37 @@ export default function RobotsGalleryEnhancedPage() {
 
       if (validFiles.length === 0) return;
 
-      showToast(`Compressing ${validFiles.length} image(s)...`, 'success');
+      showToast(`Uploading ${validFiles.length} image(s)...`, 'success');
 
-      // Process images sequentially with compression
+      // Process images sequentially with compression and upload via API
       for (const file of validFiles) {
         try {
           const compressedBase64 = await compressImage(file, 1000, 0.6); // Smaller size for multiple images
-          newImages.push(compressedBase64);
-          newPreviews.push(compressedBase64);
+          const filename = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9]/g, '_')}.jpg`;
           
-          const sizeKB = Math.round((compressedBase64.length * 0.75) / 1024);
-          console.log(`✅ Additional image compressed: ${sizeKB}KB`);
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileData: compressedBase64,
+              filename: filename,
+              folder: 'gallery'
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to upload ${file.name}`);
+          }
+
+          const data = await response.json();
+          const downloadURL = data.url;
+
+          newImages.push(downloadURL);
+          newPreviews.push(downloadURL);
+          
+          console.log(`✅ Additional image uploaded: ${downloadURL}`);
         } catch (error) {
-          console.error('Error compressing image:', error);
+          console.error('Error compressing/uploading image:', error);
           showToast(`Failed to process ${file.name}`, 'error');
         }
       }

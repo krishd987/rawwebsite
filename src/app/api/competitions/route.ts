@@ -4,27 +4,31 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 export const dynamic = 'force-dynamic';
 
 // GET - Fetch all competitions or active ones
 export async function GET(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const { searchParams } = new URL(request.url);
     const activeOnly = searchParams.get('active') === 'true';
 
-    const query = activeOnly ? { isActive: true } : {};
+    let query: FirebaseFirestore.Query = db.collection('competitions');
     
-    const competitions = await db
-      .collection('competitions')
-      .find(query)
-      .sort({ createdAt: -1 })
-      .toArray();
+    // Sort by createdAt descending
+    query = query.orderBy('createdAt', 'desc');
+    
+    const snapshot = await query.get();
+    
+    let competitions = snapshot.docs.map(doc => ({
+      _id: doc.id,
+      ...doc.data() as any
+    }));
+
+    if (activeOnly) {
+      competitions = competitions.filter(comp => comp.isActive === true);
+    }
 
     return NextResponse.json({
       success: true,
@@ -42,9 +46,6 @@ export async function GET(request: NextRequest) {
 // POST - Create new competition
 export async function POST(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const body = await request.json();
     
     const competition = {
@@ -67,11 +68,11 @@ export async function POST(request: NextRequest) {
       updatedAt: new Date().toISOString(),
     };
 
-    const result = await db.collection('competitions').insertOne(competition);
+    const docRef = await db.collection('competitions').add(competition);
 
     return NextResponse.json({
       success: true,
-      data: { _id: result.insertedId, ...competition },
+      data: { _id: docRef.id, ...competition },
     });
   } catch (error) {
     console.error('Error creating competition:', error);

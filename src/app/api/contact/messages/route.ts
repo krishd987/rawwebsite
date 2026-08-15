@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -98,18 +97,16 @@ export async function POST(request: NextRequest) {
       replied: false,
     };
 
-    // Save to MongoDB
-    const db = await getDatabase();
-    const collection = db.collection('contacts');
-    const result = await collection.insertOne(newMessage);
+    // Save to Firestore
+    const docRef = await db.collection('contacts').add(newMessage);
 
-    console.log('✅ Contact message saved to MongoDB:', result.insertedId);
+    console.log('✅ Contact message saved to Firestore:', docRef.id);
 
     const response = NextResponse.json(
       {
         success: true,
         message: 'Contact message received successfully',
-        data: { id: result.insertedId },
+        data: { _id: docRef.id, ...newMessage },
       },
       { status: 201 }
     );
@@ -139,17 +136,11 @@ export async function POST(request: NextRequest) {
 // GET - Fetch all contact messages (sorted by latest)
 export async function GET(request: NextRequest) {
   try {
-    const db = await getDatabase();
-    const collection = db.collection('contacts');
-    
-    // Fetch all contacts and sort by timestamp (newest first)
-    const contacts = await collection
-      .find({})
-      .sort({ timestamp: -1 })
-      .toArray();
+    const snapshot = await db.collection('contacts').orderBy('timestamp', 'desc').get();
+    const contacts = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
 
     // Get counts
-    const unreadCount = contacts.filter(c => c.status === 'unread').length;
+    const unreadCount = contacts.filter((c: any) => c.status === 'unread').length;
     const totalCount = contacts.length;
 
     const response = NextResponse.json({

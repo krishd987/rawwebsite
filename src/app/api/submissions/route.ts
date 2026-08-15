@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
+import { db } from '@/lib/firebase-admin';
 
 const STUDENT_EMAIL_DOMAIN = '@student.sfit.ac.in';
 
 // POST - Create a new task submission
 export async function POST(request: NextRequest) {
   try {
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const body = await request.json();
 
     // Basic Validation
@@ -49,11 +46,12 @@ export async function POST(request: NextRequest) {
       submittedAt: new Date().toISOString(),
     };
 
-    const result = await db.collection('task_submissions').insertOne(submission);
+    // Save to Firestore
+    const docRef = await db.collection('task_submissions').add(submission);
     
     return NextResponse.json({
       success: true,
-      data: { _id: result.insertedId, ...submission },
+      data: { _id: docRef.id, ...submission },
     });
   } catch (error) {
     console.error('Error saving task submission:', error);

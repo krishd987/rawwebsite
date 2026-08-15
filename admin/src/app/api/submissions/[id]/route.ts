@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import clientPromise from '../../../../lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '../../../../lib/firebase-admin';
 
 // PATCH - Update task submission status
 export async function PATCH(
@@ -9,33 +8,29 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
-    
     const body = await request.json();
     
-    const updateData: any = {};
-    if (body.status) updateData.status = body.status;
-    if (body.notes) updateData.notes = body.notes;
-    updateData.updatedAt = new Date().toISOString();
-
-    const result = await db
-      .collection('task_submissions')
-      .updateOne(
-        { _id: new ObjectId(id) },
-        { $set: updateData }
-      );
-
-    if (result.matchedCount === 0) {
+    const docRef = db.collection('task_submissions').doc(id);
+    const doc = await docRef.get();
+    
+    if (!doc.exists) {
       return NextResponse.json(
         { success: false, error: 'Submission not found' },
         { status: 404 }
       );
     }
 
+    const updateData: any = {};
+    if (body.status) updateData.status = body.status;
+    if (body.notes) updateData.notes = body.notes;
+    updateData.updatedAt = new Date().toISOString();
+
+    await docRef.update(updateData);
+    const updatedDoc = await docRef.get();
+
     return NextResponse.json({
       success: true,
-      data: { _id: id, ...updateData },
+      data: { _id: id, ...updatedDoc.data() },
     });
   } catch (error) {
     console.error('Error updating task submission status:', error);
@@ -53,19 +48,9 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const client = await clientPromise;
-    const db = client.db('teamraw');
+    const docRef = db.collection('task_submissions').doc(id);
 
-    const result = await db
-      .collection('task_submissions')
-      .deleteOne({ _id: new ObjectId(id) });
-
-    if (result.deletedCount === 0) {
-      return NextResponse.json(
-        { success: false, error: 'Submission not found' },
-        { status: 404 }
-      );
-    }
+    await docRef.delete();
 
     return NextResponse.json({
       success: true,

@@ -4,8 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { db } from '@/lib/firebase-admin';
 
 // Handle CORS preflight
 export async function OPTIONS() {
@@ -17,17 +16,6 @@ export async function OPTIONS() {
   return response;
 }
 
-// Types
-interface Update {
-  title: string;
-  description: string;
-  category: 'announcement' | 'achievement' | 'event' | 'general';
-  priority: 'low' | 'medium' | 'high';
-  timestamp: string;
-  isActive: boolean;
-  author?: string;
-}
-
 // GET - Fetch single update by ID
 export async function GET(
   request: NextRequest,
@@ -35,12 +23,10 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('updates');
-    
-    const update = await collection.findOne({ _id: new ObjectId(id) });
+    const docRef = db.collection('updates').doc(id);
+    const doc = await docRef.get();
 
-    if (!update) {
+    if (!doc.exists) {
       const response = NextResponse.json(
         {
           success: false,
@@ -54,7 +40,7 @@ export async function GET(
 
     const response = NextResponse.json({
       success: true,
-      data: update,
+      data: { _id: doc.id, ...doc.data() },
     });
 
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -85,17 +71,10 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const db = await getDatabase();
-    const collection = db.collection('updates');
+    const docRef = db.collection('updates').doc(id);
 
-    // Find and update the update
-    const result = await collection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: body },
-      { returnDocument: 'after' }
-    );
-
-    if (!result) {
+    const doc = await docRef.get();
+    if (!doc.exists) {
       return NextResponse.json(
         {
           success: false,
@@ -105,12 +84,15 @@ export async function PATCH(
       );
     }
 
-    console.log('✅ Update modified in MongoDB:', id);
+    await docRef.update(body);
+    const updatedDoc = await docRef.get();
+
+    console.log('✅ Update modified in Firestore:', id);
 
     const response = NextResponse.json({
       success: true,
       message: 'Update modified successfully',
-      data: result,
+      data: { _id: updatedDoc.id, ...updatedDoc.data() },
     });
 
     response.headers.set('Access-Control-Allow-Origin', '*');
@@ -140,22 +122,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const db = await getDatabase();
-    const collection = db.collection('updates');
+    const docRef = db.collection('updates').doc(id);
 
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    await docRef.delete();
 
-    if (result.deletedCount === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Update not found',
-        },
-        { status: 404 }
-      );
-    }
-
-    console.log('✅ Update deleted from MongoDB:', id);
+    console.log('✅ Update deleted from Firestore:', id);
 
     const response = NextResponse.json({
       success: true,
