@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
                               TEAM <span style="color: #e10600; background: rgba(255, 255, 255, 0.15); padding: 2px 12px; border-radius: 4px;">RAW</span>
                             </h1>
                             <p style="margin: 12px 0 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.9); letter-spacing: 1px; font-weight: 500;">
-                              ROBOTICS & AUTOMATION WING
+                              ROBOTICS & AVIATION WING
                             </p>
                             <p style="margin: 6px 0 0 0; font-size: 12px; color: rgba(255, 255, 255, 0.75); letter-spacing: 0.5px;">
                               St. Francis Institute of Technology

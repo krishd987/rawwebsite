@@ -3,9 +3,9 @@
 ## ✅ Completed SEO Optimizations
 
 ### 1. **Root Layout Metadata** (`src/app/layout.tsx`)
-- ✅ Comprehensive title with template: `TEAM RAW – Robotics and Automation Wing | SFIT Mumbai`
+- ✅ Comprehensive title with template: `TEAM RAW – Robotics and Aviation Wing | SFIT Mumbai`
 - ✅ SEO-optimized description (155 characters)
-- ✅ Targeted keywords: TEAM RAW, SFIT Robotics, Robotics and Automation Wing SFIT, College Robotics Team Mumbai
+- ✅ Targeted keywords: TEAM RAW, SFIT Robotics, Robotics and Aviation Wing SFIT, College Robotics Team Mumbai
 - ✅ Open Graph tags for social media
 - ✅ Twitter Card metadata
 - ✅ Robots meta configuration
@@ -23,7 +23,7 @@
 Each page now has proper metadata:
 
 **Home Page** (`src/app/page.tsx`)
-- ✅ H1: "TEAM RAW – Robotics and Automation Wing of SFIT"
+- ✅ H1: "TEAM RAW – Robotics and Aviation Wing of SFIT"
 - ✅ Inherits root metadata
 
 **About Page** (`src/app/about/page.tsx`)
@@ -76,7 +76,7 @@ Each page now has proper metadata:
 - ✅ Semantic heading flow
 
 ### 7. **Footer SEO** (`src/app/components/Footer.tsx`)
-- ✅ Full institutional information: "TEAM RAW – Robotics and Automation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai"
+- ✅ Full institutional information: "TEAM RAW – Robotics and Aviation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai"
 - ✅ Copyright with complete branding
 - ✅ Social media links
 - ✅ Quick navigation links
@@ -94,13 +94,13 @@ Each page now has proper metadata:
 
 1. **TEAM RAW**
 2. **SFIT Robotics**
-3. **Robotics and Automation Wing SFIT**
+3. **Robotics and Aviation Wing SFIT**
 4. **College Robotics Team Mumbai**
 5. **St. Francis Institute of Technology**
 6. **ABU Robocon**
 7. **Robotics Competition India**
 8. **Engineering Projects Mumbai**
-9. **Automation Wing SFIT**
+9. **Aviation Wing SFIT**
 10. **Team RAW SFIT**
 
 ## 📊 SEO Scoring

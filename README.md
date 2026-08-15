@@ -1,104 +1,120 @@
-# Team RAW - Robotics & Automation Wing Official Website
+# Team RAW - Robotics & Aviation Wing Official Website
 
-A modern, futuristic frontend website built with **Next.js 16**, **React**, **Framer Motion**, and **CSS Modules**. No Tailwind CSS - pure CSS Modules for styling with a professional, robotics-themed design.
+Welcome to the official website repository for **Team RAW (Robotics & Aviation Wing)** of St. Francis Institute of Technology.
 
-## Test Update
+This is a modern, high-performance web platform built to showcase the team's robots, achievements, competition history, and technical updates. The project includes a public-facing frontend and a secure, authenticated Admin Dashboard for content management.
 
-This README was updated to verify that push changes are working correctly.
+---
 
-## 🎨 Design Features
+## 🌟 Key Features
 
-- **Color Palette**: Navy Blue (#0A1A3A), Dark Steel (#0F0F17), Red Accent (#E10600), White (#ffffff)
-- **Typography**: Orbitron (headings), Montserrat/Roboto (body text)
-- **Theme**: Futuristic, minimalistic, modern with soft shadows and technical grid patterns
-- **Responsive**: Mobile, tablet, and desktop optimization
+- **Robots Showcase**: An interactive, dynamic gallery displaying the team's robotic creations.
+- **Competitions & Achievements**: A timeline of past and upcoming robotics competitions.
+- **Live Updates**: A dedicated section for team announcements and latest news.
+- **Contact & Registration**: Built-in forms for getting in touch and event registrations.
+- **Admin Dashboard**: A secure backend panel to manage robots, gallery images, updates, and competition details.
 
-## 🔧 Tech Stack
+## 🛠 Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **Styling**: CSS Modules (`.module.css`)
-- **Animations**: Framer Motion
-- **UI Components**: Radix UI foundations
-- **Language**: TypeScript
-- **Package Manager**: npm
+### Frontend
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Library**: [React 18](https://react.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: Pure CSS Modules (`.module.css`) with a futuristic, robotics-themed design system.
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/)
 
-## 📦 Key Dependencies
+### Backend & Cloud
+- **Database**: [Firebase Firestore](https://firebase.google.com/docs/firestore) (Server-side via Admin SDK)
+- **Media Storage**: [Cloudinary](https://cloudinary.com/) (Optimized image and video hosting)
+- **Deployment**: [Vercel](https://vercel.com/)
 
-```json
-{
-  "framer-motion": "latest",
-  "@radix-ui/react-dialog": "latest",
-  "@radix-ui/react-dropdown-menu": "latest",
-  "@radix-ui/react-tabs": "latest"
-}
-```
+---
 
-## 📁 Project Structure
+## 🎨 Design System
 
-```
-src/app/
-├── components/
-│   ├── Navbar.tsx              # Sticky navbar with mobile menu
-│   ├── Hero.tsx                # Hero section with floating cards
-│   ├── Competitions.tsx        # Competition achievements grid
-│   ├── RobotsShowcase.tsx     # Interactive robot cards
-│   ├── TeamSection.tsx         # Tabbed team members grid
-│   ├── AboutUs.tsx             # Mission & domains section
-│   ├── Gallery.tsx             # Masonry gallery with lightbox
-│   ├── Contact.tsx             # Contact form & join info
-│   └── Footer.tsx              # Footer with links & socials
-├── styles/
-│   ├── Navbar.module.css
-│   ├── Hero.module.css
-│   ├── Competitions.module.css
-│   ├── RobotsShowcase.module.css
-│   ├── TeamSection.module.css
-│   ├── AboutUs.module.css
-│   ├── Gallery.module.css
-│   ├── Contact.module.css
-│   └── Footer.module.css
-├── globals.css                 # Global styles, colors, typography
-├── layout.tsx                  # Root layout
-├── page.tsx                    # Home page
-└── utils/                      # Utility functions
-```
+- **Color Palette**: Navy Blue (`#0A1A3A`), Dark Steel (`#0F0F17`), Red Accent (`#E10600`), White (`#ffffff`)
+- **Typography**: Orbitron (Headings), Montserrat/Roboto (Body)
+- **Theme**: Futuristic, minimalistic, modern with soft shadows and technical grid patterns.
+
+---
 
 ## 🚀 Getting Started
 
-### Installation
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) (v18.x or newer) and `npm` installed on your machine.
 
+### 1. Clone the Repository
+```bash
+git clone https://github.com/teamrawsfit/rawwebsite.git
+cd rawwebsite
+```
+
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-### Development
+### 3. Environment Variables setup
+This project uses Firebase (Admin SDK) and Cloudinary. You must create a `.env` file in the root directory and an `admin/.env` file in the admin directory. 
 
+Populate them with the following variables:
+
+```env
+# API & Site URLs
+NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_ADMIN_URL=http://localhost:3001
+
+# Firebase Admin (Server-side SECRETS - DO NOT expose to browser)
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_CLIENT_EMAIL=your-service-account-email
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+# Firebase Client (Public Config - Safe for browser)
+CONFIG_FIREBASE_API_KEY=your-api-key
+CONFIG_FIREBASE_AUTH_DOMAIN=your-auth-domain
+CONFIG_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+CONFIG_FIREBASE_APP_ID=your-app-id
+CONFIG_FIREBASE_MEASUREMENT_ID=your-measurement-id
+
+# Cloudinary (Media Storage)
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+```
+
+### 4. Run the Development Server
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the main website.
 
-### Production Build
+---
 
-```bash
-npm run build
-npm run start
+## 📁 Project Structure
+
+```
+rawwebsite/
+├── admin/                      # Dedicated Admin Dashboard project
+├── public/                     # Static assets (images, icons)
+├── src/
+│   ├── app/                    # Next.js App Router (Pages & API routes)
+│   │   ├── api/                # Backend Serverless API endpoints
+│   │   ├── components/         # Reusable React components
+│   │   ├── (routes)/           # Public-facing pages (Home, Gallery, etc.)
+│   ├── lib/                    # Core library files (Firebase initialization)
+│   ├── styles/                 # CSS Modules for component styling
+│   └── config/                 # Global configuration files
+├── .env                        # Environment variables (Ignored by Git)
+└── package.json                # Project dependencies and scripts
 ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ☁️ Deployment
 
-## Learn More
+This project is optimized for deployment on **Vercel**. 
+When deploying, ensure that you manually copy the contents of your local `.env` files into the **Vercel Environment Variables** settings panel for both the main site and the admin project.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Engineered by Team RAW | St. Francis Institute of Technology*
