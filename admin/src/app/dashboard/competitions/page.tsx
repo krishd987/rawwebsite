@@ -12,7 +12,8 @@ import styles from './competitions.module.css';
 interface CustomField {
   id: string;
   label: string;
-  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox' | 'file';
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'checkbox' | 'file' | 'image';
+  imageUrl?: string;   // for type=image: URL of the image to display
   required: boolean;
   placeholder?: string;
   options?: string[];       // for select and checkbox types
@@ -187,6 +188,10 @@ export default function CompetitionsPage() {
       alert('Please enter a field label');
       return;
     }
+    if (newField.type === 'image' && !newField.imageUrl) {
+      alert('Please enter an image URL for the Image Display field');
+      return;
+    }
 
     const field: CustomField = {
       ...newField,
@@ -209,6 +214,7 @@ export default function CompetitionsPage() {
       multiSelect: false,
       fileAccept: '',
       fileMaxSizeMB: 5,
+      imageUrl: '',
     });
     setCheckboxOptionInput('');
   };
@@ -720,6 +726,13 @@ export default function CompetitionsPage() {
                             Accept: {field.fileAccept || 'Any'} • Max: {field.fileMaxSizeMB ?? 5}MB
                           </span>
                         )}
+                        {field.type === 'image' && field.imageUrl && (
+                          <img
+                            src={field.imageUrl}
+                            alt={field.label}
+                            style={{ width: 80, height: 80, objectFit: 'contain', marginTop: 4, borderRadius: 6, border: '1px solid #ddd' }}
+                          />
+                        )}
                       </div>
                       <div className={styles.fieldActions}>
                         <button
@@ -772,6 +785,7 @@ export default function CompetitionsPage() {
                       <option value="select">Dropdown</option>
                       <option value="checkbox">Checkbox</option>
                       <option value="file">File Upload</option>
+                      <option value="image">🖼️ Image Display (e.g. QR code)</option>
                     </select>
                   </div>
                 </div>
@@ -882,6 +896,63 @@ export default function CompetitionsPage() {
                   </div>
                 </div>
               )}
+
+              {newField.type === 'image' && (
+                <div className={styles.formGroup}>
+                  <label>Upload Image <span style={{ color: 'red' }}>*</span></label>
+
+                  {/* File upload */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ marginBottom: '0.5rem' }}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      if (file.size > 5 * 1024 * 1024) {
+                        alert('Image must be less than 5MB');
+                        e.target.value = '';
+                        return;
+                      }
+                      const reader = new FileReader();
+                      reader.onload = () => setNewField({ ...newField, imageUrl: reader.result as string });
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                  <small style={{ color: '#666', fontSize: '0.85rem' }}>
+                    Upload from device — or paste a URL below
+                  </small>
+
+                  {/* URL fallback */}
+                  <input
+                    type="url"
+                    value={newField.imageUrl?.startsWith('data:') ? '' : (newField.imageUrl || '')}
+                    onChange={(e) => setNewField({ ...newField, imageUrl: e.target.value })}
+                    placeholder="https://example.com/qr-code.png"
+                    style={{ marginTop: '0.5rem' }}
+                  />
+
+                  {/* Live preview */}
+                  {newField.imageUrl && (
+                    <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <img
+                        src={newField.imageUrl}
+                        alt="Preview"
+                        style={{ maxWidth: 180, maxHeight: 180, objectFit: 'contain', borderRadius: 8, border: '1px solid #ddd' }}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setNewField({ ...newField, imageUrl: '' })}
+                        style={{ fontSize: '0.8rem', color: '#e10600', background: 'none', border: '1px solid #e10600', borderRadius: 6, padding: '4px 10px', cursor: 'pointer' }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
 
               <div className={styles.formGroup}>
                 <label className={styles.switchLabel}>
