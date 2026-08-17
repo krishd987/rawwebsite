@@ -176,7 +176,7 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
             It is mandatory for the Team Leader to join the official coordination group to receive announcements, problem statements, and pitching guidelines:
           </p>
           <a
-            href="https://chat.whatsapp.com/placeholder-link"
+            href="https://chat.whatsapp.com/IUWSn3zOWUK8Vp5mFJWaeQ?s=cl&p=a&ilr=1"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -805,7 +805,7 @@ export default function TasksPage() {
                         It is mandatory for the Team Leader to join the official coordination group to receive announcements, problem statements, and pitching guidelines.
                       </p>
                       <a
-                        href="https://chat.whatsapp.com/placeholder-link"
+                        href="https://chat.whatsapp.com/IUWSn3zOWUK8Vp5mFJWaeQ?s=cl&p=a&ilr=1"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{

@@ -153,6 +153,20 @@
   }
 }
 
+.linkActive {
+  color: var(--color-red) !important;
+}
+
+.linkActive::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -5px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: var(--color-red) !important;
+}
+
 .ctaButton {
   background: var(--color-red);
   color: var(--color-white);
@@ -227,6 +241,11 @@
     color: var(--color-red);
     padding-left: 0.5rem;
   }
+}
+
+.mobileLinkActive {
+  color: var(--color-red) !important;
+  padding-left: 0.5rem;
 }
 
 .mobileCtaButton {

@@ -1222,6 +1222,76 @@
   color: #E10600;
 }
 
+/* WhatsApp Card Styles in Registration Success Page */
+.whatsappCard {
+  background: rgba(37, 211, 102, 0.04);
+  border: 1.5px solid rgba(37, 211, 102, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.03);
+}
+
+.whatsappHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.whatsappIcon {
+  width: 28px;
+  height: 28px;
+  color: #25D366;
+  filter: drop-shadow(0 2px 6px rgba(37, 211, 102, 0.2));
+}
+
+.whatsappCard h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  color: #128C7E;
+  margin: 0;
+  font-weight: 700;
+}
+
+.whatsappText {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.whatsappText strong {
+  color: #0A1A3A;
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+  transition: all 0.3s ease;
+}
+
+.whatsappBtn:hover {
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.35);
+  transform: translateY(-2px);
+}
+
 /* Mobile Keyboard Handling */
 @media (max-width: 768px) {
 
@@ -1638,6 +1708,27 @@
   .secondaryBtn {
     width: 100%;
     min-height: 52px;
+  }
+
+  .whatsappCard {
+    padding: 1.5rem 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .whatsappCard h3 {
+    font-size: 1.2rem;
+  }
+
+  .whatsappText {
+    font-size: 0.92rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .whatsappBtn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0.85rem 1.5rem;
   }
 }
 

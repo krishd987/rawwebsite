@@ -106,17 +106,30 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2024-01-15',
   },
   {
+    _id: 'member2',
+    name: 'Jhoshua Coutinho',
+    role: 'CRC',
+    department: 'Technical',
+    domain: 'mechanical',
+    category: 'core',
+    imageUrl: '/Jhoshua.png',
+    email: 'coutinhojhoshua5@student.sfit.ac.in',
+    linkedin: 'https://www.linkedin.com/in/jhoshua-coutinho-34b70333b',
+    createdAt: '2024-03-10',
+  },
+  {
     _id: 'core2',
     name: 'Siddhant Monde',
-    role: 'CRC',
+    role: 'Mentor & Ex-CRC',
     department: 'Electronics',
     domain: 'electronics',
-    category: 'core',
+    category: 'mentors',
     imageUrl: '/siddhant.jpg',
     email: 'siddhantj.monde23@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/siddhant-monde-4a60502b7',
     createdAt: '2024-01-15',
   },
+  /*
   {
     _id: 'core3',
     name: 'Dittino Thomas',
@@ -129,13 +142,14 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/dittinothomas',
     createdAt: '2024-01-15',
   },
+  */
   {
     _id: 'core4',
     name: 'Taksh Gandhi',
-    role: 'TREASURER',
+    role: 'Mentor',
     department: 'Coder',
     domain: 'software',
-    category: 'core',
+    category: 'mentors',
     imageUrl: '/Taksh.jpg',
     email: 'takshgandhi4@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/taksh-gandhi-4136222b7',
@@ -144,15 +158,16 @@ export const teamMembers: TeamMember[] = [
   {
     _id: 'core5',
     name: 'Saish Loke',
-    role: 'CO-TREASURER',
+    role: 'Mentor',
     department: 'Electronics',
     domain: 'electronics',
-    category: 'core',
+    category: 'mentors',
     imageUrl: '/Saish.jpeg',
     email: 'lokesaish@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/saish-loke-867646291/',
     createdAt: '2024-01-15',
   },
+  /*
   {
     _id: 'core6',
     name: 'Dikshi Adani',
@@ -165,6 +180,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/dikshi-adani-8390b52b7',
     createdAt: '2024-01-15',
   },
+  */
+  /*
   {
     _id: 'core7',
     name: 'Samruddhi Kharul',
@@ -177,6 +194,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/samruddhi-kharul-a6b762341',
     createdAt: '2024-01-15',
   },
+  */
+  /*
   {
     _id: 'core8',
     name: 'Nandini Salunkhe',
@@ -190,6 +209,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/nandini-salunkhe-a776452b7',
     createdAt: '2024-01-15',
   },
+  */
+  /*
   {
     _id: 'core9',
     name: 'Aryan Wasnik',
@@ -202,6 +223,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/aryanwasnik',
     createdAt: '2024-01-15',
   },
+  */
+  /*
   {
     _id: 'core10',
     name: 'Amisha Thaduri',
@@ -214,13 +237,14 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/amisha-thaduri-4ab68a347',
     createdAt: '2024-01-15',
   },
+  */
   {
     _id: 'core11',
     name: 'Pal Rajak',
-    role: 'CO-EVENT HEAD',
+    role: 'Treasurer & Secretary',
     department: 'PR',
     domain: 'electronics',
-    category: 'members',
+    category: 'core',
     imageUrl: '/pal.jpg',
     phone: '7208697241',
     email: 'palrajak06@student.sfit.ac.in',
@@ -230,15 +254,16 @@ export const teamMembers: TeamMember[] = [
   {
     _id: 'core12',
     name: 'Shail Raut',
-    role: 'INVENTORY HEAD',
+    role: 'Mentor',
     department: 'Designer',
     domain: 'mechanical',
-    category: 'core',
+    category: 'mentors',
     imageUrl: '/Shell.jpg',
     email: 'shailrautmcoc@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/shail-raut-54386a358',
     createdAt: '2024-01-15',
   },
+  /*
   {
     _id: 'core13',
     name: 'Jash Mewada',
@@ -251,6 +276,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/jash-mewada-86aa252b6',
     createdAt: '2024-01-15',
   },
+  */
+  /*
   {
     _id: 'core14',
     name: 'Shaun Mascherenus',
@@ -263,7 +290,9 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/shaun-mascherenus',
     createdAt: '2024-01-15',
   },
-  // MENTORS
+  */
+  // MENTORS (Commented out/hidden)
+  /*
   {
     _id: 'mentor1',
     name: 'Shreehari Punna',
@@ -312,7 +341,9 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/hrushikesh-auti',
     createdAt: '2024-02-01',
   },
+  */
   // TEAM MEMBERS
+  /*
   {
     _id: 'member1',
     name: 'Swanand Deshpande',
@@ -325,18 +356,9 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/swanand-deshpande-3731422b3',
     createdAt: '2024-03-10',
   },
-  {
-    _id: 'member2',
-    name: 'Jhoshua Coutinho',
-    role: 'EXECUTIVE MEMBER',
-    department: 'Technical',
-    domain: 'mechanical',
-    category: 'members',
-    imageUrl: '/Joshua.jpg',
-    email: 'coutinhojhoshua5@student.sfit.ac.in',
-    linkedin: 'https://www.linkedin.com/in/jhoshua-coutinho-34b70333b',
-    createdAt: '2024-03-10',
-  },
+  */
+
+  /*
   {
     _id: 'member3',
     name: 'Siddha Shete',
@@ -349,6 +371,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/siddha-shete-48497833b',
     createdAt: '2024-03-10',
   },
+  */
+  /*
   {
     _id: 'member4',
     name: 'Sarthak Chaurasiya',
@@ -361,6 +385,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/sparkysdome',
     createdAt: '2024-03-10',
   },
+  */
+  /*
   {
     _id: 'member5',
     name: 'Jay Lohar',
@@ -373,18 +399,20 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/jai-lohar-572610309/',
     createdAt: '2024-03-10',
   },
+  */
   {
     _id: 'member6',
     name: 'Riyan Gonsalves',
-    role: 'EXECUTIVE MEMBER',
+    role: 'Inventory Head',
     department: 'Technical',
     domain: 'electronics',
-    category: 'members',
+    category: 'core',
     imageUrl: '/Riyan.jpg',
     email: 'riyan.gonsalves@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/riyan-gonsalves',
     createdAt: '2024-03-10',
   },
+  /*
   {
     _id: 'member7',
     name: 'Paarth Pradhan',
@@ -397,6 +425,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/paarth-pradhan-183a81240',
     createdAt: '2024-03-10',
   },
+  */
+  /*
   {
     _id: 'member8',
     name: 'Sakshi Virani',
@@ -409,18 +439,20 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/sakshi-virani-26ba16359',
     createdAt: '2024-03-10',
   },
+  */
   {
     _id: 'member9',
     name: 'Vansh Singh',
-    role: 'EXECUTIVE MEMBER',
+    role: 'Co-Inventory Head',
     department: 'Technical',
     domain: 'mechanical',
-    category: 'members',
+    category: 'core',
     imageUrl: '/Vansh.jpg',
     email: 'Vanshsinghat@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/vansh-singh-738353347',
     createdAt: '2024-03-10',
   },
+  /*
   {
     _id: 'member10',
     name: 'Jwen Lobo',
@@ -433,18 +465,20 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/jwen-lobo-14356230a',
     createdAt: '2024-03-10',
   },
+  */
   {
     _id: 'member11',
     name: 'Parth Sutar',
-    role: 'EXECUTIVE MEMBER',
+    role: 'Event & Publicity Head',
     department: 'Technical',
     domain: 'electronics',
-    category: 'members',
+    category: 'core',
     imageUrl: '/parth.jpg',
     email: 'parthsutar2006@gmail.com',
     linkedin: 'https://www.linkedin.com/in/parth-sutar-34463533b',
     createdAt: '2024-03-10',
   },
+  /*
   {
     _id: 'member12',
     name: 'Gunjan Patil',
@@ -457,6 +491,8 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/gunjan-patil-2a069333b',
     createdAt: '2024-03-10',
   },
+  */
+  /*
   {
     _id: 'member13',
     name: 'Nityant Tiwari',
@@ -469,6 +505,188 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/nityant-tiwari-88b97533b',
     createdAt: '2024-03-10',
   },
+  */
+  // NEW EXECUTIVE MEMBERS 2026-2027
+  {
+    _id: 'new_member1',
+    name: 'Aryan Raul',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/aryanr.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member2',
+    name: 'Emmanuel Fernandes',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/emmanuel.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member3',
+    name: 'Soham Salekar',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/soham.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member4',
+    name: 'Gauri Mali',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/gauri.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member5',
+    name: "Isaiah D'Souza",
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/isaiah.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member6',
+    name: 'Kannan Pillai',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/kannan.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member7',
+    name: 'Kavisha Galipelly',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/kavisha.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member8',
+    name: 'Krishna Maurya',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/krishna.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member9',
+    name: 'Naaz Husseni',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/naaz.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member10',
+    name: 'Pragya Mishra',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/pragya.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member11',
+    name: 'Divyesh Singh',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/divyesh.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member12',
+    name: 'Krish Dankhara',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/krish.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member13',
+    name: 'Tanish',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/tanish.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member14',
+    name: 'Darshan',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/darshan.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member15',
+    name: 'Aditya',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/aditya.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  }
 ];
 
 export default teamMembers;
