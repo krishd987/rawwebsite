@@ -69,6 +69,13 @@ const ADMIN_USERS = [
     role: 'ADMIN',
     name: 'Admin User',
   },
+  {
+    email: 'teamraw@sfit.ac.in',
+    // Password: Robocon2026Raw (hashed)
+    passwordHash: '$2b$10$DDQJ9lsfEt7MmAajiOcWLO.0dzjATGNxconT68Lvh4dYOq7PDPiK.',
+    role: 'ADMIN',
+    name: 'Team RAW Admin',
+  },
 ];
 
 /**

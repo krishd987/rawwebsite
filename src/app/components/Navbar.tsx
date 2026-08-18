@@ -6,6 +6,7 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -73,7 +75,10 @@ export default function Navbar() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <a href={link.href} className={styles.link}>
+                  <a
+                    href={link.href}
+                    className={`${styles.link} ${pathname === link.href ? styles.linkActive : ''}`}
+                  >
                     {link.label}
                   </a>
                 </motion.div>
@@ -107,7 +112,7 @@ export default function Navbar() {
               <motion.a
                 key={link.label}
                 href={link.href}
-                className={styles.mobileLink}
+                className={`${styles.mobileLink} ${pathname === link.href ? styles.mobileLinkActive : ''}`}
                 onClick={() => setIsOpen(false)}
                 whileHover={{ x: 5 }}
               >
