@@ -99,17 +99,6 @@ const TeamSection: React.FC = () => {
 
       {/* Card Footer */}
       <div className={styles.memberCardFooter}>
-        <div className={styles.memberDomainsBadges}>
-          {getMemberDomains(member.name).map((domainId) => {
-            const domain = domains.find(d => d.id === domainId);
-            const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
-            return (
-              <span key={domainId} className={styles.memberCardFooterBadge}>
-                {abbreviation}
-              </span>
-            );
-          })}
-        </div>
         <div className={styles.memberCardFooterSpacer} />
         <div className={styles.memberCardFooterIcon} title="Team Member">
           <Users size={16} />
