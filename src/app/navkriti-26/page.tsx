@@ -251,9 +251,33 @@ const hackathonSections = (styles: Record<string, string>): HackathonSection[] =
     icon: '',
     title: 'Tracks & Problem Statements',
     content: (
-      <div className={styles.sihHighlightCard}>
-        <h4>Important Notice</h4>
-        <p>Problem statements will be released on <strong>24th of August</strong>.</p>
+      <div className={styles.sihHighlightCard} style={{ borderLeftColor: '#e10600', background: 'rgba(225, 6, 0, 0.05)' }}>
+        <h4 style={{ color: '#e10600' }}>Smart India Hackathon 2026 Problem Statements</h4>
+        <p style={{ marginBottom: '1rem' }}>
+          The official problem statements for SIH 2026 have been released on the national portal. You can browse them to start brainstorming ideas for NAVKRITI &apos;26.
+        </p>
+        <a
+          href="https://www.sih.gov.in/sih2026PS"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.65rem 1.25rem',
+            backgroundColor: '#e10600',
+            color: '#fff',
+            textDecoration: 'none',
+            borderRadius: '6px',
+            fontWeight: '600',
+            fontSize: '0.88rem',
+            boxShadow: '0 4px 12px rgba(225, 6, 0, 0.2)',
+            transition: 'all 0.2s ease',
+            cursor: 'pointer'
+          }}
+        >
+          🔍 View SIH 2026 Problem Statements
+        </a>
       </div>
     )
   },

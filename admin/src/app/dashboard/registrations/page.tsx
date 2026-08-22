@@ -113,7 +113,7 @@ export default function RegistrationsPage() {
     const competition = competitions.find(c => c._id === competitionId);
     if (!competition) return fieldId;
     
-    const field = competition.customFields?.find(f => f.id === fieldId);
+    const field = competition.customFields?.find(f => f.id.toLowerCase() === fieldId.toLowerCase());
     return field ? field.label : fieldId;
   };
 
@@ -127,7 +127,7 @@ export default function RegistrationsPage() {
     const competition = competitions.find(c => c._id === reg.competitionId);
     if (competition?.customFields) {
       Object.entries(reg.customFields).forEach(([fieldId, value]) => {
-        const field = competition.customFields.find(f => f.id === fieldId);
+        const field = competition.customFields.find(f => f.id.toLowerCase() === fieldId.toLowerCase());
         if (field?.type === 'email' && value && typeof value === 'string') {
           emails.push({ email: value, source: field.label });
         }
@@ -350,7 +350,7 @@ export default function RegistrationsPage() {
       customFieldIds.forEach(id => {
         let foundLabel = id;
         for (const comp of competitions) {
-          const field = comp.customFields?.find(f => f.id === id);
+          const field = comp.customFields?.find(f => f.id.toLowerCase() === id.toLowerCase());
           if (field) {
             foundLabel = field.label;
             break;

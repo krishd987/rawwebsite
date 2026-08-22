@@ -99,17 +99,6 @@ const TeamSection: React.FC = () => {
 
       {/* Card Footer */}
       <div className={styles.memberCardFooter}>
-        <div className={styles.memberDomainsBadges}>
-          {getMemberDomains(member.name).map((domainId) => {
-            const domain = domains.find(d => d.id === domainId);
-            const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
-            return (
-              <span key={domainId} className={styles.memberCardFooterBadge}>
-                {abbreviation}
-              </span>
-            );
-          })}
-        </div>
         <div className={styles.memberCardFooterSpacer} />
         <div className={styles.memberCardFooterIcon} title="Team Member">
           <Users size={16} />
@@ -141,13 +130,13 @@ const TeamSection: React.FC = () => {
 
   // Valid member names for each domain - allows members to be in multiple domains
   const validDomainMembers: { [key: string]: string[] } = {
-    electronics: ['Siddhant Monde', 'Parth Sutar', 'Riyan Gonsalves', 'Gunjan Patil', 'Pal Rajak', 'Sarthak Chaurasiya', 'Jay Lohar', 'Aryan Wasnik', 'Nityant Tiwari', 'Siddha Shete', 'Paarth Pradhan', 'Saish Loke'],
-    software: ['Nandini Salunkhe', 'Dikshi Adani', 'Samruddhi Kharul', 'Sakshi Virani', 'Swanand Deshpande', 'Jash Mewada', 'Riyan Gonsalves', 'Jay Lohar', 'Nityant Tiwari', 'Taksh Gandhi'],
-    mechanical: ['Dittino Thomas', 'Siddhant Monde', 'Vansh Singh', 'Jhoshua Coutinho', 'Jwen Lobo', 'Parth Sutar', 'Sarthak Chaurasiya', 'Siddha Shete', 'Nityant Tiwari', 'Swanand Deshpande', 'Pal Rajak', 'Shail Raut'],
-    rnd: ['Dittino Thomas', 'Siddhant Monde', 'Shail Raut', 'Jhoshua Coutinho', 'Vansh Singh', 'Parth Sutar', 'Swanand Deshpande', 'Jash Mewada', 'Siddha Shete', 'Paarth Pradhan'],
-    event: ['Nandini Salunkhe', 'Shail Raut', 'Pal Rajak', 'Sarthak Chaurasiya', 'Riyan Gonsalves', 'Jash Mewada', 'Jay Lohar', 'Gunjan Patil'],
-    publicity: ['Dittino Thomas', 'Taksh Gandhi', 'Siddhant Monde', 'Aryan Wasnik', 'Sakshi Virani', 'Parth Sutar', 'Jhoshua Coutinho', 'Nityant Tiwari', 'Swanand Deshpande'],
-    documentation: ['Dikshi Adani', 'Samruddhi Kharul', 'Sakshi Virani']
+    electronics: ['Parth Sutar', 'Pal Rajak', 'Gauri Mali', 'Pragya Mishra', 'Naaz Husseni', 'Krishna Maurya', 'Kannan Pillai', 'Gaurav Kamble', 'Tanish Gaddam', 'Darshan Barekar'],
+    software: ['Riyan Gonsalves', 'Krish Dankhara', 'Emmanuel Fernandes', 'Kavisha Galipelly', 'Aditya Bhole', 'Soham Salekar', 'Gaurav Kamble', 'Krishna Maurya'],
+    mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Ved', 'Aryan Raul', 'Kelvin Chetty', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
+    rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Ved', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
+    event: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra', 'Krishna Maurya', 'Kannan Pillai', 'Krish Dankhara'],
+    publicity: ['Parth Sutar', 'Pal Rajak', 'Ved'],
+    documentation: ['Pal Rajak', 'Christina', 'Kavisha Galipelly', 'Pragya Mishra']
   };
 
   // Get icon component for domain
@@ -180,11 +169,30 @@ const TeamSection: React.FC = () => {
     domainMembers = teamMembers.filter(m => validDomainMembers[activeDomain].includes(m.name));
   }
 
-  // Sort members: core first, then mentors, then members
+  // Sort members: domain head (main) first, then core members, then mentors, then regular members.
+  // Within mentors and regular members, sort alphabetically by name.
   const sortedMembers = [...domainMembers].sort((a, b) => {
+    // Ramjee Yadav (core1) always comes first:
+    if (a._id === 'core1') return -1;
+    if (b._id === 'core1') return 1;
+
+    // If one is the domain head, it comes first:
+    const aIsHead = currentDomain && a._id === currentDomain.headId;
+    const bIsHead = currentDomain && b._id === currentDomain.headId;
+    if (aIsHead && !bIsHead) return -1;
+    if (bIsHead && !aIsHead) return 1;
+
+    // Otherwise, check category order: Core (0) -> Mentors (1) -> Members (2)
     const categoryOrder = { core: 0, mentors: 1, members: 2 };
-    return (categoryOrder[a.category as keyof typeof categoryOrder] || 99) - 
-           (categoryOrder[b.category as keyof typeof categoryOrder] || 99);
+    const aOrder = categoryOrder[a.category as keyof typeof categoryOrder] || 99;
+    const bOrder = categoryOrder[b.category as keyof typeof categoryOrder] || 99;
+    
+    if (aOrder !== bOrder) {
+      return aOrder - bOrder;
+    }
+    
+    // Within the same category, sort alphabetically by name
+    return a.name.localeCompare(b.name);
   });
 
   // Group members by category
@@ -491,7 +499,7 @@ const TeamSection: React.FC = () => {
                 
                 {/* Domain Head */}
                 <div className={styles.domainHeadSection}>
-                  <div className={styles.headLabel}>Domain Head</div>
+                  <div className={styles.headLabel}>Core</div>
                   <div className={styles.headName}>{currentDomain.head}</div>
                   {(() => {
                     const headMember = teamMembers.find(m => m._id === currentDomain.headId);
