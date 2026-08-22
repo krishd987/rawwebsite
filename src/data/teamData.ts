@@ -686,6 +686,18 @@ export const teamMembers: TeamMember[] = [
     email: '',
     linkedin: '',
     createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member16',
+    name: 'Kelvin Chetty',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/kelvin.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
   }
 ];
 
