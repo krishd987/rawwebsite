@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       if (registration.customFields && Object.keys(registration.customFields).length > 0 && competition?.customFields) {
         customFieldsHtml = '<p><strong>Additional Information:</strong></p><ul>';
         for (const [fieldId, value] of Object.entries(registration.customFields)) {
-          const field = competition.customFields.find(f => f.id === fieldId);
+          const field = competition.customFields.find(f => f.id.toLowerCase() === fieldId.toLowerCase());
           const label = field ? field.label : fieldId;
           const displayValue = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value;
           customFieldsHtml += `<li>${label}: ${displayValue}</li>`;
