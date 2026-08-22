@@ -557,6 +557,18 @@ export const teamMembers: TeamMember[] = [
   },
   {
     _id: 'new_member5',
+    name: 'Gaurav Kamble',
+    role: 'EXECUTIVE MEMBER',
+    department: 'Technical',
+    domain: 'software',
+    category: 'members',
+    imageUrl: '/gaurav.jpg',
+    email: '',
+    linkedin: '',
+    createdAt: '2026-08-15',
+  },
+  {
+    _id: 'new_member6',
     name: "Isaiah D'Souza",
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -568,7 +580,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member6',
+    _id: 'new_member7',
     name: 'Kannan Pillai',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -580,7 +592,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member7',
+    _id: 'new_member8',
     name: 'Kavisha Galipelly',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -592,7 +604,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member8',
+    _id: 'new_member9',
     name: 'Kelvin Chetty',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -604,7 +616,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member9',
+    _id: 'new_member10',
     name: 'Krishna Maurya',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -616,7 +628,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member10',
+    _id: 'new_member11',
     name: 'Naaz Husseni',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -628,19 +640,19 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member11',
+    _id: 'new_member12',
     name: 'Pragya Mishra',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
     domain: 'software',
     category: 'members',
     imageUrl: '/pragya.jpg',
-    email: '',
-    linkedin: '',
+    email: 'ashwanikm444@student.sfit.ac.in',
+    linkedin: 'https://www.linkedin.com/in/pragya-mishra-50524a399',
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member12',
+    _id: 'new_member13',
     name: 'Divyesh Singh',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -652,7 +664,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member13',
+    _id: 'new_member14',
     name: 'Krish Dankhara',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -664,7 +676,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member14',
+    _id: 'new_member15',
     name: 'Tanish Gaddam',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -676,7 +688,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member15',
+    _id: 'new_member16',
     name: 'Darshan Barekar',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -688,7 +700,7 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   },
   {
-    _id: 'new_member16',
+    _id: 'new_member17',
     name: 'Aditya Bhole',
     role: 'EXECUTIVE MEMBER',
     department: 'Technical',
@@ -702,4 +714,3 @@ export const teamMembers: TeamMember[] = [
 ];
 
 export default teamMembers;
-
