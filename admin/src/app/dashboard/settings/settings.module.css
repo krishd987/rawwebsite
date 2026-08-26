@@ -6,7 +6,7 @@
 .settingsPage {
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  background: transparent;
 }
 
 .header {
@@ -16,37 +16,39 @@
 .title {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
   font-weight: 700;
 }
 
 .subtitle {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
 /* Settings Sections */
 .section {
-  background: white;
+  background: var(--bg-white);
   border-radius: 12px;
-  border: 1px solid rgba(10, 26, 58, 0.1);
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.05);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   margin-bottom: 2rem;
   overflow: hidden;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
 }
 
 .sectionHeader {
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(10, 26, 58, 0.1);
-  background: rgba(10, 26, 58, 0.02);
+  border-bottom: 1px solid var(--border);
+  background: rgba(10, 26, 58, 0.05);
 }
 
 .sectionTitle {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.2rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
   font-weight: 600;
   display: flex;
@@ -60,7 +62,7 @@
 
 .sectionDescription {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -74,7 +76,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(10, 26, 58, 0.05);
+  border-bottom: 1px solid var(--border);
   transition: background 0.2s ease;
   position: relative;
 }
@@ -84,7 +86,7 @@
 }
 
 .settingItem:hover {
-  background: rgba(10, 26, 58, 0.02);
+  background: var(--list-hover);
 }
 
 .settingInfo {
@@ -97,7 +99,7 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
   font-size: 0.95rem;
 }
@@ -108,7 +110,7 @@
 
 .settingDescription {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -120,17 +122,18 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: rgba(10, 26, 58, 0.1);
-  color: #64748b;
+  background: var(--list-hover);
+  color: var(--text-secondary);
   font-size: 0.75rem;
   cursor: help;
   margin-left: 0.5rem;
   transition: all 0.2s ease;
+  border: 1px solid var(--border);
 }
 
 .tooltipIcon:hover {
-  background: rgba(10, 26, 58, 0.2);
-  color: #0a1a3a;
+  background: var(--border);
+  color: var(--text-primary);
 }
 
 /* Toggle Switch */
@@ -144,7 +147,7 @@
   position: relative;
   width: 50px;
   height: 28px;
-  background: rgba(10, 26, 58, 0.2);
+  background: var(--input-border);
   border-radius: 14px;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -152,12 +155,12 @@
 }
 
 .toggle:focus-within {
-  border-color: #e10600;
-  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(212, 28, 61, 0.15);
 }
 
 .toggle.active {
-  background: linear-gradient(135deg, #e10600 0%, #b2001d 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
 }
 
 .toggleInput {
@@ -171,11 +174,11 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 22px;
-  height: 22px;
-  background: white;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
   border-radius: 50%;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -202,12 +205,14 @@
 
 /* Danger Zone */
 .dangerZone {
-  background: white;
+  background: var(--bg-white);
   border-radius: 12px;
   border: 2px solid rgb(239, 68, 68);
   box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
   overflow: hidden;
   margin-top: 3rem;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
 }
 
 .dangerHeader {
@@ -243,7 +248,7 @@
 
 .dangerDescription {
   margin: 0;
-  color: rgb(185, 28, 28);
+  color: rgb(239, 68, 68);
   font-size: 0.9rem;
 }
 
@@ -269,14 +274,14 @@
 
 .dangerActionInfo h4 {
   margin: 0 0 0.5rem 0;
-  color: #0a1a3a;
+  color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 600;
 }
 
 .dangerActionInfo p {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -290,7 +295,7 @@
   background: rgba(239, 68, 68, 0.1);
   border-radius: 6px;
   font-size: 0.8rem;
-  color: rgb(185, 28, 28);
+  color: rgb(239, 68, 68);
   font-weight: 600;
 }
 
@@ -337,12 +342,15 @@
 }
 
 .modal {
-  background: white;
+  background: var(--bg-white);
   border-radius: 16px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
+  border: 1px solid var(--border);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
 }
 
 .modalHeader {
@@ -354,7 +362,7 @@
 .modalTitle {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
-  color: rgb(220, 38, 38);
+  color: rgb(239, 68, 68);
   margin: 0 0 0.75rem 0;
   font-weight: 700;
   display: flex;
@@ -368,7 +376,7 @@
 
 .modalMessage {
   margin: 0;
-  color: #0a1a3a;
+  color: var(--text-primary);
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -383,7 +391,7 @@
 
 .modalImpact strong {
   display: block;
-  color: rgb(185, 28, 28);
+  color: rgb(239, 68, 68);
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -391,7 +399,7 @@
 
 .modalImpact p {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.85rem;
 }
 
@@ -402,7 +410,9 @@
 .confirmInput {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 2px solid rgba(10, 26, 58, 0.2);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1.5px solid var(--input-border);
   border-radius: 8px;
   font-size: 1rem;
   font-family: monospace;
@@ -419,7 +429,7 @@
 .confirmHint {
   margin: 0.75rem 0 0 0;
   font-size: 0.85rem;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .modalActions {
@@ -456,14 +466,14 @@
 }
 
 .modalButtonCancel {
-  background: rgba(10, 26, 58, 0.05);
-  color: #0a1a3a;
-  border: 2px solid rgba(10, 26, 58, 0.1);
+  background: var(--bg-light);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
 }
 
 .modalButtonCancel:hover {
-  background: rgba(10, 26, 58, 0.08);
-  border-color: rgba(10, 26, 58, 0.2);
+  background: var(--list-hover);
+  border-color: var(--border);
 }
 
 /* Responsive */

@@ -137,7 +137,7 @@ export default function RobotsGalleryEnhancedPage() {
         if (!response.ok) throw new Error(`Failed to fetch robots: ${response.status} ${response.statusText}`);
         
         const data = await response.json();
-        console.log('✅ Robots fetched:', data.data?.length || 0);
+        console.log(' Robots fetched:', data.data?.length || 0);
         setRobots(data.data || []);
       } else {
         const url = `${apiUrl}/api/gallery`;
@@ -154,7 +154,7 @@ export default function RobotsGalleryEnhancedPage() {
         if (!response.ok) throw new Error(`Failed to fetch gallery: ${response.status} ${response.statusText}`);
         
         const data = await response.json();
-        console.log('✅ Gallery items fetched:', data.data?.length || 0);
+        console.log(' Gallery items fetched:', data.data?.length || 0);
         setGalleryItems(data.data || []);
       }
     } catch (err) {
@@ -293,7 +293,7 @@ export default function RobotsGalleryEnhancedPage() {
       setImagePreview(downloadURL);
       setFormData({ ...formData, imageUrl: downloadURL });
       
-      console.log(`✅ Image uploaded to Firebase Storage: ${downloadURL}`);
+      console.log(` Image uploaded to Firebase Storage: ${downloadURL}`);
       showToast('Image uploaded successfully', 'success');
     } catch (error) {
       console.error('Error processing image:', error);
@@ -361,7 +361,7 @@ export default function RobotsGalleryEnhancedPage() {
           newImages.push(downloadURL);
           newPreviews.push(downloadURL);
           
-          console.log(`✅ Additional image uploaded: ${downloadURL}`);
+          console.log(` Additional image uploaded: ${downloadURL}`);
         } catch (error) {
           console.error('Error compressing/uploading image:', error);
           showToast(`Failed to process ${file.name}`, 'error');
@@ -471,7 +471,7 @@ export default function RobotsGalleryEnhancedPage() {
       // Check document size (MongoDB limit is 16MB)
       const payloadSize = new Blob([JSON.stringify(payload)]).size;
       const sizeMB = payloadSize / (1024 * 1024);
-      console.log(`📊 Payload size: ${sizeMB.toFixed(2)}MB`);
+      console.log(` Payload size: ${sizeMB.toFixed(2)}MB`);
       
       if (sizeMB > 14) { // Leave buffer before 16MB limit
         showToast(`Document too large (${sizeMB.toFixed(1)}MB). Please reduce number of images or image quality.`, 'error');
@@ -515,7 +515,7 @@ export default function RobotsGalleryEnhancedPage() {
       }
 
       const result = await response.json();
-      console.log('✅ Success:', result);
+      console.log(' Success:', result);
 
       showToast(`${viewMode === 'robots' ? 'Robot' : 'Gallery item'} ${editingItem ? 'updated' : 'created'} successfully!`, 'success');
       setShowForm(false);
@@ -589,7 +589,7 @@ export default function RobotsGalleryEnhancedPage() {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>🤖📸 Robots & Gallery Management</h1>
+          <h1 className={styles.pageTitle}> Robots & Gallery Management</h1>
           <p className={styles.pageSubtitle}>Create, Read, Update, Delete - Complete Dashboard</p>
         </div>
 
@@ -609,7 +609,7 @@ export default function RobotsGalleryEnhancedPage() {
             }}
             className={`${styles.tabButton} ${viewMode === 'robots' ? styles.active : ''}`}
           >
-            <span>🤖</span> Robots
+            <span></span> Robots
           </button>
           <button
             onClick={() => {
@@ -620,7 +620,7 @@ export default function RobotsGalleryEnhancedPage() {
             }}
             className={`${styles.tabButton} ${viewMode === 'gallery' ? styles.active : ''}`}
           >
-            <span>📸</span> Gallery
+            <span></span> Gallery
           </button>
           <button onClick={handleAdd} className={styles.addButton}>
             + Add New {viewMode === 'robots' ? 'Robot' : 'Image'}
@@ -630,24 +630,24 @@ export default function RobotsGalleryEnhancedPage() {
         {/* Stats Panel */}
         <div className={styles.statsPanel}>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>📊</div>
+            <div className={styles.statIcon}></div>
             <div className={styles.statValue}>{viewMode === 'robots' ? robots.length : galleryItems.length}</div>
             <div className={styles.statLabel}>Total {viewMode === 'robots' ? 'Robots' : 'Images'}</div>
           </div>
           {viewMode === 'robots' ? (
             <>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🏆</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'competition').length}</div>
                 <div className={styles.statLabel}>Competition</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🔬</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'research').length}</div>
                 <div className={styles.statLabel}>Research</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>⚙️</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'development').length}</div>
                 <div className={styles.statLabel}>Development</div>
               </div>
@@ -655,17 +655,17 @@ export default function RobotsGalleryEnhancedPage() {
           ) : (
             <>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🎉</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'events').length}</div>
                 <div className={styles.statLabel}>Events</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🛠️</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'workshops').length}</div>
                 <div className={styles.statLabel}>Workshops</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🏆</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'competitions').length}</div>
                 <div className={styles.statLabel}>Competitions</div>
               </div>
@@ -678,7 +678,7 @@ export default function RobotsGalleryEnhancedPage() {
           <div className={styles.formContainer}>
             <div className={styles.formHeader}>
               <h2 className={styles.formTitle}>
-                {editingItem ? '✏️ Edit' : '➕ Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
+                {editingItem ? 'Edit' : 'Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
               </h2>
             </div>
 
@@ -689,7 +689,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Basic Information Section */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📌</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Basic Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -725,7 +725,7 @@ export default function RobotsGalleryEnhancedPage() {
                         <div className={styles.formRowTriple}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📂</span> Category <span className={styles.required}>*</span>
+                              <span className={styles.labelIcon}></span> Category <span className={styles.required}>*</span>
                             </label>
                             <select
                               required
@@ -733,9 +733,9 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="competition">🏆 Competition</option>
-                              <option value="research">🔬 Research</option>
-                              <option value="development">⚙️ Development</option>
+                              <option value="competition">Competition</option>
+                              <option value="research">Research</option>
+                              <option value="development">Development</option>
                             </select>
                           </div>
                           <div className={styles.formGroup}>
@@ -747,14 +747,14 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="active">✅ Active</option>
-                              <option value="retired">🔒 Retired</option>
-                              <option value="development">🔧 Development</option>
+                              <option value="active">Active</option>
+                              <option value="retired">Retired</option>
+                              <option value="development">Development</option>
                             </select>
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Year
+                              <span className={styles.labelIcon}></span> Year
                             </label>
                             <input
                               type="number"
@@ -770,7 +770,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Media Upload Section */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>🖼</span>
+                        <span className={styles.sectionIcon}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
                         <h3 className={styles.sectionTitle}>Media Upload</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -785,7 +785,7 @@ export default function RobotsGalleryEnhancedPage() {
                             onDrop={handleDrop}
                             onClick={() => document.getElementById('robot-image-input')?.click()}
                           >
-                            <div className={styles.uploadIcon}>📤</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Drag & drop or click to upload</p>
                             <p className={styles.uploadHint}>Supported: JPG, PNG, GIF, WebP (Max 5MB)</p>
                             <input
@@ -812,7 +812,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Detailed Information Section */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📄</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Detailed Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -848,7 +848,7 @@ export default function RobotsGalleryEnhancedPage() {
                         <div className={styles.formRow}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>⚙️</span> Specifications
+                              <span className={styles.labelIcon}></span> Specifications
                             </label>
                             <input
                               type="text"
@@ -858,12 +858,12 @@ export default function RobotsGalleryEnhancedPage() {
                               className={styles.input}
                             />
                             <div className={styles.helperText}>
-                              💡 Separate items with commas
+                               Separate items with commas
                             </div>
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>🏷️</span> Tags
+                              <span className={styles.labelIcon}></span> Tags
                             </label>
                             <input
                               type="text"
@@ -877,7 +877,7 @@ export default function RobotsGalleryEnhancedPage() {
 
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            <span className={styles.labelIcon}>⭐</span> Features
+                            <span className={styles.labelIcon}></span> Features
                           </label>
                           <input
                             type="text"
@@ -890,7 +890,7 @@ export default function RobotsGalleryEnhancedPage() {
 
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            <span className={styles.labelIcon}>🏆</span> Achievements
+                            <span className={styles.labelIcon}></span> Achievements
                           </label>
                           <input
                             type="text"
@@ -903,7 +903,7 @@ export default function RobotsGalleryEnhancedPage() {
 
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            <span className={styles.labelIcon}>👤</span> Team Lead
+                            <span className={styles.labelIcon}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> Team Lead
                           </label>
                           <input
                             type="text"
@@ -920,7 +920,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Gallery Basic Information */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📌</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Basic Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -940,7 +940,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📂</span> Category <span className={styles.required}>*</span>
+                              <span className={styles.labelIcon}></span> Category <span className={styles.required}>*</span>
                             </label>
                             <select
                               required
@@ -948,12 +948,12 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="robots">🤖 Robots</option>
-                              <option value="events">🎉 Events</option>
-                              <option value="workshops">🛠️ Workshops</option>
-                              <option value="competitions">🏆 Competitions</option>
-                              <option value="team">👥 Team</option>
-                              <option value="milestones">🎯 Milestones</option>
+                              <option value="robots">Robots</option>
+                              <option value="events">Events</option>
+                              <option value="workshops">Workshops</option>
+                              <option value="competitions">Competitions</option>
+                              <option value="team">Team</option>
+                              <option value="milestones">Milestones</option>
                             </select>
                           </div>
                         </div>
@@ -963,7 +963,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Gallery Detailed Information */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📄</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Detailed Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -1008,7 +1008,7 @@ export default function RobotsGalleryEnhancedPage() {
                             className={styles.input}
                           />
                           <div className={styles.helperText}>
-                            💡 Separate highlights with commas
+                             Separate highlights with commas
                           </div>
                         </div>
                       </div>
@@ -1017,14 +1017,14 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Event Metadata */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📍</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Event Metadata</h3>
                       </div>
                       <div className={styles.formGrid}>
                         <div className={styles.formRowTriple}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📍</span> Location
+                              <span className={styles.labelIcon}></span> Location
                             </label>
                             <input
                               type="text"
@@ -1036,7 +1036,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Date
+                              <span className={styles.labelIcon}></span> Date
                             </label>
                             <input
                               type="date"
@@ -1047,7 +1047,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>👥</span> Participants
+                              <span className={styles.labelIcon}></span> Participants
                             </label>
                             <input
                               type="text"
@@ -1064,7 +1064,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Gallery Media Upload */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>🖼</span>
+                        <span className={styles.sectionIcon}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
                         <h3 className={styles.sectionTitle}>Media Upload</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -1079,7 +1079,7 @@ export default function RobotsGalleryEnhancedPage() {
                             onDrop={handleDrop}
                             onClick={() => document.getElementById('gallery-image-input')?.click()}
                           >
-                            <div className={styles.uploadIcon}>📤</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Drag & drop or click to upload</p>
                             <p className={styles.uploadHint}>Main display image (Max 5MB)</p>
                             <input
@@ -1106,7 +1106,7 @@ export default function RobotsGalleryEnhancedPage() {
                             Additional Images (Multiple) - Max 8
                           </label>
                           <div className={styles.uploadArea} onClick={() => document.getElementById('gallery-multi-input')?.click()}>
-                            <div className={styles.uploadIcon}>📸</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Click to upload multiple images</p>
                             <p className={styles.uploadHint}>Up to 8 compressed images (auto-compressed to reduce size)</p>
                             <input
@@ -1135,7 +1135,7 @@ export default function RobotsGalleryEnhancedPage() {
                             </div>
                           )}
                           <div className={styles.helperText}>
-                            📸 {multipleImagePreviews.length} image(s) added
+                             {multipleImagePreviews.length} image(s) added
                           </div>
                         </div>
                       </div>
@@ -1144,14 +1144,14 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Metadata */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>⚙</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Metadata</h3>
                       </div>
                       <div className={styles.formGrid}>
                         <div className={styles.formRow}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>👤</span> Uploaded By
+                              <span className={styles.labelIcon}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> Uploaded By
                             </label>
                             <input
                               type="text"
@@ -1163,7 +1163,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Year
+                              <span className={styles.labelIcon}></span> Year
                             </label>
                             <input
                               type="number"
@@ -1199,7 +1199,7 @@ export default function RobotsGalleryEnhancedPage() {
                   disabled={isSubmitting}
                   className={styles.btnSubmit}
                 >
-                  {isSubmitting ? '⏳ Saving...' : (editingItem ? '💾 Update Item' : '✅ Create Item')}
+                  {isSubmitting ? 'Saving...' : (editingItem ? 'Update Item' : 'Create Item')}
                 </button>
               </div>
             </form>
@@ -1224,13 +1224,13 @@ export default function RobotsGalleryEnhancedPage() {
             {/* Items Grid */}
             {error && (
               <div className={styles.errorContainer}>
-                <p className={styles.errorText}>⚠️ Error: {error}</p>
+                <p className={styles.errorText}> Error: {error}</p>
               </div>
             )}
 
             {currentData.length === 0 ? (
               <div className={styles.emptyContainer}>
-                <div className={styles.emptyIcon}>📭</div>
+                <div className={styles.emptyIcon}></div>
                 <p className={styles.emptyText}>No {viewMode === 'robots' ? 'robots' : 'gallery items'} found in this category.</p>
                 <button onClick={handleAdd} className={styles.addButton} style={{ marginTop: '1rem' }}>
                   + Add Your First {viewMode === 'robots' ? 'Robot' : 'Image'}
@@ -1258,19 +1258,53 @@ export default function RobotsGalleryEnhancedPage() {
                         </div>
                         <p className={styles.itemDescription}>{robot.description}</p>
                         <div className={styles.itemMeta}>
-                          <span className={styles.itemMetaItem}>🔧 {robot.type}</span>
-                          {robot.year && <span className={styles.itemMetaItem}>📅 {robot.year}</span>}
-                          {robot.status && <span className={styles.itemMetaItem}>✓ {robot.status}</span>}
+                          <span className={styles.itemMetaItem}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                            {robot.type}
+                          </span>
+                          {robot.year && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                              </svg>
+                              {robot.year}
+                            </span>
+                          )}
+                          {robot.status && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                              </svg>
+                              {robot.status}
+                            </span>
+                          )}
                         </div>
                         <div className={styles.itemActions}>
                           <button onClick={() => handleViewDetails(robot)} className={styles.btnView}>
-                            👁️ View
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            View
                           </button>
                           <button onClick={() => handleEdit(robot)} className={styles.btnEdit}>
-                            ✏️ Edit
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                              <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit
                           </button>
                           <button onClick={() => handleDelete(robot._id)} className={styles.btnDelete}>
-                            🗑️ Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <polyline points="3 6 5 6 21 6"></polyline>
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Delete
                           </button>
                         </div>
                       </div>
@@ -1296,20 +1330,70 @@ export default function RobotsGalleryEnhancedPage() {
                         </div>
                         <p className={styles.itemDescription}>{item.description}</p>
                         <div className={styles.itemMeta}>
-                          {item.location && <span className={styles.itemMetaItem}>📍 {item.location}</span>}
-                          {item.date && <span className={styles.itemMetaItem}>📅 {new Date(item.date).toLocaleDateString()}</span>}
-                          {item.participants && <span className={styles.itemMetaItem}>👥 {item.participants}</span>}
-                          {item.year && <span className={styles.itemMetaItem}>📆 {item.year}</span>}
+                          {item.location && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                              </svg>
+                              {item.location}
+                            </span>
+                          )}
+                          {item.date && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                              </svg>
+                              {new Date(item.date).toLocaleDateString()}
+                            </span>
+                          )}
+                          {item.participants && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                              </svg>
+                              {item.participants}
+                            </span>
+                          )}
+                          {item.year && (
+                            <span className={styles.itemMetaItem}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                              </svg>
+                              {item.year}
+                            </span>
+                          )}
                         </div>
                         <div className={styles.itemActions}>
                           <button onClick={() => handleViewDetails(item)} className={styles.btnView}>
-                            👁️ View
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            View
                           </button>
                           <button onClick={() => handleEdit(item)} className={styles.btnEdit}>
-                            ✏️ Edit
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                              <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit
                           </button>
                           <button onClick={() => handleDelete(item._id)} className={styles.btnDelete}>
-                            🗑️ Delete
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
+                              <polyline points="3 6 5 6 21 6"></polyline>
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Delete
                           </button>
                         </div>
                       </div>
@@ -1390,7 +1474,7 @@ export default function RobotsGalleryEnhancedPage() {
                       {viewMode === 'robots' ? (viewDetailsItem as Robot).name : (viewDetailsItem as GalleryItem).title}
                     </h2>
                     <span className={styles.modalBadge}>
-                      {viewMode === 'robots' ? '🤖 ' : '📸 '}
+                      {viewMode === 'robots' ? ' ' : ' '}
                       {(viewDetailsItem as any).category}
                     </span>
                   </div>
@@ -1461,7 +1545,7 @@ export default function RobotsGalleryEnhancedPage() {
                       <h3 className={styles.sectionLabel}>ACHIEVEMENTS</h3>
                       <div className={styles.chipsList}>
                         {(viewDetailsItem as Robot).achievements!.map((achievement, idx) => (
-                          <span key={idx} className={styles.chipAchievement}>🏆 {achievement}</span>
+                          <span key={idx} className={styles.chipAchievement}> {achievement}</span>
                         ))}
                       </div>
                     </div>
@@ -1473,7 +1557,7 @@ export default function RobotsGalleryEnhancedPage() {
                       <>
                         {(viewDetailsItem as Robot).type && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>🔧</span>
+                            <span className={styles.metaIcon}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
                             <span className={styles.metaLabel}>Type:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as Robot).type}</span>
                           </div>
@@ -1487,14 +1571,14 @@ export default function RobotsGalleryEnhancedPage() {
                         )}
                         {(viewDetailsItem as Robot).year && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>📅</span>
+                            <span className={styles.metaIcon}></span>
                             <span className={styles.metaLabel}>Year:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as Robot).year}</span>
                           </div>
                         )}
                         {(viewDetailsItem as Robot).teamLead && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>👤</span>
+                            <span className={styles.metaIcon}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
                             <span className={styles.metaLabel}>Team Lead:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as Robot).teamLead}</span>
                           </div>
@@ -1504,35 +1588,35 @@ export default function RobotsGalleryEnhancedPage() {
                       <>
                         {(viewDetailsItem as GalleryItem).date && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>📅</span>
+                            <span className={styles.metaIcon}></span>
                             <span className={styles.metaLabel}>Date:</span>
                             <span className={styles.metaValue}>{new Date((viewDetailsItem as GalleryItem).date!).toLocaleDateString()}</span>
                           </div>
                         )}
                         {(viewDetailsItem as GalleryItem).location && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>📍</span>
+                            <span className={styles.metaIcon}></span>
                             <span className={styles.metaLabel}>Location:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as GalleryItem).location}</span>
                           </div>
                         )}
                         {(viewDetailsItem as GalleryItem).participants && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>👥</span>
+                            <span className={styles.metaIcon}></span>
                             <span className={styles.metaLabel}>Participants:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as GalleryItem).participants}</span>
                           </div>
                         )}
                         {(viewDetailsItem as GalleryItem).year && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>📆</span>
+                            <span className={styles.metaIcon}></span>
                             <span className={styles.metaLabel}>Year:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as GalleryItem).year}</span>
                           </div>
                         )}
                         {(viewDetailsItem as GalleryItem).uploadedBy && (
                           <div className={styles.metaItem}>
-                            <span className={styles.metaIcon}>👤</span>
+                            <span className={styles.metaIcon}><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
                             <span className={styles.metaLabel}>Uploaded By:</span>
                             <span className={styles.metaValue}>{(viewDetailsItem as GalleryItem).uploadedBy}</span>
                           </div>
@@ -1549,7 +1633,7 @@ export default function RobotsGalleryEnhancedPage() {
         {/* Toast Notification */}
         {toast.show && (
           <div className={`${styles.toast} ${styles[toast.type]}`}>
-            <span className={styles.toastIcon}>{toast.type === 'success' ? '✅' : '❌'}</span>
+            <span className={styles.toastIcon}>{toast.type === 'success' ? '' : '❌'}</span>
             <span className={styles.toastMessage}>{toast.message}</span>
           </div>
         )}
