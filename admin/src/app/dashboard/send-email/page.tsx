@@ -193,13 +193,25 @@ export default function SendEmailPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>📧 Send Email</h1>
+        <h1>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '10px', display: 'inline-block', verticalAlign: 'middle' }}>
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Send Email
+        </h1>
         <p className={styles.subtitle}>Send emails directly with Team RAW template to multiple recipients</p>
       </div>
 
       {emailConfigured === false && (
         <div className={styles.warningBanner}>
-          <span className={styles.warningIcon}>⚠️</span>
+          <span className={styles.warningIcon}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }}>
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </span>
           <span>
             Email is not configured. Please set up EMAIL_USER and EMAIL_PASS environment variables.
             See <strong>EMAIL_SETUP.md</strong> for instructions.
@@ -211,7 +223,16 @@ export default function SendEmailPage() {
 
         {/* ── Fetch Emails by Competition ── */}
         <div className={styles.formSection}>
-          <h3>🏆 Fetch Emails by Competition</h3>
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }}>
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"></path>
+              <path d="M12 2a6 6 0 0 1 6 6v3a6 6 0 0 1-6 6 6 6 0 0 1-6-6V8a6 6 0 0 1 6-6z"></path>
+            </svg>
+            Fetch Emails by Competition
+          </h3>
           <p className={styles.helpText}>
             Select a competition to load all registered students and choose who to contact
           </p>
@@ -279,7 +300,11 @@ export default function SendEmailPage() {
                 className={styles.applyBtn}
                 disabled={selectedRegistrantIds.size === 0}
               >
-                ➕ Add {selectedRegistrantIds.size} email{selectedRegistrantIds.size !== 1 ? 's' : ''} to Recipients
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add {selectedRegistrantIds.size} email{selectedRegistrantIds.size !== 1 ? 's' : ''} to Recipients
               </button>
             </div>
           )}
@@ -287,7 +312,15 @@ export default function SendEmailPage() {
 
         {/* ── Template ── */}
         <div className={styles.formSection}>
-          <h3>📝 Select Email Template</h3>
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }}>
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            Select Email Template
+          </h3>
           <p className={styles.helpText}>Choose a pre-built template or use custom message format</p>
           <select
             className={styles.templateSelect}
@@ -357,7 +390,12 @@ export default function SendEmailPage() {
 
         {/* ── Attachments ── */}
         <div className={styles.formSection}>
-          <h3>📎 Attachments</h3>
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }}>
+              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+            </svg>
+            Attachments
+          </h3>
           <p className={styles.helpText}>
             Add files to attach. <strong>Important:</strong> Total size should be under 4MB for reliable delivery. Each file max 25MB.
           </p>
@@ -388,7 +426,11 @@ export default function SendEmailPage() {
               {attachments.map((file, index) => (
                 <div key={index} className={styles.attachmentItem}>
                   <span className={styles.fileName}>
-                    📄 {file.name} ({(file.size / 1024).toFixed(1)} KB)
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    {file.name} ({(file.size / 1024).toFixed(1)} KB)
                   </span>
                   <button
                     onClick={() => setAttachments(prev => prev.filter((_, i) => i !== index))}
@@ -405,7 +447,13 @@ export default function SendEmailPage() {
         </div>
 
         <div className={styles.templatePreview}>
-          <h4>📋 Email Template Info</h4>
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+            Email Template Info
+          </h4>
           <p style={{ fontSize: '14px', marginBottom: '10px', color: '#444' }}>
             <strong>Selected:</strong> {
               templateType === 'custom' ? 'Custom Message' :
@@ -435,7 +483,17 @@ export default function SendEmailPage() {
             className={styles.sendBtn}
             disabled={sending || emailConfigured === false || !recipients.trim() || !subject.trim() || !message.trim()}
           >
-            {sending ? '⏳ Sending...' : '📨 Send Email'}
+            {sending ? (
+              <span>Sending...</span>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                Send Email
+              </>
+            )}
           </button>
           <button
             onClick={() => {
@@ -448,7 +506,11 @@ export default function SendEmailPage() {
             className={styles.clearBtn}
             disabled={sending}
           >
-            🗑️ Clear
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px', display: 'inline-block', verticalAlign: 'middle' }}>
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            Clear
           </button>
         </div>
 

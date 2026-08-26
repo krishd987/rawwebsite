@@ -180,17 +180,18 @@ export default function ProfilePage() {
                 )}
               </div>
               <label className={styles.avatarUpload} title="Upload avatar">
-                <span>📷</span>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></span>
                 <input
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
                   onChange={handleAvatarChange}
+                  style={{ display: 'none' }}
                 />
               </label>
             </div>
             <h2 className={styles.userName}>{profile.name}</h2>
-            <span className={styles.userRole}>🔐 {profile.role}</span>
+            <span className={styles.userRole}>{profile.role}</span>
           </div>
         </div>
 
@@ -199,7 +200,7 @@ export default function ProfilePage() {
           {/* Last Login Info */}
           {profile.lastLogin && (
             <div className={styles.lastLogin}>
-              <div className={styles.lastLoginIcon}>🕐</div>
+              <div className={styles.lastLoginIcon}><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
               <div className={styles.lastLoginText}>
                 <p className={styles.lastLoginLabel}>Last Login</p>
                 <p className={styles.lastLoginValue}>{formatLastLogin(profile.lastLogin)}</p>
@@ -212,7 +213,7 @@ export default function ProfilePage() {
             {/* Name */}
             <div className={styles.infoItem}>
               <label className={styles.infoLabel}>
-                <span className={styles.infoIcon}>👤</span>
+                <span className={styles.infoIcon}><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
                 Full Name
               </label>
               {isEditing ? (
@@ -227,7 +228,7 @@ export default function ProfilePage() {
                   />
                   {errors.name && (
                     <div className={styles.errorText}>
-                      <span>⚠️</span>
+                      <span></span>
                       {errors.name}
                     </div>
                   )}
@@ -240,7 +241,7 @@ export default function ProfilePage() {
             {/* Email */}
             <div className={styles.infoItem}>
               <label className={styles.infoLabel}>
-                <span className={styles.infoIcon}>📧</span>
+                <span className={styles.infoIcon}></span>
                 Email Address
               </label>
               {isEditing ? (
@@ -255,7 +256,7 @@ export default function ProfilePage() {
                   />
                   {errors.email && (
                     <div className={styles.errorText}>
-                      <span>⚠️</span>
+                      <span></span>
                       {errors.email}
                     </div>
                   )}
@@ -268,7 +269,7 @@ export default function ProfilePage() {
             {/* Phone */}
             <div className={styles.infoItem}>
               <label className={styles.infoLabel}>
-                <span className={styles.infoIcon}>📱</span>
+                <span className={styles.infoIcon}><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
                 Phone Number
               </label>
               {isEditing ? (
@@ -283,7 +284,7 @@ export default function ProfilePage() {
                   />
                   {errors.phone && (
                     <div className={styles.errorText}>
-                      <span>⚠️</span>
+                      <span></span>
                       {errors.phone}
                     </div>
                   )}
@@ -299,7 +300,7 @@ export default function ProfilePage() {
             {/* Role (Read-only) */}
             <div className={styles.infoItem}>
               <label className={styles.infoLabel}>
-                <span className={styles.infoIcon}>🔐</span>
+                <span className={styles.infoIcon}><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
                 Role
               </label>
               <input
@@ -322,7 +323,7 @@ export default function ProfilePage() {
                   className={`${styles.button} ${styles.buttonPrimary}`}
                 >
                   <span className={styles.buttonIcon}>
-                    {isSaving ? '⏳' : '✓'}
+                    {isSaving ? '' : '✓'}
                   </span>
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -340,7 +341,12 @@ export default function ProfilePage() {
                 onClick={() => setIsEditing(true)}
                 className={`${styles.button} ${styles.buttonPrimary}`}
               >
-                <span className={styles.buttonIcon}>✏️</span>
+                <span className={styles.buttonIcon}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </span>
                 Edit Profile
               </button>
             )}
@@ -349,11 +355,22 @@ export default function ProfilePage() {
           {/* Security Section */}
           <div className={styles.securitySection}>
             <h3 className={styles.sectionTitle}>
-              <span>🔒</span>
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }}>
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
               Security
             </h3>
             <div className={styles.securityInfo}>
-              <span className={styles.securityIcon}>ℹ️</span>
+              <span className={styles.securityIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+              </span>
               <p className={styles.securityText}>
                 Your account is protected with secure authentication. Contact your administrator to change your role or reset your password.
               </p>
@@ -375,7 +392,17 @@ export default function ProfilePage() {
             transition={{ type: 'spring', damping: 20 }}
           >
             <div className={styles.toastIcon}>
-              {toast.type === 'success' ? '✓' : '⚠️'}
+              {toast.type === 'success' ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              )}
             </div>
             <div className={styles.toastContent}>
               <h4 className={styles.toastTitle}>{toast.title}</h4>

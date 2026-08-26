@@ -741,7 +741,10 @@ export default function CompetitionsPage() {
                           className={styles.btnEdit}
                           title="Edit Field"
                         >
-                          ✏️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                          </svg>
                         </button>
                         <button
                           type="button"
@@ -749,7 +752,10 @@ export default function CompetitionsPage() {
                           className={styles.btnDelete}
                           title="Remove Field"
                         >
-                          🗑️
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -785,7 +791,7 @@ export default function CompetitionsPage() {
                       <option value="select">Dropdown</option>
                       <option value="checkbox">Checkbox</option>
                       <option value="file">File Upload</option>
-                      <option value="image">🖼️ Image Display (e.g. QR code)</option>
+                      <option value="image">Image Display (e.g. QR code)</option>
                     </select>
                   </div>
                 </div>

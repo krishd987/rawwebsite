@@ -3,22 +3,71 @@
  * Email: takshgandhi4@gmail.com
  */
 
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ==========================================
+   THEME CONFIGURATION
+   ========================================== */
+
+/* LIGHT THEME (Active by default) */
 :root {
-  --primary: #d41c3d;
-  --primary-dark: #a01530;
-  --bg-light: #f5f5f5;
+  --primary: #FF0000;
+  --primary-dark: #9C0005;
+  --bg-light: #f5f7fa;
   --bg-white: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --border: #e0e0e0;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --text-primary: #010169;
+  --text-secondary: #0D4ABC;
+  --border: #e2e8f0;
+  --shadow: 0 2px 8px rgba(1, 1, 105, 0.08);
+  --shadow-lg: 0 8px 16px rgba(1, 1, 105, 0.12);
+  --backdrop-blur: none;
+
+  /* Card and Form Control backgrounds */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  
+  /* Scrollbars and lists */
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --list-hover: rgba(13, 74, 188, 0.05);
+  
+  /* Sidebar */
+  --sidebar-bg: #000030;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+}
+
+/* DARK THEME */
+[data-theme="dark"] {
+  --primary: #FF0000;
+  --primary-dark: #9C0005;
+  --bg-light: #010169;
+  --bg-white: rgba(13, 74, 188, 0.12);
+  --text-primary: #ffffff;
+  --text-secondary: #93b4ff;
+  --border: rgba(13, 74, 188, 0.25);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.6);
+  --backdrop-blur: blur(16px);
+
+  --card-bg: rgba(13, 74, 188, 0.12);
+  --card-border: rgba(13, 74, 188, 0.2);
+  --input-bg: rgba(1, 1, 105, 0.4);
+  --input-border: rgba(13, 74, 188, 0.3);
+  
+  --scrollbar-track: #010169;
+  --scrollbar-thumb: rgba(13, 74, 188, 0.4);
+  --list-hover: rgba(13, 74, 188, 0.15);
+
+  --sidebar-bg: #000020;
+  --sidebar-border: rgba(13, 74, 188, 0.2);
 }
 
 html, body {
@@ -27,13 +76,15 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-light);
+  /* Optional gradient background - only visible if bg-light is transparent/dark */
+  background-image: radial-gradient(circle at 80% 20%, rgba(225, 6, 0, 0.05), transparent 50%);
+  background-attachment: fixed;
   color: var(--text-primary);
+  line-height: 1.6;
 }
 
 input, select, textarea, button {
@@ -42,7 +93,8 @@ input, select, textarea, button {
 
 button {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px !important;
 }
 
 a {
@@ -51,5 +103,190 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
+
+/* Theme-Aware Glassmorphism & Card selector */
+[class$="card"],
+[class*="loginBox"],
+[class*="tableContainer"],
+[class*="modalContent"] {
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: var(--shadow-lg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Responsive Table Wrapper */
+[class*="tableContainer"] {
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+}
+
+/* Table elements */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  color: var(--text-primary) !important;
+}
+
+th {
+  background: var(--bg-light) !important;
+  color: var(--text-secondary) !important;
+  font-family: 'Orbitron', sans-serif !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border-bottom: 2px solid var(--border) !important;
+}
+
+td {
+  border-bottom: 1px solid var(--border) !important;
+}
+
+tr:hover td {
+  background-color: var(--list-hover) !important;
+}
+
+/* Global Form Controls overrides */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1.5px solid var(--input-border) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.95rem !important;
+  transition: all 0.3s ease !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 10px rgba(212, 28, 61, 0.25) !important;
+  outline: none !important;
+}
+
+select option {
+  background-color: var(--bg-white) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Theme-Aware Button enhancements */
+button[class*="refreshBtn"],
+button[class*="submitBtn"] {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(212, 28, 61, 0.3) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+button[class*="refreshBtn"]:hover,
+button[class*="submitBtn"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(212, 28, 61, 0.45) !important;
+}
+
+button[class*="downloadBtn"] {
+  background: linear-gradient(135deg, #107c41 0%, #0b592e 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(16, 124, 65, 0.3) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+button[class*="downloadBtn"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(16, 124, 65, 0.45) !important;
+}
+
+/* Scrollbars overrides */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Compact View Overrides */
+[data-compact="true"] [class*="card"],
+[data-compact="true"] [class*="Section"],
+[data-compact="true"] .formSection {
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+[data-compact="true"] th,
+[data-compact="true"] td {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.85rem !important;
+}
+
+[data-compact="true"] input[type="text"],
+[data-compact="true"] input[type="email"],
+[data-compact="true"] input[type="password"],
+[data-compact="true"] select,
+[data-compact="true"] textarea {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.85rem !important;
+}
+
+[data-compact="true"] h1 { font-size: 1.5rem !important; }
+[data-compact="true"] h2 { font-size: 1.2rem !important; }
+[data-compact="true"] h3 { font-size: 1rem !important; }
+
+/* Disable Animations */
+[data-no-animations="true"] *,
+[data-no-animations="true"] *::before,
+[data-no-animations="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Dark Theme Table Text Contrast Overrides */
+[data-theme="dark"] [class*="nameCell"] {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] [class*="pidCell"] {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] [class*="dateCell"] {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] td {
+  color: var(--text-primary);
+}
+
+
+
+
