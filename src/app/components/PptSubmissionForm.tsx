@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { supabase, SUPABASE_BUCKET } from '../../utils/supabaseClient';
 import styles from './PptSubmissionForm.module.css';
@@ -49,7 +51,7 @@ export default function PptSubmissionForm({ onSuccess }: SubmissionFormProps) {
         });
 
       if (uploadError) throw uploadError;
-      const publicUrl = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath).publicURL;
+      const publicUrl = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath).data.publicUrl;
 
       // 2️⃣ Insert row in `team` table
       const { error: dbError } = await supabase.from('team').insert({
