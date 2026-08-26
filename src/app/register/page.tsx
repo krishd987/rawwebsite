@@ -408,7 +408,7 @@ export default function RegisterPage() {
               </div>
               <form onSubmit={handleSubmit} className={styles.form}>
                 {/* Registration Details */}
-                <div className={styles.formSection}>
+                <div className={styles.formSection} id="select-competition-section">
                   <h3 className={styles.sectionTitle}>Select Competition</h3>
                   <p className={styles.sectionDescription}>Choose the robotics opportunity you want to register for</p>
 
@@ -480,15 +480,34 @@ export default function RegisterPage() {
 
                             <div className={`${styles.competitionMeta} competition-meta`}>
                               <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>📅</span>
+                                <span className={styles.metaIcon}>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                  </svg>
+                                </span>
                                 <span>{comp.date}</span>
                               </span>
                               <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>⏰</span>
+                                <span className={styles.metaIcon}>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                  </svg>
+                                </span>
                                 <span>{comp.deadline}</span>
                               </span>
                               <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>👥</span>
+                                <span className={styles.metaIcon}>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                  </svg>
+                                </span>
                                 <span>{comp.teamSize}</span>
                               </span>
                             </div>
@@ -496,6 +515,12 @@ export default function RegisterPage() {
                             <p className={`${styles.competitionDescription} competition-description ${isExpanded ? 'expanded' : ''}`}>
                               {displayDescription}
                             </p>
+
+                            {canRegister && selectedCompetition?._id !== comp._id && (
+                              <div className={styles.selectPrompt} style={{ color: 'var(--color-red)', fontSize: '0.9rem', fontWeight: 600, marginTop: '1rem', textDecoration: 'underline', textAlign: 'center' }}>
+                                Click here to select this form
+                              </div>
+                            )}
                           </div>
 
                           {shouldTruncate && (
@@ -517,7 +542,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Additional Fields - Show only after competition selection */}
-                {selectedCompetition && (() => {
+                {selectedCompetition ? (() => {
                   const hasEmailField = selectedCompetition.customFields?.some(
                     f => f.type === 'email' || f.label.toLowerCase().includes('email')
                   ) || false;
@@ -811,7 +836,11 @@ export default function RegisterPage() {
                       transition={{ delay: 0.3 }}
                     >
                       <div className={styles.needHelpCard}>
-                        <div className={styles.needHelpIcon}>💬</div>
+                        <div className={styles.needHelpIcon}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#ffffff' }}>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                          </svg>
+                        </div>
                         <div className={styles.needHelpContent}>
                           <h4>Need Help with Registration?</h4>
                           <p>
@@ -819,11 +848,20 @@ export default function RegisterPage() {
                           </p>
                           <div className={styles.contactList}>
                             <div className={styles.contactItem}>
-                              <span className={styles.contactIcon}>📧</span>
+                              <span className={styles.contactIcon}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
+                                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                  <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                              </span>
                               <a href="mailto:teamraw@sfit.ac.in">teamraw@sfit.ac.in</a>
                             </div>
                             <div className={styles.contactItem}>
-                              <span className={styles.contactIcon}>📞</span>
+                              <span className={styles.contactIcon}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
+                                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                              </span>
                               <div className={styles.contactNumbers}>
                                 <a href="tel:+918976357005">Jhoshua Coutinho : 89763 57005</a>
                                 <a href="tel:+917208697241">Pal Rajak : 72086 97241</a>
@@ -835,7 +873,37 @@ export default function RegisterPage() {
                     </motion.div>
                   </div>
                 );
-              })()}
+              })() : (
+                <div className={styles.formSection} style={{ textAlign: 'center', padding: '3.5rem 2rem', background: 'rgba(10, 26, 58, 0.01)', border: '2px dashed rgba(10, 26, 58, 0.15)', borderRadius: '16px', margin: '1rem 0' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 1.25rem', opacity: 0.7, color: 'var(--color-navy)' }}>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                    <path d="M9 12h6" />
+                    <path d="M9 16h6" />
+                  </svg>
+                  <h4 style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.3rem', color: 'var(--color-navy)', marginBottom: '0.5rem', fontWeight: 600, letterSpacing: '0.03em' }}>
+                    No Competition Selected
+                  </h4>
+                  <p style={{ color: 'var(--color-gray-dark)', fontSize: '1rem', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' }}>
+                    Please select an active competition from the cards above to fill in the registration details. Or{' '}
+                    <span
+                      onClick={() => {
+                        const el = document.getElementById('select-competition-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      style={{
+                        color: 'var(--color-red)',
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                        fontWeight: 600
+                      }}
+                    >
+                      click here
+                    </span>{' '}
+                    to select a form.
+                  </p>
+                </div>
+              )}
             </form>
           </motion.div>
         </div>
