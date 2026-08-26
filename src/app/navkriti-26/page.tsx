@@ -876,7 +876,12 @@ export default function TasksPage() {
                     {/* Column 1: Instructions */}
                     <div className={styles.instructionsCol}>
                       <div className={styles.instructionSection}>
-                        <h3 className={styles.sectionTitle}>📁 File Naming</h3>
+                        <h3 className={styles.sectionTitle}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                          </svg>
+                          File Naming
+                        </h3>
                         <ul>
                           <li>Rename your PPT file strictly as: <strong>TeamLeaderPID_TeamName</strong> (Example: <code>123123_TeamVolt.pptx</code>).</li>
                           <li>The file must contain your complete <strong>Idea Presentation PPT</strong>.</li>
@@ -885,7 +890,14 @@ export default function TasksPage() {
                       </div>
 
                       <div className={styles.instructionSection}>
-                        <h3 className={styles.sectionTitle}>📊 What to Include</h3>
+                        <h3 className={styles.sectionTitle}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                          </svg>
+                          What to Include
+                        </h3>
                         <ul>
                           <li><strong>PPT File:</strong> Use the official NAVKRITI &apos;26 Idea Presentation format. Do not alter slide layouts or delete the Problem Statement ID slide.</li>
                           <li>File format must be <code>.ppt</code> or <code>.pptx</code> (max 15MB).</li>
@@ -893,16 +905,30 @@ export default function TasksPage() {
                       </div>
 
                       <div className={styles.instructionSection}>
-                        <h3 className={styles.sectionTitle}>👥 Team Details</h3>
+                        <h3 className={styles.sectionTitle}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '0.5rem' }}>
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                          </svg>
+                          Team Details
+                        </h3>
                         <ul>
                           <li>Only the <strong>Team Leader</strong> should upload the PPT file below.</li>
-                          <li>Ensure all 6 team member names and PIDs are mentioned inside the PPT.</li>
                           <li>Do <strong>not</strong> submit multiple times — one upload per team only.</li>
                         </ul>
                       </div>
 
                       <div className={styles.alertBox}>
-                        <h4>⚠️ Important Checklist</h4>
+                        <h4>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '0.5rem', color: '#ff9800' }}>
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                          </svg>
+                          Important Checklist
+                        </h4>
                         <ul>
                           <li><strong>Valid PPT File:</strong> Ensure the file uploads successfully and is not corrupted.</li>
                           <li><strong>Correct PPT Format:</strong> Use only the official NAVKRITI &apos;26 template — no layout changes.</li>
@@ -955,15 +981,14 @@ export default function TasksPage() {
 
                       <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Problem Statement Track *</label>
-                        <select
+                        <input
+                          type="text"
                           required
-                          className={styles.formSelect}
+                          className={styles.formInput}
+                          placeholder="SIH26001"
                           value={submitFormData.problemStatement}
                           onChange={(e) => setSubmitFormData({ ...submitFormData, problemStatement: e.target.value })}
-                        >
-                          <option value="" disabled>Select a Track / Theme</option>
-                          <option value="TBD">TBD / Default Track</option>
-                        </select>
+                        />
                       </div>
 
                       <div className={styles.formGroup}>

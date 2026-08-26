@@ -124,7 +124,7 @@ export const teamMembers: TeamMember[] = [
     department: 'Technical',
     domain: 'electronics',
     category: 'core',
-    imageUrl: '/parth.jpg',
+    imageUrl: '/parth.jpeg',
     email: 'parthsutar2006@gmail.com',
     linkedin: 'https://www.linkedin.com/in/parth-sutar-34463533b',
     createdAt: '2024-03-10',
