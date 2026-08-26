@@ -955,15 +955,14 @@ export default function TasksPage() {
 
                       <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Problem Statement Track *</label>
-                        <select
+                        <input
+                          type="text"
                           required
-                          className={styles.formSelect}
+                          className={styles.formInput}
+                          placeholder="SIH26001"
                           value={submitFormData.problemStatement}
                           onChange={(e) => setSubmitFormData({ ...submitFormData, problemStatement: e.target.value })}
-                        >
-                          <option value="" disabled>Select a Track / Theme</option>
-                          <option value="TBD">TBD / Default Track</option>
-                        </select>
+                        />
                       </div>
 
                       <div className={styles.formGroup}>
