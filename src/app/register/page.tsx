@@ -211,7 +211,18 @@ export default function RegisterPage() {
     setIsSubmitting(true);
     setSubmitError('');
 
-    if (!formData.email.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
+    // Validate email
+    let emailToValidate = formData.email;
+    if (selectedCompetition) {
+      const emailField = selectedCompetition.customFields?.find(
+        f => f.type === 'email' || f.label.toLowerCase().includes('email')
+      );
+      if (emailField) {
+        emailToValidate = customFieldValues[emailField.id] || '';
+      }
+    }
+
+    if (!emailToValidate || !emailToValidate.toLowerCase().endsWith(STUDENT_EMAIL_DOMAIN)) {
       setSubmitStatus('error');
       setSubmitError('Please use your @student.sfit.ac.in email address to submit.');
       setIsSubmitting(false);
@@ -219,12 +230,33 @@ export default function RegisterPage() {
     }
 
     try {
+      let finalFullName = formData.fullName;
+      let finalEmail = emailToValidate;
+      let finalPhone = formData.phone;
+
+      if (selectedCompetition && selectedCompetition.customFields) {
+        selectedCompetition.customFields.forEach(f => {
+          const val = customFieldValues[f.id];
+          if (!val) return;
+
+          const label = f.label.toLowerCase();
+          if (f.type === 'tel' || label.includes('phone') || label.includes('mobile')) {
+            finalPhone = val.replace(/[^0-9]/g, '');
+          }
+          if (label.includes('leader name') || label.includes('member 1 name') || (label.includes('name') && !label.includes('member') && !label.includes('team'))) {
+            finalFullName = val;
+          }
+        });
+      }
+
       // Submit to actual API endpoint
       const submissionData = {
-        ...formData,
-        phone: `+91${formData.phone}`, // Add +91 prefix to phone number
+        fullName: finalFullName,
+        email: finalEmail,
+        phone: `+91${finalPhone}`,
+        competition: selectedCompetition?.name || '',
+        competitionId: selectedCompetition?._id || '',
         customFields: customFieldValues,
-        competitionId: selectedCompetition?._id,
       };
 
       const response = await fetch('/api/registrations', {
@@ -374,79 +406,15 @@ export default function RegisterPage() {
                   This form is only for students of St. Francis Institute of Technology registering for upcoming robotics registration.
                 </p>
               </div>
-
               <form onSubmit={handleSubmit} className={styles.form}>
-                {/* Personal Information */}
+                {/* Registration Details */}
                 <div className={styles.formSection}>
-                  <h3 className={styles.sectionTitle}>Personal Information</h3>
-
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="fullName">SFIT Student Name *</label>
-                      <input
-                        type="text"
-                        id="fullName"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your full name"
-                      />
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="email">SFIT Student Email Address *</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="your.name@student.sfit.ac.in"
-                        pattern="^[^@\s]+@student\.sfit\.ac\.in$"
-                        title="Use your @student.sfit.ac.in email address"
-                      />
-                    </div>
-                  </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="phone">Phone Number *</label>
-                    <div className={styles.phoneInputWrapper}>
-                      <span className={styles.phonePrefix}>+91</span>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handlePhoneChange}
-                        required
-                        placeholder="9876543210"
-                        pattern="[0-9]{10}"
-                        title="Please enter exactly 10 digits"
-                        maxLength={10}
-                        className={styles.phoneInput}
-                      />
-                    </div>
-                    {formData.phone && formData.phone.length < 10 && (
-                      <span className={styles.phoneHint}>
-                        {10 - formData.phone.length} more digit{10 - formData.phone.length !== 1 ? 's' : ''} required
-                      </span>
-                    )}
-                  </div>
-
-
-                </div>
-
-                {/* Registration */}
-                <div className={styles.formSection}>
-                  <h3 className={styles.sectionTitle}>Registration Details</h3>
+                  <h3 className={styles.sectionTitle}>Select Competition</h3>
                   <p className={styles.sectionDescription}>Choose the robotics opportunity you want to register for</p>
 
                   <div className={styles.competitionsGrid}>
                     {competitionsData.map((comp) => {
                       const isExpanded = expandedDescriptions[comp._id];
-                      const descriptionLines = comp.description.split('\n');
                       const shouldTruncate = comp.description.length > 120;
                       const displayDescription = isExpanded || !shouldTruncate
                         ? comp.description
@@ -549,18 +517,93 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Additional Fields - Show only after competition selection */}
-                {selectedCompetition && (
-                  <div id="additional-fields">
+                {selectedCompetition && (() => {
+                  const hasEmailField = selectedCompetition.customFields?.some(
+                    f => f.type === 'email' || f.label.toLowerCase().includes('email')
+                  ) || false;
 
-                    {/* Dynamic Custom Fields */}
-                    {selectedCompetition.customFields && selectedCompetition.customFields.length > 0 && (
+                  const hasPhoneField = selectedCompetition.customFields?.some(
+                    f => f.type === 'tel' || f.label.toLowerCase().includes('phone') || f.label.toLowerCase().includes('mobile')
+                  ) || false;
+
+                  const hasNameField = selectedCompetition.customFields?.some(
+                    f => f.label.toLowerCase().includes('leader name') || 
+                         f.label.toLowerCase().includes('member 1 name') ||
+                         (f.label.toLowerCase().includes('name') && !f.label.toLowerCase().includes('member') && !f.label.toLowerCase().includes('team'))
+                  ) || false;
+
+                  return (
+                    <div id="additional-fields">
+                      {/* Dynamic Custom Fields & Injected Core Fields */}
                       <div className={styles.formSection}>
-                        <h3 className={styles.sectionTitle}>Additional Information</h3>
+                        <h3 className={styles.sectionTitle}>Registration Form</h3>
                         <p className={styles.sectionDescription}>
-                          Please fill in the details requested for this competition.
+                          Please fill in the details requested for this registration.
                         </p>
 
                         <div className={styles.additionalFieldsGrid}>
+                          {/* Injected Core Name Field */}
+                          {!hasNameField && (
+                            <div className={styles.formGroup}>
+                              <label htmlFor="fullName">SFIT Student Name *</label>
+                              <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                value={formData.fullName}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="Enter your full name"
+                              />
+                            </div>
+                          )}
+
+                          {/* Injected Core Email Field */}
+                          {!hasEmailField && (
+                            <div className={styles.formGroup}>
+                              <label htmlFor="email">SFIT Student Email Address *</label>
+                              <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="your.name@student.sfit.ac.in"
+                                pattern="^[^@\s]+@student\.sfit\.ac\.in$"
+                                title="Use your @student.sfit.ac.in email address"
+                              />
+                            </div>
+                          )}
+
+                          {/* Injected Core Phone Field */}
+                          {!hasPhoneField && (
+                            <div className={styles.formGroup}>
+                              <label htmlFor="phone">Phone Number *</label>
+                              <div className={styles.phoneInputWrapper} style={{ display: 'flex', alignItems: 'center' }}>
+                                <span className={styles.phonePrefix} style={{ marginRight: '0.5rem', fontWeight: 600 }}>+91</span>
+                                <input
+                                  type="tel"
+                                  id="phone"
+                                  name="phone"
+                                  value={formData.phone}
+                                  onChange={handlePhoneChange}
+                                  required
+                                  placeholder="9876543210"
+                                  pattern="[0-9]{10}"
+                                  title="Please enter exactly 10 digits"
+                                  maxLength={10}
+                                  className={styles.phoneInput}
+                                  style={{ flex: 1 }}
+                                />
+                              </div>
+                              {formData.phone && formData.phone.length < 10 && (
+                                <span className={styles.phoneHint} style={{ fontSize: '0.85rem', color: '#ff3b30', marginTop: '0.25rem' }}>
+                                  {10 - formData.phone.length} more digit{10 - formData.phone.length !== 1 ? 's' : ''} required
+                                </span>
+                              )}
+                            </div>
+                          )}
                           {selectedCompetition.customFields.map((field) => {
                             const isFullWidth = ['textarea', 'checkbox'].includes(field.type);
 
@@ -694,7 +737,6 @@ export default function RegisterPage() {
                           })}
                         </div>
                       </div>
-                    )}
 
                     {/* Competition Notes Agreement */}
                     {selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && (
@@ -792,15 +834,15 @@ export default function RegisterPage() {
                       </div>
                     </motion.div>
                   </div>
-                )}
-              </form>
-            </motion.div>
+                );
+              })()}
+            </form>
+          </motion.div>
+        </div>
+      )}
+    </section>
 
-          </div>
-        )}
-      </section>
-
-      <Footer />
+    <Footer />
     </main>
   );
 }

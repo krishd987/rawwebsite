@@ -765,7 +765,7 @@ export default function TasksPage() {
       {/* ── Bottom Submit CTA ── */}
       <section className={styles.bottomCta}>
         <div className={styles.bottomCtaContent}>
-          <h2>Finished your Project?</h2>
+          <h2>Upload your SIH PPT</h2>
           <p>Upload your PPT presentation file containing all work details directly to our reviewers.</p>
           <button
             className={styles.bottomCtaBtn}

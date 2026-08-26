@@ -443,6 +443,7 @@ export default function RegistrationsPage() {
         </div>
       </div>
 
+
       <div className={styles.filters}>
         <div className={styles.filterGroup}>
           <label>Competition</label>

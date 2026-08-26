@@ -19,8 +19,15 @@ export async function GET(request: NextRequest) {
       query = query.where('isActive', '==', true);
     }
     
-    const snapshot = await query.orderBy('createdAt', 'desc').get();
+    const snapshot = await query.get();
     const competitions = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() }));
+
+    // Sort in-memory by createdAt descending to avoid composite index requirements
+    competitions.sort((a: any, b: any) => {
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA;
+    });
 
     return NextResponse.json({
       success: true,

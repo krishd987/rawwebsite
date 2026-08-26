@@ -141,7 +141,7 @@ export default function SubmissionsPage() {
     const link = document.createElement('a');
     link.setAttribute('href', url);
 
-    let filename = 'task_submissions';
+    let filename = 'ppt_submissions';
     if (selectedStatus !== 'all') {
       filename += `_${selectedStatus}`;
     }
@@ -158,7 +158,7 @@ export default function SubmissionsPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <h1>Task Submissions</h1>
+          <h1>PPT Submissions</h1>
           <p className={styles.subtitle}>View and manage student PPT submissions</p>
         </div>
         <div className={styles.stats}>

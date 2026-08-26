@@ -12,8 +12,15 @@ export async function GET(request: NextRequest) {
     if (competitionId) query = query.where('competitionId', '==', competitionId);
     if (status) query = query.where('status', '==', status);
     
-    const snapshot = await query.orderBy('submittedAt', 'desc').get();
+    const snapshot = await query.get();
     const registrations = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+
+    // Sort in-memory by submittedAt descending to avoid composite index requirements
+    registrations.sort((a: any, b: any) => {
+      const dateA = a.submittedAt ? new Date(a.submittedAt).getTime() : 0;
+      const dateB = b.submittedAt ? new Date(b.submittedAt).getTime() : 0;
+      return dateB - dateA;
+    });
     
     return NextResponse.json({
       success: true,
