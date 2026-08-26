@@ -1,0 +1,9 @@
+/* page.module.css */
+.main {
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  background: radial-gradient(circle at 80% 20%, rgba(0, 180, 255, 0.15), transparent 50%), linear-gradient(135deg, #020b1e 0%, #0a1a3a 50%, #05122c 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

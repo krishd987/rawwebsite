@@ -1,4 +1,4 @@
-import PptSubmissionForm from '@/components/PptSubmissionForm';
+import PptSubmissionForm from '../components/PptSubmissionForm';
 import styles from './page.module.css';
 
 export default function PptSubmissionPage() {
