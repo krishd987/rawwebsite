@@ -83,7 +83,7 @@ export default function RobotsPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>🤖 Robots Management</h1>
+        <h1 className={styles.title}>Robots Management</h1>
         <p className={styles.subtitle}>View and manage all robots</p>
       </div>
 
@@ -163,7 +163,7 @@ export default function RobotsPage() {
       )}
 
       <div style={{ marginTop: '2rem', padding: '1.5rem', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #dee2e6' }}>
-        <h3 style={{ marginBottom: '1rem' }}>ℹ️ Management Options</h3>
+        <h3 style={{ marginBottom: '1rem' }}> Management Options</h3>
         <p style={{ marginBottom: '0.5rem' }}>To add, edit, or delete robots, you can:</p>
         <ul style={{ marginLeft: '1.5rem' }}>
           <li>Use <strong>MongoDB Compass</strong> to directly manage the <code>robots</code> collection</li>

@@ -431,6 +431,31 @@ export default function TasksPage() {
   };
 
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+
+  // Open modal directly if URL contains #submit
+  useEffect(() => {
+    if (window.location.hash === '#submit') {
+      setIsSubmitModalOpen(true);
+    }
+    const onHashChange = () => {
+      if (window.location.hash === '#submit') {
+        setIsSubmitModalOpen(true);
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Keep hash in sync with modal state
+  const openSubmitModal = () => {
+    setIsSubmitModalOpen(true);
+    window.history.replaceState(null, '', '#submit');
+  };
+  const closeSubmitModal = () => {
+    setIsSubmitModalOpen(false);
+    window.history.replaceState(null, '', window.location.pathname);
+  };
+
   const [submitFormData, setSubmitFormData] = useState({
     fullName: '',
     pid: '',

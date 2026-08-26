@@ -196,7 +196,7 @@ export default function RobotsGalleryPage() {
             setMultipleImages(prev => [...prev, ...newImages]);
             setMultipleImagePreviews(prev => [...prev, ...newPreviews]);
             setFormData((prev: any) => ({ ...prev, images: [...(prev.images || []), ...newImages] }));
-            console.log('✅ Multiple images added:', newImages.length);
+            console.log(' Multiple images added:', newImages.length);
           }
         };
         reader.onerror = (error) => {
@@ -307,7 +307,7 @@ export default function RobotsGalleryPage() {
         ? `${apiUrl}/api/${endpoint}/${editingItem._id}`
         : `${apiUrl}/api/${endpoint}`;
       
-      console.log('📤 Submitting payload:', payload);
+      console.log(' Submitting payload:', payload);
       
       const response = await fetch(url, {
         method: editingItem ? 'PATCH' : 'POST',
@@ -372,7 +372,7 @@ export default function RobotsGalleryPage() {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>🤖📸 Robots & Gallery Management</h1>
+          <h1 className={styles.title}> Robots & Gallery Management</h1>
         </div>
         <div style={{ textAlign: 'center', padding: '2rem' }}>
           <p>Loading data...</p>
@@ -384,7 +384,7 @@ export default function RobotsGalleryPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>🤖📸 Robots & Gallery Management</h1>
+        <h1 className={styles.title}> Robots & Gallery Management</h1>
         <p className={styles.subtitle}>Full CRUD - Create, Read, Update, Delete</p>
       </div>
 
@@ -408,7 +408,7 @@ export default function RobotsGalleryPage() {
             transition: 'all 0.3s ease',
           }}
         >
-          🤖 Robots
+          Robots
         </button>
         <button
           onClick={() => {
@@ -429,7 +429,7 @@ export default function RobotsGalleryPage() {
             transition: 'all 0.3s ease',
           }}
         >
-          📸 Gallery
+           Gallery
         </button>
         <button
           onClick={handleAdd}
@@ -452,7 +452,7 @@ export default function RobotsGalleryPage() {
       {showForm && (
         <div style={{ marginBottom: '2rem', padding: '2rem', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #E10600' }}>
           <h2 style={{ marginBottom: '1.5rem', color: '#E10600' }}>
-            {editingItem ? '✏️ Edit' : '➕ Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
+            {editingItem ? 'Edit' : 'Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
           </h2>
           
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
@@ -491,9 +491,9 @@ export default function RobotsGalleryPage() {
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '2px solid #dee2e6', fontSize: '1rem', background: 'white', cursor: 'pointer', fontWeight: '500' }}
                     >
-                      <option value="competition">🏆 Competition</option>
-                      <option value="research">🔬 Research</option>
-                      <option value="development">⚙️ Development</option>
+                      <option value="competition">Competition</option>
+                      <option value="research">Research</option>
+                      <option value="development">Development</option>
                     </select>
                   </div>
                   <div>
@@ -503,9 +503,9 @@ export default function RobotsGalleryPage() {
                       onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                       style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '2px solid #dee2e6', fontSize: '1rem', background: 'white', cursor: 'pointer', fontWeight: '500' }}
                     >
-                      <option value="active">✅ Active</option>
-                      <option value="retired">🔒 Retired</option>
-                      <option value="development">🔧 Development</option>
+                      <option value="active">Active</option>
+                      <option value="retired">Retired</option>
+                      <option value="development">Development</option>
                     </select>
                   </div>
                   <div>
@@ -639,12 +639,12 @@ export default function RobotsGalleryPage() {
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '2px solid #dee2e6', fontSize: '1rem', background: 'white', cursor: 'pointer', fontWeight: '500' }}
                     >
-                      <option value="robots">🤖 Robots</option>
-                      <option value="events">🎉 Events</option>
-                      <option value="workshops">🛠️ Workshops</option>
-                      <option value="competitions">🏆 Competitions</option>
-                      <option value="team">👥 Team</option>
-                      <option value="milestones">🎯 Milestones</option>
+                      <option value="robots">Robots</option>
+                      <option value="events">Events</option>
+                      <option value="workshops">Workshops</option>
+                      <option value="competitions">Competitions</option>
+                      <option value="team">Team</option>
+                      <option value="milestones">Milestones</option>
                     </select>
                   </div>
                 </div>
@@ -784,7 +784,7 @@ export default function RobotsGalleryPage() {
                       ))}
                     </div>
                   )}
-                  <small style={{ color: '#6c757d', display: 'block', marginTop: '0.75rem', fontSize: '0.9rem' }}>📸 Upload multiple images for gallery. Max 5MB each. Total: {multipleImagePreviews.length} image(s)</small>
+                  <small style={{ color: '#6c757d', display: 'block', marginTop: '0.75rem', fontSize: '0.9rem' }}> Upload multiple images for gallery. Max 5MB each. Total: {multipleImagePreviews.length} image(s)</small>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
@@ -849,7 +849,7 @@ export default function RobotsGalleryPage() {
                   boxShadow: isSubmitting ? 'none' : '0 4px 12px rgba(225, 6, 0, 0.3)',
                 }}
               >
-                {isSubmitting ? '⏳ Saving...' : (editingItem ? '💾 Update' : '✅ Create')}
+                {isSubmitting ? 'Saving...' : (editingItem ? ' Update' : ' Create')}
               </button>
             </div>
           </form>
@@ -865,42 +865,42 @@ export default function RobotsGalleryPage() {
           <>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{robots.filter(r => r.category === 'competition').length}</div>
-              <div className={styles.statLabel}>🏆 Competition</div>
+              <div className={styles.statLabel}>Competition</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{robots.filter(r => r.category === 'research').length}</div>
-              <div className={styles.statLabel}>🔬 Research</div>
+              <div className={styles.statLabel}>Research</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{robots.filter(r => r.category === 'development').length}</div>
-              <div className={styles.statLabel}>⚙️ Development</div>
+              <div className={styles.statLabel}>Development</div>
             </div>
           </>
         ) : (
           <>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'robots').length}</div>
-              <div className={styles.statLabel}>🤖 Robots</div>
+              <div className={styles.statLabel}>Robots</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'events').length}</div>
-              <div className={styles.statLabel}>🎉 Events</div>
+              <div className={styles.statLabel}>Events</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'workshops').length}</div>
-              <div className={styles.statLabel}>🛠️ Workshops</div>
+              <div className={styles.statLabel}>Workshops</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'competitions').length}</div>
-              <div className={styles.statLabel}>🏆 Competitions</div>
+              <div className={styles.statLabel}>Competitions</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'team').length}</div>
-              <div className={styles.statLabel}>👥 Team</div>
+              <div className={styles.statLabel}>Team</div>
             </div>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{galleryItems.filter(g => g.category === 'milestones').length}</div>
-              <div className={styles.statLabel}>🎯 Milestones</div>
+              <div className={styles.statLabel}>Milestones</div>
             </div>
           </>
         )}
@@ -990,7 +990,7 @@ export default function RobotsGalleryPage() {
                         fontWeight: '600',
                       }}
                     >
-                      ✏️ Edit
+                      Edit
                     </button>
                     <button
                       onClick={() => handleDelete(robot._id)}
@@ -1051,7 +1051,7 @@ export default function RobotsGalleryPage() {
                         fontWeight: '600',
                       }}
                     >
-                      ✏️ Edit
+                      Edit
                     </button>
                     <button
                       onClick={() => handleDelete(item._id)}

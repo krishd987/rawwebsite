@@ -390,7 +390,7 @@ export default function RobotsGalleryEnhancedPage() {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>🤖📸 Robots & Gallery Management</h1>
+          <h1 className={styles.pageTitle}> Robots & Gallery Management</h1>
           <p className={styles.pageSubtitle}>Create, Read, Update, Delete - Complete Dashboard</p>
         </div>
 
@@ -410,7 +410,7 @@ export default function RobotsGalleryEnhancedPage() {
             }}
             className={`${styles.tabButton} ${viewMode === 'robots' ? styles.active : ''}`}
           >
-            <span>🤖</span> Robots
+            <span></span> Robots
           </button>
           <button
             onClick={() => {
@@ -421,7 +421,7 @@ export default function RobotsGalleryEnhancedPage() {
             }}
             className={`${styles.tabButton} ${viewMode === 'gallery' ? styles.active : ''}`}
           >
-            <span>📸</span> Gallery
+            <span></span> Gallery
           </button>
           <button onClick={handleAdd} className={styles.addButton}>
             + Add New {viewMode === 'robots' ? 'Robot' : 'Image'}
@@ -431,24 +431,24 @@ export default function RobotsGalleryEnhancedPage() {
         {/* Stats Panel */}
         <div className={styles.statsPanel}>
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>📊</div>
+            <div className={styles.statIcon}></div>
             <div className={styles.statValue}>{viewMode === 'robots' ? robots.length : galleryItems.length}</div>
             <div className={styles.statLabel}>Total {viewMode === 'robots' ? 'Robots' : 'Images'}</div>
           </div>
           {viewMode === 'robots' ? (
             <>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🏆</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'competition').length}</div>
                 <div className={styles.statLabel}>Competition</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🔬</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'research').length}</div>
                 <div className={styles.statLabel}>Research</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>⚙️</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{robots.filter(r => r.category === 'development').length}</div>
                 <div className={styles.statLabel}>Development</div>
               </div>
@@ -456,17 +456,17 @@ export default function RobotsGalleryEnhancedPage() {
           ) : (
             <>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🎉</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'events').length}</div>
                 <div className={styles.statLabel}>Events</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🛠️</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'workshops').length}</div>
                 <div className={styles.statLabel}>Workshops</div>
               </div>
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>🏆</div>
+                <div className={styles.statIcon}></div>
                 <div className={styles.statValue}>{galleryItems.filter(g => g.category === 'competitions').length}</div>
                 <div className={styles.statLabel}>Competitions</div>
               </div>
@@ -479,7 +479,7 @@ export default function RobotsGalleryEnhancedPage() {
           <div className={styles.formContainer}>
             <div className={styles.formHeader}>
               <h2 className={styles.formTitle}>
-                {editingItem ? '✏️ Edit' : '➕ Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
+                {editingItem ? 'Edit' : 'Add New'} {viewMode === 'robots' ? 'Robot' : 'Gallery Item'}
               </h2>
             </div>
 
@@ -490,7 +490,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Basic Information Section */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📌</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Basic Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -526,7 +526,7 @@ export default function RobotsGalleryEnhancedPage() {
                         <div className={styles.formRowTriple}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📂</span> Category <span className={styles.required}>*</span>
+                              <span className={styles.labelIcon}></span> Category <span className={styles.required}>*</span>
                             </label>
                             <select
                               required
@@ -534,9 +534,9 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="competition">🏆 Competition</option>
-                              <option value="research">🔬 Research</option>
-                              <option value="development">⚙️ Development</option>
+                              <option value="competition">Competition</option>
+                              <option value="research">Research</option>
+                              <option value="development">Development</option>
                             </select>
                           </div>
                           <div className={styles.formGroup}>
@@ -548,14 +548,14 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="active">✅ Active</option>
-                              <option value="retired">🔒 Retired</option>
-                              <option value="development">🔧 Development</option>
+                              <option value="active">Active</option>
+                              <option value="retired">Retired</option>
+                              <option value="development">Development</option>
                             </select>
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Year
+                              <span className={styles.labelIcon}></span> Year
                             </label>
                             <input
                               type="number"
@@ -586,7 +586,7 @@ export default function RobotsGalleryEnhancedPage() {
                             onDrop={handleDrop}
                             onClick={() => document.getElementById('robot-image-input')?.click()}
                           >
-                            <div className={styles.uploadIcon}>📤</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Drag & drop or click to upload</p>
                             <p className={styles.uploadHint}>Supported: JPG, PNG, GIF, WebP (Max 5MB)</p>
                             <input
@@ -613,7 +613,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Detailed Information Section */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📄</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Detailed Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -649,7 +649,7 @@ export default function RobotsGalleryEnhancedPage() {
                         <div className={styles.formRow}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>⚙️</span> Specifications
+                              <span className={styles.labelIcon}></span> Specifications
                             </label>
                             <input
                               type="text"
@@ -659,12 +659,12 @@ export default function RobotsGalleryEnhancedPage() {
                               className={styles.input}
                             />
                             <div className={styles.helperText}>
-                              💡 Separate items with commas
+                               Separate items with commas
                             </div>
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>🏷️</span> Tags
+                              <span className={styles.labelIcon}></span> Tags
                             </label>
                             <input
                               type="text"
@@ -678,7 +678,7 @@ export default function RobotsGalleryEnhancedPage() {
 
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            <span className={styles.labelIcon}>⭐</span> Features
+                            <span className={styles.labelIcon}></span> Features
                           </label>
                           <input
                             type="text"
@@ -691,7 +691,7 @@ export default function RobotsGalleryEnhancedPage() {
 
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            <span className={styles.labelIcon}>🏆</span> Achievements
+                            <span className={styles.labelIcon}></span> Achievements
                           </label>
                           <input
                             type="text"
@@ -721,7 +721,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Gallery Basic Information */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📌</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Basic Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -741,7 +741,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📂</span> Category <span className={styles.required}>*</span>
+                              <span className={styles.labelIcon}></span> Category <span className={styles.required}>*</span>
                             </label>
                             <select
                               required
@@ -749,12 +749,12 @@ export default function RobotsGalleryEnhancedPage() {
                               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                               className={styles.select}
                             >
-                              <option value="robots">🤖 Robots</option>
-                              <option value="events">🎉 Events</option>
-                              <option value="workshops">🛠️ Workshops</option>
-                              <option value="competitions">🏆 Competitions</option>
-                              <option value="team">👥 Team</option>
-                              <option value="milestones">🎯 Milestones</option>
+                              <option value="robots">Robots</option>
+                              <option value="events">Events</option>
+                              <option value="workshops">Workshops</option>
+                              <option value="competitions">Competitions</option>
+                              <option value="team">Team</option>
+                              <option value="milestones">Milestones</option>
                             </select>
                           </div>
                         </div>
@@ -764,7 +764,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Gallery Detailed Information */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📄</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Detailed Information</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -809,7 +809,7 @@ export default function RobotsGalleryEnhancedPage() {
                             className={styles.input}
                           />
                           <div className={styles.helperText}>
-                            💡 Separate highlights with commas
+                             Separate highlights with commas
                           </div>
                         </div>
                       </div>
@@ -818,14 +818,14 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Event Metadata */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>📍</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Event Metadata</h3>
                       </div>
                       <div className={styles.formGrid}>
                         <div className={styles.formRowTriple}>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📍</span> Location
+                              <span className={styles.labelIcon}></span> Location
                             </label>
                             <input
                               type="text"
@@ -837,7 +837,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Date
+                              <span className={styles.labelIcon}></span> Date
                             </label>
                             <input
                               type="date"
@@ -848,7 +848,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>👥</span> Participants
+                              <span className={styles.labelIcon}></span> Participants
                             </label>
                             <input
                               type="text"
@@ -880,7 +880,7 @@ export default function RobotsGalleryEnhancedPage() {
                             onDrop={handleDrop}
                             onClick={() => document.getElementById('gallery-image-input')?.click()}
                           >
-                            <div className={styles.uploadIcon}>📤</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Drag & drop or click to upload</p>
                             <p className={styles.uploadHint}>Main display image (Max 5MB)</p>
                             <input
@@ -907,7 +907,7 @@ export default function RobotsGalleryEnhancedPage() {
                             Additional Images (Multiple)
                           </label>
                           <div className={styles.uploadArea} onClick={() => document.getElementById('gallery-multi-input')?.click()}>
-                            <div className={styles.uploadIcon}>📸</div>
+                            <div className={styles.uploadIcon}></div>
                             <p className={styles.uploadText}>Click to upload multiple images</p>
                             <p className={styles.uploadHint}>Upload multiple images for gallery view</p>
                             <input
@@ -936,7 +936,7 @@ export default function RobotsGalleryEnhancedPage() {
                             </div>
                           )}
                           <div className={styles.helperText}>
-                            📸 {multipleImagePreviews.length} image(s) added
+                             {multipleImagePreviews.length} image(s) added
                           </div>
                         </div>
                       </div>
@@ -945,7 +945,7 @@ export default function RobotsGalleryEnhancedPage() {
                     {/* Metadata */}
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
-                        <span className={styles.sectionIcon}>⚙</span>
+                        <span className={styles.sectionIcon}></span>
                         <h3 className={styles.sectionTitle}>Metadata</h3>
                       </div>
                       <div className={styles.formGrid}>
@@ -964,7 +964,7 @@ export default function RobotsGalleryEnhancedPage() {
                           </div>
                           <div className={styles.formGroup}>
                             <label className={styles.label}>
-                              <span className={styles.labelIcon}>📅</span> Year
+                              <span className={styles.labelIcon}></span> Year
                             </label>
                             <input
                               type="number"
@@ -1000,7 +1000,7 @@ export default function RobotsGalleryEnhancedPage() {
                   disabled={isSubmitting}
                   className={styles.btnSubmit}
                 >
-                  {isSubmitting ? '⏳ Saving...' : (editingItem ? '💾 Update Item' : '✅ Create Item')}
+                  {isSubmitting ? 'Saving...' : (editingItem ? 'Update Item' : 'Create Item')}
                 </button>
               </div>
             </form>
@@ -1025,13 +1025,13 @@ export default function RobotsGalleryEnhancedPage() {
             {/* Items Grid */}
             {error && (
               <div className={styles.errorContainer}>
-                <p className={styles.errorText}>⚠️ Error: {error}</p>
+                <p className={styles.errorText}> Error: {error}</p>
               </div>
             )}
 
             {currentData.length === 0 ? (
               <div className={styles.emptyContainer}>
-                <div className={styles.emptyIcon}>📭</div>
+                <div className={styles.emptyIcon}></div>
                 <p className={styles.emptyText}>No {viewMode === 'robots' ? 'robots' : 'gallery items'} found in this category.</p>
                 <button onClick={handleAdd} className={styles.addButton} style={{ marginTop: '1rem' }}>
                   + Add Your First {viewMode === 'robots' ? 'Robot' : 'Image'}
@@ -1060,12 +1060,12 @@ export default function RobotsGalleryEnhancedPage() {
                         <p className={styles.itemDescription}>{robot.description}</p>
                         <div className={styles.itemMeta}>
                           <span className={styles.itemMetaItem}>🔧 {robot.type}</span>
-                          {robot.year && <span className={styles.itemMetaItem}>📅 {robot.year}</span>}
+                          {robot.year && <span className={styles.itemMetaItem}> {robot.year}</span>}
                           {robot.status && <span className={styles.itemMetaItem}>✓ {robot.status}</span>}
                         </div>
                         <div className={styles.itemActions}>
                           <button onClick={() => handleEdit(robot)} className={styles.btnEdit}>
-                            ✏️ Edit
+                            Edit
                           </button>
                           <button onClick={() => handleDelete(robot._id)} className={styles.btnDelete}>
                             🗑️ Delete
@@ -1094,14 +1094,14 @@ export default function RobotsGalleryEnhancedPage() {
                         </div>
                         <p className={styles.itemDescription}>{item.description}</p>
                         <div className={styles.itemMeta}>
-                          {item.location && <span className={styles.itemMetaItem}>📍 {item.location}</span>}
-                          {item.date && <span className={styles.itemMetaItem}>📅 {new Date(item.date).toLocaleDateString()}</span>}
-                          {item.participants && <span className={styles.itemMetaItem}>👥 {item.participants}</span>}
-                          {item.year && <span className={styles.itemMetaItem}>📆 {item.year}</span>}
+                          {item.location && <span className={styles.itemMetaItem}> {item.location}</span>}
+                          {item.date && <span className={styles.itemMetaItem}> {new Date(item.date).toLocaleDateString()}</span>}
+                          {item.participants && <span className={styles.itemMetaItem}> {item.participants}</span>}
+                          {item.year && <span className={styles.itemMetaItem}> {item.year}</span>}
                         </div>
                         <div className={styles.itemActions}>
                           <button onClick={() => handleEdit(item)} className={styles.btnEdit}>
-                            ✏️ Edit
+                            Edit
                           </button>
                           <button onClick={() => handleDelete(item._id)} className={styles.btnDelete}>
                             🗑️ Delete
@@ -1119,7 +1119,7 @@ export default function RobotsGalleryEnhancedPage() {
         {/* Toast Notification */}
         {toast.show && (
           <div className={`${styles.toast} ${styles[toast.type]}`}>
-            <span className={styles.toastIcon}>{toast.type === 'success' ? '✅' : '❌'}</span>
+            <span className={styles.toastIcon}>{toast.type === 'success' ? '' : '❌'}</span>
             <span className={styles.toastMessage}>{toast.message}</span>
           </div>
         )}
