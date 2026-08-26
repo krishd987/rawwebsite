@@ -181,7 +181,8 @@ const TeamSection: React.FC = () => {
   }
 
   // Sort members: domain head (main) first, then core members, then mentors, then regular members.
-  // Within mentors and regular members, sort alphabetically by name.
+  // Within mentors, sort by custom order: Shreehari Punna > Siddhant Monde > Shail Raut > Taksh Gandhi > Saish Loke.
+  // Within regular members, sort alphabetically by name.
   const sortedMembers = [...domainMembers].sort((a, b) => {
     // Ramjee Yadav (core1) always comes first:
     if (a._id === 'core1') return -1;
@@ -202,6 +203,22 @@ const TeamSection: React.FC = () => {
       return aOrder - bOrder;
     }
     
+    // Custom sort order for mentors
+    if (a.category === 'mentors' && b.category === 'mentors') {
+      const mentorOrder: { [key: string]: number } = {
+        'Shreehari Punna': 1,
+        'Siddhant Monde': 2,
+        'Shail Raut': 3,
+        'Taksh Gandhi': 4,
+        'Saish Loke': 5,
+      };
+      const aPriority = mentorOrder[a.name] || 999;
+      const bPriority = mentorOrder[b.name] || 999;
+      if (aPriority !== bPriority) {
+        return aPriority - bPriority;
+      }
+    }
+
     // Within the same category, sort alphabetically by name
     return a.name.localeCompare(b.name);
   });

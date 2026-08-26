@@ -329,11 +329,10 @@ export const teamMembers: TeamMember[] = [
   },
   */
   // MENTORS (Commented out/hidden)
-  /*
   {
     _id: 'mentor1',
     name: 'Shreehari Punna',
-    role: 'MENTOR & EX-CRC',
+    role: 'Alumni-Mentor',
     department: 'Electronics',
     domain: 'electronics',
     category: 'mentors',
@@ -342,6 +341,7 @@ export const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/shreehari-punna',
     createdAt: '2024-02-01',
   },
+  /*
   {
     _id: 'mentor2',
     name: 'Diyanshu Modi',
