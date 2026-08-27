@@ -587,7 +587,7 @@ export default function TasksPage() {
         </motion.div>
       </section>
 
-      {/* ── Ready to apply CTA ── */}
+      {/* ── Submit CTA ── */}
       <motion.section
         className={styles.cta}
         initial={{ opacity: 0, y: 20 }}
@@ -595,18 +595,18 @@ export default function TasksPage() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className={styles.ctaTitle}>Ready to apply?</h2>
+        <h2 className={styles.ctaTitle}>Upload your SIH PPT</h2>
         <p className={styles.ctaText}>
-          Start by filling the Registration form first — then download your domain task and complete it.
+          Upload your PPT presentation file containing all work details directly to our reviewers.
         </p>
-        <motion.a
-          href="/register"
+        <motion.button
           className={styles.ctaBtn}
+          onClick={() => setIsSubmitModalOpen(true)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
         >
-          Fill the Form First →
-        </motion.a>
+          Upload Completed PPT →
+        </motion.button>
       </motion.section>
 
       {/* ── NAVKRITI Information Section ── */}
@@ -787,19 +787,6 @@ export default function TasksPage() {
         </div>
       </section>
 
-      {/* ── Bottom Submit CTA ── */}
-      <section className={styles.bottomCta}>
-        <div className={styles.bottomCtaContent}>
-          <h2>Upload your SIH PPT</h2>
-          <p>Upload your PPT presentation file containing all work details directly to our reviewers.</p>
-          <button
-            className={styles.bottomCtaBtn}
-            onClick={() => setIsSubmitModalOpen(true)}
-          >
-            Upload Completed PPT →
-          </button>
-        </div>
-      </section>
 
 
 
