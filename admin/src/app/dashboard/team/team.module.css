@@ -253,13 +253,17 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  flex-shrink: 0;
 }
 
 .avatarImage {
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  display: block;
+  object-position: center top !important;
+  display: block !important;
 }
 
 .uploadButtonWrapper {
@@ -433,13 +437,17 @@
   position: absolute;
   bottom: -45px;
   background: #f8fafc;
+  flex-shrink: 0;
 }
 
 .cardAvatar {
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  display: block;
+  object-position: center top !important;
+  display: block !important;
 }
 
 .categoryBadge {
