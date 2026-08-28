@@ -244,17 +244,17 @@ export default function Analytics() {
               </svg>
             } 
             label="Unread Messages" 
-            value={contactStats?.byStatus.new || 0} 
+            value={contactStats?.byStatus?.new || 0} 
             color="orange"
           />
           <MetricCard 
             icon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             } 
             label="Replied Messages" 
-            value={contactStats?.byStatus.replied || 0} 
+            value={contactStats?.byStatus?.replied || 0} 
             color="green"
           />
           <MetricCard 
@@ -522,8 +522,8 @@ export default function Analytics() {
               <span className={styles.healthLabel}>Communication</span>
             </div>
             <p className={styles.healthText}>
-              {contactStats?.byStatus.new || 0} unread message{contactStats && contactStats.byStatus.new !== 1 ? 's' : ''} 
-              {contactStats && contactStats.byStatus.new > 5 ? ' - needs attention' : ''}
+              {contactStats?.byStatus?.new || 0} unread message{contactStats && contactStats.byStatus?.new !== 1 ? 's' : ''} 
+              {contactStats && contactStats.byStatus?.new > 5 ? ' - needs attention' : ''}
             </p>
           </div>
         </div>
