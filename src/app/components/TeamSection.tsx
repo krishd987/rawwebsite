@@ -20,6 +20,7 @@ const TeamSection: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const domainTabsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const [membersList, setMembersList] = useState<TeamMember[]>(teamMembers);
 
   // Read domain from URL query parameter on mount
   useEffect(() => {
@@ -28,6 +29,53 @@ const TeamSection: React.FC = () => {
       setActiveDomain(domainParam);
     }
   }, [searchParams]);
+
+  // Load team members from database
+  useEffect(() => {
+    async function loadMembers() {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/team');
+        if (response.ok) {
+          const resData = await response.json();
+          if (resData.success && resData.data && resData.data.length > 0) {
+            setMembersList(resData.data);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch team members from database, using static fallback:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadMembers();
+  }, []);
+
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string) => {
+    setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
+
+  const getInitials = (name: string) => {
+    if (!name) return '??';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', 
+      '#3b82f6', '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e'
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  };
 
   // Member Card Component
   const MemberCard: React.FC<{ member: TeamMember; index: number; isCore?: boolean }> = ({ member, index, isCore }) => (
@@ -41,14 +89,18 @@ const TeamSection: React.FC = () => {
       whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(225, 6, 0, 0.2)' }}
     >
       <div className={styles.memberImageWrapper}>
-        <Image
-          src={member.imageUrl}
-          alt={member.name}
-          width={300}
-          height={300}
-          className={styles.memberImage}
-          unoptimized
-        />
+        {(imageErrors[member._id] || !member.imageUrl) ? (
+          <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
+            {getInitials(member.name)}
+          </div>
+        ) : (
+          <img
+            src={member.imageUrl}
+            alt={member.name}
+            className={styles.memberImage}
+            onError={() => handleImageError(member._id)}
+          />
+        )}
       </div>
 
       <div className={styles.memberInfo}>
@@ -100,7 +152,7 @@ const TeamSection: React.FC = () => {
       {/* Card Footer */}
       <div className={styles.memberCardFooter}>
         <div className={styles.memberDomainsBadges}>
-          {getMemberDomains(member.name).map((domainId) => {
+          {getMemberDomains(member).map((domainId) => {
             const domain = domains.find(d => d.id === domainId);
             const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
             return (
@@ -162,10 +214,13 @@ const TeamSection: React.FC = () => {
   const currentDomain = domains.find(d => d.id === activeDomain);
 
   // Helper function to get all domains for a member
-  const getMemberDomains = (memberName: string): string[] => {
+  const getMemberDomains = (member: TeamMember): string[] => {
+    if (member.domains && member.domains.length > 0) {
+      return member.domains;
+    }
     const memberDomains: string[] = [];
     Object.entries(validDomainMembers).forEach(([domainId, members]) => {
-      if (members.includes(memberName)) {
+      if (members.includes(member.name)) {
         memberDomains.push(domainId);
       }
     });
@@ -173,11 +228,14 @@ const TeamSection: React.FC = () => {
   };
   
   // Get members - either for specific domain or all members
-  let domainMembers = teamMembers;
+  let domainMembers = membersList;
   
   // For specific domain, filter using whitelist to allow members in multiple domains
-  if (activeDomain !== 'all' && validDomainMembers[activeDomain]) {
-    domainMembers = teamMembers.filter(m => validDomainMembers[activeDomain].includes(m.name));
+  if (activeDomain !== 'all') {
+    domainMembers = membersList.filter(m => {
+      const mDomains = m.domains && m.domains.length > 0 ? m.domains : getMemberDomains(m);
+      return mDomains.includes(activeDomain);
+    });
   }
 
   // Sort members: domain head (main) first, then core members, then mentors, then regular members.
