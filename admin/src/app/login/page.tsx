@@ -92,7 +92,7 @@ function LoginForm() {
       const data = await response.json();
 
       if (data.success) {
-        setSuccessMessage('✓ Login successful! Redirecting...');
+        setSuccessMessage('Login successful! Redirecting...');
         setError('');
         await verifyAuth();
         await new Promise((r) => setTimeout(r, 500));
@@ -152,7 +152,11 @@ function LoginForm() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span>⚠️</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
               <span>{error}</span>
             </motion.div>
           )}
@@ -164,7 +168,9 @@ function LoginForm() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span>✅</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
               <span>{otpSentMessage}</span>
             </motion.div>
           )}
@@ -177,7 +183,9 @@ function LoginForm() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <span>✓</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
               <span>{successMessage}</span>
             </motion.div>
           )}
@@ -205,8 +213,12 @@ function LoginForm() {
             />
             {fieldErrors.email && (
               <p className={styles.fieldError}>
-                <span>⚠️</span>
-                {fieldErrors.email}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>{fieldErrors.email}</span>
               </p>
             )}
           </motion.div>
@@ -234,8 +246,12 @@ function LoginForm() {
             />
             {fieldErrors.otp && (
               <p className={styles.fieldError}>
-                <span>⚠️</span>
-                {fieldErrors.otp}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>{fieldErrors.otp}</span>
               </p>
             )}
           </motion.div>
@@ -253,7 +269,10 @@ function LoginForm() {
               </>
             ) : (
               <>
-                <span>🔐</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
                 <span>Sign In</span>
               </>
             )}
