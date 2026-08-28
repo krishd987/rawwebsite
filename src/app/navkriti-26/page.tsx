@@ -587,7 +587,7 @@ export default function TasksPage() {
         </motion.div>
       </section>
 
-      {/* ── Submit CTA ── */}
+      {/* ── Submit CTA ──
       <motion.section
         className={styles.cta}
         initial={{ opacity: 0, y: 20 }}
@@ -608,6 +608,7 @@ export default function TasksPage() {
           Upload Completed PPT →
         </motion.button>
       </motion.section>
+      */}
 
       {/* ── NAVKRITI Information Section ── */}
       <section className={styles.sihSection} id="navkriti-info">
@@ -821,15 +822,15 @@ export default function TasksPage() {
                       Thank you for submitting your task. Your PPT presentation file has been uploaded and received successfully.
                       Our reviewers will evaluate your submission.
                     </p>
-                    
-                    <div style={{ 
-                      marginTop: '1.5rem', 
-                      marginBottom: '1.5rem', 
-                      padding: '1.25rem', 
-                      border: '1px solid rgba(37, 211, 102, 0.3)', 
-                      background: 'rgba(37, 211, 102, 0.08)', 
-                      borderRadius: '8px', 
-                      textAlign: 'center', 
+
+                    <div style={{
+                      marginTop: '1.5rem',
+                      marginBottom: '1.5rem',
+                      padding: '1.25rem',
+                      border: '1px solid rgba(37, 211, 102, 0.3)',
+                      background: 'rgba(37, 211, 102, 0.08)',
+                      borderRadius: '8px',
+                      textAlign: 'center',
                       width: '100%',
                       display: 'flex',
                       flexDirection: 'column',
