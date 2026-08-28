@@ -35,6 +35,7 @@ export async function PATCH(
     if (body.category !== undefined) updatedData.category = body.category;
     if (body.department !== undefined) updatedData.department = body.department;
     if (body.domain !== undefined) updatedData.domain = body.domain;
+    if (body.domains !== undefined) updatedData.domains = body.domains;
     if (body.email !== undefined) updatedData.email = body.email.trim();
     if (body.phone !== undefined) updatedData.phone = body.phone.trim();
     if (body.linkedin !== undefined) updatedData.linkedin = body.linkedin.trim();

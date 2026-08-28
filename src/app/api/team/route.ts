@@ -22,11 +22,32 @@ export async function GET() {
       console.log('🌱 Firestore team collection is empty. Auto-seeding from teamData.ts...');
       const batch = db.batch();
       
+      const validDomainMembers: Record<string, string[]> = {
+        electronics: ['Parth Sutar', 'Pal Rajak', 'Gauri Mali', 'Pragya Mishra', 'Naaz Husseni', 'Krishna Maurya', 'Kannan Pillai', 'Gaurav Kamble', 'Tanish Gaddam', 'Darshan Barekar'],
+        software: ['Riyan Gonsalves', 'Krish Dankhara', 'Emmanuel Fernandes', 'Kavisha Galipelly', 'Aditya Bhole', 'Soham Salekar', 'Gaurav Kamble', 'Krishna Maurya'],
+        mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Ved', 'Aryan Raul', 'Kelvin Chetty', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
+        rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Ved', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
+        event: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra', 'Krishna Maurya', 'Kannan Pillai', 'Krish Dankhara'],
+        publicity: ['Parth Sutar', 'Pal Rajak', 'Ved'],
+        documentation: ['Pal Rajak', 'Christina', 'Kavisha Galipelly', 'Pragya Mishra']
+      };
+
+      const getMemberDomains = (name: string): string[] => {
+        const memberDomains: string[] = [];
+        Object.entries(validDomainMembers).forEach(([domainId, members]) => {
+          if (members.includes(name)) {
+            memberDomains.push(domainId);
+          }
+        });
+        return memberDomains;
+      };
+
       for (const member of teamMembers) {
         const docRef = db.collection('team').doc(member._id);
         const { _id, ...memberData } = member;
         batch.set(docRef, {
           ...memberData,
+          domains: getMemberDomains(member.name),
           createdAt: new Date().toISOString()
         });
       }
@@ -84,6 +105,7 @@ export async function POST(request: NextRequest) {
       category: body.category, // 'core' | 'mentors' | 'members'
       department: body.department,
       domain: body.domain || '',
+      domains: body.domains || [],
       email: body.email?.trim() || '',
       phone: body.phone?.trim() || '',
       linkedin: body.linkedin?.trim() || '',

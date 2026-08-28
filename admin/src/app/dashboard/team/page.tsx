@@ -57,6 +57,34 @@ export default function TeamManagementPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const [formImageError, setFormImageError] = useState(false);
+
+  // Role and Domain dropdown/checkbox states
+  const roleOptions = [
+    'EXECUTIVE MEMBER',
+    'Convener',
+    'Co-Convener',
+    'CRC',
+    'Webmaster',
+    'Social Media Lead',
+    'Technical Head',
+    'Publicity Head',
+    'Documentation Head',
+    'Treasurer',
+    'Mentor'
+  ];
+  const [selectedRoleType, setSelectedRoleType] = useState('EXECUTIVE MEMBER');
+  const [customRoleInput, setCustomRoleInput] = useState('');
+  const [selectedDomains, setSelectedDomains] = useState<string[]>([]);
+
+  const handleDomainCheckboxChange = (domainId: string, checked: boolean) => {
+    setSelectedDomains(prev => {
+      if (checked) {
+        return [...prev, domainId];
+      } else {
+        return prev.filter(id => id !== domainId);
+      }
+    });
+  };
   
   // Toast notifications state
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -143,12 +171,15 @@ export default function TeamManagementPage() {
   const openAddForm = () => {
     setEditingMember(null);
     setFormImageError(false);
+    setSelectedRoleType('EXECUTIVE MEMBER');
+    setCustomRoleInput('');
+    setSelectedDomains([]);
     setFormData({
       name: '',
       role: '',
       category: 'members',
       department: 'Software',
-      domain: 'software',
+      domain: '',
       email: '',
       phone: '',
       linkedin: '',
@@ -162,6 +193,20 @@ export default function TeamManagementPage() {
   const openEditForm = (member: TeamMember) => {
     setEditingMember(member);
     setFormImageError(false);
+    
+    // Set standard or custom role select option
+    const isStandard = roleOptions.includes(member.role);
+    if (isStandard) {
+      setSelectedRoleType(member.role);
+      setCustomRoleInput('');
+    } else {
+      setSelectedRoleType('Other');
+      setCustomRoleInput(member.role);
+    }
+    
+    // Set domains
+    setSelectedDomains(member.domains || []);
+
     setFormData({
       name: member.name,
       role: member.role,
@@ -269,8 +314,16 @@ export default function TeamManagementPage() {
     // Filter out empty responsibilities
     const cleanResponsibilities = responsibilities.filter(r => r.trim() !== '');
 
+    const finalRole = selectedRoleType === 'Other' ? customRoleInput.trim() : selectedRoleType;
+    if (!finalRole) {
+      showToast('Role / Designation is required', 'error');
+      return;
+    }
+
     const memberPayload = {
       ...formData,
+      role: finalRole,
+      domains: selectedDomains,
       responsibilities: cleanResponsibilities,
     };
 
@@ -448,16 +501,40 @@ export default function TeamManagementPage() {
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.label} htmlFor="role">Role / Designation *</label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleInputChange}
-                  placeholder="e.g. Convener, Software Lead"
-                  required
-                />
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <select
+                    className={styles.select}
+                    id="roleSelect"
+                    value={selectedRoleType}
+                    onChange={(e) => setSelectedRoleType(e.target.value)}
+                    style={{ flex: 1, minWidth: '200px' }}
+                  >
+                    <option value="EXECUTIVE MEMBER">Executive Member</option>
+                    <option value="Convener">Convener</option>
+                    <option value="Co-Convener">Co-Convener</option>
+                    <option value="CRC">CRC</option>
+                    <option value="Webmaster">Webmaster</option>
+                    <option value="Social Media Lead">Social Media Lead</option>
+                    <option value="Technical Head">Technical Head</option>
+                    <option value="Publicity Head">Publicity Head</option>
+                    <option value="Documentation Head">Documentation Head</option>
+                    <option value="Treasurer">Treasurer</option>
+                    <option value="Mentor">Mentor</option>
+                    <option value="Other">Other (Custom Role)</option>
+                  </select>
+                  {selectedRoleType === 'Other' && (
+                    <input
+                      className={styles.input}
+                      type="text"
+                      id="customRole"
+                      value={customRoleInput}
+                      onChange={(e) => setCustomRoleInput(e.target.value)}
+                      placeholder="Enter custom role"
+                      style={{ flex: 1, minWidth: '200px' }}
+                      required
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
@@ -493,25 +570,30 @@ export default function TeamManagementPage() {
                   <option value="Alumni">Alumni</option>
                 </select>
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor="domain">Primary Domain</label>
-                <select
-                  className={styles.select}
-                  id="domain"
-                  name="domain"
-                  value={formData.domain}
-                  onChange={handleInputChange}
-                >
-                  <option value="">None / General</option>
-                  <option value="management">Management</option>
-                  <option value="mechanical">Mechanical Design</option>
-                  <option value="electronics">Electronics & Embedded</option>
-                  <option value="software">Software & Automation</option>
-                  <option value="rnd">R & D</option>
-                  <option value="event">Event Management</option>
-                  <option value="publicity">Publicity & Logistics</option>
-                  <option value="documentation">Documentation</option>
-                </select>
+            </div>
+
+            {/* Domains Checkbox Group (Red Boxes on Website) */}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Associated Domains (Renders red outline boxes on website)</label>
+              <div className={styles.checkboxGroup}>
+                {[
+                  { id: 'mechanical', name: 'Mechanical' },
+                  { id: 'electronics', name: 'Electronics' },
+                  { id: 'software', name: 'Software' },
+                  { id: 'rnd', name: 'R&D' },
+                  { id: 'event', name: 'Event' },
+                  { id: 'publicity', name: 'Publicity' },
+                  { id: 'documentation', name: 'Documentation' },
+                ].map((d) => (
+                  <label key={d.id} className={styles.checkboxLabel}>
+                    <input
+                      type="checkbox"
+                      checked={selectedDomains.includes(d.id)}
+                      onChange={(e) => handleDomainCheckboxChange(d.id, e.target.checked)}
+                    />
+                    <span>{d.name}</span>
+                  </label>
+                ))}
               </div>
             </div>
 
@@ -685,6 +767,18 @@ export default function TeamManagementPage() {
                 </h3>
                 <p className={styles.memberRole}>{member.role}</p>
                 <span className={styles.departmentTag}>{member.department}</span>
+                
+                {/* Associated Domain Badges (Red Outline Boxes) */}
+                <div className={styles.memberDomainsBadges}>
+                  {(member.domains || []).map((domainId) => {
+                    const abbreviation = domainId === 'rnd' ? 'R&D' : domainId.toUpperCase();
+                    return (
+                      <span key={domainId} className={styles.domainBadge}>
+                        {abbreviation}
+                      </span>
+                    );
+                  })}
+                </div>
                 
                 {/* Social icons row */}
                 <div className={styles.socialRow}>

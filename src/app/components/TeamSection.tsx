@@ -152,7 +152,7 @@ const TeamSection: React.FC = () => {
       {/* Card Footer */}
       <div className={styles.memberCardFooter}>
         <div className={styles.memberDomainsBadges}>
-          {getMemberDomains(member.name).map((domainId) => {
+          {getMemberDomains(member).map((domainId) => {
             const domain = domains.find(d => d.id === domainId);
             const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
             return (
@@ -214,10 +214,13 @@ const TeamSection: React.FC = () => {
   const currentDomain = domains.find(d => d.id === activeDomain);
 
   // Helper function to get all domains for a member
-  const getMemberDomains = (memberName: string): string[] => {
+  const getMemberDomains = (member: TeamMember): string[] => {
+    if (member.domains && member.domains.length > 0) {
+      return member.domains;
+    }
     const memberDomains: string[] = [];
     Object.entries(validDomainMembers).forEach(([domainId, members]) => {
-      if (members.includes(memberName)) {
+      if (members.includes(member.name)) {
         memberDomains.push(domainId);
       }
     });
@@ -228,8 +231,11 @@ const TeamSection: React.FC = () => {
   let domainMembers = membersList;
   
   // For specific domain, filter using whitelist to allow members in multiple domains
-  if (activeDomain !== 'all' && validDomainMembers[activeDomain]) {
-    domainMembers = membersList.filter(m => validDomainMembers[activeDomain].includes(m.name));
+  if (activeDomain !== 'all') {
+    domainMembers = membersList.filter(m => {
+      const mDomains = m.domains && m.domains.length > 0 ? m.domains : getMemberDomains(m);
+      return mDomains.includes(activeDomain);
+    });
   }
 
   // Sort members: domain head (main) first, then core members, then mentors, then regular members.
