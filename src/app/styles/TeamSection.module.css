@@ -1901,3 +1901,15 @@
     animation: none;
   }
 }
+
+.initialsAvatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+}

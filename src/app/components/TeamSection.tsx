@@ -51,6 +51,32 @@ const TeamSection: React.FC = () => {
     loadMembers();
   }, []);
 
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string) => {
+    setImageErrors(prev => ({ ...prev, [id]: true }));
+  };
+
+  const getInitials = (name: string) => {
+    if (!name) return '??';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', 
+      '#3b82f6', '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e'
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  };
+
   // Member Card Component
   const MemberCard: React.FC<{ member: TeamMember; index: number; isCore?: boolean }> = ({ member, index, isCore }) => (
     <motion.div
@@ -63,14 +89,18 @@ const TeamSection: React.FC = () => {
       whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(225, 6, 0, 0.2)' }}
     >
       <div className={styles.memberImageWrapper}>
-        <Image
-          src={member.imageUrl}
-          alt={member.name}
-          width={300}
-          height={300}
-          className={styles.memberImage}
-          unoptimized
-        />
+        {(imageErrors[member._id] || !member.imageUrl) ? (
+          <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
+            {getInitials(member.name)}
+          </div>
+        ) : (
+          <img
+            src={member.imageUrl}
+            alt={member.name}
+            className={styles.memberImage}
+            onError={() => handleImageError(member._id)}
+          />
+        )}
       </div>
 
       <div className={styles.memberInfo}>

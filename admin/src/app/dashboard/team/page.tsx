@@ -55,6 +55,8 @@ export default function TeamManagementPage() {
   
   // Image Upload States
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const [formImageError, setFormImageError] = useState(false);
   
   // Toast notifications state
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
@@ -68,6 +70,39 @@ export default function TeamManagementPage() {
 
   const getApiUrl = () => {
     return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+  };
+
+  const getFullImageUrl = (url: string) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+      return url;
+    }
+    const base = getApiUrl();
+    return `${base}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
+
+  const getInitials = (name: string) => {
+    if (!name) return '??';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      '#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', 
+      '#3b82f6', '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e'
+    ];
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  };
+
+  const handleImageError = (id: string) => {
+    setImageErrors(prev => ({ ...prev, [id]: true }));
   };
 
   // Fetch all team members
@@ -107,6 +142,7 @@ export default function TeamManagementPage() {
   // Open Form to Add Member
   const openAddForm = () => {
     setEditingMember(null);
+    setFormImageError(false);
     setFormData({
       name: '',
       role: '',
@@ -125,6 +161,7 @@ export default function TeamManagementPage() {
   // Open Form to Edit Member
   const openEditForm = (member: TeamMember) => {
     setEditingMember(member);
+    setFormImageError(false);
     setFormData({
       name: member.name,
       role: member.role,
@@ -205,6 +242,7 @@ export default function TeamManagementPage() {
 
         const data = await response.json();
         if (response.ok && data.success) {
+          setFormImageError(false);
           setFormData(prev => ({ ...prev, imageUrl: data.url }));
           showToast('Photo uploaded successfully!', 'success');
         } else {
@@ -359,7 +397,18 @@ export default function TeamManagementPage() {
               <label className={styles.label}>Profile Photo *</label>
               <div className={styles.uploadContainer}>
                 <div className={styles.previewWrapper}>
-                  <img src={formData.imageUrl} alt="Profile Preview" className={styles.avatarImage} />
+                  {(!formData.imageUrl || formImageError) ? (
+                    <div className={styles.initialsAvatarLarge} style={{ backgroundColor: getAvatarColor(formData.name || 'New Member') }}>
+                      {getInitials(formData.name || 'New Member')}
+                    </div>
+                  ) : (
+                    <img 
+                      src={getFullImageUrl(formData.imageUrl)} 
+                      alt="Profile Preview" 
+                      className={styles.avatarImage} 
+                      onError={() => setFormImageError(true)} 
+                    />
+                  )}
                 </div>
                 <div className={styles.uploadButtonWrapper}>
                   <input
@@ -616,7 +665,18 @@ export default function TeamManagementPage() {
                   {member.category}
                 </span>
                 <div className={styles.avatarWrapper}>
-                  <img src={member.imageUrl} alt={member.name} className={styles.cardAvatar} />
+                  {(imageErrors[member._id] || !member.imageUrl) ? (
+                    <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
+                      {getInitials(member.name)}
+                    </div>
+                  ) : (
+                    <img 
+                      src={getFullImageUrl(member.imageUrl)} 
+                      alt={member.name} 
+                      className={styles.cardAvatar} 
+                      onError={() => handleImageError(member._id)}
+                    />
+                  )}
                 </div>
               </div>
               <div className={styles.cardContent}>
