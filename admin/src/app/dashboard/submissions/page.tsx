@@ -30,10 +30,10 @@ export default function SubmissionsPage() {
     try {
       setLoading(true);
       let url = '/api/submissions';
-      
+
       const response = await fetch(url);
       const result = await response.json();
-      
+
       if (result.success) {
         let data = result.data || [];
         if (selectedStatus !== 'all') {
@@ -158,8 +158,8 @@ export default function SubmissionsPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <h1>PPT Submissions</h1>
-          <p className={styles.subtitle}>View and manage student PPT submissions</p>
+          <h1>Submissions</h1>
+          <p className={styles.subtitle}>View and manage student submissions</p>
         </div>
         <div className={styles.stats}>
           <div className={styles.statCard}>
@@ -225,8 +225,8 @@ export default function SubmissionsPage() {
                   <td className={styles.nameCell}>{sub.fullName}</td>
                   <td className={styles.pidCell}>{sub.pid}</td>
                   <td>
-                    <button 
-                      onClick={() => viewDetails(sub)} 
+                    <button
+                      onClick={() => viewDetails(sub)}
                       className={styles.viewBtn}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }}>
@@ -308,19 +308,19 @@ export default function SubmissionsPage() {
                   <div className={styles.detailItem} style={{ gridColumn: '1 / -1' }}>
                     <label>PPT Preview</label>
                     <div style={{ marginTop: '10px', border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden' }}>
-                      <iframe 
-                        src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(selectedSubmission.driveLink)}`} 
-                        width="100%" 
-                        height="450px" 
+                      <iframe
+                        src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(selectedSubmission.driveLink)}`}
+                        width="100%"
+                        height="450px"
                         frameBorder="0"
                         title="PPT Preview"
                       ></iframe>
                     </div>
                     <div style={{ marginTop: '10px' }}>
-                      <a 
-                        href={selectedSubmission.driveLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={selectedSubmission.driveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={styles.driveLinkLarge}
                       >
                         Download Original File

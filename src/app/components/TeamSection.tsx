@@ -20,6 +20,7 @@ const TeamSection: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const domainTabsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const [membersList, setMembersList] = useState<TeamMember[]>(teamMembers);
 
   // Read domain from URL query parameter on mount
   useEffect(() => {
@@ -28,6 +29,27 @@ const TeamSection: React.FC = () => {
       setActiveDomain(domainParam);
     }
   }, [searchParams]);
+
+  // Load team members from database
+  useEffect(() => {
+    async function loadMembers() {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/team');
+        if (response.ok) {
+          const resData = await response.json();
+          if (resData.success && resData.data && resData.data.length > 0) {
+            setMembersList(resData.data);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch team members from database, using static fallback:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadMembers();
+  }, []);
 
   // Member Card Component
   const MemberCard: React.FC<{ member: TeamMember; index: number; isCore?: boolean }> = ({ member, index, isCore }) => (
@@ -173,11 +195,11 @@ const TeamSection: React.FC = () => {
   };
   
   // Get members - either for specific domain or all members
-  let domainMembers = teamMembers;
+  let domainMembers = membersList;
   
   // For specific domain, filter using whitelist to allow members in multiple domains
   if (activeDomain !== 'all' && validDomainMembers[activeDomain]) {
-    domainMembers = teamMembers.filter(m => validDomainMembers[activeDomain].includes(m.name));
+    domainMembers = membersList.filter(m => validDomainMembers[activeDomain].includes(m.name));
   }
 
   // Sort members: domain head (main) first, then core members, then mentors, then regular members.

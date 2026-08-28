@@ -29,9 +29,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
   };
 
   const menuItems = [
-    { 
-      label: 'Dashboard', 
-      href: '/dashboard', 
+    {
+      label: 'Dashboard',
+      href: '/dashboard',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="7" height="9"></rect>
@@ -41,9 +41,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Analytics', 
-      href: '/dashboard/analytics', 
+    {
+      label: 'Analytics',
+      href: '/dashboard/analytics',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="20" x2="18" y2="10"></line>
@@ -52,18 +52,18 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Contact', 
-      href: '/dashboard/contact', 
+    {
+      label: 'Contact',
+      href: '/dashboard/contact',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
       )
     },
-    { 
-      label: 'Updates', 
-      href: '/dashboard/updates', 
+    {
+      label: 'Updates',
+      href: '/dashboard/updates',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -71,9 +71,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Competitions', 
-      href: '/dashboard/competitions', 
+    {
+      label: 'Competitions',
+      href: '/dashboard/competitions',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
@@ -84,9 +84,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Registrations', 
-      href: '/dashboard/registrations', 
+    {
+      label: 'Registrations',
+      href: '/dashboard/registrations',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -98,8 +98,20 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
       )
     },
     { 
-      label: 'PPT Submissions', 
-      href: '/dashboard/submissions', 
+      label: 'Team Members', 
+      href: '/dashboard/team', 
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      )
+    },
+    {
+      label: 'Submissions',
+      href: '/dashboard/submissions',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="16 16 12 12 8 16"></polyline>
@@ -108,9 +120,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Send Email', 
-      href: '/dashboard/send-email', 
+    {
+      label: 'Send Email',
+      href: '/dashboard/send-email',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -118,9 +130,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Robots & Gallery', 
-      href: '/dashboard/robots-gallery', 
+    {
+      label: 'Robots & Gallery',
+      href: '/dashboard/robots-gallery',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -129,9 +141,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Profile', 
-      href: '/dashboard/profile', 
+    {
+      label: 'Profile',
+      href: '/dashboard/profile',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -139,9 +151,9 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
         </svg>
       )
     },
-    { 
-      label: 'Settings', 
-      href: '/dashboard/settings', 
+    {
+      label: 'Settings',
+      href: '/dashboard/settings',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="3"></circle>
