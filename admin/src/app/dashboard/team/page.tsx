@@ -742,11 +742,19 @@ export default function TeamManagementPage() {
         <div className={styles.membersGrid}>
           {filteredMembers.map((member) => (
             <div key={member._id} className={styles.memberCard}>
-              <div className={styles.cardHeader}>
+              <div className={`${styles.cardHeader} ${
+                member.name === 'Ramjee Yadav' || member._id === 'core1'
+                  ? styles.ramjeeHeader
+                  : member.category === 'core' 
+                  ? styles.coreHeader 
+                  : member.category === 'mentors' 
+                  ? styles.mentorHeader 
+                  : styles.memberHeader
+              }`}>
                 <span className={`${styles.categoryBadge} ${member.category === 'core' ? styles.coreBadge : member.category === 'mentors' ? styles.mentorBadge : styles.memberBadge}`}>
                   {member.category}
                 </span>
-                <div className={styles.avatarWrapper}>
+                <div className={styles.profilePhotoWrapper}>
                   {(imageErrors[member._id] || !member.imageUrl) ? (
                     <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
                       {getInitials(member.name)}
@@ -755,7 +763,7 @@ export default function TeamManagementPage() {
                     <img 
                       src={getFullImageUrl(member.imageUrl)} 
                       alt={member.name} 
-                      className={styles.cardAvatar} 
+                      className={styles.memberProfilePhoto} 
                       onError={() => handleImageError(member._id)}
                     />
                   )}
