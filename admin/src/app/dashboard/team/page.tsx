@@ -15,6 +15,7 @@ interface TeamMember {
   role: string;
   department: string;
   domain?: string;
+  domains?: string[];
   email?: string;
   phone?: string;
   linkedin?: string;
@@ -684,15 +685,16 @@ export default function TeamManagementPage() {
 
       {/* Filters & Search Controls */}
       <div className={styles.controlsSection}>
-        <div className={styles.searchBar}>
-          <span className={styles.searchIcon}>
+        <div className={styles.teamSearchBar}>
+          <span className={styles.teamSearchIcon} style={{ left: '0.875rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </span>
           <input
-            className={styles.searchInput}
+            className={styles.teamSearchInput}
+            style={{ paddingLeft: '2.75rem' }}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -754,7 +756,7 @@ export default function TeamManagementPage() {
                 <span className={`${styles.categoryBadge} ${member.category === 'core' ? styles.coreBadge : member.category === 'mentors' ? styles.mentorBadge : styles.memberBadge}`}>
                   {member.category}
                 </span>
-                <div className={styles.profilePhotoWrapper}>
+                <div className={styles.adminPhotoWrapper} style={{ borderRadius: '50%', overflow: 'hidden' }}>
                   {(imageErrors[member._id] || !member.imageUrl) ? (
                     <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
                       {getInitials(member.name)}
@@ -763,7 +765,8 @@ export default function TeamManagementPage() {
                     <img 
                       src={getFullImageUrl(member.imageUrl)} 
                       alt={member.name} 
-                      className={styles.memberProfilePhoto} 
+                      className={styles.adminProfilePhoto} 
+                      style={{ borderRadius: '50%', objectFit: 'cover' }}
                       onError={() => handleImageError(member._id)}
                     />
                   )}
