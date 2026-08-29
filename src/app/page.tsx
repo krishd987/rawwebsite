@@ -7,7 +7,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Trophy, Users, Bot, BarChart3 } from 'lucide-react';
+import { Trophy, Users, Bot, BarChart3, Sparkles, Target, Rocket, Brain } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutUs from './components/AboutUs';
@@ -85,8 +85,13 @@ export default function Home() {
               fontStyle: 'italic',
               margin: 0,
               fontWeight: '500',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
             }}>
-              ⭐ Where innovation meets engineering — building the future, one robot at a time.
+              <Sparkles size={18} style={{ color: 'var(--color-red)', flexShrink: 0 }} />
+              Where innovation meets engineering — building the future, one robot at a time.
             </p>
           </motion.div>
 
@@ -103,10 +108,10 @@ export default function Home() {
             transition={{ delay: 0.2 }}
           >
             {[
-              { icon: '🎯', title: 'Our Mission', text: 'To provide a supportive environment for students to develop technical skills, conduct robotics research, and work on long-term innovative projects, while collaborating with industries and institutions to enhance learning and exposure in the field of robotics.', link: '/about#mission' },
-              { icon: '🚀', title: 'Our Vision', text: 'To be a leading student robotics committee that drives innovation, represents SFIT globally, and cultivates a strong and lasting robotics culture within the institute.', link: '/about#vision' },
-              { icon: '🧠', title: 'What We Do', text: 'Autonomous robotics, embedded systems, mechanical design, AI & computer vision, ROS, mechatronics, and industrial automation.', link: '/team' },
-              { icon: '🏆', title: 'Competitions', text: 'e-Yantra Robotics Competition (IIT Bombay), ABU Robocon, and Techfest IIT Bombay.', link: '/competitions' },
+              { icon: <Target size={40} style={{ color: 'var(--color-red)' }} />, title: 'Our Mission', text: 'To provide a supportive environment for students to develop technical skills, conduct robotics research, and work on long-term innovative projects, while collaborating with industries and institutions to enhance learning and exposure in the field of robotics.', link: '/about#mission' },
+              { icon: <Rocket size={40} style={{ color: 'var(--color-red)' }} />, title: 'Our Vision', text: 'To be a leading student robotics committee that drives innovation, represents SFIT globally, and cultivates a strong and lasting robotics culture within the institute.', link: '/about#vision' },
+              { icon: <Brain size={40} style={{ color: 'var(--color-red)' }} />, title: 'What We Do', text: 'Autonomous robotics, embedded systems, mechanical design, AI & computer vision, ROS, mechatronics, and industrial automation.', link: '/team' },
+              { icon: <Trophy size={40} style={{ color: 'var(--color-red)' }} />, title: 'Competitions', text: 'e-Yantra Robotics Competition (IIT Bombay), ABU Robocon, and Techfest IIT Bombay.', link: '/competitions' },
             ].map((item, idx) => (
               <motion.a
                 key={idx}
@@ -131,7 +136,7 @@ export default function Home() {
                   boxShadow: '0 20px 40px rgba(225, 6, 0, 0.15), 0 0 20px rgba(225, 6, 0, 0.1)',
                 }}
               >
-                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{item.icon}</div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>{item.icon}</div>
                 <h3 style={{
                   fontFamily: 'Orbitron, sans-serif',
                   fontSize: '1.25rem',

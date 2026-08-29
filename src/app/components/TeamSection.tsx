@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { teamMembers, TeamMember, domains, Domain } from '@/data/teamData';
-import { Zap, Briefcase, Calendar, Users, Cpu, Code, Cog, Linkedin, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Zap, Briefcase, Calendar, Users, Cpu, Code, Cog, Linkedin, Mail, ChevronLeft, ChevronRight, GraduationCap } from 'lucide-react';
 import styles from '../styles/TeamSection.module.css';
 
 const TeamSection: React.FC = () => {
@@ -227,11 +227,13 @@ const TeamSection: React.FC = () => {
     return memberDomains; // Return all domains
   };
   
-  // Get members - either for specific domain or all members
+  // Get members - either for specific domain, mentors, or all members
   let domainMembers = membersList;
   
   // For specific domain, filter using whitelist to allow members in multiple domains
-  if (activeDomain !== 'all') {
+  if (activeDomain === 'mentors') {
+    domainMembers = membersList.filter(m => m.category === 'mentors');
+  } else if (activeDomain !== 'all') {
     domainMembers = membersList.filter(m => {
       const mDomains = m.domains && m.domains.length > 0 ? m.domains : getMemberDomains(m);
       return mDomains.includes(activeDomain);
@@ -383,7 +385,7 @@ const TeamSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* All Members Button */}
+             {/* All Members Button */}
             <motion.button
               className={`${styles.domainTab} ${activeDomain === 'all' ? styles.active : ''}`}
               onClick={() => handleDomainChange('all')}
@@ -392,11 +394,11 @@ const TeamSection: React.FC = () => {
               transition={{ duration: 0.2 }}
             >
               <div className={styles.domainTabIcon}>
-                <Users size={20} strokeWidth={2.5} />
+                <Users size={16} strokeWidth={2.5} />
               </div>
               <div className={styles.domainTabContent}>
-                <div className={styles.domainTabName}>All Members</div>
-                <div className={styles.domainTabCount}>{teamMembers.length} total</div>
+                <span className={styles.domainTabName}>All Members</span>
+                <span className={styles.domainTabCount}>{teamMembers.length}</span>
               </div>
             </motion.button>
 
@@ -409,11 +411,11 @@ const TeamSection: React.FC = () => {
               transition={{ duration: 0.2 }}
             >
               <div className={styles.domainTabIcon}>
-                <Briefcase size={20} strokeWidth={2.5} />
+                <Briefcase size={16} strokeWidth={2.5} />
               </div>
               <div className={styles.domainTabContent}>
-                <div className={styles.domainTabName}>Mentors</div>
-                <div className={styles.domainTabCount}>{teamMembers.filter(m => m.category === 'mentors').length} mentors</div>
+                <span className={styles.domainTabName}>Mentors</span>
+                <span className={styles.domainTabCount}>{teamMembers.filter(m => m.category === 'mentors').length}</span>
               </div>
             </motion.button>
 
@@ -432,11 +434,13 @@ const TeamSection: React.FC = () => {
                   transition={{ duration: 0.2 }}
                 >
                   <div className={styles.domainTabIcon}>
-                    {IconComponent && <IconComponent size={20} strokeWidth={2.5} />}
+                    {IconComponent && <IconComponent size={16} strokeWidth={2.5} />}
                   </div>
                   <div className={styles.domainTabContent}>
-                    <div className={styles.domainTabName}>{domain.name}</div>
-                    <div className={styles.domainTabCount}>{memberCount} members</div>
+                    <span className={styles.domainTabName}>
+                      {domain.name.replace(' Team', '').replace(' & Manufacturing', '')}
+                    </span>
+                    <span className={styles.domainTabCount}>{memberCount}</span>
                   </div>
                 </motion.button>
               );
@@ -562,7 +566,9 @@ const TeamSection: React.FC = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className={styles.emptyIcon}>👨‍🏫</div>
+                    <div className={styles.emptyIcon} style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-navy)', marginBottom: '1rem' }}>
+                      <GraduationCap size={64} style={{ opacity: 0.6 }} />
+                    </div>
                     <h3>No mentors available</h3>
                     <p>Check back soon for mentor information.</p>
                   </motion.div>
@@ -719,7 +725,9 @@ const TeamSection: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className={styles.emptyIcon}>👥</div>
+                <div className={styles.emptyIcon} style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-navy)', marginBottom: '1rem' }}>
+                  <Users size={64} style={{ opacity: 0.6 }} />
+                </div>
                 <h3>No team members yet</h3>
                 <p>This domain doesn't have members assigned yet.</p>
               </motion.div>

@@ -1050,8 +1050,8 @@
   overflow-x: auto;
   overflow-y: visible;
   scroll-behavior: smooth;
-  padding: 0.5rem 0;
-  margin: 0;
+  padding: 1.5rem 0.5rem;
+  margin: -1rem -0.5rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -1070,14 +1070,14 @@
 
 /* Domain Tab Button - Same style as filterPill */
 .domainTab {
-  padding: 0.75rem 1.6rem;
+  padding: 0.6rem 1.2rem;
   border: 2px solid rgba(10, 26, 58, 0.15);
   background: #ffffff;
   color: #0A1A3A;
   border-radius: 28px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -1089,15 +1089,9 @@
   flex-shrink: 0;
 
   @media (max-width: 768px) {
-    padding: 0.625rem 1.25rem;
-    font-size: 0.875rem;
-    min-height: 44px;
-    border-width: 2px;
-  }
-
-  @media (max-width: 480px) {
     padding: 0.5rem 1rem;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
+    min-height: 38px;
   }
 }
 
@@ -1143,32 +1137,39 @@
 
 .domainTabContent {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  flex-direction: row;
   align-items: center;
+  gap: 0.4rem;
 }
 
 .domainTabName {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 
   @media (max-width: 768px) {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
 }
 
 .domainTabCount {
-  background: rgba(255, 255, 255, 0.25);
-  padding: 0.2rem 0.55rem;
-  border-radius: 14px;
+  background: rgba(10, 26, 58, 0.08);
+  color: #0a1a3a;
+  padding: 0.15rem 0.45rem;
+  border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 700;
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.35rem;
+  }
 }
 
 .domainTab.active .domainTabCount {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
@@ -1858,17 +1859,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  flex-shrink: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 6px;
   background: linear-gradient(135deg, rgba(10, 26, 58, 0.05) 0%, rgba(10, 26, 58, 0.02) 100%);
   border: 1px solid rgba(10, 26, 58, 0.08);
   color: var(--color-red, #E10600);
   transition: all 0.3s ease;
 
   @media (max-width: 480px) {
-    width: 22px;
-    height: 22px;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
   }
 }
 

@@ -7,6 +7,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Mail, MapPin, Handshake, Clock, Lightbulb } from 'lucide-react';
 import styles from '../styles/Contact.module.css';
 
 export default function Contact() {
@@ -105,25 +106,25 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: '📧',
+      icon: <Mail size={24} style={{ color: 'var(--color-red)' }} />,
       title: 'Email Us',
       value: 'teamraw@sfit.ac.in',
       description: 'Send us your queries',
     },
     {
-      icon: '📍',
+      icon: <MapPin size={24} style={{ color: 'var(--color-red)' }} />,
       title: 'Location',
       value: 'SFIT, Mumbai - Room 027',
       description: 'Visit our workshop',
     },
     {
-      icon: '🤝',
+      icon: <Handshake size={24} style={{ color: 'var(--color-red)' }} />,
       title: 'Collaboration',
       value: 'Open to Projects',
       description: 'Partner with us',
     },
     {
-      icon: '⏱️',
+      icon: <Clock size={24} style={{ color: 'var(--color-red)' }} />,
       title: 'Response Time',
       value: '24-48 Hours',
       description: 'We reply quickly',
@@ -350,7 +351,9 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
           >
-            <div className={styles.inspirationIcon}>💡</div>
+            <div className={styles.inspirationIcon} style={{ color: 'var(--color-red)', display: 'flex', alignItems: 'center' }}>
+              <Lightbulb size={32} />
+            </div>
             <p className={styles.inspirationText}>
               "Together, we build robots that push boundaries and redefine what's possible in automation and engineering."
             </p>

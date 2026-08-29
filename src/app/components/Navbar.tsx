@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -14,7 +14,28 @@ import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      if (scrollTop > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -33,7 +54,7 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className={styles.navbar}>
+      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
           <motion.div
             className={styles.logo}
