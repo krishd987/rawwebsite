@@ -15,6 +15,7 @@ interface TeamMember {
   role: string;
   department: string;
   domain?: string;
+  domains?: string[];
   email?: string;
   phone?: string;
   linkedin?: string;
