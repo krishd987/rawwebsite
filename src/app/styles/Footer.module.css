@@ -33,9 +33,15 @@
 
 .topSection {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1.8fr 1fr 1.2fr 1.8fr;
   gap: 3rem;
   margin-bottom: 2rem;
+  animation: floatUp 0.6s ease-out forwards;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 2rem;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -254,6 +260,50 @@
   background: var(--color-red);
   border-color: var(--color-red);
   transform: translateY(-3px);
+}
+
+.contactSection h4 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  color: var(--color-red);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contactGroup h5 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.4rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contactGroup a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contactGroup a:hover {
+  color: var(--color-red);
+}
+
+.contactGroup p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .divider {
