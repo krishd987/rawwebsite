@@ -8,6 +8,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { Bot } from 'lucide-react';
 import styles from '../styles/Hero.module.css';
 
 export default function Hero() {
@@ -75,7 +76,10 @@ export default function Hero() {
           animate="visible"
         >
           <motion.div variants={itemVariants} className={styles.badge}>
-            <span>🤖 Innovation in Motion</span>
+            <span>
+              <Bot size={16} strokeWidth={2.5} />
+              Innovation in Motion
+            </span>
           </motion.div>
 
           <motion.h1 variants={itemVariants} className={styles.mainHeading}>

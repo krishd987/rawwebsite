@@ -8,6 +8,7 @@
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
+import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
 import styles from '@/app/styles/Sponsors.module.css';
 
 // Sponsor Hero Banner Component
@@ -519,15 +520,21 @@ const ContactCTA = () => {
           {/* Trust Indicators */}
           <div className={styles.trustIndicators}>
             <div className={styles.trustItem}>
-              <strong>📊</strong>
+              <strong style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-red)', marginBottom: '0.25rem' }}>
+                <BarChart3 size={32} />
+              </strong>
               <span>Measurable ROI & Analytics</span>
             </div>
             <div className={styles.trustItem}>
-              <strong>🏆</strong>
+              <strong style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-red)', marginBottom: '0.25rem' }}>
+                <Trophy size={32} />
+              </strong>
               <span>15+ National Competitions</span>
             </div>
             <div className={styles.trustItem}>
-              <strong>🤝</strong>
+              <strong style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-red)', marginBottom: '0.25rem' }}>
+                <Handshake size={32} />
+              </strong>
               <span>Dedicated Partnership Manager</span>
             </div>
           </div>
@@ -538,7 +545,9 @@ const ContactCTA = () => {
               whileHover={{ scale: 1.05 }}
               onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
             >
-              <span className={styles.icon}>📋</span>
+              <span className={styles.icon} style={{ color: 'var(--color-red)', display: 'flex', alignItems: 'center' }}>
+                <FileText size={40} />
+              </span>
               <div>
                 <strong>Download Sponsorship Deck</strong>
                 <p>View detailed opportunities</p>
@@ -550,7 +559,9 @@ const ContactCTA = () => {
               className={styles.contactMethod}
               whileHover={{ scale: 1.05 }}
             >
-              <span className={styles.icon}>✉️</span>
+              <span className={styles.icon} style={{ color: 'var(--color-red)', display: 'flex', alignItems: 'center' }}>
+                <Mail size={40} />
+              </span>
               <div>
                 <strong>Email</strong>
                 <p>teamraw@sfit.ac.in</p>
@@ -562,7 +573,9 @@ const ContactCTA = () => {
               className={styles.contactMethod}
               whileHover={{ scale: 1.05 }}
             >
-              <span className={styles.icon}>📍</span>
+              <span className={styles.icon} style={{ color: 'var(--color-red)', display: 'flex', alignItems: 'center' }}>
+                <MapPin size={40} />
+              </span>
               <div>
                 <strong>Meet in Person</strong>
                 <p>SFIT, Mumbai - Room No. 027</p>
@@ -575,8 +588,10 @@ const ContactCTA = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}
           >
-            Download Sponsorship Packet 📥
+            <Download size={18} />
+            Download Sponsorship Packet
           </motion.button>
         </motion.div>
       </div>
