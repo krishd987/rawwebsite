@@ -22,6 +22,7 @@ export interface TeamMember {
   category: 'core' | 'mentors' | 'members';
   responsibilities?: string[];
   createdAt?: string;
+  hidden?: boolean;
 }
 
 export interface Domain {
@@ -92,7 +93,7 @@ export const domains: Domain[] = [
   },
 ];
 
-export const teamMembers: TeamMember[] = [
+export const allTeamMembers: TeamMember[] = [
   // CORE TEAM
   {
     _id: 'core1',
@@ -619,6 +620,7 @@ export const teamMembers: TeamMember[] = [
     email: 'kelwinchetty7@student.sfit.ac.in',
     linkedin: 'https://www.linkedin.com/in/kelwin-chetty-a22a58391/',
     createdAt: '2026-08-15',
+    hidden: true,
   },
   {
     _id: 'new_member10',
@@ -727,6 +729,7 @@ export const teamMembers: TeamMember[] = [
     email: '',
     linkedin: '',
     createdAt: '2026-08-15',
+    hidden: true,
   },
   {
     _id: 'new_member19',
@@ -741,5 +744,8 @@ export const teamMembers: TeamMember[] = [
     createdAt: '2026-08-15',
   }
 ];
+
+// Visible team members by default (excluding hidden members)
+export const teamMembers: TeamMember[] = allTeamMembers.filter(m => !m.hidden);
 
 export default teamMembers;

@@ -41,6 +41,7 @@ export async function PATCH(
     if (body.linkedin !== undefined) updatedData.linkedin = body.linkedin.trim();
     if (body.imageUrl !== undefined) updatedData.imageUrl = body.imageUrl.trim();
     if (body.responsibilities !== undefined) updatedData.responsibilities = body.responsibilities;
+    if (body.hidden !== undefined) updatedData.hidden = Boolean(body.hidden);
     
     updatedData.updatedAt = new Date().toISOString();
 

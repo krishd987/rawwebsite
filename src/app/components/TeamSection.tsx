@@ -20,7 +20,15 @@ const TeamSection: React.FC = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const domainTabsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
-  const [membersList, setMembersList] = useState<TeamMember[]>(teamMembers);
+  const isHiddenMember = (m: TeamMember) => {
+    if (m.hidden) return true;
+    const id = (m._id || '').toLowerCase();
+    if (id === 'new_member9' || id === 'new_member18') return true;
+    const name = (m.name || '').trim().toLowerCase();
+    return name === 'kelvin chetty' || name === 'kelvin' || name === 'ved' || name === 'ved patil';
+  };
+
+  const [membersList, setMembersList] = useState<TeamMember[]>(() => teamMembers.filter(m => !isHiddenMember(m)));
 
   // Read domain from URL query parameter on mount
   useEffect(() => {
@@ -39,7 +47,7 @@ const TeamSection: React.FC = () => {
         if (response.ok) {
           const resData = await response.json();
           if (resData.success && resData.data && resData.data.length > 0) {
-            setMembersList(resData.data);
+            setMembersList(resData.data.filter((m: TeamMember) => !isHiddenMember(m)));
           }
         }
       } catch (err) {
@@ -195,10 +203,10 @@ const TeamSection: React.FC = () => {
   const validDomainMembers: { [key: string]: string[] } = {
     electronics: ['Parth Sutar', 'Pal Rajak', 'Gauri Mali', 'Pragya Mishra', 'Naaz Husseni', 'Krishna Maurya', 'Kannan Pillai', 'Gaurav Kamble', 'Tanish Gaddam', 'Darshan Barekar'],
     software: ['Riyan Gonsalves', 'Krish Dankhara', 'Emmanuel Fernandes', 'Kavisha Galipelly', 'Aditya Bhole', 'Soham Salekar', 'Gaurav Kamble', 'Krishna Maurya'],
-    mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Ved', 'Aryan Raul', 'Kelvin Chetty', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
-    rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Ved', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
+    mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Aryan Raul', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
+    rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
     event: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra', 'Krishna Maurya', 'Kannan Pillai', 'Krish Dankhara'],
-    publicity: ['Parth Sutar', 'Pal Rajak', 'Ved'],
+    publicity: ['Parth Sutar', 'Pal Rajak'],
     documentation: ['Pal Rajak', 'Christina', 'Kavisha Galipelly', 'Pragya Mishra']
   };
 
@@ -398,7 +406,7 @@ const TeamSection: React.FC = () => {
               </div>
               <div className={styles.domainTabContent}>
                 <span className={styles.domainTabName}>All Members</span>
-                <span className={styles.domainTabCount}>{teamMembers.length}</span>
+                <span className={styles.domainTabCount}>{membersList.length}</span>
               </div>
             </motion.button>
 
@@ -415,7 +423,7 @@ const TeamSection: React.FC = () => {
               </div>
               <div className={styles.domainTabContent}>
                 <span className={styles.domainTabName}>Mentors</span>
-                <span className={styles.domainTabCount}>{teamMembers.filter(m => m.category === 'mentors').length}</span>
+                <span className={styles.domainTabCount}>{membersList.filter(m => m.category === 'mentors').length}</span>
               </div>
             </motion.button>
 

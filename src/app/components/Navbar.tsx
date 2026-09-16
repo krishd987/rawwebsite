@@ -51,6 +51,23 @@ export default function Navbar() {
 
   return (
     <>
+      {/* SVG filter definition for realistic frosted glass distortion */}
+      <svg
+        style={{
+          position: 'absolute',
+          width: 0,
+          height: 0,
+          pointerEvents: 'none',
+          opacity: 0,
+        }}
+        aria-hidden="true"
+      >
+        <filter id="frosted-glass">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
+
       {/* Desktop Navbar */}
       <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
