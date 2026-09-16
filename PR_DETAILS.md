@@ -1,41 +1,47 @@
 ## 🎯 Objective
-This PR:
-1. Hides the **Tasks** page and redirects its traffic to the homepage.
-2. Unhides and re-enables the **Registration** form (`/register`).
-3. Renames the recruitment wording to **"Registration Form"** and updates contact info.
-4. Removes the **"Additional Information"** (custom fields) section from the registration form.
+This PR introduces:
+1. **White Frosted Glass Navbar**: Replaces the blue-tinted navigation bar with a realistic white blurry frosted glass aesthetic, featuring smooth saturation, border reflection, and an SVG texture filter.
+2. **Modern CSS Enhancements**: Adds typewriter animation, squircle rounded corners, `text-wrap: pretty/balance`, and unified brand accent color (`#E10600`) for form inputs/checkboxes.
+3. **Signature Red Scrollbar**: Updates standard and webkit scrollbar styling across the website and admin dashboard to a pill-shaped brand red (`#E10600`) thumb with hover feedback.
+4. **Team Updates**: Hides Kelvin Chetty and Ved Patil from the team page, API endpoints, and category/domain tab counts.
 
+---
 
 ## 📋 Changes Made
-- [x] Removed **Tasks** navigation option from desktop & mobile menus in [Navbar.tsx](file:///e:/GitHub/rawwebsite/src/app/components/Navbar.tsx).
-- [x] Configured temporary redirect for `/tasks` and `/tasks/:path*` to point to the homepage (`/`) in [next.config.ts](file:///e:/GitHub/rawwebsite/next.config.ts).
-- [x] Unhid the `/register` route and renamed the navigation link to **"Registration"**.
-- [x] Updated all form headings, hero titles, taglines, and descriptions in [page.tsx](file:///e:/GitHub/rawwebsite/src/app/register/page.tsx) from "Recruitment" to "Registration Form".
-- [x] Deleted the custom fields (Additional Information) section from the registration form.
-- [x] Updated help contact numbers for Jhoshua Coutinho and Pal Rajak in the footer helper card.
+- [x] **Navbar**:
+  - Removed blue tint (`rgba(235, 245, 255, 0.15)` and `rgba(218, 233, 255, 0.42)`).
+  - Applied `background: rgba(255, 255, 255, 0.72)` / `0.84` with `backdrop-filter: blur(20px) saturate(140%)` and white border highlights.
+  - Added hidden `#frosted-glass` SVG filter (`feTurbulence` + `feDisplacementMap`).
+  - Updated mobile menu styling with frosted glass appearance and clean white borders.
+- [x] **Scrollbar**:
+  - Moved theme variables to `:root` so `html` can access `--color-red`.
+  - Configured `scrollbar-color: #E10600 transparent` and `scrollbar-width: thin`.
+  - Added smooth red gradient pill thumb for `::-webkit-scrollbar`.
+  - Updated admin dashboard scrollbars to match.
+- [x] **CSS Modernizations**:
+  - Added `@keyframes typewriter` & `@keyframes blinkCaret` with `.typewriter` class.
+  - Added `.squircle`, `.squircle-lg`, and `corner-shape: squircle` progressive enhancements.
+  - Added `text-wrap: pretty` for `<p>` and `text-wrap: balance` for headings.
+  - Set `accent-color: var(--color-red)` across inputs and checkboxes.
+  - Added `.glass` and `.glass-frosted` utility classes.
+- [x] **Team Section & API**:
+  - Flagged Kelvin Chetty (`new_member9`) and Ved Patil (`new_member18`) as `hidden: true` in Firestore and `teamData.ts`.
+  - Updated `/api/team` to exclude hidden members by default.
+  - Updated `TeamSection.tsx` to filter out hidden members and update domain counts accurately.
 
+---
 
 ## 🔍 How to Test
-1. Pull the branch: `hide-tasks-recruitment`
-2. Start the dev server: `npm run dev`
-3. Verify that the **Registration** option is visible in the Navbar (and **Tasks** is gone).
-4. Navigate to `/register` and verify it loads the "Registration Form" correctly.
-5. Select a competition/category and verify no "Additional Information" fields are displayed.
-6. Try navigating to `/tasks` and verify it redirects to the homepage.
+1. Pull branch: `update/white-frosted-navbar-and-team-changes`
+2. Start development servers: `npm run dev` (main) and `npm run dev` in `admin/`
+3. Check the navbar while scrolling over images/sections—verify pure white frosted glass with no blue tones.
+4. Check the browser scrollbar—verify it displays the brand red pill thumb.
+5. Visit `/team`—verify Kelvin Chetty and Ved Patil are hidden, and domain tab counts match visible members.
 
+---
 
 ## ✅ Checklist
 - [x] Code follows project style guidelines
-- [x] Changes are documented
-- [x] No breaking changes introduced
+- [x] Both main and admin TypeScript type checks pass (`npx tsc --noEmit`)
 - [x] Tested locally and verified working
 - [x] Ready for review and merge
-
-
-## 📝 Type of Change
-- [x] New feature / Configuration adjustment
-- [x] Refactor / UI text change
-
-
----
-**Impact Level:** Low
