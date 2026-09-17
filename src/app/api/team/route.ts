@@ -13,8 +13,11 @@ export async function OPTIONS() {
 }
 
 // GET - Fetch all team members (with auto-seeding)
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const includeHidden = searchParams.get('includeHidden') === 'true';
+
     const snapshot = await db.collection('team').orderBy('name', 'asc').get();
     
     // Auto-seed database if empty
@@ -25,10 +28,10 @@ export async function GET() {
       const validDomainMembers: Record<string, string[]> = {
         electronics: ['Parth Sutar', 'Pal Rajak', 'Gauri Mali', 'Pragya Mishra', 'Naaz Husseni', 'Krishna Maurya', 'Kannan Pillai', 'Gaurav Kamble', 'Tanish Gaddam', 'Darshan Barekar'],
         software: ['Riyan Gonsalves', 'Krish Dankhara', 'Emmanuel Fernandes', 'Kavisha Galipelly', 'Aditya Bhole', 'Soham Salekar', 'Gaurav Kamble', 'Krishna Maurya'],
-        mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Ved', 'Aryan Raul', 'Kelvin Chetty', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
-        rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Ved', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
+        mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Aryan Raul', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
+        rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
         event: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra', 'Krishna Maurya', 'Kannan Pillai', 'Krish Dankhara'],
-        publicity: ['Parth Sutar', 'Pal Rajak', 'Ved'],
+        publicity: ['Parth Sutar', 'Pal Rajak'],
         documentation: ['Pal Rajak', 'Christina', 'Kavisha Galipelly', 'Pragya Mishra']
       };
 
@@ -57,14 +60,20 @@ export async function GET() {
       
       // Fetch again after seeding
       const seededSnapshot = await db.collection('team').orderBy('name', 'asc').get();
-      const seededData = seededSnapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+      let seededData = seededSnapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+      if (!includeHidden) {
+        seededData = seededData.filter((m: any) => !m.hidden);
+      }
       
       const response = NextResponse.json({ success: true, data: seededData });
       response.headers.set('Access-Control-Allow-Origin', '*');
       return response;
     }
 
-    const data = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+    let data = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
+    if (!includeHidden) {
+      data = data.filter((member: any) => !member.hidden);
+    }
     const response = NextResponse.json({ success: true, data });
     response.headers.set('Access-Control-Allow-Origin', '*');
     return response;

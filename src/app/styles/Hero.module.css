@@ -103,6 +103,7 @@
   border: 1px solid rgba(225, 6, 0, 0.3);
   padding: 0.5rem 1rem;
   border-radius: 50px;
+  corner-shape: squircle;
   width: fit-content;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.85rem;
@@ -309,6 +310,7 @@
   background: linear-gradient(135deg, rgba(248, 249, 250, 0.4) 0%, rgba(240, 242, 247, 0.3) 100%);
   border: 1px solid rgba(10, 26, 58, 0.1);
   border-radius: 50px;
+  corner-shape: squircle;
   padding: 1.5rem;
   box-shadow: 
     0 30px 70px rgba(10, 26, 58, 0.08),
@@ -401,6 +403,7 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
   border: 2px solid rgba(225, 6, 0, 0.2);
   border-radius: 12px;
+  corner-shape: squircle;
   padding: 2rem;
   box-shadow: 0 10px 40px rgba(10, 26, 58, 0.1);
   display: flex;

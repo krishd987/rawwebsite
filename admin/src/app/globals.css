@@ -70,9 +70,31 @@
   --sidebar-border: rgba(13, 74, 188, 0.2);
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--primary) transparent;
+  scrollbar-width: thin;
+}
+
 html, body {
   height: 100%;
   width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
 body {
@@ -87,6 +109,10 @@ body {
   line-height: 1.6;
 }
 
+input, select, textarea {
+  accent-color: var(--primary);
+}
+
 input, select, textarea, button {
   font-family: inherit;
 }
@@ -95,17 +121,42 @@ button {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 8px !important;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  text-decoration-skip-ink: auto;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   letter-spacing: 0.02em;
+  text-wrap: balance;
+  text-decoration-skip-ink: auto;
+}
+
+/* Squircle & modern utility classes */
+.squircle {
+  border-radius: 12px;
+  corner-shape: squircle;
+}
+
+.headline,
+.blend-difference {
+  mix-blend-mode: difference;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Theme-Aware Glassmorphism & Card selector */
@@ -221,12 +272,13 @@ button[class*="downloadBtn"]:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
