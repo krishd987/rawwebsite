@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import KineticGrid from '@/components/ui/kinetic-grid';
-import { Download, ExternalLink, FileText } from 'lucide-react';
+import styles from './mosaic.module.css';
 
 export default function Mosaic26Page() {
   useEffect(() => {
@@ -26,15 +26,7 @@ export default function Mosaic26Page() {
   return (
     <>
       <Navbar />
-      <div
-        style={{
-          position: 'relative',
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          background: 'var(--color-bg-primary, #070c18)',
-        }}
-      >
+      <div className={styles.pageContainer}>
         <KineticGrid
           style={{
             position: 'fixed',
@@ -45,144 +37,13 @@ export default function Mosaic26Page() {
           }}
         />
 
-        <main
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '5.5rem 1rem 2rem',
-            boxSizing: 'border-box',
-          }}
-        >
-          {/* Top Quick Action Bar */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              padding: '0.85rem 1.25rem',
-              background: 'rgba(15, 25, 46, 0.85)',
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '12px',
-              marginBottom: '1rem',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '8px',
-                  background: 'rgba(225, 6, 0, 0.15)',
-                  border: '1px solid rgba(225, 6, 0, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--color-red, #e10600)',
-                }}
-              >
-                <FileText size={20} />
-              </div>
-              <div>
-                <h1
-                  style={{
-                    margin: 0,
-                    fontSize: '1.1rem',
-                    fontWeight: 700,
-                    fontFamily: 'Orbitron, sans-serif',
-                    color: '#ffffff',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  MOSAIC &apos;26 <span style={{ color: 'var(--color-red, #e10600)' }}>Document</span>
-                </h1>
-                <p style={{ margin: 0, fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-                  Official Event Overview & Guidelines
-                </p>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <a
-                href={pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  fontSize: '0.85rem',
-                  fontWeight: 600,
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <ExternalLink size={15} />
-                Open in New Tab
-              </a>
-
-              <a
-                href={pdfUrl}
-                download="Mosaic26.pdf"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  padding: '0.5rem 1.15rem',
-                  borderRadius: '8px',
-                  background: 'var(--color-red, #e10600)',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  fontSize: '0.85rem',
-                  fontWeight: 600,
-                  boxShadow: '0 4px 14px rgba(225, 6, 0, 0.35)',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <Download size={15} />
-                Download PDF
-              </a>
-            </div>
-          </div>
-
-          {/* Full Height PDF View Container */}
-          <div
-            style={{
-              flex: 1,
-              minHeight: '80vh',
-              height: 'calc(100vh - 180px)',
-              width: '100%',
-              borderRadius: '14px',
-              overflow: 'hidden',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
-              background: '#0a101d',
-            }}
-          >
+        <main className={styles.mainContent}>
+          {/* Full Height Responsive PDF View Container */}
+          <div className={styles.pdfWrapper}>
             <iframe
               src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`}
               title="MOSAIC '26 PDF"
-              width="100%"
-              height="100%"
-              style={{
-                border: 'none',
-                width: '100%',
-                height: '100%',
-                display: 'block',
-              }}
+              className={styles.pdfFrame}
             />
           </div>
         </main>
