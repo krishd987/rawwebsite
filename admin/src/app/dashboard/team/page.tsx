@@ -7,6 +7,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Users, Search, X, Plus } from 'lucide-react';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { EmptyState } from '@/components/ui/empty-state';
+import { SkeletonLoader } from '@/components/ui/skeleton-loader';
 import styles from './team.module.css';
 
 interface TeamMember {
@@ -656,7 +660,7 @@ export default function TeamManagementPage() {
                       className={styles.removeRespBtn}
                       onClick={() => removeRespInput(index)}
                     >
-                      ✕
+                      <X size={14} />
                     </button>
                   </div>
                 ))}
@@ -665,7 +669,7 @@ export default function TeamManagementPage() {
                   className={styles.addRespBtn}
                   onClick={addRespInput}
                 >
-                  + Add Responsibility Bullet
+                  <Plus size={14} style={{ display: 'inline', marginRight: '4px' }} /> Add Responsibility Bullet
                 </button>
               </div>
             </div>
@@ -737,13 +741,16 @@ export default function TeamManagementPage() {
 
       {/* Grid of Team Cards */}
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-          <p style={{ color: '#64748b', fontSize: '1.2rem', fontWeight: 600 }}>Loading team members list...</p>
-        </div>
+        <SkeletonLoader />
       ) : filteredMembers.length > 0 ? (
         <div className={styles.membersGrid}>
           {filteredMembers.map((member) => (
-            <div key={member._id} className={styles.memberCard}>
+            <SpotlightCard
+              key={member._id}
+              spotlightColor="rgba(225, 6, 0, 0.12)"
+              className={styles.memberCard}
+              style={{ padding: 0 }}
+            >
               <div className={`${styles.cardHeader} ${
                 member.name === 'Ramjee Yadav' || member._id === 'core1'
                   ? styles.ramjeeHeader
@@ -830,22 +837,19 @@ export default function TeamManagementPage() {
                   Remove
                 </button>
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       ) : (
-        <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <h3 className={styles.emptyTitle}>No members found</h3>
-          <p className={styles.emptyText}>Try adjusting your search criteria or filter tags to find who you're looking for.</p>
-        </div>
+        <EmptyState
+          title="No Team Members Found"
+          description="Try adjusting your search criteria or filter tags to find who you're looking for."
+          icons={[Users, Search]}
+          action={{
+            label: "+ Add Team Member",
+            onClick: openAddForm,
+          }}
+        />
       )}
     </div>
   );

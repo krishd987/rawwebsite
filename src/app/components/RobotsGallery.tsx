@@ -11,6 +11,8 @@ import Image from 'next/image';
 import styles from '../styles/RobotsShowcase.module.css';
 import mobileStyles from '../styles/RobotsGallery.module.css';
 import { useGlobalData } from '@/context/DataContext';
+import { Search, FileQuestion } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
 
 export default function RobotsGallery() {
   const { robots, galleryImages, isLoading, error } = useGlobalData();
@@ -308,7 +310,7 @@ export default function RobotsGallery() {
         width: '100%'
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-          {/* Combined Header - Premium */}
+          {/* Combined Header - Telemetry & Gallery */}
           <motion.div
             style={{ textAlign: 'center' }}
             initial={{ opacity: 0, y: -20 }}
@@ -882,24 +884,13 @@ export default function RobotsGallery() {
 
             {/* Empty State Message for filtered results */}
             {filteredItems.length === 0 && (
-              <motion.div
-                style={{ 
-                  gridColumn: '1 / -1',
-                  textAlign: 'center', 
-                  padding: '4rem 2rem', 
-                  color: '#666' 
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <p style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>
-                  No items found for the selected filters
-                </p>
-                <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>
-                  Try selecting different category or year filters
-                </p>
-              </motion.div>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <EmptyState
+                  title="No Items Found"
+                  description="Try selecting different category or year filters to explore robots & gallery assets."
+                  icons={[Search, FileQuestion]}
+                />
+              </div>
             )}
           </motion.div>
         </AnimatePresence>

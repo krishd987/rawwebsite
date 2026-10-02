@@ -3,7 +3,7 @@
  * Email: takshgandhi4@gmail.com
  */
 
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=League+Spartan:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 
 * {
   margin: 0;
@@ -17,6 +17,7 @@
 
 /* LIGHT THEME (Active by default) */
 :root {
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   --primary: #FF0000;
   --primary-dark: #9C0005;
   --bg-light: #f5f7fa;
@@ -42,6 +43,10 @@
   /* Sidebar */
   --sidebar-bg: #000030;
   --sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Grid Background Tokens */
+  --grid-color: rgba(13, 74, 188, 0.055);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(245, 247, 250, 0.8) 75%, #f5f7fa 100%);
 }
 
 /* DARK THEME */
@@ -68,6 +73,10 @@
 
   --sidebar-bg: #000020;
   --sidebar-border: rgba(13, 74, 188, 0.2);
+
+  /* Grid Background Tokens */
+  --grid-color: rgba(147, 180, 255, 0.065);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(1, 1, 105, 0.8) 75%, #010169 100%);
 }
 
 html {
@@ -152,6 +161,22 @@ h1, h2, h3, h4, h5, h6 {
 .headline,
 .blend-difference {
   mix-blend-mode: difference;
+}
+
+.text-uppercase,
+.label-uppercase,
+.font-mono,
+.mono,
+code,
+pre,
+th,
+[class*="pidCell"],
+[class*="dateCell"],
+[class*="badge"],
+[class*="tag"],
+[class*="statValue"],
+[class*="statLabel"] {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
 }
 
 .text-uppercase {
@@ -335,9 +360,19 @@ button[class*="downloadBtn"]:hover {
   color: var(--text-secondary) !important;
 }
 
-[data-theme="dark"] td {
-  color: var(--text-primary);
+/* Touch target & mobile accessibility enhancements */
+button, a[role="button"], input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
 }
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.95rem;
+  }
+}
+
 
 
 

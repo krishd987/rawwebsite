@@ -7,6 +7,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { Bot, Search, Cpu, Eye, Check, X } from 'lucide-react';
 import styles from '../styles/RobotsShowcase.module.css';
 import { useGlobalData } from '@/context/DataContext';
 
@@ -16,7 +17,7 @@ const fallbackRobotsData = [
     id: 1,
     name: 'AutoTrace',
     type: 'Line Follower',
-    image: '🤖',
+    image: <Bot size={40} color="#E10600" />,
     description: 'Autonomous line-following robot with precision sensors',
     specs: ['IR Sensors', 'PWM Control', '30cm/s Max Speed'],
     tags: ['Autonomous', 'Sensor-based'],
@@ -26,7 +27,7 @@ const fallbackRobotsData = [
     id: 2,
     name: 'MazeSolver',
     type: 'Maze Navigator',
-    image: '🔍',
+    image: <Search size={40} color="#E10600" />,
     description: 'Intelligent maze-solving robot using wall following',
     specs: ['Ultrasonic Sensors', 'Left-hand Rule', 'Real-time Decision'],
     tags: ['Navigation', 'AI Logic'],
@@ -36,7 +37,7 @@ const fallbackRobotsData = [
     id: 3,
     name: 'PickBot',
     type: 'Pick & Place',
-    image: '🦾',
+    image: <Cpu size={40} color="#E10600" />,
     description: 'Robotic arm for precise object manipulation',
     specs: ['4-DOF Arm', '5kg Payload', 'Servo Control'],
     tags: ['Manipulation', 'Precision'],
@@ -46,7 +47,7 @@ const fallbackRobotsData = [
     id: 4,
     name: 'VisionBot',
     type: 'Computer Vision',
-    image: '👁️',
+    image: <Eye size={40} color="#E10600" />,
     description: 'Robot with advanced vision processing capabilities',
     specs: ['HD Camera', 'OpenCV', 'Real-time Detection'],
     tags: ['Vision', 'ML'],
@@ -64,7 +65,7 @@ export default function RobotsShowcase() {
         id: idx + 1,
         name: robot.name,
         type: robot.type,
-        image: '🤖', // Default emoji for all context robots
+        image: <Bot size={40} color="#E10600" />,
         description: robot.description,
         specs: robot.specs.slice(0, 3), // Show only first 3 specs
         tags: robot.tags.slice(0, 2), // Show only first 2 tags

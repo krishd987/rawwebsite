@@ -8,7 +8,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Linkedin, Youtube, Heart } from 'lucide-react';
+import { Instagram, Linkedin, Youtube } from 'lucide-react';
 import styles from '../styles/Footer.module.css';
 
 export default function Footer() {
@@ -178,11 +178,6 @@ export default function Footer() {
           <p className={styles.copyright}>
             © {currentYear} TEAM RAW – Robotics and Aviation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai. All rights reserved.
           </p>
-          <div className={styles.credits}>
-            <p style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', justifyContent: 'center' }}>
-              Crafted with <Heart size={14} fill="var(--color-red)" stroke="var(--color-red)" style={{ flexShrink: 0 }} /> by the Team RAW Community
-            </p>
-          </div>
         </motion.div>
       </div>
 

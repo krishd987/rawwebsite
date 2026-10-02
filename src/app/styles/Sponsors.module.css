@@ -732,7 +732,7 @@
 }
 
 .tierPlatinum::before {
-  content: 'PREMIUM';
+  content: 'PLATINUM TIER';
   position: absolute;
   top: -12px;
   right: 20px;

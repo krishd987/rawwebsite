@@ -10,6 +10,9 @@ export function RobotCursor() {
   useEffect(() => {
     const move = (e: MouseEvent) => {
       pos.current = { x: e.clientX, y: e.clientY };
+      if (cursorRef.current && cursorRef.current.style.opacity !== '1') {
+        cursorRef.current.style.opacity = '1';
+      }
     };
 
     const render = () => {
@@ -41,6 +44,8 @@ export function RobotCursor() {
           will-change: transform;
           margin-left: -12px;
           margin-top: -12px;
+          opacity: 0;
+          transition: opacity 0.2s ease;
         }
         .robot-cursor-root svg {
           filter: drop-shadow(0 2px 6px rgba(225,6,0,0.35));

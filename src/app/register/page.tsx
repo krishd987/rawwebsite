@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 import styles from '../styles/Register.module.css';
 import '../styles/mobile-registration.css';
 
@@ -286,16 +287,33 @@ export default function RegisterPage() {
   };
 
   return (
-    <main>
+    <>
       <Navbar />
-
-      {/* Mobile Progress Indicator */}
-      <div className={styles.mobileProgressBar}>
-        <div
-          className={styles.mobileProgressFill}
-          style={{ width: `${formProgress}%` }}
-        />
-      </div>
+      <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+        <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: -1 }}>
+          <AnimatedGridPattern
+            numSquares={35}
+            maxOpacity={0.08}
+            width={50}
+            height={50}
+            duration={3.5}
+            repeatDelay={1.2}
+            strokeDasharray={0}
+            style={{
+              maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
+            }}
+            className="pointer-events-none absolute inset-0 h-full w-full"
+          />
+        </div>
+        <main style={{ position: 'relative', zIndex: 1 }}>
+          {/* Mobile Progress Indicator */}
+          <div className={styles.mobileProgressBar}>
+            <div
+              className={styles.mobileProgressFill}
+              style={{ width: `${formProgress}%` }}
+            />
+          </div>
 
       {/* Hero Section */}
       <motion.section
@@ -910,7 +928,9 @@ export default function RegisterPage() {
       )}
     </section>
 
-    <Footer />
-    </main>
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 }

@@ -6,8 +6,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Mail, MapPin, Handshake, Clock, Lightbulb } from 'lucide-react';
+import TopFadeGrid from './TopFadeGrid';
 import styles from '../styles/Contact.module.css';
 
 export default function Contact() {
@@ -21,6 +22,19 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const messageTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Auto-enlarge textarea to fit data
+  const adjustTextareaHeight = () => {
+    if (messageTextareaRef.current) {
+      messageTextareaRef.current.style.height = 'auto';
+      messageTextareaRef.current.style.height = `${Math.max(140, messageTextareaRef.current.scrollHeight)}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [formData.message]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,6 +42,10 @@ export default function Contact() {
       ...prev,
       [name]: value,
     }));
+    if (name === 'message' && e.target instanceof HTMLTextAreaElement) {
+      e.target.style.height = 'auto';
+      e.target.style.height = `${Math.max(140, e.target.scrollHeight)}px`;
+    }
     // Clear error when user starts typing
     if (error) setError(null);
   };
@@ -143,8 +161,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className={styles.section}>
-      <div className={styles.gridBackground}></div>
-      <div className={styles.container}>
+      <TopFadeGrid gridColor="rgba(10, 26, 58, 0.06)" />
+      <div className={styles.container} style={{ position: 'relative', zIndex: 1 }}>
         {/* Left Side - Form */}
         <motion.div
           className={styles.formContainer}
@@ -267,14 +285,18 @@ export default function Contact() {
                   </span>
                 </label>
                 <textarea
+                  ref={messageTextareaRef}
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us about your ideas, questions, or how we can collaborate... (minimum 10 characters)"
-                  rows={6}
+                  rows={4}
                   required
                   style={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    boxSizing: 'border-box',
                     borderColor: formData.message.length > 0 && formData.message.length < 10 
                       ? '#ef4444' 
                       : undefined

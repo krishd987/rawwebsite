@@ -1,8 +1,7 @@
 'use client';
 
 /**
- * Enhanced Admin Dashboard - Robots & Gallery Management
- * Modern, Clean, Professional UI/UX Implementation
+ * Admin Dashboard - Robots & Gallery Management
  * Author: Team RAW Admin
  */
 

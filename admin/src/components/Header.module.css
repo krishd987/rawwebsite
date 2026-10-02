@@ -11,6 +11,8 @@
   background: var(--bg-white);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
+  position: relative;
+  z-index: 20;
 }
 
 .left {

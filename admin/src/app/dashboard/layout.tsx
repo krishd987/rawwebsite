@@ -9,6 +9,7 @@ import { ReactNode, useState, useEffect } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import TopFadeGrid from '@/components/TopFadeGrid';
 import styles from './layout.module.css';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -50,7 +51,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <div className={styles.main}>
           <Header onToggleSidebar={toggleSidebar} />
           <main className={styles.content}>
-            {children}
+            <TopFadeGrid sizeX={50} sizeY={50} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              {children}
+            </div>
           </main>
         </div>
         {isSidebarOpen && <div className={styles.overlay} onClick={closeSidebar} />}

@@ -10,6 +10,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Bot } from 'lucide-react';
 import styles from '../styles/Hero.module.css';
+import KineticGrid from '@/components/ui/kinetic-grid';
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -47,25 +48,12 @@ export default function Hero() {
   return (
     <section className={styles.hero} ref={containerRef}>
       <div className={styles.backgroundGradient}></div>
-      <div className={styles.gridPattern}></div>
-      
-      {/* Animated background lines */}
-      <div className={styles.decorativeLinesContainer}>
-        <motion.svg
-          className={styles.decorativeLines}
-          viewBox="0 0 1200 600"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          transition={{ duration: 1 }}
-        >
-          <line x1="0" y1="100" x2="1200" y2="100" stroke="#E10600" strokeWidth="1" />
-          <line x1="0" y1="200" x2="1200" y2="200" stroke="#E10600" strokeWidth="1" />
-          <line x1="0" y1="300" x2="1200" y2="300" stroke="#E10600" strokeWidth="1" />
-          <line x1="200" y1="0" x2="200" y2="600" stroke="#0A1A3A" strokeWidth="1" />
-          <line x1="600" y1="0" x2="600" y2="600" stroke="#0A1A3A" strokeWidth="1" />
-          <line x1="1000" y1="0" x2="1000" y2="600" stroke="#0A1A3A" strokeWidth="1" />
-        </motion.svg>
-      </div>
+      <KineticGrid
+        gridColor="rgba(10, 26, 58, 0.04)"
+        dotColor="rgba(225, 6, 0, 0.12)"
+        warpStrength={8}
+        warpRadius={120}
+      />
 
       <div className={styles.container}>
         {/* Left Side - Content */}
@@ -108,7 +96,7 @@ export default function Hero() {
             <motion.a
               href="/robots-gallery"
               className={`${styles.button} ${styles.secondaryButton}`}
-              whileHover={{ scale: 1.05, backgroundColor: 'var(--color-navy)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(10, 26, 58, 0.4)' }}
               whileTap={{ scale: 0.95 }}
               style={{ textDecoration: 'none', display: 'inline-block', cursor: 'pointer' }}
             >

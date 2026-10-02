@@ -7,6 +7,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Inbox, Megaphone, Trophy, Calendar, FileText, Bell } from 'lucide-react';
 
 interface Update {
   _id: string;
@@ -312,17 +313,19 @@ export default function UpdatesPopup() {
                   </div>
                 ) : updates.length === 0 ? (
                   <div style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
-                    <p style={{ fontSize: '2rem', margin: '0 0 0.5rem 0' }}>📭</p>
-                    <p style={{ margin: 0, fontFamily: 'Inter, sans-serif' }}>No updates available</p>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                      <Inbox size={36} color="#94a3b8" />
+                    </div>
+                    <p style={{ margin: 0, fontFamily: 'Montserrat, sans-serif' }}>No updates available</p>
                   </div>
                 ) : (
                   updates.map((update, idx) => {
                     const getCategoryIcon = (category: string) => {
                       switch (category) {
-                        case 'announcement': return '📢';
-                        case 'achievement': return '🏆';
-                        case 'event': return '📅';
-                        default: return '📝';
+                        case 'announcement': return <Megaphone size={16} color="#E10600" />;
+                        case 'achievement': return <Trophy size={16} color="#E10600" />;
+                        case 'event': return <Calendar size={16} color="#E10600" />;
+                        default: return <FileText size={16} color="#E10600" />;
                       }
                     };
 
@@ -527,11 +530,11 @@ export default function UpdatesPopup() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>
-                  {selectedUpdate.category === 'announcement' && '📢'}
-                  {selectedUpdate.category === 'achievement' && '🏆'}
-                  {selectedUpdate.category === 'event' && '📅'}
-                  {selectedUpdate.category === 'general' && '📝'}
+                <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                  {selectedUpdate.category === 'announcement' && <Megaphone size={20} color="#E10600" />}
+                  {selectedUpdate.category === 'achievement' && <Trophy size={20} color="#E10600" />}
+                  {selectedUpdate.category === 'event' && <Calendar size={20} color="#E10600" />}
+                  {selectedUpdate.category === 'general' && <FileText size={20} color="#E10600" />}
                 </span>
                 <span
                   style={{

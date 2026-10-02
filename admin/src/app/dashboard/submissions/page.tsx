@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { FileText, Files } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
+import { SkeletonLoader } from '@/components/ui/skeleton-loader';
 import styles from './submissions.module.css';
 
 interface Submission {
@@ -201,11 +204,13 @@ export default function SubmissionsPage() {
       </div>
 
       {loading ? (
-        <div className={styles.loading}>Loading submissions...</div>
+        <SkeletonLoader />
       ) : submissions.length === 0 ? (
-        <div className={styles.empty}>
-          <p>No submissions found</p>
-        </div>
+        <EmptyState
+          title="No PPT Submissions Found"
+          description="There are no competition presentation submissions uploaded yet."
+          icons={[FileText, Files]}
+        />
       ) : (
         <div className={styles.tableContainer}>
           <table className={styles.table}>

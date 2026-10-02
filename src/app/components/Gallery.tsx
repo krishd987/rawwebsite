@@ -7,6 +7,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Camera, Folder, Calendar, MapPin, Users } from 'lucide-react';
 import styles from '../styles/Gallery.module.css';
 import { useGlobalData } from '@/context/DataContext';
 
@@ -205,7 +206,7 @@ export default function Gallery() {
                         }}
                       />
                     ) : (
-                      <div className={styles.itemEmoji}>📸</div>
+                      <div className={styles.itemEmoji}><Camera size={32} color="#E10600" /></div>
                     )}
                     <div className={styles.itemOverlay}>
                       <h3>{item.title}</h3>
@@ -360,7 +361,7 @@ export default function Gallery() {
                       }}
                     />
                   ) : (
-                    <div className={styles.lightboxEmoji}>📸</div>
+                    <div className={styles.lightboxEmoji}><Camera size={48} color="#E10600" /></div>
                   )}
                 </div>
                 
@@ -405,21 +406,21 @@ export default function Gallery() {
                   {/* Metadata Row */}
                   <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginBottom: '1.5rem', fontSize: '0.9rem', color: '#666' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <strong>📂</strong> {selectedItem.category}
+                      <Folder size={16} color="#E10600" /> {selectedItem.category}
                     </span>
                     {selectedItem.date && (
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <strong>📅</strong> {new Date(selectedItem.date).toLocaleDateString()}
+                        <Calendar size={16} color="#E10600" /> {new Date(selectedItem.date).toLocaleDateString()}
                       </span>
                     )}
                     {selectedItem.location && (
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <strong>📍</strong> {selectedItem.location}
+                        <MapPin size={16} color="#E10600" /> {selectedItem.location}
                       </span>
                     )}
                     {selectedItem.participants && (
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <strong>👥</strong> {selectedItem.participants}
+                        <Users size={16} color="#E10600" /> {selectedItem.participants}
                       </span>
                     )}
                   </div>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { FileText, Search } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
 import styles from './registrations.module.css';
 
 interface Registration {
@@ -497,9 +499,11 @@ export default function RegistrationsPage() {
       {loading ? (
         <div className={styles.loading}>Loading registrations...</div>
       ) : registrations.length === 0 ? (
-        <div className={styles.empty}>
-          <p>No registrations found</p>
-        </div>
+        <EmptyState
+          title="No Registrations Found"
+          description="There are no student event registrations matching your filter criteria."
+          icons={[FileText, Search]}
+        />
       ) : (
         <div className={styles.tableContainer}>
           <table className={styles.table}>

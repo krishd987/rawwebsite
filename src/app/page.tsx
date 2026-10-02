@@ -14,6 +14,8 @@ import AboutUs from './components/AboutUs';
 import UpdatesPopup from './components/UpdatesPopup';
 import AnimatedStat from './components/AnimatedStat';
 import Footer from './components/Footer';
+import TopFadeGrid from './components/TopFadeGrid';
+import StatsBento from '@/components/ui/stats-bento';
 
 export default function Home() {
   return (
@@ -29,13 +31,16 @@ export default function Home() {
           padding: '4rem 0',
           background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
           borderTop: '1px solid rgba(10, 26, 58, 0.1)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <TopFadeGrid gridColor="rgba(10, 26, 58, 0.08)" />
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
           <motion.div
             style={{ textAlign: 'center', marginBottom: '2rem' }}
             initial={{ y: 20 }}
@@ -200,52 +205,12 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '2rem',
-            }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <AnimatedStat 
-              icon={Trophy}
-              value={15} 
-              suffix="+" 
-              label="Competitions Participated" 
-              description="National & inter-university robotics events"
-              ariaLabel="Trophy icon representing competitions"
-              delay={0}
-            />
-            <AnimatedStat 
-              icon={Users}
-              value={20} 
-              suffix="+" 
-              label="Active Members" 
-              description="Multidisciplinary engineering team"
-              ariaLabel="Users icon representing team members"
-              delay={100}
-            />
-            <AnimatedStat 
-              icon={Bot}
-              value={4} 
-              suffix="" 
-              label="Competition Robots Built" 
-              description="Mechanical, autonomous, and control systems"
-              ariaLabel="Robot icon representing built robots"
-              delay={200}
-            />
-            <AnimatedStat 
-              icon={BarChart3}
-              value={90} 
-              suffix="%+" 
-              label="Task Completion Rate" 
-              description="Reliable on-field performance"
-              ariaLabel="Bar chart icon representing success rate"
-              delay={300}
-            />
+            <StatsBento />
           </motion.div>
         </div>
       </motion.section>

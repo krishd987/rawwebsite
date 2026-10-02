@@ -6,6 +6,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
+import { MagneticCursor } from "@/components/ui/magnetic-cursor";
+import { LiquidMorphFloatingMenu } from "@/components/ui/liquid-morph-floating-menu";
 import "./globals.css";
 
 export const metadata: Metadata = {

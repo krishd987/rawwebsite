@@ -57,6 +57,16 @@ export function AnimatedGridPattern({
   const [squares, setSquares] = useState<Array<{ id: number; pos: [number, number] }>>([]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const w = containerRef.current?.clientWidth || window.innerWidth;
+      const h = containerRef.current?.clientHeight || window.innerHeight;
+      if (w && h) {
+        setDimensions({ width: w, height: h });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (dimensions.width && dimensions.height) {
       setSquares(generateSquares(numSquares));
     }
@@ -68,10 +78,12 @@ export function AnimatedGridPattern({
 
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        setDimensions({
-          width: entry.contentRect.width,
-          height: entry.contentRect.height,
-        });
+        if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+          setDimensions({
+            width: entry.contentRect.width,
+            height: entry.contentRect.height,
+          });
+        }
       }
     });
 
@@ -100,7 +112,7 @@ export function AnimatedGridPattern({
       ref={containerRef}
       aria-hidden="true"
       className={cn(
-        'pointer-events-none absolute inset-0 h-full w-full fill-gray-400/20 stroke-gray-400/20',
+        'pointer-events-none absolute inset-0 h-full w-full stroke-gray-400/15 fill-gray-400/10 text-red-500/20 dark:stroke-white/10 dark:fill-white/5 dark:text-red-500/30',
         className
       )}
       {...props}
