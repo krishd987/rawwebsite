@@ -8,7 +8,7 @@ import { Download, ExternalLink, FileText } from 'lucide-react';
 
 export default function Mosaic26Page() {
   useEffect(() => {
-    document.title = "MOSAIC '26 | Team RAW Hackathon";
+    document.title = "MOSAIC '26 | Team RAW College Event";
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement('meta');
@@ -17,7 +17,7 @@ export default function Mosaic26Page() {
     }
     metaDesc.setAttribute(
       'content',
-      "Official MOSAIC '26 hackathon document of Robotics and Aviation Wing (RAW) SFIT."
+      "Official MOSAIC '26 college event document of Robotics and Aviation Wing (RAW) SFIT."
     );
   }, []);
 
