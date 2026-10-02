@@ -203,21 +203,7 @@ export default function SendEmailPage() {
         <p className={styles.subtitle}>Send emails directly with Team RAW template to multiple recipients</p>
       </div>
 
-      {emailConfigured === false && (
-        <div className={styles.warningBanner}>
-          <span className={styles.warningIcon}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }}>
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-              <line x1="12" y1="9" x2="12" y2="13"></line>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-          </span>
-          <span>
-            Email is not configured. Please set up EMAIL_USER and EMAIL_PASS environment variables.
-            See <strong>EMAIL_SETUP.md</strong> for instructions.
-          </span>
-        </div>
-      )}
+
 
       <div className={styles.formContainer}>
 

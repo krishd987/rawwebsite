@@ -10,16 +10,20 @@ import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import AboutUs from '../components/AboutUs';
 import Footer from '../components/Footer';
+import KineticGrid from '@/components/ui/kinetic-grid';
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       <Navbar />
+      <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+        <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: -1 }} />
+        <main style={{ position: 'relative', zIndex: 1 }}>
       <motion.section
         style={{
           paddingTop: '100px',
           paddingBottom: '2rem',
-          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+          background: 'transparent',
           minHeight: '30vh',
           display: 'flex',
           alignItems: 'center',
@@ -133,7 +137,9 @@ export default function AboutPage() {
       </motion.section>
 
       <AboutUs />
+        </main>
+      </div>
       <Footer />
-    </main>
+    </>
   );
 }

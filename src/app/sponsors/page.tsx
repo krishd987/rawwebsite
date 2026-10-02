@@ -9,21 +9,44 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
 import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
+import KineticGrid from '@/components/ui/kinetic-grid';
+import LogoCloud from '@/components/ui/logo-cloud';
 import styles from '@/app/styles/Sponsors.module.css';
+import {
+  Timeline,
+  TimelineContent,
+  TimelineDate,
+  TimelineHeader,
+  TimelineIndicator,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineTitle,
+} from '@/components/ui/timeline';
 
 // Sponsor Hero Banner Component
 const SponsorHeroBanner = () => {
   return (
     <section className={styles.heroBanner}>
       <div className={styles.heroContent}>
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
+          className={styles.heroBadge}
+        >
+          <Handshake size={15} style={{ color: 'var(--color-red)' }} />
+          <span>Partnership & Sponsorship</span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
           className={styles.heroTitle}
         >
           Power the Future of <span className={styles.redAccent}>Robotics Innovation</span>
         </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,31 +55,32 @@ const SponsorHeroBanner = () => {
         >
           Partner with Team RAW and gain national visibility, access top engineering talent, and drive innovation in STEM education
         </motion.p>
+
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className={styles.heroButtonGroup}
         >
-          <motion.button
+          <motion.a
+            href="#contact"
             className={styles.ctaButtonPrimary}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Become a Sponsor
-          </motion.button>
+          </motion.a>
           <motion.button
             className={styles.ctaButtonSecondary}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
           >
+            <Download size={16} />
             Download Sponsorship Deck
           </motion.button>
         </motion.div>
       </div>
-
-      <div className={styles.videoOverlay} />
     </section>
   );
 };
@@ -64,7 +88,6 @@ const SponsorHeroBanner = () => {
 // Sponsorship Benefits Grid
 const BenefitsGrid = () => {
   const benefits = [
-    // Visibility & Branding
     {
       iconType: 'target',
       title: 'National Brand Visibility',
@@ -79,7 +102,6 @@ const BenefitsGrid = () => {
       category: 'Visibility',
       color: 'cyan',
     },
-    // Talent Access
     {
       iconType: 'users',
       title: 'Talent Pipeline Access',
@@ -94,7 +116,6 @@ const BenefitsGrid = () => {
       category: 'Talent',
       color: 'green',
     },
-    // Innovation & Analytics
     {
       iconType: 'gear',
       title: 'Innovation Collaboration',
@@ -111,7 +132,6 @@ const BenefitsGrid = () => {
     },
   ];
 
-  // SVG Icon Components for Benefits
   const renderBenefitIcon = (iconType: string) => {
     const iconProps = {
       width: "40",
@@ -248,7 +268,6 @@ const ImpactNumbers = () => {
     },
   ];
 
-  // SVG Icon Components
   const renderIcon = (iconType: string) => {
     const iconProps = {
       width: "48",
@@ -383,23 +402,26 @@ const AchievementsHighlights = () => {
         >
           Our Track Record & <span className={styles.redAccent}>Achievements</span>
         </motion.h2>
-        <div className={styles.timeline}>
-          {achievements.map((achievement, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`${styles.timelineItem} ${idx % 2 === 0 ? styles.left : styles.right}`}
-            >
-              <div className={styles.timelineCard}>
-                <div className={styles.year}>{achievement.year}</div>
-                <h3>{achievement.title}</h3>
-                <p>{achievement.description}</p>
-                <div className={styles.sponsorValue}>{achievement.sponsorValue}</div>
-              </div>
-            </motion.div>
-          ))}
+        
+        <div style={{ marginTop: '2rem', padding: '0 1rem' }}>
+          <Timeline defaultValue={4}>
+            {achievements.map((achievement, idx) => (
+              <TimelineItem key={idx} step={idx + 1}>
+                <TimelineIndicator />
+                {idx < achievements.length - 1 && <TimelineSeparator />}
+                <TimelineHeader>
+                  <TimelineDate>{achievement.year}</TimelineDate>
+                  <TimelineTitle>{achievement.title}</TimelineTitle>
+                </TimelineHeader>
+                <TimelineContent>
+                  <p style={{ margin: '0 0 0.5rem 0' }}>{achievement.description}</p>
+                  <div style={{ color: 'var(--color-red, #E10600)', fontWeight: 600, fontSize: '0.85rem' }}>
+                    {achievement.sponsorValue}
+                  </div>
+                </TimelineContent>
+              </TimelineItem>
+            ))}
+          </Timeline>
         </div>
       </div>
     </section>
@@ -428,11 +450,20 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.jersey}>
-                <div className={styles.jerseyTop}>
-                  <span className={styles.sponsor}>SPONSOR</span>
+              <div className={styles.jerseyMockup}>
+                <div className={styles.jerseyCollar} />
+                <div className={styles.jerseySleeves}>
+                  <span className={styles.sleeveBadgeLeft}>SFIT</span>
+                  <span className={styles.sleeveBadgeRight}>RAW</span>
                 </div>
-                <div className={styles.jerseyBody}>TEAM RAW</div>
+                <div className={styles.jerseyChest}>
+                  <div className={styles.jerseySponsorBadge}>
+                    <span className={styles.sponsorLabel}>PRIMARY SPONSOR</span>
+                    <span className={styles.sponsorName}>YOUR LOGO</span>
+                  </div>
+                  <div className={styles.jerseyNumber}>TEAM RAW</div>
+                </div>
+                <div className={styles.jerseyAccentStripes} />
               </div>
             </div>
             <h3>Team Uniforms</h3>
@@ -447,10 +478,24 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.robot}>
-                <div className={styles.robotTop} />
-                <div className={styles.robotSponsorZone}>SPONSOR LOGO</div>
-                <div className={styles.robotBottom} />
+              <div className={styles.robotMockup}>
+                <div className={styles.robotLidar}>
+                  <div className={styles.lidarBeam} />
+                </div>
+                <div className={styles.robotFrame}>
+                  <div className={styles.robotPlate}>
+                    <div className={styles.sponsorScreen}>
+                      <span className={styles.screenLabel}>CHASSIS PARTNER</span>
+                      <strong className={styles.screenText}>SPONSOR LOGO</strong>
+                    </div>
+                  </div>
+                  <div className={styles.robotWheels}>
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                  </div>
+                </div>
               </div>
             </div>
             <h3>Robot Chassis</h3>
@@ -465,11 +510,19 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.trailer}>
-                <div className={styles.trailerPanel}>SPONSOR BRANDING</div>
-                <div className={styles.trailerWheels}>
-                  <div className={styles.wheel}></div>
-                  <div className={styles.wheel}></div>
+              <div className={styles.trailerMockup}>
+                <div className={styles.trailerBody}>
+                  <div className={styles.trailerHeadlights} />
+                  <div className={styles.trailerSponsorPanel}>
+                    <span className={styles.transportTag}>LOGISTICS PARTNER</span>
+                    <strong className={styles.transportBrand}>SPONSOR BRANDING</strong>
+                  </div>
+                  <div className={styles.trailerHazard} />
+                </div>
+                <div className={styles.trailerUnderglow} />
+                <div className={styles.trailerAxles}>
+                  <div className={styles.cyberWheel}><div className={styles.cyberRim} /></div>
+                  <div className={styles.cyberWheel}><div className={styles.cyberRim} /></div>
                 </div>
               </div>
             </div>
@@ -485,11 +538,18 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.banner}>
-                <div className={styles.bannerContent}>
-                  <span className={styles.bannerSponsor}>PRESENTED BY</span>
-                  <span className={styles.bannerBrand}>YOUR BRAND</span>
+              <div className={styles.bannerMockup}>
+                <div className={styles.trussRig}>
+                  <div className={styles.stageSpotlight} />
+                  <div className={styles.stageSpotlight} />
                 </div>
+                <div className={styles.ledScreen}>
+                  <div className={styles.screenScanlines} />
+                  <span className={styles.bannerSubtitle}>EVENT PRESENTED BY</span>
+                  <h4 className={styles.bannerTitle}>YOUR BRAND</h4>
+                  <span className={styles.bannerLiveTag}>● LIVE STREAM & STAGE</span>
+                </div>
+                <div className={styles.bannerStand} />
               </div>
             </div>
             <h3>Event Banners & Digital</h3>
@@ -500,8 +560,6 @@ const BrandExposure = () => {
     </section>
   );
 };
-
-
 
 // Contact & Call-to-Action
 const ContactCTA = () => {
@@ -517,7 +575,6 @@ const ContactCTA = () => {
           <h2>Ready to Partner with <span className={styles.redAccent}>Team RAW?</span></h2>
           <p>Join 45+ organizations that are investing in robotics innovation. Your sponsorship makes a direct impact on student success and industry innovation.</p>
           
-          {/* Trust Indicators */}
           <div className={styles.trustIndicators}>
             <div className={styles.trustItem}>
               <strong style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-red)', marginBottom: '0.25rem' }}>
@@ -587,7 +644,7 @@ const ContactCTA = () => {
             className={styles.downloadButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
+            onClick={() => alert('Coming Soon! Our sponsorship packet will be available shortly.')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}
           >
             <Download size={18} />
@@ -599,16 +656,82 @@ const ContactCTA = () => {
   );
 };
 
+// Softwares & Engineering Tools Section
+const SoftwaresWeUse = () => {
+  return (
+    <section style={{ padding: '6rem 0', position: 'relative' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <motion.div
+          style={{ textAlign: 'center', marginBottom: '3rem' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.4rem 1rem',
+              borderRadius: '20px',
+              background: 'rgba(225, 6, 0, 0.08)',
+              border: '1px solid rgba(225, 6, 0, 0.25)',
+              color: 'var(--color-red)',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              fontFamily: 'Orbitron, sans-serif',
+              marginBottom: '1rem',
+            }}
+          >
+            Engineering Stack & Toolchain
+          </div>
+          <h2
+            style={{
+              fontFamily: 'Orbitron, sans-serif',
+              fontSize: '2.5rem',
+              fontWeight: 800,
+              color: 'var(--color-text-primary)',
+              margin: '0 0 1rem 0',
+            }}
+          >
+            Softwares We <span style={{ color: 'var(--color-red)' }}>Use</span>
+          </h2>
+          <p
+            style={{
+              fontSize: '1.05rem',
+              color: 'var(--color-text-secondary)',
+              maxWidth: '720px',
+              margin: '0 auto',
+              lineHeight: 1.7,
+            }}
+          >
+            From high-fidelity mechanical CAD and multi-layer ECAD routing to autonomous SLAM and computer vision pipelines, our team builds with industry-standard engineering software.
+          </p>
+        </motion.div>
+
+        <LogoCloud />
+      </div>
+    </section>
+  );
+};
+
 export default function SponsorsPage() {
   return (
     <>
       <Navbar />
-      <SponsorHeroBanner />
-      <BenefitsGrid />
-      <ImpactNumbers />
-      <AchievementsHighlights />
-      <BrandExposure />
-      <ContactCTA />
+      <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+        <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: -1 }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <SponsorHeroBanner />
+          <BenefitsGrid />
+          <ImpactNumbers />
+          <AchievementsHighlights />
+          <BrandExposure />
+          <SoftwaresWeUse />
+          <ContactCTA />
+        </div>
+      </div>
       <Footer />
     </>
   );

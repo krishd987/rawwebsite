@@ -11,6 +11,8 @@ import Image from 'next/image';
 import styles from '../styles/RobotsShowcase.module.css';
 import mobileStyles from '../styles/RobotsGallery.module.css';
 import { useGlobalData } from '@/context/DataContext';
+import { Search, FileQuestion } from 'lucide-react';
+import { EmptyState } from '@/components/ui/empty-state';
 
 export default function RobotsGallery() {
   const { robots, galleryImages, isLoading, error } = useGlobalData();
@@ -299,16 +301,17 @@ export default function RobotsGallery() {
   }
 
   return (
-    <section id="robots-gallery" style={{ background: '#ffffff', paddingBottom: '4rem' }}>
+    <section id="robots-gallery" style={{ background: 'transparent', paddingBottom: '4rem' }}>
       {/* Dark Navy Glowing Gradient Header Container */}
       <div style={{ 
         paddingTop: '5rem', 
         paddingBottom: '3.5rem', 
-        background: 'radial-gradient(circle at 50% -20%, rgba(225, 6, 0, 0.18), transparent 70%), linear-gradient(180deg, #020b1e 0%, #0a1a3a 100%)',
-        width: '100%'
+        background: 'radial-gradient(circle at 50% -20%, rgba(225, 6, 0, 0.18), transparent 70%), linear-gradient(180deg, rgba(2, 11, 30, 0.85) 0%, rgba(10, 26, 58, 0.7) 100%)',
+        width: '100%',
+        backdropFilter: 'blur(12px)',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-          {/* Combined Header - Premium */}
+          {/* Combined Header - Telemetry & Gallery */}
           <motion.div
             style={{ textAlign: 'center' }}
             initial={{ opacity: 0, y: -20 }}
@@ -349,7 +352,7 @@ export default function RobotsGallery() {
         </div>
       </div>
 
-      {/* Main Content Area - White Background */}
+      {/* Main Content Area */}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3.5rem 2rem 0' }}>
         {/* Year Filter - Compact style above category filters */}
         {availableYears.length > 0 && (
@@ -371,7 +374,7 @@ export default function RobotsGallery() {
             <span style={{ 
               fontSize: '0.85rem', 
               fontWeight: 600, 
-              color: '#64748b',
+              color: 'var(--color-text-muted)',
               letterSpacing: '0.02em',
               fontFamily: 'Inter, sans-serif',
             }}>
@@ -384,18 +387,18 @@ export default function RobotsGallery() {
                 fontSize: '0.8rem',
                 fontWeight: 600,
                 letterSpacing: '0.02em',
-                border: selectedYear === 'all' ? 'none' : '1px solid #e2e8f0',
+                border: selectedYear === 'all' ? '1px solid var(--color-red)' : '1px solid var(--color-border)',
                 background: selectedYear === 'all' 
-                  ? 'linear-gradient(135deg, #64748b 0%, #475569 100%)' 
-                  : '#ffffff',
-                color: selectedYear === 'all' ? '#ffffff' : '#64748b',
+                  ? 'var(--color-red)' 
+                  : 'var(--color-bg-card)',
+                color: selectedYear === 'all' ? '#ffffff' : 'var(--color-text-secondary)',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 fontFamily: 'Inter, sans-serif',
                 boxShadow: selectedYear === 'all' 
-                  ? '0 2px 8px rgba(100, 116, 139, 0.3)' 
-                  : '0 1px 3px rgba(10, 26, 58, 0.05)',
+                  ? '0 2px 8px rgba(225, 6, 0, 0.3)' 
+                  : 'var(--shadow-sm)',
               }}
             >
               All
@@ -409,18 +412,18 @@ export default function RobotsGallery() {
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   letterSpacing: '0.02em',
-                  border: selectedYear === year ? 'none' : '1px solid #e2e8f0',
+                  border: selectedYear === year ? '1px solid var(--color-red)' : '1px solid var(--color-border)',
                   background: selectedYear === year 
-                    ? 'linear-gradient(135deg, #64748b 0%, #475569 100%)' 
-                    : '#ffffff',
-                  color: selectedYear === year ? '#ffffff' : '#64748b',
+                    ? 'var(--color-red)' 
+                    : 'var(--color-bg-card)',
+                  color: selectedYear === year ? '#ffffff' : 'var(--color-text-secondary)',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   fontFamily: 'Inter, sans-serif',
                   boxShadow: selectedYear === year 
-                    ? '0 2px 8px rgba(100, 116, 139, 0.3)' 
-                    : '0 1px 3px rgba(10, 26, 58, 0.05)',
+                    ? '0 2px 8px rgba(225, 6, 0, 0.3)' 
+                    : 'var(--shadow-sm)',
                 }}
               >
                 {year}
@@ -455,18 +458,18 @@ export default function RobotsGallery() {
                 fontSize: '0.9rem',
                 fontWeight: 600,
                 letterSpacing: '0.02em',
-                border: selectedCategory === category.id ? 'none' : '1px solid #e2e8f0',
+                border: selectedCategory === category.id ? '1px solid var(--color-red)' : '1px solid var(--color-border)',
                 background: selectedCategory === category.id 
-                  ? 'linear-gradient(135deg, #B2001D 0%, #8a0016 100%)' 
-                  : '#ffffff',
-                color: selectedCategory === category.id ? '#ffffff' : '#475569',
+                  ? 'var(--color-red)' 
+                  : 'var(--color-bg-card)',
+                color: selectedCategory === category.id ? '#ffffff' : 'var(--color-text-primary)',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 fontFamily: 'Inter, sans-serif',
                 boxShadow: selectedCategory === category.id 
-                  ? '0 4px 12px rgba(178, 0, 29, 0.3)' 
-                  : '0 2px 8px rgba(10, 26, 58, 0.05)',
+                  ? '0 4px 12px rgba(225, 6, 0, 0.35)' 
+                  : 'var(--shadow-sm)',
               }}
             >
               {category.label}
@@ -882,24 +885,13 @@ export default function RobotsGallery() {
 
             {/* Empty State Message for filtered results */}
             {filteredItems.length === 0 && (
-              <motion.div
-                style={{ 
-                  gridColumn: '1 / -1',
-                  textAlign: 'center', 
-                  padding: '4rem 2rem', 
-                  color: '#666' 
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <p style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>
-                  No items found for the selected filters
-                </p>
-                <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>
-                  Try selecting different category or year filters
-                </p>
-              </motion.div>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <EmptyState
+                  title="No Items Found"
+                  description="Try selecting different category or year filters to explore robots & gallery assets."
+                  icons={[Search, FileQuestion]}
+                />
+              </div>
             )}
           </motion.div>
         </AnimatePresence>

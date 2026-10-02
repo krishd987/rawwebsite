@@ -25,8 +25,9 @@
     border-radius: 14px;
     padding: 16px;
     margin-bottom: 16px;
-    background: #fff;
-    border: 2px solid #f2f2f2;
+    background: var(--color-bg-card, #ffffff);
+    border: 2px solid var(--color-border, #f2f2f2);
+    color: var(--color-text-primary, #0A1A3A);
   }
 
   /* STOP AUTO EXPANSION */
@@ -40,6 +41,7 @@
     font-weight: 700;
     line-height: 1.3;
     margin-bottom: 6px;
+    color: var(--color-text-primary, #0A1A3A);
   }
 
   /* ----- META INFO ----- */
@@ -48,13 +50,14 @@
     flex-direction: column;
     gap: 6px;
     font-size: 14px;
+    color: var(--color-text-secondary, #475569);
   }
 
   /* ----- DESCRIPTION (FIXED HEIGHT) ----- */
   .competition-description {
     margin-top: 10px;
     font-size: 14px;
-    color: #555;
+    color: var(--color-text-muted, #64748b);
     line-height: 1.5;
 
     max-height: 90px;
@@ -70,7 +73,7 @@
   .read-more-btn {
     margin-top: 8px;
     font-size: 14px;
-    color: #e10600;
+    color: var(--color-red, #e10600);
     font-weight: 600;
     background: none;
     border: none;
@@ -86,17 +89,22 @@
     padding: 12px 14px;
     font-size: 14px;
     border-radius: 10px;
+    background: var(--color-bg-card, #ffffff);
+    color: var(--color-text-primary, #0A1A3A);
+    border: 1px solid var(--color-border, rgba(10,26,58,0.15));
   }
 
   textarea {
-    min-height: 80px; /* 🔥 reduced */
+    min-height: 80px;
   }
 
   /* ----- NOTE BOX (FIXED) ----- */
   .note-box {
     padding: 14px;
     border-radius: 12px;
-    background: #f9f9f9;
+    background: var(--color-bg-secondary, #f9f9f9);
+    color: var(--color-text-primary, #0A1A3A);
+    border: 1px solid var(--color-border, rgba(10,26,58,0.08));
     font-size: 13.5px;
     line-height: 1.5;
 
@@ -108,7 +116,8 @@
   .instructions-box {
     padding: 14px;
     border-left: 5px solid #f59e0b;
-    background: #fffbe8;
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--color-text-primary, #0A1A3A);
     border-radius: 12px;
     font-size: 13.5px;
 
@@ -122,6 +131,7 @@
     align-items: flex-start;
     gap: 12px;
     font-size: 14px;
+    color: var(--color-text-primary, #0A1A3A);
   }
 
   .checkbox-row input {
@@ -133,7 +143,7 @@
   .submit-wrapper {
     position: sticky;
     bottom: 0;
-    background: #fff;
+    background: var(--color-bg-card, #ffffff);
     padding: 12px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
     box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
@@ -145,7 +155,7 @@
     padding: 14px;
     font-size: 16px;
     border-radius: 12px;
-    background: #e10600;
+    background: var(--color-red, #e10600);
     color: white;
     font-weight: 700;
     border: none;

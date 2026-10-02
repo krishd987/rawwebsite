@@ -6,7 +6,7 @@
 .contactPage {
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  background: transparent;
 }
 
 .header {
@@ -16,12 +16,12 @@
 .title {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
@@ -34,24 +34,25 @@
 }
 
 .statCard {
-  background: white;
+  background: var(--card-bg, #ffffff);
   padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(10, 26, 58, 0.1);
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.05);
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.25s ease;
 }
 
 .statCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(10, 26, 58, 0.1);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(225, 6, 0, 0.25);
 }
 
 .statLabel {
-  font-size: 0.85rem;
-  color: #64748b;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
@@ -60,7 +61,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #0a1a3a;
+  color: var(--text-primary);
 }
 
 /* Main Content */
@@ -73,10 +74,10 @@
 
 /* Message List Panel */
 .messageListPanel {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid rgba(10, 26, 58, 0.1);
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.05);
+  background: var(--card-bg, #ffffff);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 250px);
@@ -84,13 +85,13 @@
 
 .listHeader {
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(10, 26, 58, 0.1);
+  border-bottom: 1px solid var(--border);
 }
 
 .listTitle {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.1rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 

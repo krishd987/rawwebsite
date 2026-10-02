@@ -15,6 +15,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { DataProvider } from "@/context/DataContext";
+import { RobotCursor } from "@/components/ui/robot-cursor";
 import FloatingChatbot from "./components/FloatingChatbot";
 import StructuredData from "./components/StructuredData";
 
@@ -129,9 +130,9 @@ export default function RootLayout({
           `}
         </Script>
         <StructuredData />
+        <RobotCursor />
         <DataProvider>
           {children}
-          <FloatingChatbot />
         </DataProvider>
       </body>
     </html>

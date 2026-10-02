@@ -79,7 +79,7 @@ export default function PptSubmissionForm({ onSuccess }: SubmissionFormProps) {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2 className={styles.title}>Navkriti '26 PPT Submission</h2>
+      <h2 className={styles.title}>Mosaic '26 PPT Submission</h2>
       {error && <p className={styles.error}>{error}</p>}
       {successMsg && <p className={styles.success}>{successMsg}</p>}
       <label className={styles.label}>

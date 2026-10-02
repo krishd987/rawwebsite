@@ -9,50 +9,41 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
+import KineticGrid from '@/components/ui/kinetic-grid';
 import styles from './login.module.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isSendingOtp, setIsSendingOtp] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState({ email: '', otp: '' });
-  const [otpSentMessage, setOtpSentMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({ email: '', password: '' });
   const [successMessage, setSuccessMessage] = useState('');
   
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { verifyAuth, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { verifyAuth } = useAuth();
 
-  // Don't auto-redirect - let user see they're logged in
-  // Only redirect after explicit login action
-
-  // Validate email format
-  const validateEmail = (email: string) => {
+  const validateEmail = (emailStr: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(emailStr);
   };
 
-  // Handle input changes and clear errors
   const handleEmailChange = (value: string) => {
     setEmail(value);
     setError('');
-    setOtpSentMessage('');
-    setFieldErrors({ ...fieldErrors, email: '' });
+    setFieldErrors((prev) => ({ ...prev, email: '' }));
   };
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
     setError('');
-    setFieldErrors({ ...fieldErrors, otp: '' });
+    setFieldErrors((prev) => ({ ...prev, password: '' }));
   };
 
-  // Handle input changes for password
-
-  // Form validation
   const validateForm = () => {
-    const errors = { email: '', otp: '' };
+    const errors = { email: '', password: '' };
     let isValid = true;
 
     if (!email) {
@@ -64,7 +55,7 @@ function LoginForm() {
     }
 
     if (!password) {
-      errors.otp = 'Password is required';
+      errors.password = 'Password is required';
       isValid = false;
     }
 
@@ -76,7 +67,6 @@ function LoginForm() {
     e.preventDefault();
     setError('');
 
-    // Validate form
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -92,16 +82,16 @@ function LoginForm() {
       const data = await response.json();
 
       if (data.success) {
-        setSuccessMessage('Login successful! Redirecting...');
+        setSuccessMessage('Access Granted! Redirecting...');
         setError('');
         await verifyAuth();
-        await new Promise((r) => setTimeout(r, 500));
+        await new Promise((r) => setTimeout(r, 400));
         let redirect = '/dashboard';
-        const param = new URLSearchParams(window.location.search).get('redirect');
+        const param = searchParams.get('redirect');
         if (param && param !== '/' && param !== '') redirect = param;
         window.location.href = redirect;
       } else {
-        setError(data.message || 'Invalid credentials');
+        setError(data.message || 'Invalid email or password');
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -110,78 +100,73 @@ function LoginForm() {
     }
   };
 
-  // Handle Enter key press
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && isFormValid && !isLoading) {
-      handleSubmit(e as any);
-    }
-  };
-
   const isFormValid = email && password;
 
   return (
     <div className={styles.loginContainer}>
+      <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 0 }} />
+      
       <motion.div
         className={styles.loginBox}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 25, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
+        {/* Brand Logo Avatar */}
+        <div className={styles.logoContainer}>
+          <div className={styles.logoBadge}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E10600" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="18" height="12" x="3" y="8" rx="2" />
+              <circle cx="9" cy="14" r="1.5" fill="#E10600" />
+              <circle cx="15" cy="14" r="1.5" fill="#E10600" />
+              <path d="M12 2v6" />
+              <circle cx="12" cy="2" r="1.5" fill="#FFD700" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Header */}
         <div className={styles.header}>
           <motion.h1
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
           >
-            Team RAW Admin
+            Team RAW <span className={styles.redHighlight}>Admin</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.2 }}
           >
-            Sign in to access the admin dashboard
+            Sign in to access the management portal
           </motion.p>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          {/* Error Message */}
+        {/* Form */}
+        <form onSubmit={handleSubmit} className={styles.form}>
+          {/* General Error Message */}
           {error && (
             <motion.div
               className={styles.errorMessage}
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
               <span>{error}</span>
             </motion.div>
           )}
 
           {/* Success Message */}
-          {otpSentMessage && !successMessage && (
-            <motion.div
-              className={styles.successMessage}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>{otpSentMessage}</span>
-            </motion.div>
-          )}
-
-          {/* Login Success Message */}
           {successMessage && (
             <motion.div
               className={styles.successMessage}
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                 <polyline points="20 6 9 17 4 12"></polyline>
@@ -191,70 +176,82 @@ function LoginForm() {
           )}
 
           {/* Email Input */}
-          <motion.div
-            className={styles.formGroup}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => handleEmailChange(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Enter your email"
-              disabled={isLoading || isSendingOtp}
-              autoComplete="email"
-              autoFocus
-            />
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email Address</label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                placeholder="admin@teamraw.org"
+                disabled={isLoading}
+                autoComplete="email"
+                autoFocus
+              />
+            </div>
             {fieldErrors.email && (
               <p className={styles.fieldError}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
                 <span>{fieldErrors.email}</span>
               </p>
             )}
-          </motion.div>
+          </div>
 
           {/* Password Input */}
-          <motion.div
-            className={styles.formGroup}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.12 }}
-          >
+          <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => handlePasswordChange(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Enter password"
-              disabled={isLoading}
-              autoComplete="current-password"
-              autoFocus
-            />
-            {fieldErrors.otp && (
-              <p className={styles.fieldError}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputIcon}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <span>{fieldErrors.otp}</span>
+              </span>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                placeholder="••••••••••••"
+                disabled={isLoading}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className={styles.togglePasswordBtn}
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+                title={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                    <path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                    <line x1="2" x2="22" y1="2" y2="22" />
+                  </svg>
+                )}
+              </button>
+            </div>
+            {fieldErrors.password && (
+              <p className={styles.fieldError}>
+                <span>{fieldErrors.password}</span>
               </p>
             )}
-          </motion.div>
+          </div>
 
           {/* Submit Button */}
           <button
@@ -265,28 +262,23 @@ function LoginForm() {
             {isLoading ? (
               <>
                 <div className={styles.spinner} />
-                <span>Signing in...</span>
+                <span>Verifying Credentials...</span>
               </>
             ) : (
               <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                <span>Sign In to Dashboard</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
                 </svg>
-                <span>Sign In</span>
               </>
             )}
           </button>
         </form>
 
+        {/* Footer */}
         <div className={styles.footer}>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            © {new Date().getFullYear()} Team RAW. All rights reserved.
-          </motion.p>
+          <p>© {new Date().getFullYear()} Team RAW — SFIT Mumbai. All rights reserved.</p>
         </div>
       </motion.div>
     </div>
@@ -301,9 +293,9 @@ export default function LoginPage() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        backgroundColor: '#0a0a0a'
+        backgroundColor: '#070d1e'
       }}>
-        <div style={{ color: '#fff' }}>Loading...</div>
+        <div style={{ color: '#fff', fontFamily: 'Orbitron, sans-serif' }}>Loading Admin Portal...</div>
       </div>
     }>
       <LoginForm />

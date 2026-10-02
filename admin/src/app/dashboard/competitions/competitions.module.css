@@ -18,85 +18,88 @@
 .header h1 {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  color: var(--color-navy);
+  color: var(--text-primary);
 }
 
 /* Buttons */
 .btnPrimary {
-  background: linear-gradient(135deg, #E10600 0%, #b20500 100%);
+  background: var(--primary);
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.2);
 }
 
 .btnPrimary:hover {
+  background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
 }
 
 .btnSecondary {
-  background: #f5f5f5;
-  color: var(--color-navy);
+  background: var(--bg-light);
+  color: var(--text-primary);
   padding: 0.75rem 1.5rem;
-  border: 2px solid var(--color-navy);
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .btnSecondary:hover {
-  background: var(--color-navy);
-  color: white;
+  background: var(--list-hover);
+  border-color: rgba(225, 6, 0, 0.25);
+  color: var(--primary);
 }
 
 .btnEdit {
-  background: #4CAF50;
+  background: #10b981;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .btnEdit:hover {
-  background: #45a049;
+  background: #059669;
 }
 
 .btnDelete {
-  background: #f44336;
+  background: #ef4444;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .btnDelete:hover {
-  background: #da190b;
+  background: #dc2626;
 }
 
 /* Form Container */
 .formContainer {
-  background: white;
-  border-radius: 12px;
+  background: var(--card-bg, #ffffff);
+  border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(10, 26, 58, 0.1);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .formContainer h2 {
   font-family: 'Orbitron', sans-serif;
-  color: var(--color-navy);
+  color: var(--text-primary);
   margin-bottom: 1.5rem;
 }
 
@@ -107,10 +110,10 @@
 }
 
 .formSection {
-  background: #f8f9fa;
+  background: var(--bg-light);
   padding: 1.5rem;
-  border-radius: 10px;
-  border-left: 4px solid var(--color-red);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
 }
 
 .formSection h3 {

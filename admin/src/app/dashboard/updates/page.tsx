@@ -6,6 +6,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Plus, X, Edit2, Trash2, Eye, EyeOff, Sparkles } from 'lucide-react';
 import styles from './updates.module.css';
 
 interface Update {
@@ -268,7 +269,15 @@ export default function UpdatesPage() {
             });
           }}
         >
-          {showForm ? '✕ Cancel' : '+ New Update'}
+          {showForm ? (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+              <X size={16} /> Cancel
+            </span>
+          ) : (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+              <Plus size={16} /> New Update
+            </span>
+          )}
         </button>
       </div>
 

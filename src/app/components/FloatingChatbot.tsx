@@ -7,6 +7,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Bot, Users } from 'lucide-react';
 import styles from '../styles/FloatingChatbot.module.css';
 
 interface Message {
@@ -239,11 +240,11 @@ export default function FloatingChatbot() {
 
             {/* Quick Actions */}
             <div className={styles.quickActions}>
-              <button onClick={() => { setInputValue('What are the latest robotics news?'); }}>
-                🤖 Robotics News
+              <button onClick={() => { setInputValue('What are the latest robotics news?'); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Bot size={14} color="#E10600" /> Robotics News
               </button>
-              <button onClick={() => { setInputValue('Tell me about TeamRAW'); }}>
-                👥 About TeamRAW
+              <button onClick={() => { setInputValue('Tell me about TeamRAW'); }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Users size={14} color="#E10600" /> About TeamRAW
               </button>
             </div>
           </motion.div>

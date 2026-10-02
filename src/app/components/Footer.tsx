@@ -5,189 +5,202 @@
 
 'use client';
 
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Linkedin, Youtube, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Instagram, Linkedin, Youtube, Github, Sun, Moon } from 'lucide-react';
 import styles from '../styles/Footer.module.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [mounted, setMounted] = useState(false);
 
-  const footerLinks = {
-    navigation: [
-      { label: 'Home', href: '/' },
-      { label: 'Competitions', href: '/competitions' },
-      { label: 'Robots', href: '/robots-gallery' },
-      { label: 'Team', href: '/team' },
-      { label: 'Gallery', href: '/robots-gallery' },
-      { label: 'Contact', href: '/contact' },
-    ],
-    social: [
-      { label: 'Instagram', href: 'https://www.instagram.com/teamraw_sfit', icon: <Instagram size={20} /> },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/team-raw-sfit', icon: <Linkedin size={20} /> },
-      { label: 'YouTube', href: 'https://www.youtube.com/@teamrawsfit2026', icon: <Youtube size={20} /> },
-    ],
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem('raw_theme');
+    if (saved === 'light') {
+      setTheme('light');
+      applyTheme('light');
+    } else {
+      setTheme('dark');
+      applyTheme('dark');
+    }
+  }, []);
+
+  const applyTheme = (t: 'light' | 'dark') => {
+    if (t === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.classList.remove('dark');
+    }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('raw_theme', next);
+    applyTheme(next);
+  };
+
+  const quickLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'Competitions', href: '/competitions' },
+    { label: 'Robots', href: '/robots-gallery' },
+    { label: 'Team', href: '/team' },
+    { label: 'Gallery', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const socialLinks = [
+    {
+      label: 'Instagram',
+      href: 'https://www.instagram.com/teamraw_sfit',
+      icon: <Instagram size={17} />,
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/company/team-raw-sfit',
+      icon: <Linkedin size={17} />,
     },
-  };
+    {
+      label: 'YouTube',
+      href: 'https://www.youtube.com/@teamrawsfit2026',
+      icon: <Youtube size={17} />,
+    },
+    {
+      label: 'GitHub',
+      href: 'https://github.com/teamrawsfit/',
+      icon: <Github size={17} />,
+    },
+  ];
+
+  const isDark = theme === 'dark';
 
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        {/* Top Section */}
-        <motion.div
-          className={styles.topSection}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {/* Logo & Description */}
-          <motion.div className={styles.brandSection} variants={itemVariants}>
-            <div className={styles.logoWrapper}>
+        {/* Main Grid */}
+        <div className={styles.mainGrid}>
+          {/* Brand & Affiliation Column */}
+          <div className={styles.brandColumn}>
+            <div className={styles.brandLogoWrap}>
               <Image
                 src="/logo 1.png"
-                alt="Team RAW Logo"
-                width={210}
-                height={140}
+                alt="Team RAW SFIT Logo"
+                width={150}
+                height={65}
+                className={styles.brandLogoImg}
                 priority
               />
             </div>
-            <h3 className={styles.brandTitle}>TEAM RAW</h3>
-            <p className={styles.brandSubtitle}>Robotics & Aviation Wing</p>
-            <p className={styles.description}>
-              Building the next generation of autonomous robots through innovation, engineering excellence, and
-              collaborative teamwork.
+            <h2 className={styles.brandTitle}>TEAM RAW</h2>
+            <h3 className={styles.brandSubtitle}>Robotics & Aviation Wing</h3>
+            <p className={styles.brandText}>
+              Building the next generation of autonomous robots through innovation, engineering excellence, and collaborative teamwork.
             </p>
 
-            <div className={styles.affiliationSection}>
-              <p className={styles.affiliationLabel}>Officially Affiliated With</p>
-              <div className={styles.sfitLogoContainer}>
-                <Image
-                  src="/collegelogo.jpg"
-                  alt="St. Francis Institute of Technology"
-                  width={90}
-                  height={90}
-                  className={styles.sfitLogoFooter}
-                />
+            <div className={styles.divider} />
+
+            <div className={styles.affiliationBox}>
+              <span className={styles.affiliationLabel}>OFFICIALLY AFFILIATED WITH</span>
+              <div className={styles.affiliationBadgeRow}>
+                <div className={styles.collegeBadge}>
+                  <Image
+                    src="/collegelogo.png"
+                    alt="SFIT Logo"
+                    width={48}
+                    height={48}
+                    className={styles.collegeLogoImg}
+                  />
+                </div>
+                <span className={styles.collegeTitle}>St. Francis Institute of Technology</span>
               </div>
-              <p className={styles.institutionName}>St. Francis Institute of Technology</p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Navigation Links */}
-          <motion.div className={styles.linksSection} variants={itemVariants}>
-            <h4>Quick Links</h4>
-            <div className={styles.links}>
-              {footerLinks.navigation.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
-                >
-                  <motion.span
-                    style={{ display: 'block' }}
-                    whileHover={{ x: 5, color: 'var(--color-red)' }}
-                    transition={{ duration: 0.2 }}
-                  >
+          {/* Quick Links Column */}
+          <div className={styles.navColumn}>
+            <h3 className={styles.columnTitle}>Quick Links</h3>
+            <ul className={styles.linksList}>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className={styles.linkItem}>
                     {link.label}
-                  </motion.span>
-                </Link>
+                  </Link>
+                </li>
               ))}
-            </div>
-          </motion.div>
+            </ul>
+          </div>
 
-          {/* Social Links */}
-          <motion.div className={styles.socialSection} variants={itemVariants}>
-            <h4>Connect With Us</h4>
-            <div className={styles.socialIcons}>
-              {footerLinks.social.map((social) => (
-                <motion.a
+          {/* Contact Us Column */}
+          <div className={styles.contactColumn}>
+            <h3 className={styles.columnTitle}>Contact Us</h3>
+            <div className={styles.contactDetails}>
+              <p className={styles.addressLine}>St. Francis Institute of Technology</p>
+              <p className={styles.addressLine}>Mount Poinsur, S.V.P. Road</p>
+              <p className={styles.addressLine}>Borivali (West), Mumbai 400103</p>
+              <p className={styles.contactEmailRow}>
+                Email: <a href="mailto:teamraw@sfit.ac.in" className={styles.emailLink}>teamraw@sfit.ac.in</a>
+              </p>
+            </div>
+          </div>
+
+          {/* Follow Us Column with Switch Toggle */}
+          <div className={styles.followColumn}>
+            <h3 className={styles.columnTitle}>Follow Us</h3>
+            <div className={styles.socialCirclesRow}>
+              {socialLinks.map((social) => (
+                <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  title={social.label}
-                  className={styles.socialIcon}
-                  whileHover={{ scale: 1.2, backgroundColor: 'var(--color-red)' }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{ cursor: 'pointer' }}
+                  aria-label={social.label}
+                  className={styles.circleIconBtn}
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
-          </motion.div>
 
-          {/* Contact & Address Section */}
-          <motion.div className={styles.contactSection} variants={itemVariants}>
-            <h4>Contact Info</h4>
-            <div className={styles.contactDetails}>
-              <div className={styles.contactGroup}>
-                <h5>Contact Email</h5>
-                <a href="mailto:teamraw@sfit.ac.in">teamraw@sfit.ac.in</a>
-              </div>
-              <div className={styles.contactGroup}>
-                <h5>Address</h5>
-                <p>
-                  St. Francis Institute of Technology<br />
-                  Mount Poinsur, S.V.P. Road, Borivali (West)<br />
-                  Mumbai - 400103, Maharashtra, India
-                </p>
-              </div>
+            {/* Pill Toggle Switch */}
+            <div className={styles.themeToggleContainer}>
+              <Sun size={17} className={`${styles.themeIcon} ${!isDark && mounted ? styles.activeIcon : ''}`} />
+              
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={styles.switchTrack}
+                aria-label="Toggle light and dark theme"
+                title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                <motion.div
+                  className={styles.switchThumb}
+                  animate={{ x: isDark || !mounted ? 22 : 2 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
+              </button>
+
+              <Moon size={16} className={`${styles.themeIcon} ${isDark || !mounted ? styles.activeIcon : ''}`} />
             </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Divider */}
-        <motion.div
-          className={styles.divider}
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        />
-
-        {/* Bottom Section */}
-        <motion.div
-          className={styles.bottomSection}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
-          <p className={styles.copyright}>
-            © {currentYear} TEAM RAW – Robotics and Aviation Wing, St. Francis Institute of Technology (SFIT), Borivali West, Mumbai. All rights reserved.
-          </p>
-          <div className={styles.credits}>
-            <p style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', justifyContent: 'center' }}>
-              Crafted with <Heart size={14} fill="var(--color-red)" stroke="var(--color-red)" style={{ flexShrink: 0 }} /> by the Team RAW Community
-            </p>
           </div>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Background Gradient */}
-      <div className={styles.bgGradient}></div>
+        {/* Bottom Bar Section */}
+        <div className={styles.bottomBar}>
+          <p className={styles.copyrightText}>
+            © {currentYear} Team RAW SFIT. All rights reserved.
+          </p>
+          <div className={styles.legalGroup}>
+            <Link href="/contact" className={styles.legalLink}>Terms and Conditions</Link>
+            <Link href="/contact" className={styles.legalLink}>Privacy Policy</Link>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }

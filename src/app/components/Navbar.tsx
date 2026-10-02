@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
@@ -47,13 +48,12 @@ export default function Navbar() {
     { label: 'Contact', href: '/contact' },
   ];
 
-
-
   return (
     <>
       {/* SVG filter definition for realistic frosted glass distortion */}
       <svg
         style={{
+          display: 'none',
           position: 'absolute',
           width: 0,
           height: 0,
@@ -91,7 +91,7 @@ export default function Navbar() {
               <div className={styles.logoDivider}></div>
               <div className={styles.sfitLogoContainer}>
                 <Image
-                  src="/collegelogo.jpg"
+                  src="/collegelogo.png"
                   alt="St. Francis Institute of Technology"
                   width={38}
                   height={38}
@@ -120,8 +120,6 @@ export default function Navbar() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Join the Team button removed */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -155,7 +153,6 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
-            {/* Join the Team mobile button removed */}
           </motion.div>
         )}
       </nav>

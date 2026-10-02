@@ -3,7 +3,7 @@
  * Email: takshgandhi4@gmail.com
  */
 
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=League+Spartan:wght@400;500;600;700;800;900&family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 
 @font-face {
   font-family: 'Above the Beyond Script';
@@ -22,6 +22,14 @@
 }
 
 :root {
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #0A1A3A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-border: rgba(10, 26, 58, 0.08);
   --color-white: #ffffff;
   --color-navy: #0A1A3A;
   --color-dark-steel: #0F0F17;
@@ -31,14 +39,94 @@
   --color-gray-light: #f5f5f5;
   --color-gray-dark: #333333;
   --color-cyan: #00f3ff;
+  --grid-color: rgba(10, 26, 58, 0.05);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(248, 249, 250, 0.8) 75%, #ffffff 100%);
+
+  /* Universal Design System Tokens */
+  --primary: #E10600;
+  --primary-dark: #b2001d;
+  --bg-light: #f8f9fa;
+  --bg-white: #ffffff;
+  --text-primary: #0A1A3A;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border: rgba(10, 26, 58, 0.08);
+  --card-bg: #ffffff;
+  --card-border: rgba(10, 26, 58, 0.08);
+  --shadow: 0 4px 20px -2px rgba(10, 26, 58, 0.05), 0 2px 6px -1px rgba(10, 26, 58, 0.03);
+  --shadow-lg: 0 10px 30px -4px rgba(10, 26, 58, 0.08), 0 4px 12px -2px rgba(10, 26, 58, 0.04);
+  --radius-card: 16px;
+  --radius-btn: 10px;
+  --radius-sm: 8px;
+  --radius-pill: 9999px;
+}
+
+/* Dedicated Dark Theme Palette (Deep Obsidian Steel + Vibrant Crimson Accents) */
+html.dark,
+html[data-theme="dark"] {
+  --color-bg-primary: #090d16;
+  --color-bg-secondary: #0f172a;
+  --color-bg-card: #131c2e;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-white: #090d16;
+  --color-navy: #f8fafc;
+  --color-dark-steel: #f1f5f9;
+  --color-red: #ff2a24;
+  --color-red-hover: #E10600;
+  --color-light-navy: #1e293b;
+  --color-gray-light: #1e293b;
+  --color-gray-dark: #cbd5e1;
+  --color-cyan: #38bdf8;
+  --grid-color: rgba(255, 255, 255, 0.04);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(15, 23, 42, 0.95) 75%, #090d16 100%);
+
+  /* Universal Dark Tokens */
+  --primary: #ff2a24;
+  --primary-dark: #E10600;
+  --bg-light: #090d16;
+  --bg-white: rgba(19, 28, 46, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --card-bg: #131c2e;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 36px -4px rgba(0, 0, 0, 0.6);
+}
+
+/* Universal Dark Mode Form Controls & Elements */
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="color"]),
+html.dark select,
+html.dark textarea,
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="color"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background-color: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+html.dark select option,
+html[data-theme="dark"] select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder,
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: var(--color-text-muted);
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-color: #E10600 transparent;
   scrollbar-width: thin;
-  /* Custom robot cursor using SVG */
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="20" rx="3" fill="%23E10600" stroke="%230A1A3A" stroke-width="1.5"/><circle cx="10" cy="14" r="2.5" fill="%23ffffff"/><circle cx="22" cy="14" r="2.5" fill="%23ffffff"/><rect x="10" y="18" width="12" height="2" rx="1" fill="%23ffffff"/><rect x="14" y="2" width="4" height="6" rx="2" fill="%23E10600" stroke="%230A1A3A" stroke-width="1.5"/><circle cx="16" cy="1.5" r="2" fill="%23FFD700"/></svg>') 16 8, auto;
 }
 
 /* Respect user preferences for reduced motion */
@@ -97,20 +185,12 @@ img {
 }
 
 body {
-  --color-white: #ffffff;
-  --color-navy: #0A1A3A;
-  --color-dark-steel: #0F0F17;
-  --color-red: #E10600;
-  --color-light-navy: #1a2f52;
-  --color-gray-light: #f5f5f5;
-  --color-gray-dark: #333333;
-  --color-cyan: #00f3ff;
-
   font-family: 'Montserrat', 'Roboto', sans-serif;
-  background-color: var(--color-white);
-  color: var(--color-dark-steel);
+  background-color: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #0A1A3A);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -305,12 +385,49 @@ input:disabled {
   corner-shape: squircle;
 }
 
-/* 11. Uppercase typography utility */
+/* 11. Uppercase typography & Tech Monospace utility */
+.text-uppercase,
+.label-uppercase,
+.kicker,
+.font-mono,
+.mono,
+code,
+pre,
+[class*="badge"],
+[class*="tag"],
+[class*="robotBadge"],
+[class*="statValue"],
+[class*="primaryValue"],
+[class*="secondaryValue"],
+[class*="tertiaryValue"],
+[class*="statTag"] {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
 .text-uppercase,
 .label-uppercase,
 .kicker {
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+/* Blur Vignette Utility Effect */
+.blur-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(var(--blur, 6px));
+  -webkit-backdrop-filter: blur(var(--blur, 6px));
+  mask-image: radial-gradient(
+    ellipse at center,
+    transparent calc(100% - var(--transition-length, 44px) - var(--inset, 20px)),
+    black calc(100% - var(--inset, 20px))
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    transparent calc(100% - var(--transition-length, 44px) - var(--inset, 20px)),
+    black calc(100% - var(--inset, 20px))
+  );
 }
 
 /* Realistic Frosted Glass Utilities */
@@ -453,12 +570,14 @@ input:disabled {
     padding: 2rem 0 !important;
   }
 
-  /* Grid cards */
-  [style*="gridTemplateColumns"] {
+  /* Responsive grid cards */
+  .grid-layout-auto,
+  .responsive-grid {
     grid-template-columns: 1fr !important;
   }
-
+  
   button {
+    min-height: 44px;
     padding: 0.75rem 1.25rem !important;
     font-size: 0.9rem !important;
   }

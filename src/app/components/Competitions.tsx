@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { BlurVignette, BlurVignetteArticle } from '@/components/ui/blur-vignette';
 import styles from '../styles/Competitions.module.css';
 
 const competitionsData = [
@@ -447,14 +448,17 @@ export default function Competitions() {
               >
                 {comp.imageUrl && (
                   <div className={styles.imageContainer}>
-                    <Image
-                      src={comp.imageUrl}
-                      alt={comp.name}
-                      width={400}
-                      height={250}
-                      className={styles.competitionImage}
-                      unoptimized={comp.imageUrl.startsWith('data:')}
-                    />
+                    <BlurVignette radius="12px" inset="14px" transitionLength="32px" blur="5px">
+                      <Image
+                        src={comp.imageUrl}
+                        alt={comp.name}
+                        width={400}
+                        height={250}
+                        className={styles.competitionImage}
+                        unoptimized={comp.imageUrl.startsWith('data:')}
+                      />
+                      <BlurVignetteArticle />
+                    </BlurVignette>
                   </div>
                 )}
                 <div className={styles.cardHeader}>

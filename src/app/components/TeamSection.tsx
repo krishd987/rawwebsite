@@ -10,20 +10,26 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { teamMembers, TeamMember, domains, Domain } from '@/data/teamData';
-import { Zap, Briefcase, Calendar, Users, Cpu, Code, Cog, Linkedin, Mail, ChevronLeft, ChevronRight, GraduationCap } from 'lucide-react';
+import { Zap, Briefcase, Calendar, Users, Cpu, Code, Cog, Linkedin, Mail, GraduationCap } from 'lucide-react';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { Badge } from '@/components/ui/badge-2';
+import { BlurVignette, BlurVignetteArticle } from '@/components/ui/blur-vignette';
 import styles from '../styles/TeamSection.module.css';
 
 const TeamSection: React.FC = () => {
   const [activeDomain, setActiveDomain] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const domainTabsRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const hasMovedRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const [isGrabbing, setIsGrabbing] = useState(false);
   const searchParams = useSearchParams();
   const isHiddenMember = (m: TeamMember) => {
     if (m.hidden) return true;
     const id = (m._id || '').toLowerCase();
-    if (id === 'new_member9' || id === 'new_member18') return true;
+    if (id === 'member18' || id === 'member19' || id === 'new_member9' || id === 'new_member18') return true;
     const name = (m.name || '').trim().toLowerCase();
     return name === 'kelvin chetty' || name === 'kelvin' || name === 'ved' || name === 'ved patil';
   };
@@ -43,7 +49,7 @@ const TeamSection: React.FC = () => {
     async function loadMembers() {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/team');
+        const response = await fetch('/api/team', { cache: 'no-store' });
         if (response.ok) {
           const resData = await response.json();
           if (resData.success && resData.data && resData.data.length > 0) {
@@ -90,91 +96,96 @@ const TeamSection: React.FC = () => {
     <motion.div
       key={member._id}
       id={member._id}
-      className={isCore ? `${styles.memberCard} ${styles.coreMemberCard}` : styles.memberCard}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(225, 6, 0, 0.2)' }}
+      style={{ display: 'flex', width: '100%' }}
     >
-      <div className={styles.memberImageWrapper}>
-        {(imageErrors[member._id] || !member.imageUrl) ? (
-          <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
-            {getInitials(member.name)}
-          </div>
-        ) : (
-          <img
-            src={member.imageUrl}
-            alt={member.name}
-            className={styles.memberImage}
-            onError={() => handleImageError(member._id)}
-          />
-        )}
-      </div>
-
-      <div className={styles.memberInfo}>
-        <h4 className={styles.memberName}>{member.name}</h4>
-        <p className={styles.memberRole}>{member.role}</p>
-        <div className={styles.memberCategory}>
-          {member.category === 'core' && <span className={styles.coreBadge}>Core</span>}
-          {member.category === 'mentors' && <span className={styles.mentorBadge}>Mentor</span>}
-          {member.category === 'members' && <span className={styles.memberBadge}>Member</span>}
-        </div>
-
-        {/* Responsibilities List */}
-        {member.responsibilities && member.responsibilities.length > 0 && (
-          <div className={styles.memberResponsibilities}>
-            {member.responsibilities.map((resp, idx) => (
-              <div key={idx} className={styles.responsibilityItem}>
-                <span className={styles.responsibilityBullet}>•</span>
-                <span className={styles.responsibilityText}>{resp}</span>
-              </div>
-            ))}
-          </div>
-        )}
-        
-        {/* Social Icons - Bottom Right Corner */}
-        <div className={styles.socialIconsOverlay}>
-          {member.linkedin && (
-            <a 
-              href={member.linkedin}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.socialIconButton}
-              title="LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
-          )}
-          {member.email && (
-            <a 
-              href={`mailto:${member.email}`}
-              className={styles.socialIconButton}
-              title="Email"
-            >
-              <Mail size={18} />
-            </a>
+      <SpotlightCard
+        spotlightColor="rgba(225, 6, 0, 0.12)"
+        className={isCore ? `${styles.memberCard} ${styles.coreMemberCard}` : styles.memberCard}
+        style={{ width: '100%', padding: 0 }}
+      >
+        <div className={styles.memberImageWrapper}>
+          {(imageErrors[member._id] || !member.imageUrl) ? (
+            <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
+              {getInitials(member.name)}
+            </div>
+          ) : (
+            <img
+              src={member.imageUrl}
+              alt={member.name}
+              className={styles.memberImage}
+              onError={() => handleImageError(member._id)}
+            />
           )}
         </div>
-      </div>
 
-      {/* Card Footer */}
-      <div className={styles.memberCardFooter}>
-        <div className={styles.memberDomainsBadges}>
-          {getMemberDomains(member).map((domainId) => {
-            const domain = domains.find(d => d.id === domainId);
-            const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
-            return (
-              <span key={domainId} className={styles.memberCardFooterBadge}>
-                {abbreviation}
-              </span>
-            );
-          })}
+        <div className={styles.memberInfo}>
+          <h4 className={styles.memberName}>{member.name}</h4>
+          <p className={styles.memberRole}>{member.role}</p>
+          <div className={styles.memberCategory}>
+            {member.category === 'core' && <span className={styles.coreBadge}>Core</span>}
+            {member.category === 'mentors' && <span className={styles.mentorBadge}>Mentor</span>}
+            {member.category === 'members' && <span className={styles.memberBadge}>Member</span>}
+          </div>
+
+          {/* Responsibilities List */}
+          {member.responsibilities && member.responsibilities.length > 0 && (
+            <div className={styles.memberResponsibilities}>
+              {member.responsibilities.map((resp, idx) => (
+                <div key={idx} className={styles.responsibilityItem}>
+                  <span className={styles.responsibilityBullet}>•</span>
+                  <span className={styles.responsibilityText}>{resp}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {/* Social Icons - Bottom Right Corner */}
+          <div className={styles.socialIconsOverlay}>
+            {member.linkedin && (
+              <a 
+                href={member.linkedin}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.socialIconButton}
+                title="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+            )}
+            {member.email && (
+              <a 
+                href={`mailto:${member.email}`}
+                className={styles.socialIconButton}
+                title="Email"
+              >
+                <Mail size={18} />
+              </a>
+            )}
+          </div>
         </div>
-        <div className={styles.memberCardFooterSpacer} />
-        <div className={styles.memberCardFooterIcon} title="Team Member">
-          <Users size={16} />
+
+        {/* Card Footer */}
+        <div className={styles.memberCardFooter}>
+          <div className={styles.memberDomainsBadges}>
+            {getMemberDomains(member).map((domainId) => {
+              const domain = domains.find(d => d.id === domainId);
+              const abbreviation = domainId === 'rnd' ? 'R&D' : domain?.name.split(' ')[0].toUpperCase() || 'GENERAL';
+              return (
+                <span key={domainId} className={styles.memberCardFooterBadge}>
+                  {abbreviation}
+                </span>
+              );
+            })}
+          </div>
+          <div className={styles.memberCardFooterSpacer} />
+          <div className={styles.memberCardFooterIcon} title="Team Member">
+            <Users size={16} />
+          </div>
         </div>
-      </div>
+      </SpotlightCard>
     </motion.div>
   );
 
@@ -206,7 +217,7 @@ const TeamSection: React.FC = () => {
     mechanical: ['Vansh Singh', 'Jhoshua Coutinho', 'Aryan Raul', 'Divyesh Singh', 'Isaiah D\'Souza', 'Soham Salekar'],
     rnd: ['Jhoshua Coutinho', 'Isaiah D\'Souza', 'Kavisha Galipelly', 'Emmanuel Fernandes', 'Krish Dankhara', 'Darshan Barekar', 'Tanish Gaddam', 'Soham Salekar', 'Aditya Bhole'],
     event: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra', 'Krishna Maurya', 'Kannan Pillai', 'Krish Dankhara'],
-    publicity: ['Parth Sutar', 'Pal Rajak'],
+    publicity: ['Parth Sutar', 'Pal Rajak', 'Pragya Mishra'],
     documentation: ['Pal Rajak', 'Christina', 'Kavisha Galipelly', 'Pragya Mishra']
   };
 
@@ -287,6 +298,30 @@ const TeamSection: React.FC = () => {
       }
     }
 
+    // Custom sort order for executive members
+    if (a.category === 'members' && b.category === 'members') {
+      const getMemberPriority = (m: TeamMember) => {
+        const name = (m.name || '').trim().toLowerCase();
+        const role = (m.role || '').trim().toLowerCase();
+
+        if (role.includes('co-secretary') || role.includes('cosecretary') || name.includes('soham')) return 1;
+        if (role.includes('inventory manager') || name.includes('krish dankhara')) return 2;
+        if (role.includes('co-event head') || role.includes('co event head') || name.includes('krishna maurya')) return 3;
+        if (role.includes('co-publicity') || role.includes('co publicity') || name.includes('pragya')) return 4;
+        if (name.includes('aditya bhole') || name.includes('aadiya bhole') || name.includes('aditya')) return 5;
+        if (name.includes('darshan')) return 6;
+        if (name.includes('tanish')) return 7;
+        return 100;
+      };
+
+      const aPriority = getMemberPriority(a);
+      const bPriority = getMemberPriority(b);
+
+      if (aPriority !== bPriority) {
+        return aPriority - bPriority;
+      }
+    }
+
     // Within the same category, sort alphabetically by name
     return a.name.localeCompare(b.name);
   });
@@ -305,45 +340,51 @@ const TeamSection: React.FC = () => {
     setTimeout(() => setIsLoading(false), 300);
   };
 
-  // Check scroll position
-  const checkScroll = () => {
-    if (domainTabsRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = domainTabsRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
+  // Click-and-drag horizontal scroll handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!domainTabsRef.current) return;
+    if (e.button !== 0) return; // Left click only
+    isDraggingRef.current = true;
+    hasMovedRef.current = false;
+    startXRef.current = e.pageX;
+    scrollLeftRef.current = domainTabsRef.current.scrollLeft;
+    setIsGrabbing(true);
   };
 
-  // Scroll left
-  const scrollLeft = () => {
-    if (domainTabsRef.current) {
-      domainTabsRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-      setTimeout(checkScroll, 100);
-    }
-  };
-
-  // Scroll right
-  const scrollRight = () => {
-    if (domainTabsRef.current) {
-      domainTabsRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-      setTimeout(checkScroll, 100);
-    }
-  };
-
-  // Initialize scroll check
   useEffect(() => {
-    checkScroll();
-    window.addEventListener('resize', checkScroll);
-    if (domainTabsRef.current) {
-      domainTabsRef.current.addEventListener('scroll', checkScroll);
-    }
-    return () => {
-      window.removeEventListener('resize', checkScroll);
-      if (domainTabsRef.current) {
-        domainTabsRef.current.removeEventListener('scroll', checkScroll);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current || !domainTabsRef.current) return;
+      const dx = e.pageX - startXRef.current;
+      if (Math.abs(dx) > 4) {
+        hasMovedRef.current = true;
+      }
+      domainTabsRef.current.scrollLeft = scrollLeftRef.current - dx;
+    };
+
+    const handleMouseUp = () => {
+      if (isDraggingRef.current) {
+        isDraggingRef.current = false;
+        setIsGrabbing(false);
+        setTimeout(() => {
+          hasMovedRef.current = false;
+        }, 80);
       }
     };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
   }, []);
+
+  const handleTabClick = (domainId: string) => {
+    if (hasMovedRef.current) {
+      return; // Was dragging, ignore click
+    }
+    handleDomainChange(domainId);
+  };
 
   return (
     <section className={styles.section}>
@@ -368,26 +409,14 @@ const TeamSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Domain Tabs/Cards with Scroll Arrows */}
+      {/* Domain Tabs/Cards with Drag-to-Scroll */}
       <div className={styles.container}>
         <div className={styles.domainTabsWrapper}>
-          {/* Left Arrow */}
-          {canScrollLeft && (
-            <motion.button
-              className={styles.scrollArrow + ' ' + styles.scrollArrowLeft}
-              onClick={scrollLeft}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Scroll left"
-            >
-              <ChevronLeft size={24} />
-            </motion.button>
-          )}
-
           {/* Domain Tabs */}
           <motion.div 
             ref={domainTabsRef}
-            className={styles.domainTabs}
+            className={`${styles.domainTabs} ${isGrabbing ? styles.grabbing : ''}`}
+            onMouseDown={handleMouseDown}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -396,7 +425,7 @@ const TeamSection: React.FC = () => {
              {/* All Members Button */}
             <motion.button
               className={`${styles.domainTab} ${activeDomain === 'all' ? styles.active : ''}`}
-              onClick={() => handleDomainChange('all')}
+              onClick={() => handleTabClick('all')}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -413,7 +442,7 @@ const TeamSection: React.FC = () => {
             {/* Mentors Button */}
             <motion.button
               className={`${styles.domainTab} ${activeDomain === 'mentors' ? styles.active : ''}`}
-              onClick={() => handleDomainChange('mentors')}
+              onClick={() => handleTabClick('mentors')}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -428,7 +457,7 @@ const TeamSection: React.FC = () => {
             </motion.button>
 
             {/* Domain Tabs */}
-            {domains.map((domain, index) => {
+            {domains.map((domain) => {
               const IconComponent = getIconComponent(domain.icon);
               const memberCount = validDomainMembers[domain.id]?.length || 0;
               
@@ -436,7 +465,7 @@ const TeamSection: React.FC = () => {
                 <motion.button
                   key={domain.id}
                   className={`${styles.domainTab} ${activeDomain === domain.id ? styles.active : ''}`}
-                  onClick={() => handleDomainChange(domain.id)}
+                  onClick={() => handleTabClick(domain.id)}
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.2 }}
@@ -454,19 +483,6 @@ const TeamSection: React.FC = () => {
               );
             })}
           </motion.div>
-
-          {/* Right Arrow */}
-          {canScrollRight && (
-            <motion.button
-              className={styles.scrollArrow + ' ' + styles.scrollArrowRight}
-              onClick={scrollRight}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Scroll right"
-            >
-              <ChevronRight size={24} />
-            </motion.button>
-          )}
         </div>
       </div>
 
