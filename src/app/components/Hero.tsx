@@ -34,16 +34,6 @@ export default function Hero() {
     },
   };
 
-  const floatingVariants = {
-    animate: {
-      y: [0, -20, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-      },
-    },
-  };
-
   return (
     <section className={styles.hero} ref={containerRef}>
       <div className={styles.container}>

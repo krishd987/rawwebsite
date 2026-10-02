@@ -321,14 +321,14 @@
   clip-path: inset(0 round 28px);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   padding: 0;
-  box-shadow: 
+  box-shadow:
     0 25px 60px rgba(0, 0, 0, 0.35),
     0 0 30px rgba(225, 6, 0, 0.2);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 
   &:hover {
-    box-shadow: 
+    box-shadow:
       0 35px 85px rgba(225, 6, 0, 0.3),
       0 0 40px rgba(225, 6, 0, 0.35);
     transform: translateY(-4px) scale(1.02);
@@ -478,9 +478,12 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }

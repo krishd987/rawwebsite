@@ -120,8 +120,6 @@ export default function Navbar() {
                 </motion.div>
               ))}
             </div>
-
-            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -155,9 +153,6 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
-            <div style={{ paddingTop: '0.75rem', display: 'flex', justifyContent: 'center' }}>
-              <ThemeToggle />
-            </div>
           </motion.div>
         )}
       </nav>

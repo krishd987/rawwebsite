@@ -174,7 +174,7 @@ export default function Footer() {
 
             {/* Pill Toggle Switch */}
             <div className={styles.themeToggleContainer}>
-              <Sun size={17} className={`${styles.themeIcon} ${!isDark ? styles.activeIcon : ''}`} />
+              <Sun size={17} className={`${styles.themeIcon} ${!isDark && mounted ? styles.activeIcon : ''}`} />
               
               <button
                 type="button"
@@ -185,12 +185,12 @@ export default function Footer() {
               >
                 <motion.div
                   className={styles.switchThumb}
-                  animate={{ x: isDark ? 22 : 2 }}
+                  animate={{ x: isDark || !mounted ? 22 : 2 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
               </button>
 
-              <Moon size={16} className={`${styles.themeIcon} ${isDark ? styles.activeIcon : ''}`} />
+              <Moon size={16} className={`${styles.themeIcon} ${isDark || !mounted ? styles.activeIcon : ''}`} />
             </div>
           </div>
         </div>

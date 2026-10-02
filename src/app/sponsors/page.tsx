@@ -88,7 +88,6 @@ const SponsorHeroBanner = () => {
 // Sponsorship Benefits Grid
 const BenefitsGrid = () => {
   const benefits = [
-    // Visibility & Branding
     {
       iconType: 'target',
       title: 'National Brand Visibility',
@@ -103,7 +102,6 @@ const BenefitsGrid = () => {
       category: 'Visibility',
       color: 'cyan',
     },
-    // Talent Access
     {
       iconType: 'users',
       title: 'Talent Pipeline Access',
@@ -118,7 +116,6 @@ const BenefitsGrid = () => {
       category: 'Talent',
       color: 'green',
     },
-    // Innovation & Analytics
     {
       iconType: 'gear',
       title: 'Innovation Collaboration',
@@ -135,7 +132,6 @@ const BenefitsGrid = () => {
     },
   ];
 
-  // SVG Icon Components for Benefits
   const renderBenefitIcon = (iconType: string) => {
     const iconProps = {
       width: "40",
@@ -272,7 +268,6 @@ const ImpactNumbers = () => {
     },
   ];
 
-  // SVG Icon Components
   const renderIcon = (iconType: string) => {
     const iconProps = {
       width: "48",
@@ -566,8 +561,6 @@ const BrandExposure = () => {
   );
 };
 
-
-
 // Contact & Call-to-Action
 const ContactCTA = () => {
   return (
@@ -582,7 +575,6 @@ const ContactCTA = () => {
           <h2>Ready to Partner with <span className={styles.redAccent}>Team RAW?</span></h2>
           <p>Join 45+ organizations that are investing in robotics innovation. Your sponsorship makes a direct impact on student success and industry innovation.</p>
           
-          {/* Trust Indicators */}
           <div className={styles.trustIndicators}>
             <div className={styles.trustItem}>
               <strong style={{ display: 'flex', justifyContent: 'center', color: 'var(--color-red)', marginBottom: '0.25rem' }}>
@@ -652,7 +644,7 @@ const ContactCTA = () => {
             className={styles.downloadButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
+            onClick={() => alert('Coming Soon! Our sponsorship packet will be available shortly.')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}
           >
             <Download size={18} />
