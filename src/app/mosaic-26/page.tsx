@@ -21,7 +21,7 @@ export default function Mosaic26Page() {
     );
   }, []);
 
-  const pdfUrl = '/Mosaic26.pdf';
+  const imageUrl = '/Mojaic26.png';
 
   return (
     <>
@@ -38,12 +38,13 @@ export default function Mosaic26Page() {
         />
 
         <main className={styles.mainContent}>
-          {/* Full Height Responsive PDF View Container */}
-          <div className={styles.pdfWrapper}>
-            <iframe
-              src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`}
-              title="MOSAIC '26 PDF"
-              className={styles.pdfFrame}
+          {/* Responsive Event Poster / Document Image */}
+          <div className={styles.imageWrapper}>
+            <img
+              src={imageUrl}
+              alt="MOSAIC '26 Event Details"
+              className={styles.eventImage}
+              loading="eager"
             />
           </div>
         </main>
