@@ -40,7 +40,7 @@ export const BlurVignette: React.FC<BlurVignetteProps> = ({
   return (
     <BlurVignetteContext.Provider value={{ radius, inset, transitionLength, blur }}>
       <div
-        className={cn('relative overflow-hidden', classname)}
+        className={cn('relative overflow-hidden w-full h-full', classname)}
         style={{ borderRadius: radius }}
       >
         {children}

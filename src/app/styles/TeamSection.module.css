@@ -500,7 +500,7 @@
   color: white;
   padding: 0.4rem 0.9rem;
   border-radius: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -522,6 +522,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   transition: transform 0.4s ease;
 }
 
@@ -976,84 +977,39 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
   width: 100%;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
+  padding: 0.5rem 0;
+  overflow: visible;
 
   @media (max-width: 768px) {
-    margin: 1.5rem 0;
-    gap: 0.75rem;
-  }
-
-  @media (max-width: 480px) {
     margin: 1rem 0;
-    gap: 0.5rem;
-  }
-}
-
-/* Scroll Arrows */
-.scrollArrow {
-  position: relative;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border: 2px solid rgba(10, 26, 58, 0.15);
-  border-radius: 10px;
-  cursor: pointer;
-  color: #E10600;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.08);
-  z-index: 50;
-
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
   }
 
   @media (max-width: 480px) {
-    width: 36px;
-    height: 36px;
+    margin: 0.75rem 0;
   }
 }
 
-.scrollArrow:hover {
-  background: linear-gradient(135deg, #E10600 0%, #C40500 100%);
-  color: white;
-  border-color: #E10600;
-  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
-  transform: scale(1.05);
-}
-
-.scrollArrow:active {
-  transform: scale(0.95);
-}
-
-.scrollArrowLeft {
-  order: -1;
-}
-
-.scrollArrowRight {
-  order: 1;
-}
-
-/* Domain Tabs Container */
+/* Domain Tabs Container - Click and Drag Scrollable */
 .domainTabs {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex: 1;
+  width: 100%;
   gap: 0.75rem;
   overflow-x: auto;
   overflow-y: visible;
-  scroll-behavior: smooth;
-  padding: 1.5rem 0.5rem;
-  margin: -1rem -0.5rem;
+  scroll-behavior: auto;
+  padding: 0.75rem 0.25rem;
+  margin: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
     display: none;
@@ -1066,6 +1022,16 @@
   @media (max-width: 480px) {
     gap: 0.5rem;
   }
+}
+
+.domainTabs.grabbing {
+  cursor: grabbing;
+}
+
+.domainTabs.grabbing * {
+  cursor: grabbing !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
 }
 
 /* Domain Tab Button - Same style as filterPill */
@@ -1087,6 +1053,9 @@
   animation: pillStagger 0.5s ease-out backwards;
   white-space: nowrap;
   flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 
   @media (max-width: 768px) {
     padding: 0.5rem 1rem;
@@ -1115,16 +1084,12 @@
   background: linear-gradient(135deg, #E10600 0%, #C40500 100%);
   color: white;
   border-color: #E10600;
-  box-shadow:
-    0 4px 20px rgba(225, 6, 0, 0.35),
-    0 2px 10px rgba(225, 6, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
   transform: translateY(-2px);
 
   @media (max-width: 768px) {
     transform: scale(1.02);
-    box-shadow:
-      0 3px 16px rgba(225, 6, 0, 0.4),
-      0 2px 8px rgba(225, 6, 0, 0.3);
+    box-shadow: 0 3px 10px rgba(225, 6, 0, 0.3);
   }
 }
 
@@ -1450,17 +1415,32 @@
   margin-bottom: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.2px;
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
   position: relative;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.objectivePoint:hover {
+  color: #E10600;
 }
 
 .objectivePoint::before {
-  content: '→';
+  content: '';
   position: absolute;
-  left: 0;
-  color: #E10600;
-  font-weight: bold;
-  font-size: 1.1rem;
+  left: 0.2rem;
+  top: 0.65rem;
+  width: 7px;
+  height: 7px;
+  background: #E10600;
+  transform: rotate(45deg);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(225, 6, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.objectivePoint:hover::before {
+  transform: rotate(45deg) scale(1.3);
+  box-shadow: 0 0 12px rgba(225, 6, 0, 0.75);
 }
 
 .memberCountBadge {
@@ -1610,6 +1590,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   transition: transform 0.4s ease;
 }
 
@@ -1804,22 +1785,22 @@
 
 /* Member Card Footer - Visual Separator */
 .memberCardFooter {
-  padding: 1rem 1.5rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(10, 26, 58, 0.02) 100%);
+  padding: 0.875rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(10, 26, 58, 0.02) 100%);
   border-top: 1px solid rgba(10, 26, 58, 0.06);
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.75rem;
 
   @media (max-width: 768px) {
-    padding: 0.875rem 1.25rem;
+    padding: 0.75rem 1rem;
     gap: 0.625rem;
   }
 
   @media (max-width: 480px) {
-    padding: 0.75rem 1rem;
+    padding: 0.625rem 0.875rem;
     gap: 0.5rem;
   }
 }
@@ -1827,27 +1808,28 @@
 /* Member Domains Badges Container */
 .memberDomainsBadges {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
   flex-wrap: wrap;
 }
 
 .memberCardFooterBadge {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.25px;
-  padding: 0.35rem 0.65rem;
-  border-radius: 5px;
-  background: linear-gradient(135deg, rgba(225, 6, 0, 0.08) 0%, rgba(225, 6, 0, 0.04) 100%);
-  color: var(--color-red, #E10600);
-  border: 1px solid rgba(225, 6, 0, 0.15);
-  white-space: nowrap;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.25px !important;
+  padding: 0.3rem 0.6rem !important;
+  border-radius: 5px !important;
+  background: linear-gradient(135deg, rgba(225, 6, 0, 0.08) 0%, rgba(225, 6, 0, 0.04) 100%) !important;
+  color: var(--color-red, #E10600) !important;
+  border: 1px solid rgba(225, 6, 0, 0.15) !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
 
   @media (max-width: 480px) {
-    font-size: 0.65rem;
-    padding: 0.3rem 0.55rem;
-    border-radius: 4px;
+    font-size: 0.62rem !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 4px !important;
   }
 }
 
@@ -1859,17 +1841,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
   flex-shrink: 0 !important;
-  aspect-ratio: 1 / 1 !important;
   border-radius: 6px;
   background: linear-gradient(135deg, rgba(10, 26, 58, 0.05) 0%, rgba(10, 26, 58, 0.02) 100%);
   border: 1px solid rgba(10, 26, 58, 0.08);
   color: var(--color-red, #E10600);
   transition: all 0.3s ease;
+  margin-bottom: 1px;
 
   @media (max-width: 480px) {
     width: 24px !important;
