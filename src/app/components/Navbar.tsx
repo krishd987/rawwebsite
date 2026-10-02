@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ThemeSwitch } from '@/components/ui/theme-switch-button';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
@@ -46,8 +47,6 @@ export default function Navbar() {
     { label: 'Sponsors', href: '/sponsors' },
     { label: 'Contact', href: '/contact' },
   ];
-
-
 
   return (
     <>
@@ -121,7 +120,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Join the Team button removed */}
+            <ThemeSwitch />
           </div>
 
           {/* Mobile Menu Button */}
@@ -155,7 +154,9 @@ export default function Navbar() {
                 {link.label}
               </motion.a>
             ))}
-            {/* Join the Team mobile button removed */}
+            <div style={{ paddingTop: '0.75rem', display: 'flex', justifyContent: 'center' }}>
+              <ThemeSwitch />
+            </div>
           </motion.div>
         )}
       </nav>
