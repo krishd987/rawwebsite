@@ -125,7 +125,7 @@
 .desktopMenu {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 1.5rem;
 
   @media (max-width: 768px) {
     display: none;
@@ -134,7 +134,7 @@
 
 .links {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
 }
 

@@ -61,8 +61,13 @@ export function ThemeSwitch({ className = '', style = {} }: ThemeSwitchProps) {
 
   return (
     <div
-      className={`inline-flex items-center p-1 rounded-full border backdrop-blur-md shadow-lg transition-colors duration-300 ${className}`}
+      className={`theme-switch inline-flex items-center p-1 rounded-full border backdrop-blur-md shadow-lg transition-colors duration-300 ${className}`}
       style={{
+        display: 'inline-flex',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+        flexShrink: 0,
+        alignItems: 'center',
         background: 'var(--color-bg-card, rgba(15, 23, 42, 0.6))',
         borderColor: 'var(--color-border, rgba(255, 255, 255, 0.15))',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
