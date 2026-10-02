@@ -105,7 +105,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       // Load robots from API or fallback to static data
       if (robotsRes && robotsRes.ok) {
         const robotsJson = await robotsRes.json();
-        loadedRobots = robotsJson.data || [];
+        loadedRobots = (robotsJson.data && robotsJson.data.length > 0) ? robotsJson.data : robotsData;
         setRobots(loadedRobots);
       } else {
         console.warn('Failed to fetch robots from API, using static data');
@@ -115,7 +115,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       // Load gallery from API or fallback to static data
       if (galleryRes && galleryRes.ok) {
         const galleryJson = await galleryRes.json();
-        loadedGallery = galleryJson.data || [];
+        loadedGallery = (galleryJson.data && galleryJson.data.length > 0) ? galleryJson.data : galleryData;
         setGalleryImages(loadedGallery);
       } else {
         console.warn('Failed to fetch gallery from API, using static data');

@@ -47,14 +47,6 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} ref={containerRef}>
-      <div className={styles.backgroundGradient}></div>
-      <KineticGrid
-        gridColor="rgba(10, 26, 58, 0.04)"
-        dotColor="rgba(225, 6, 0, 0.12)"
-        warpStrength={8}
-        warpRadius={120}
-      />
-
       <div className={styles.container}>
         {/* Left Side - Content */}
         <motion.div
@@ -135,9 +127,9 @@ export default function Hero() {
           >
             <Image
               src="/robot.png"
-              alt="TEAM RAW SFIT robotics competition robot - Autonomous robot designed for ABU Robocon"
-              width={300}
-              height={300}
+              alt="TEAM RAW SFIT Robotics Competition Bot"
+              width={450}
+              height={520}
               priority
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />

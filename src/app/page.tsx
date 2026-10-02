@@ -14,33 +14,47 @@ import AboutUs from './components/AboutUs';
 import UpdatesPopup from './components/UpdatesPopup';
 import AnimatedStat from './components/AnimatedStat';
 import Footer from './components/Footer';
-import TopFadeGrid from './components/TopFadeGrid';
+import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 import StatsBento from '@/components/ui/stats-bento';
 
 export default function Home() {
   return (
-    <main>
-      <UpdatesPopup />
-      <Navbar />
-      <Hero />
+    <main style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
+      {/* Universal Stretched Background Grid */}
+      <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
+        <AnimatedGridPattern
+          numSquares={50}
+          maxOpacity={0.16}
+          width={40}
+          height={40}
+          duration={3.5}
+          repeatDelay={0.8}
+          strokeDasharray={0}
+          className="pointer-events-none absolute inset-0 h-full w-full"
+        />
+      </div>
 
-      {/* Team RAW Info Section - SEO H1 */}
-      <motion.section
-        className="team-raw-intro"
-        style={{
-          padding: '4rem 0',
-          background: 'linear-gradient(180deg, var(--color-bg-primary, #ffffff) 0%, var(--color-bg-secondary, #f8f9fa) 100%)',
-          borderTop: '1px solid var(--color-border, rgba(10, 26, 58, 0.1))',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <TopFadeGrid gridColor="var(--grid-color, rgba(10, 26, 58, 0.08))" />
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <UpdatesPopup />
+        <Navbar />
+        <Hero />
+
+        {/* Team RAW Info Section - SEO H1 */}
+        <motion.section
+          className="team-raw-intro"
+          style={{
+            padding: '4rem 0',
+            background: 'linear-gradient(180deg, rgba(var(--color-bg-primary-rgb, 10, 15, 29), 0.7) 0%, rgba(var(--color-bg-secondary-rgb, 17, 24, 39), 0.75) 100%)',
+            borderTop: '1px solid var(--color-border, rgba(10, 26, 58, 0.1))',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
           <motion.div
             style={{ textAlign: 'center', marginBottom: '2rem' }}
             initial={{ y: 20 }}
@@ -297,9 +311,8 @@ export default function Home() {
         </div>
       </motion.section>
 
-
-
       <Footer />
+      </div>
     </main>
   );
 }
