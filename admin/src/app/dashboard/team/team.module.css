@@ -111,10 +111,11 @@
 
 .teamSearchInput {
   width: 100% !important;
-  border: 2px solid #f1f5f9 !important;
+  border: 1px solid var(--border) !important;
   border-radius: 8px !important;
   font-size: 1rem !important;
-  background: #f8fafc !important;
+  background: var(--input-bg, #f8fafc) !important;
+  color: var(--text-primary) !important;
   transition: all 0.2s !important;
   font-family: inherit !important;
 }
@@ -125,8 +126,8 @@
 
 .teamSearchInput:focus {
   outline: none !important;
-  border-color: #E10600 !important;
-  background: white !important;
+  border-color: var(--primary) !important;
+  background: var(--card-bg) !important;
   box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1) !important;
 }
 

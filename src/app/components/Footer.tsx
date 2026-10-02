@@ -83,7 +83,7 @@ export default function Footer() {
               <p className={styles.affiliationLabel}>Officially Affiliated With</p>
               <div className={styles.sfitLogoContainer}>
                 <Image
-                  src="/collegelogo.jpg"
+                  src="/collegelogo.png"
                   alt="St. Francis Institute of Technology"
                   width={90}
                   height={90}

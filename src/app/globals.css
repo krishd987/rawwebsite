@@ -98,6 +98,31 @@ html[data-theme="dark"] {
   --shadow-lg: 0 12px 36px -4px rgba(0, 0, 0, 0.6);
 }
 
+/* Universal Dark Mode Form Controls & Elements */
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="color"]),
+html.dark select,
+html.dark textarea,
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="color"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background-color: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+html.dark select option,
+html[data-theme="dark"] select option {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder,
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
 html {
   scroll-behavior: smooth;
   scrollbar-color: #E10600 transparent;

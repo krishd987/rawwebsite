@@ -91,7 +91,7 @@ export default function Navbar() {
               <div className={styles.logoDivider}></div>
               <div className={styles.sfitLogoContainer}>
                 <Image
-                  src="/collegelogo.jpg"
+                  src="/collegelogo.png"
                   alt="St. Francis Institute of Technology"
                   width={38}
                   height={38}
