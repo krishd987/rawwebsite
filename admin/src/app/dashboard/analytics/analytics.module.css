@@ -8,7 +8,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -25,14 +25,14 @@
 .title {
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
   font-weight: 700;
 }
 
 .subtitle {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
@@ -41,10 +41,11 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(10, 26, 58, 0.05);
-  border-radius: 8px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
   font-size: 0.85rem;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .updateIcon {
@@ -53,12 +54,12 @@
 
 /* Section */
 .section {
-  background: white;
+  background: var(--card-bg, #ffffff);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 16px;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.05);
-  border: 1px solid rgba(10, 26, 58, 0.08);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .sectionTitle {
@@ -67,7 +68,7 @@
   gap: 0.75rem;
   font-family: 'Orbitron', sans-serif;
   font-size: 1.3rem;
-  color: #0a1a3a;
+  color: var(--text-primary);
   margin: 0 0 1.5rem 0;
   font-weight: 600;
 }
@@ -78,7 +79,7 @@
 
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(10, 26, 58, 0.1) 50%, transparent 100%);
+  background: var(--border);
   margin: 2rem 0;
 }
 
@@ -94,10 +95,11 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  border-radius: 12px;
-  background: white;
-  border: 2px solid;
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
 }
@@ -108,13 +110,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   background: currentColor;
 }
 
 .metricCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(10, 26, 58, 0.1);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
 }
 
 .metricCard.red {

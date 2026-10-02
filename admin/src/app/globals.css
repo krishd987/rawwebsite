@@ -18,65 +18,68 @@
 /* LIGHT THEME (Active by default) */
 :root {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  --primary: #FF0000;
-  --primary-dark: #9C0005;
-  --bg-light: #f5f7fa;
+  --primary: #E10600;
+  --primary-dark: #b2001d;
+  --bg-light: #f8f9fa;
   --bg-white: #ffffff;
-  --text-primary: #010169;
-  --text-secondary: #0D4ABC;
-  --border: #e2e8f0;
-  --shadow: 0 2px 8px rgba(1, 1, 105, 0.08);
-  --shadow-lg: 0 8px 16px rgba(1, 1, 105, 0.12);
+  --text-primary: #0A1A3A;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border: rgba(10, 26, 58, 0.08);
+  --shadow: 0 4px 20px -2px rgba(10, 26, 58, 0.05), 0 2px 6px -1px rgba(10, 26, 58, 0.03);
+  --shadow-lg: 0 10px 30px -4px rgba(10, 26, 58, 0.08), 0 4px 12px -2px rgba(10, 26, 58, 0.04);
   --backdrop-blur: none;
 
   /* Card and Form Control backgrounds */
   --card-bg: #ffffff;
-  --card-border: #e2e8f0;
+  --card-border: rgba(10, 26, 58, 0.08);
   --input-bg: #ffffff;
   --input-border: #cbd5e1;
   
   /* Scrollbars and lists */
   --scrollbar-track: #f1f5f9;
   --scrollbar-thumb: #cbd5e1;
-  --list-hover: rgba(13, 74, 188, 0.05);
+  --list-hover: rgba(10, 26, 58, 0.04);
   
   /* Sidebar */
-  --sidebar-bg: #000030;
+  --sidebar-bg: #0A1A3A;
   --sidebar-border: rgba(255, 255, 255, 0.08);
 
   /* Grid Background Tokens */
-  --grid-color: rgba(13, 74, 188, 0.055);
-  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(245, 247, 250, 0.8) 75%, #f5f7fa 100%);
+  --grid-color: rgba(10, 26, 58, 0.05);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(248, 249, 250, 0.8) 75%, #f8f9fa 100%);
 }
 
 /* DARK THEME */
-[data-theme="dark"] {
-  --primary: #FF0000;
-  --primary-dark: #9C0005;
-  --bg-light: #010169;
-  --bg-white: rgba(13, 74, 188, 0.12);
-  --text-primary: #ffffff;
-  --text-secondary: #93b4ff;
-  --border: rgba(13, 74, 188, 0.25);
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.6);
+[data-theme="dark"],
+html.dark {
+  --primary: #ff2a24;
+  --primary-dark: #E10600;
+  --bg-light: #090d16;
+  --bg-white: rgba(19, 28, 46, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 36px -4px rgba(0, 0, 0, 0.6);
   --backdrop-blur: blur(16px);
 
-  --card-bg: rgba(13, 74, 188, 0.12);
-  --card-border: rgba(13, 74, 188, 0.2);
-  --input-bg: rgba(1, 1, 105, 0.4);
-  --input-border: rgba(13, 74, 188, 0.3);
+  --card-bg: #131c2e;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --input-bg: rgba(15, 23, 42, 0.7);
+  --input-border: rgba(255, 255, 255, 0.15);
   
-  --scrollbar-track: #010169;
-  --scrollbar-thumb: rgba(13, 74, 188, 0.4);
-  --list-hover: rgba(13, 74, 188, 0.15);
+  --scrollbar-track: #090d16;
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --list-hover: rgba(255, 255, 255, 0.06);
 
-  --sidebar-bg: #000020;
-  --sidebar-border: rgba(13, 74, 188, 0.2);
+  --sidebar-bg: #070a11;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
 
   /* Grid Background Tokens */
-  --grid-color: rgba(147, 180, 255, 0.065);
-  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(1, 1, 105, 0.8) 75%, #010169 100%);
+  --grid-color: rgba(255, 255, 255, 0.04);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(15, 23, 42, 0.95) 75%, #090d16 100%);
 }
 
 html {
