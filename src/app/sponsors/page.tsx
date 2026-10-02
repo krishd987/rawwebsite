@@ -9,6 +9,7 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
 import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
+import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 import styles from '@/app/styles/Sponsors.module.css';
 import {
   Timeline,
@@ -26,14 +27,25 @@ const SponsorHeroBanner = () => {
   return (
     <section className={styles.heroBanner}>
       <div className={styles.heroContent}>
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
+          className={styles.heroBadge}
+        >
+          <Handshake size={15} style={{ color: 'var(--color-red)' }} />
+          <span>Partnership & Sponsorship</span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
           className={styles.heroTitle}
         >
           Power the Future of <span className={styles.redAccent}>Robotics Innovation</span>
         </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,31 +54,32 @@ const SponsorHeroBanner = () => {
         >
           Partner with Team RAW and gain national visibility, access top engineering talent, and drive innovation in STEM education
         </motion.p>
+
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className={styles.heroButtonGroup}
         >
-          <motion.button
+          <motion.a
+            href="#contact"
             className={styles.ctaButtonPrimary}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Become a Sponsor
-          </motion.button>
+          </motion.a>
           <motion.button
             className={styles.ctaButtonSecondary}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => alert('Coming Soon! Our sponsorship deck will be available shortly.')}
           >
+            <Download size={16} />
             Download Sponsorship Deck
           </motion.button>
         </motion.div>
       </div>
-
-      <div className={styles.videoOverlay} />
     </section>
   );
 };
@@ -611,8 +624,6 @@ const ContactCTA = () => {
     </section>
   );
 };
-
-import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 
 export default function SponsorsPage() {
   return (
