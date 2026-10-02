@@ -582,3 +582,15 @@ pre,
     font-size: 0.9rem !important;
   }
 }
+
+/* ── Contact Form: Responsive Grid ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  #contact > div {
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+  /* Collapse input row pairs to single column */
+  #contact div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}

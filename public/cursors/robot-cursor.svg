@@ -1,0 +1,13 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 2L9 22L13 13L22 9L2 2Z" fill="url(#botGrad)" stroke="#0A1A3A" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M5 5L9.5 17L12 12L17 9.5L5 5Z" fill="#E10600"/>
+  <circle cx="2" cy="2" r="1.5" fill="#ffffff"/>
+  <circle cx="12" cy="12" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <defs>
+    <linearGradient id="botGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#E10600"/>
+      <stop offset="1" stop-color="#8A0000"/>
+    </linearGradient>
+  </defs>
+</svg>

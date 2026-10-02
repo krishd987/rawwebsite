@@ -10,7 +10,7 @@ import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
 import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
 import KineticGrid from '@/components/ui/kinetic-grid';
-import LogoCloud from '@/components/ui/logo-cloud';
+import { LogoCloud } from '@/components/ui/logo-cloud-2';
 import styles from '@/app/styles/Sponsors.module.css';
 import {
   Timeline,
@@ -695,7 +695,7 @@ const SoftwaresWeUse = () => {
               margin: '0 0 1rem 0',
             }}
           >
-            Softwares We <span style={{ color: 'var(--color-red)' }}>Use</span>
+            Companies We <span style={{ color: 'var(--color-red)' }}>Collaborate</span> With
           </h2>
           <p
             style={{
@@ -706,7 +706,7 @@ const SoftwaresWeUse = () => {
               lineHeight: 1.7,
             }}
           >
-            From high-fidelity mechanical CAD and multi-layer ECAD routing to autonomous SLAM and computer vision pipelines, our team builds with industry-standard engineering software.
+            From high-fidelity mechanical CAD and multi-layer ECAD routing to autonomous SLAM and edge AI pipelines, our team builds with industry-standard engineering software and tools.
           </p>
         </motion.div>
 

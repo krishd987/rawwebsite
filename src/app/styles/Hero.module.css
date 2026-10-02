@@ -309,75 +309,40 @@
 .logoContainer {
   position: relative;
   width: 440px;
-  height: 520px;
+  height: auto;
   max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent !important;
   border: none !important;
-  border-radius: 28px;
-  -webkit-clip-path: inset(0 round 28px);
-  clip-path: inset(0 round 28px);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  box-shadow: none !important;
   padding: 0;
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.35),
-    0 0 30px rgba(225, 6, 0, 0.2);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
 
   &:hover {
-    box-shadow:
-      0 35px 85px rgba(225, 6, 0, 0.3),
-      0 0 40px rgba(225, 6, 0, 0.35);
-    transform: translateY(-4px) scale(1.02);
-  }
-
-  img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 28px;
-    -webkit-clip-path: inset(0 round 28px);
-    clip-path: inset(0 round 28px);
-    background: transparent !important;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  &:hover img {
-    transform: scale(1.04);
+    box-shadow: none !important;
+    transform: translateY(-4px);
   }
 
   @media (max-width: 1024px) {
-    width: 340px;
-    height: 420px;
+    width: 380px;
+    height: 500px;
   }
 
   @media (max-width: 768px) {
     position: static;
     width: 100%;
-    max-width: 360px;
-    height: 380px;
+    max-width: 380px;
+    height: 480px;
     padding: 0;
     border-radius: 24px;
-    -webkit-clip-path: inset(0 round 24px);
-    clip-path: inset(0 round 24px);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 24px;
-      -webkit-clip-path: inset(0 round 24px);
-      clip-path: inset(0 round 24px);
-    }
   }
 
   @media (max-width: 480px) {
-    max-width: 300px;
-    height: 320px;
+    max-width: 320px;
+    height: 450px;
     padding: 0;
   }
 }

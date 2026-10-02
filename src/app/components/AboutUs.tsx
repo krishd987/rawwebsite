@@ -8,6 +8,8 @@
 import { motion } from 'framer-motion';
 import { Target, Zap, Layers, Users, Trophy, Factory, Handshake, Rocket, Cog, Cpu, Code, Briefcase, Calendar } from 'lucide-react';
 import styles from '../styles/AboutUs.module.css';
+import TextAnimation from '@/components/ui/scroll-text';
+import TimelineAnimation from '@/components/ui/timeline-animation';
 
 export default function AboutUs() {
 
@@ -39,16 +41,18 @@ export default function AboutUs() {
           viewport={{ once: true }}
           variants={leftVariants}
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className={styles.mainHeading}
-          >
-            About <span className={styles.redAccent}>Team RAW</span>
+          <div className={styles.mainHeading}>
+            <TextAnimation
+              as="h2"
+              lineAnime={true}
+              text="About Team RAW"
+              variants={{
+                hidden: { filter: 'blur(8px)', opacity: 0, y: 20 },
+                visible: { filter: 'blur(0px)', opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            />
             <div className={styles.headingUnderline}></div>
-          </motion.h2>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}

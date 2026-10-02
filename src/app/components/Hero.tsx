@@ -6,72 +6,111 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { Bot } from 'lucide-react';
+import { useRef } from 'react';
+import { Bot, Sparkles, ChevronRight } from 'lucide-react';
 import styles from '../styles/Hero.module.css';
+import BotsHeroCarousel from '@/components/ui/bots-hero-carousel';
+import TextAnimation from '@/components/ui/scroll-text';
+import TimelineAnimation from '@/components/ui/timeline-animation';
 
 export default function Hero() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
+  const heroRevealVariants = {
+    visible: (i: number) => ({
       y: 0,
-      transition: { duration: 0.8 },
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: {
+        delay: i * 0.18,
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+    hidden: {
+      filter: 'blur(8px)',
+      y: 20,
+      opacity: 0,
     },
   };
 
   return (
     <section className={styles.hero} ref={containerRef}>
       <div className={styles.container}>
-        {/* Left Side - Content */}
-        <motion.div
-          className={styles.leftContent}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={itemVariants} className={styles.badge}>
+        {/* Left Side - Content with Scroll & Timeline Animations */}
+        <div className={styles.leftContent}>
+          <TimelineAnimation
+            animationNum={1}
+            timelineRef={containerRef}
+            customVariants={heroRevealVariants}
+            className={styles.badge}
+          >
             <span>
               <Bot size={16} strokeWidth={2.5} />
               Innovation in Motion
             </span>
-          </motion.div>
+          </TimelineAnimation>
 
-          <motion.h1 variants={itemVariants} className={styles.mainHeading}>
-            TEAM <span className={styles.redAccent}>RAW</span>
-          </motion.h1>
+          {/* Heading with Text Animation */}
+          <div className="space-y-1">
+            <TextAnimation
+              as="h1"
+              text="TEAM RAW"
+              lineAnime={true}
+              classname={styles.mainHeading}
+              variants={{
+                hidden: { filter: 'blur(12px)', opacity: 0, y: 25 },
+                visible: {
+                  filter: 'blur(0px)',
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+            />
+            <TextAnimation
+              as="h2"
+              text="Robotics & Aviation Wing"
+              direction="right"
+              classname={styles.subtitle}
+              delay={0.2}
+              variants={{
+                hidden: { filter: 'blur(8px)', opacity: 0, x: -20 },
+                visible: {
+                  filter: 'blur(0px)',
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.5, ease: 'easeOut' },
+                },
+              }}
+            />
+          </div>
 
-          <motion.h2 variants={itemVariants} className={styles.subtitle}>
-            Robotics & Aviation Wing
-          </motion.h2>
+          <TimelineAnimation
+            animationNum={3}
+            timelineRef={containerRef}
+            customVariants={heroRevealVariants}
+          >
+            <p className={styles.description}>
+              Building the next generation of autonomous and combat robotics systems. Excellence in engineering, innovation in mechatronics, and passion for technology since 2020.
+            </p>
+          </TimelineAnimation>
 
-          <motion.p variants={itemVariants} className={styles.description}>
-            Building the next generation of autonomous robots. Excellence in robotics, innovation in engineering, and passion for technology.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className={styles.ctaContainer}>
+          <TimelineAnimation
+            animationNum={4}
+            timelineRef={containerRef}
+            customVariants={heroRevealVariants}
+            className={styles.ctaContainer}
+          >
             <motion.a
               href="/competitions"
               className={`${styles.button} ${styles.primaryButton}`}
               whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(225, 6, 0, 0.6)' }}
               whileTap={{ scale: 0.95 }}
-              style={{ textDecoration: 'none', display: 'inline-block', cursor: 'pointer' }}
+              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
             >
               Explore Competitions
+              <ChevronRight size={18} />
             </motion.a>
 
             <motion.a
@@ -83,62 +122,51 @@ export default function Hero() {
             >
               Meet the Robots
             </motion.a>
-          </motion.div>
+          </TimelineAnimation>
 
-          {/* Stats */}
-          <motion.div variants={itemVariants} className={styles.stats}>
+          {/* Stats with Staggered Timeline Animation */}
+          <TimelineAnimation
+            animationNum={5}
+            timelineRef={containerRef}
+            customVariants={heroRevealVariants}
+            className={styles.stats}
+          >
             <div className={styles.stat}>
-              <span className={styles.statNumber}>2+</span>
-              <span className={styles.statLabel}>Competitions</span>
+              <span className={styles.statNumber}>2020–26</span>
+              <span className={styles.statLabel}>Bots History</span>
+            </div>
+            <div className={styles.stat}>
+              <span className={styles.statNumber}>14+</span>
+              <span className={styles.statLabel}>Competition Bots</span>
             </div>
             <div className={styles.stat}>
               <span className={styles.statNumber}>20+</span>
-              <span className={styles.statLabel}>Members</span>
+              <span className={styles.statLabel}>Team Engineers</span>
             </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>4+</span>
-              <span className={styles.statLabel}>Robots</span>
-            </div>
-          </motion.div>
-        </motion.div>
+          </TimelineAnimation>
+        </div>
 
-        {/* Right Side - Robot Image */}
-        <motion.div
+        {/* Right Side - 5-Second Auto-Advancing Bots Hero Carousel */}
+        <TimelineAnimation
+          animationNum={2}
+          timelineRef={containerRef}
+          customVariants={heroRevealVariants}
           className={styles.rightContent}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.div
             className={styles.logoContainer}
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <Image
-              src="/robot.png"
-              alt="TEAM RAW SFIT Robotics Competition Bot"
-              width={450}
-              height={520}
-              priority
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '28px',
-                clipPath: 'inset(0 round 28px)',
-                WebkitClipPath: 'inset(0 round 28px)',
-                background: 'transparent',
-                display: 'block',
-              }}
-            />
+            <BotsHeroCarousel autoPlayInterval={5000} />
           </motion.div>
-        </motion.div>
+        </TimelineAnimation>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator with smooth float */}
       <motion.div
         className={styles.scrollIndicator}
-        animate={{ y: [0, 10, 0] }}
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}
       >

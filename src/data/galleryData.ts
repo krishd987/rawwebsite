@@ -5,91 +5,84 @@
 
 /**
  * STATIC GALLERY DATA
- * Replace with your image imports and gallery details
- * Images should be imported at the top
+ * Events, Workshops, Competitions, and Team Moments with real verified assets.
+ * Note: Robot models are defined exclusively in robotsData.ts to eliminate duplicate entries.
  */
 
 export interface GalleryImage {
   _id: string;
   title: string;
   description?: string;
-  imageUrl?: string;
-  category: string;
+  detailedDescription?: string;
+  imageUrl: string;
+  category: 'events' | 'workshops' | 'competitions' | 'team';
   uploadedBy?: string;
   createdAt?: string;
   year?: number;
 }
 
-// TODO: Import your images here
-// import RobotImage1 from '@/public/images/gallery/robot1.jpg';
-// import EventImage1 from '@/public/images/gallery/event1.jpg';
-// etc.
-
 export const galleryImages: GalleryImage[] = [
-  // ROBOTS
-  {
-    _id: 'robot1',
-    title: 'DD Robocon 2025 Robot 1',
-    description: 'First robot for DD Robocon 2025 competition',
-    category: 'robots',
-    imageUrl: '/images/gallery/placeholder.jpg',
-    uploadedBy: 'Team RAW',
-    createdAt: '2024-12-01',
-    year: 2025,
-  },
-  {
-    _id: 'robot2',
-    title: 'DD Robocon 2025 Robot 2',
-    description: 'Second robot for DD Robocon 2025 competition',
-    category: 'robots',
-    imageUrl: '/images/gallery/placeholder.jpg',
-    uploadedBy: 'Team RAW',
-    createdAt: '2024-11-28',
-    year: 2025,
-  },
-  {
-    _id: 'robot3',
-    title: 'DD Robocon 2024 Robot',
-    description: 'Competition robot for DD Robocon 2024',
-    category: 'robots',
-    imageUrl: '/images/gallery/placeholder.jpg',
-    uploadedBy: 'Team RAW',
-    createdAt: '2024-11-25',
-    year: 2024,
-  },
-  {
-    _id: 'robot4',
-    title: 'DD Robocon 2023 Robot',
-    description: 'Competition robot for DD Robocon 2023',
-    category: 'robots',
-    imageUrl: '/images/gallery/placeholder.jpg',
-    uploadedBy: 'Team RAW',
-    createdAt: '2024-11-20',
-    year: 2023,
-  },
-
   // EVENTS
   {
-    _id: 'event1',
-    title: 'Mosaic Event',
-    description: 'Team RAW participation in Mosaic technical fest',
+    _id: 'event-mosaic-2026',
+    title: 'Mosaic 2026 Technical Fest',
+    description: 'Team RAW flagship robotics demonstration & arena showcase at SFIT Mosaic techfest.',
+    detailedDescription: 'Full public exhibition of Team RAW autonomous robots, live obstacle courses, and drone telemetry demonstrations presented to over 2,000 students and engineering guests.',
     category: 'events',
-    imageUrl: '/images/gallery/placeholder.jpg',
+    imageUrl: '/Mosaic26.png',
     uploadedBy: 'Team RAW',
-    createdAt: '2024-12-10',
-    year: 2024,
+    createdAt: '2026-02-15',
+    year: 2026,
+  },
+  {
+    _id: 'event-robocon-national',
+    title: 'DD Robocon National Arena',
+    description: 'Team RAW on the competition field during the live national arena rounds.',
+    detailedDescription: 'Intense match runs featuring coordinated dual-robot tasks, high-speed ball sorting, and precision sensor calibration on the official Doordarshan arena.',
+    category: 'events',
+    imageUrl: '/robocon2025.png',
+    uploadedBy: 'Team RAW',
+    createdAt: '2025-06-20',
+    year: 2025,
   },
 
   // WORKSHOPS
   {
-    _id: 'workshop1',
-    title: 'Robotics Workshop at SFIT',
-    description: 'Hands-on robotics workshop conducted at SFIT',
+    _id: 'workshop-sfit-lab',
+    title: 'Robotics Workshop at SFIT Lab',
+    description: 'Hands-on embedded systems, ROS2, and PCB design bootcamps conducted in Room 027.',
+    detailedDescription: 'Intensive peer learning sessions for first and second year engineering recruits covering microcontrollers, motor drivers, Fusion 360 CAD, and autonomous navigation architectures.',
     category: 'workshops',
-    imageUrl: '/images/gallery/placeholder.jpg',
+    imageUrl: '/group foto.jpeg',
     uploadedBy: 'Team RAW',
-    createdAt: '2024-12-05',
+    createdAt: '2025-09-12',
+    year: 2025,
+  },
+
+  // COMPETITIONS
+  {
+    _id: 'comp-eyantra-arena',
+    title: 'National Robotics Championship',
+    description: 'Championship match staging and technical inspection at IIT Bombay.',
+    detailedDescription: 'Rigorous hardware safety reviews, software verification, and timed autonomous trials competing against top technological institutes nationwide.',
+    category: 'competitions',
+    imageUrl: '/Robococon.png',
+    uploadedBy: 'Team RAW',
+    createdAt: '2024-04-18',
     year: 2024,
+  },
+
+  // TEAM
+  {
+    _id: 'team-sfit-assembly',
+    title: 'Team RAW Engineering Wing',
+    description: 'Core robotics committee, mechanical fabricators, electronics leads, and coders.',
+    detailedDescription: 'The dedicated student engineering contingent of St. Francis Institute of Technology driving relentless innovation across mechanical, electrical, and autonomous domains.',
+    category: 'team',
+    imageUrl: '/team image.JPG',
+    uploadedBy: 'Team RAW',
+    createdAt: '2025-10-05',
+    year: 2025,
   },
 ];
 
@@ -105,4 +98,3 @@ export const getRecentImages = (count: number = 10): GalleryImage[] => {
 };
 
 export default galleryImages;
-
