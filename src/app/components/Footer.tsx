@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, Youtube, Github, Twitter, Sun, Moon } from 'lucide-react';
+import { Instagram, Linkedin, Youtube, Github, Sun, Moon } from 'lucide-react';
 import styles from '../styles/Footer.module.css';
 
 export default function Footer() {
@@ -73,13 +73,8 @@ export default function Footer() {
     },
     {
       label: 'GitHub',
-      href: 'https://github.com',
+      href: 'https://github.com/teamrawsfit/',
       icon: <Github size={17} />,
-    },
-    {
-      label: 'Twitter',
-      href: 'https://twitter.com',
-      icon: <Twitter size={17} />,
     },
   ];
 

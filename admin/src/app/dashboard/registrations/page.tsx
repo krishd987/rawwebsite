@@ -234,19 +234,6 @@ export default function RegistrationsPage() {
       return;
     }
     
-    // Check if email is configured
-    try {
-      const response = await fetch('/api/check-email-config');
-      const result = await response.json();
-      
-      if (!result.configured) {
-        alert('Email is not configured. Please set EMAIL_USER and EMAIL_PASS environment variables in your admin panel settings before sending emails. See EMAIL_SETUP.md for instructions.');
-        return;
-      }
-    } catch (error) {
-      console.error('Error checking email config:', error);
-    }
-    
     initializeEmailSelections();
     setShowEmailModal(true);
   };
@@ -478,23 +465,11 @@ export default function RegistrationsPage() {
         <button 
           onClick={openEmailModal} 
           className={styles.emailBtn}
-          disabled={selectedRegistrations.length === 0 || emailConfigured === false}
-          title={emailConfigured === false ? 'Email not configured. Check EMAIL_SETUP.md' : ''}
+          disabled={selectedRegistrations.length === 0}
         >
-           Send Email ({selectedRegistrations.length})
-          {emailConfigured === false && <span className={styles.warningIcon}> </span>}
+          Send Email ({selectedRegistrations.length})
         </button>
       </div>
-
-      {emailConfigured === false && (
-        <div className={styles.warningBanner}>
-          <span className={styles.warningIcon}></span>
-          <span>
-            Email is not configured. To send emails, please set up EMAIL_USER and EMAIL_PASS environment variables. 
-            See <strong>EMAIL_SETUP.md</strong> for instructions.
-          </span>
-        </div>
-      )}
 
       {loading ? (
         <div className={styles.loading}>Loading registrations...</div>

@@ -6,7 +6,6 @@
 'use client';
 
 import { useAuth } from '@/context/AuthContext';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import styles from './Header.module.css';
 
 export default function Header({ onToggleSidebar }: { onToggleSidebar: () => void }) {
@@ -35,7 +34,6 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar: () => voi
         <h1>Admin Dashboard</h1>
       </div>
       <div className={styles.right}>
-        <ThemeToggle />
         <div className={styles.userInfo}>
           <span className={styles.userName}>
             {admin?.name || admin?.email || 'Admin'}

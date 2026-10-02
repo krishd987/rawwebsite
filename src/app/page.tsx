@@ -32,9 +32,7 @@ export default function Home() {
         <motion.section
           className="team-raw-intro"
           style={{
-            padding: '4rem 0',
-            background: 'linear-gradient(180deg, rgba(var(--color-bg-primary-rgb, 10, 15, 29), 0.7) 0%, rgba(var(--color-bg-secondary-rgb, 17, 24, 39), 0.75) 100%)',
-            borderTop: '1px solid var(--color-border, rgba(10, 26, 58, 0.1))',
+            padding: '5rem 0 4rem',
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -62,10 +60,11 @@ export default function Home() {
             <div style={{ width: '60px', height: '3px', background: 'linear-gradient(90deg, var(--color-red), rgba(225, 6, 0, 0.2))', margin: '1rem auto', borderRadius: '2px' }} />
             <p style={{
               fontSize: '1.1rem',
-              color: 'var(--color-text-secondary)',
+              color: 'var(--color-text-primary)',
               maxWidth: '800px',
               margin: '0 auto',
-              lineHeight: '2',
+              lineHeight: '1.8',
+              opacity: 0.9,
             }}>
               The official robotics research and competition team of St. Francis Institute of Technology (SFIT). 
               We design, develop, and innovate robotics systems for national and international competitions.
@@ -94,7 +93,7 @@ export default function Home() {
               color: 'var(--color-text-primary)',
               fontStyle: 'italic',
               margin: 0,
-              fontWeight: '500',
+              fontWeight: '600',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -110,7 +109,7 @@ export default function Home() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
               gap: '2rem',
-              marginTop: '2rem',
+              marginTop: '2.5rem',
             }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -127,10 +126,10 @@ export default function Home() {
                 key={idx}
                 href={item.link}
                 style={{
-                  background: 'var(--color-bg-card)',
+                  background: '#ffffff',
                   borderWidth: '1px',
                   borderStyle: 'solid',
-                  borderColor: 'var(--color-border)',
+                  borderColor: 'rgba(10, 26, 58, 0.12)',
                   borderRadius: '20px',
                   padding: '2rem',
                   textAlign: 'center',
@@ -139,8 +138,7 @@ export default function Home() {
                   cursor: 'pointer',
                   minHeight: '280px',
                   position: 'relative',
-                  boxShadow: 'var(--shadow)',
-                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
                 }}
                 whileHover={{
                   y: -6,
@@ -152,16 +150,17 @@ export default function Home() {
                 <h3 style={{
                   fontFamily: 'Orbitron, sans-serif',
                   fontSize: '1.25rem',
-                  color: 'var(--color-text-primary)',
+                  fontWeight: 700,
+                  color: '#0A1A3A',
                   marginBottom: '0.75rem',
                 }}>
                   {item.title}
                 </h3>
                 <p style={{
                   fontSize: '0.95rem',
-                  color: 'var(--color-text-secondary)',
+                  color: '#334155',
                   margin: 0,
-                  lineHeight: 1.6,
+                  lineHeight: 1.65,
                 }}>
                   {item.text}
                 </p>
