@@ -14,25 +14,14 @@ import AboutUs from './components/AboutUs';
 import UpdatesPopup from './components/UpdatesPopup';
 import AnimatedStat from './components/AnimatedStat';
 import Footer from './components/Footer';
-import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
+import KineticGrid from '@/components/ui/kinetic-grid';
 import StatsBento from '@/components/ui/stats-bento';
 
 export default function Home() {
   return (
     <main style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-      {/* Universal Stretched Background Grid */}
-      <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-        <AnimatedGridPattern
-          numSquares={50}
-          maxOpacity={0.16}
-          width={40}
-          height={40}
-          duration={3.5}
-          repeatDelay={0.8}
-          strokeDasharray={0}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        />
-      </div>
+      {/* Universal Stretched Background Kinetic Grid */}
+      <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 0 }} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         <UpdatesPopup />

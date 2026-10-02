@@ -9,8 +9,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import TopFadeGrid from '@/components/TopFadeGrid';
-import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
+import KineticGrid from '@/components/ui/kinetic-grid';
 import styles from './login.module.css';
 
 function LoginForm() {
@@ -105,22 +104,7 @@ function LoginForm() {
 
   return (
     <div className={styles.loginContainer}>
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
-        <AnimatedGridPattern
-          numSquares={45}
-          maxOpacity={0.16}
-          width={50}
-          height={50}
-          duration={3.5}
-          repeatDelay={1.2}
-          strokeDasharray={0}
-          style={{
-            maskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
-          }}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        />
-      </div>
+      <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 0 }} />
       
       <motion.div
         className={styles.loginBox}

@@ -10,7 +10,6 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Bot } from 'lucide-react';
 import styles from '../styles/Hero.module.css';
-import KineticGrid from '@/components/ui/kinetic-grid';
 
 export default function Hero() {
   const containerRef = useRef(null);

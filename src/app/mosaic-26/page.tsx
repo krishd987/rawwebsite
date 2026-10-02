@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, type Variants, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
+import KineticGrid from '@/components/ui/kinetic-grid';
 import styles from './tasks.module.css';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -560,18 +560,7 @@ export default function TasksPage() {
     <>
       <Navbar />
       <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-        <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: -1 }}>
-          <AnimatedGridPattern
-            numSquares={50}
-            maxOpacity={0.16}
-            width={50}
-            height={50}
-            duration={3.5}
-            repeatDelay={1.2}
-            strokeDasharray={0}
-            className="pointer-events-none absolute inset-0 h-full w-full"
-          />
-        </div>
+        <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: -1 }} />
         <main style={{ position: 'relative', zIndex: 1 }}>
           <title>MOSAIC &apos;26 | Team RAW Hackathon Portal</title>
           <meta name="description" content="Official MOSAIC '26 hackathon and task submission portal of Robotics and Aviation Wing (RAW) for Smart India Hackathon." />

@@ -8,7 +8,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import StatsBento from '@/components/ui/stats-bento';
-import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
+import KineticGrid from '@/components/ui/kinetic-grid';
 import styles from './dashboard.module.css';
 
 export default function Dashboard() {
@@ -70,22 +70,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard} style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
-        <AnimatedGridPattern
-          numSquares={45}
-          maxOpacity={0.16}
-          width={50}
-          height={50}
-          duration={3.5}
-          repeatDelay={1.2}
-          strokeDasharray={0}
-          style={{
-            maskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
-          }}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        />
-      </div>
+      <KineticGrid style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 0 }} />
       <div className={styles.header}>
         <h1>Dashboard</h1>
         <p>Welcome back! Here&apos;s your team overview.</p>

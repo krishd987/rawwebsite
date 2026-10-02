@@ -91,14 +91,14 @@ export function KineticGrid({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
         radius: 0,
-        maxRadius: Math.max(width, height) * 0.5,
-        alpha: 0.6,
+        maxRadius: Math.max(width, height) * 0.6,
+        alpha: 0.7,
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
-    container.addEventListener('click', handleClick);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    window.addEventListener('click', handleClick, { passive: true });
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -134,10 +134,10 @@ export function KineticGrid({
             let rdx = origX - ripple.x;
             let rdy = origY - ripple.y;
             let rdist = Math.sqrt(rdx * rdx + rdy * rdy);
-            let waveWidth = 35;
+            let waveWidth = 40;
             if (Math.abs(rdist - ripple.radius) < waveWidth) {
               let waveFactor = Math.cos(((rdist - ripple.radius) / waveWidth) * Math.PI);
-              let force = waveFactor * ripple.alpha * 4;
+              let force = waveFactor * ripple.alpha * 5;
               offsetX += (rdx / (rdist || 1)) * force;
               offsetY += (rdy / (rdist || 1)) * force;
             }
@@ -153,12 +153,12 @@ export function KineticGrid({
       const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
       
       const activeGridColor = isDark 
-        ? 'rgba(255, 255, 255, 0.05)' 
-        : (gridColor.startsWith('var(') ? 'rgba(10, 26, 58, 0.04)' : gridColor);
+        ? 'rgba(255, 255, 255, 0.08)' 
+        : (gridColor.startsWith('var(') ? 'rgba(10, 26, 58, 0.06)' : gridColor);
 
       const activeDotColor = isDark
-        ? 'rgba(255, 42, 36, 0.25)'
-        : (dotColor.startsWith('var(') ? 'rgba(225, 6, 0, 0.08)' : dotColor);
+        ? 'rgba(255, 42, 36, 0.4)'
+        : (dotColor.startsWith('var(') ? 'rgba(225, 6, 0, 0.15)' : dotColor);
 
       // Draw subtle grid lines
       ctx.strokeStyle = activeGridColor;
@@ -201,7 +201,7 @@ export function KineticGrid({
       for (let i = ripples.length - 1; i >= 0; i--) {
         const ripple = ripples[i];
         ripple.radius += 5;
-        ripple.alpha *= 0.93;
+        ripple.alpha *= 0.94;
         if (ripple.alpha < 0.01 || ripple.radius > ripple.maxRadius) {
           ripples.splice(i, 1);
         }
@@ -215,7 +215,7 @@ export function KineticGrid({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
-      if (container) container.removeEventListener('click', handleClick);
+      window.removeEventListener('click', handleClick);
       resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
@@ -242,7 +242,7 @@ export function KineticGrid({
           inset: 0,
           width: '100%',
           height: '100%',
-          pointerEvents: 'auto',
+          pointerEvents: 'none',
           zIndex: 0,
         }}
       />
