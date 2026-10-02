@@ -150,8 +150,18 @@ export function KineticGrid({
         }
       }
 
+      const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+      
+      const activeGridColor = isDark 
+        ? 'rgba(255, 255, 255, 0.05)' 
+        : (gridColor.startsWith('var(') ? 'rgba(10, 26, 58, 0.04)' : gridColor);
+
+      const activeDotColor = isDark
+        ? 'rgba(255, 42, 36, 0.25)'
+        : (dotColor.startsWith('var(') ? 'rgba(225, 6, 0, 0.08)' : dotColor);
+
       // Draw subtle grid lines
-      ctx.strokeStyle = gridColor;
+      ctx.strokeStyle = activeGridColor;
       ctx.lineWidth = 1;
 
       // Horizontal lines
@@ -177,7 +187,7 @@ export function KineticGrid({
       }
 
       // Draw small subtle intersection dots
-      ctx.fillStyle = dotColor;
+      ctx.fillStyle = activeDotColor;
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const pt = points[r][c];

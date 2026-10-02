@@ -160,20 +160,12 @@ img {
 }
 
 body {
-  --color-white: #ffffff;
-  --color-navy: #0A1A3A;
-  --color-dark-steel: #0F0F17;
-  --color-red: #E10600;
-  --color-light-navy: #1a2f52;
-  --color-gray-light: #f5f5f5;
-  --color-gray-dark: #333333;
-  --color-cyan: #00f3ff;
-
   font-family: 'Montserrat', 'Roboto', sans-serif;
-  background-color: var(--color-white);
-  color: var(--color-dark-steel);
+  background-color: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #0A1A3A);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 

@@ -29,8 +29,8 @@ export default function Home() {
         className="team-raw-intro"
         style={{
           padding: '4rem 0',
-          background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
-          borderTop: '1px solid rgba(10, 26, 58, 0.1)',
+          background: 'linear-gradient(180deg, var(--color-bg-primary, #ffffff) 0%, var(--color-bg-secondary, #f8f9fa) 100%)',
+          borderTop: '1px solid var(--color-border, rgba(10, 26, 58, 0.1))',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -39,7 +39,7 @@ export default function Home() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <TopFadeGrid gridColor="rgba(10, 26, 58, 0.08)" />
+        <TopFadeGrid gridColor="var(--grid-color, rgba(10, 26, 58, 0.08))" />
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
           <motion.div
             style={{ textAlign: 'center', marginBottom: '2rem' }}
@@ -122,11 +122,11 @@ export default function Home() {
                 key={idx}
                 href={item.link}
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
-                  borderWidth: '2px',
+                  background: 'var(--color-bg-card, #ffffff)',
+                  borderWidth: '1px',
                   borderStyle: 'solid',
-                  borderColor: 'rgba(10, 26, 58, 0.1)',
-                  borderRadius: '8px',
+                  borderColor: 'var(--color-border, rgba(10, 26, 58, 0.1))',
+                  borderRadius: '16px',
                   padding: '2rem',
                   textAlign: 'center',
                   textDecoration: 'none',
@@ -134,9 +134,10 @@ export default function Home() {
                   cursor: 'pointer',
                   minHeight: '280px',
                   position: 'relative',
+                  boxShadow: 'var(--shadow)',
                 }}
                 whileHover={{
-                  y: -10,
+                  y: -6,
                   borderColor: 'var(--color-red)',
                   boxShadow: '0 20px 40px rgba(225, 6, 0, 0.15), 0 0 20px rgba(225, 6, 0, 0.1)',
                 }}
@@ -169,7 +170,7 @@ export default function Home() {
       <motion.section
         style={{
           padding: '6rem 0',
-          background: 'linear-gradient(180deg, #f5f7fa 0%, #e8ebf0 50%, #f5f7fa 100%)',
+          background: 'linear-gradient(180deg, var(--color-bg-secondary, #f5f7fa) 0%, var(--color-bg-primary, #e8ebf0) 50%, var(--color-bg-secondary, #f5f7fa) 100%)',
           color: 'var(--color-navy)',
           position: 'relative',
           overflow: 'hidden',
@@ -194,11 +195,11 @@ export default function Home() {
               color: 'var(--color-navy)',
               letterSpacing: '0.02em',
             }}>
-              Team RAW <span style={{ color: '#B2001D' }}>Highlights</span>
+              Team RAW <span style={{ color: 'var(--color-red)' }}>Highlights</span>
             </h2>
             <p style={{
               fontSize: '1rem',
-              color: '#666',
+              color: 'var(--color-text-muted)',
             }}>
               Our achievements and impact
             </p>
@@ -219,7 +220,7 @@ export default function Home() {
       <motion.section
         style={{
           padding: '5rem 0',
-          background: 'radial-gradient(ellipse at center, rgba(225, 6, 0, 0.05) 0%, rgba(10, 26, 58, 0.03) 50%, #ffffff 100%)',
+          background: 'radial-gradient(ellipse at center, rgba(225, 6, 0, 0.05) 0%, var(--color-bg-secondary) 60%, var(--color-bg-primary) 100%)',
           position: 'relative',
         }}
         initial={{ opacity: 0 }}
@@ -232,10 +233,10 @@ export default function Home() {
             style={{
               textAlign: 'center',
               padding: '3rem 2rem',
-              background: 'rgba(255, 255, 255, 0.8)',
+              background: 'var(--color-bg-card)',
               borderRadius: '16px',
-              border: '2px solid rgba(225, 6, 0, 0.15)',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.08)',
+              border: '1px solid var(--color-border)',
+              boxShadow: 'var(--shadow-lg)',
             }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -267,15 +268,15 @@ export default function Home() {
                   href={link.href}
                   style={{
                     display: 'inline-block',
-                    padding: '1rem 2rem',
+                    padding: '0.875rem 2rem',
                     background: 'var(--color-red)',
-                    color: 'var(--color-white)',
-                    borderRadius: '8px',
+                    color: '#ffffff',
+                    borderRadius: '10px',
                     textDecoration: 'none',
                     fontFamily: 'Montserrat, sans-serif',
                     fontWeight: '600',
                     fontSize: '1rem',
-                    border: '2px solid var(--color-red)',
+                    border: '1px solid var(--color-red)',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease-in-out',
                     boxShadow: '0 4px 12px rgba(225, 6, 0, 0.2)',
