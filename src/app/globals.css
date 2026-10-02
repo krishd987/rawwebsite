@@ -23,6 +23,13 @@
 
 :root {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #0A1A3A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-border: rgba(10, 26, 58, 0.1);
   --color-white: #ffffff;
   --color-navy: #0A1A3A;
   --color-dark-steel: #0F0F17;
@@ -34,6 +41,29 @@
   --color-cyan: #00f3ff;
   --grid-color: rgba(10, 26, 58, 0.05);
   --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(248, 249, 250, 0.8) 75%, #ffffff 100%);
+}
+
+/* Dedicated Dark Theme Palette (Deep Obsidian Steel + Vibrant Crimson Accents) */
+html.dark,
+html[data-theme="dark"] {
+  --color-bg-primary: #090d16;
+  --color-bg-secondary: #0f172a;
+  --color-bg-card: #131c2e;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-white: #090d16;
+  --color-navy: #f8fafc;
+  --color-dark-steel: #f1f5f9;
+  --color-red: #ff2a24;
+  --color-red-hover: #E10600;
+  --color-light-navy: #1e293b;
+  --color-gray-light: #1e293b;
+  --color-gray-dark: #cbd5e1;
+  --color-cyan: #38bdf8;
+  --grid-color: rgba(255, 255, 255, 0.04);
+  --grid-overlay: radial-gradient(ellipse 85% 65% at 50% 10%, transparent 20%, rgba(15, 23, 42, 0.95) 75%, #090d16 100%);
 }
 
 html {
