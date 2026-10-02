@@ -1,0 +1,53 @@
+/**
+ * Clean Transparent Theme Toggle Styles
+ */
+
+.toggleButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0 !important;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+:global(html:not(.dark)) .toggleButton {
+  border: 1px solid rgba(10, 26, 58, 0.2) !important;
+  color: #0A1A3A !important;
+  background: transparent !important;
+}
+
+.toggleButton:hover {
+  background: rgba(225, 6, 0, 0.15) !important;
+  border-color: var(--color-red) !important;
+  color: var(--color-red) !important;
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(225, 6, 0, 0.35) !important;
+}
+
+.toggleButton:active {
+  transform: scale(0.92);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

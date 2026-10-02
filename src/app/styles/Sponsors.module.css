@@ -559,165 +559,401 @@
   background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
 }
 
-/* Jersey Mockup */
-.jersey {
-  width: 120px;
-  height: 140px;
-  background: linear-gradient(135deg, #e10600 0%, #ff2e2e 100%);
-  border-radius: 8px;
+/* High-Tech Illustrated Mockups */
+
+/* 1. Team Jersey Mockup */
+.jerseyMockup {
+  width: 150px;
+  height: 155px;
+  background: linear-gradient(180deg, #131722 0%, #1c0808 60%, #e10600 100%);
+  border-radius: 16px 16px 10px 10px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 12px 36px rgba(225, 6, 0, 0.4), inset 0 0 20px rgba(225, 6, 0, 0.25);
+  border: 1px solid rgba(225, 6, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 10px 30px rgba(225, 6, 0, 0.4);
+  overflow: hidden;
 }
 
-.jerseyTop {
+.jerseyCollar {
+  width: 50px;
+  height: 18px;
+  background: #090c14;
+  border-radius: 0 0 16px 16px;
+  border-bottom: 2px solid var(--color-red);
+  margin-bottom: 8px;
+}
+
+.jerseySleeves {
   width: 100%;
-  text-align: center;
-  font-size: 0.6rem;
-  color: var(--color-white);
-  font-weight: 700;
-  padding-top: 0.5rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  position: absolute;
+  top: 14px;
 }
 
-.sponsor {
-  letter-spacing: 0.05em;
-}
-
-.jerseyBody {
-  color: var(--color-white);
+.sleeveBadgeLeft,
+.sleeveBadgeRight {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(225, 6, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(225, 6, 0, 0.5);
+}
+
+.jerseyChest {
+  width: 86%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.jerseySponsorBadge {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  padding: 5px 8px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.sponsorLabel {
+  display: block;
+  font-size: 0.5rem;
+  color: #ff8888;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.sponsorName {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: #ffffff;
   font-weight: 900;
   letter-spacing: 0.05em;
-  flex: 2;
-  display: flex;
-  align-items: center;
 }
 
-/* Robot Mockup */
-.robot {
-  width: 100px;
-  height: 130px;
-  background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
-  border-radius: 5px;
+.jerseyNumber {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 8px rgba(225, 6, 0, 0.8);
+}
+
+.jerseyAccentStripes {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 8px, var(--color-red) 8px, var(--color-red) 16px);
+}
+
+/* 2. Robot Chassis Mockup */
+.robotMockup {
+  width: 150px;
+  height: 155px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  z-index: 2;
-  border: 2px solid #00d4ff;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-}
-
-.robotTop {
-  flex: 1;
-  background: linear-gradient(135deg, #444 0%, #222 100%);
-  border-bottom: 2px solid #00d4ff;
-}
-
-.robotSponsorZone {
-  flex: 2;
-  display: flex;
   align-items: center;
   justify-content: center;
-  color: #00d4ff;
-  font-size: 0.6rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.5rem;
-  letter-spacing: 0.03em;
+  position: relative;
+  z-index: 2;
 }
 
-.robotBottom {
-  flex: 1;
-  background: linear-gradient(135deg, #222 0%, #000 100%);
-  border-top: 2px solid #00d4ff;
+.robotLidar {
+  width: 28px;
+  height: 14px;
+  background: #00d4ff;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  box-shadow: 0 0 15px #00d4ff;
+  display: flex;
+  justify-content: center;
 }
 
-/* Trailer Mockup */
-.trailer {
+.lidarBeam {
+  position: absolute;
+  top: -6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 12px #00d4ff, 0 0 24px #00d4ff;
+  animation: lidarPulse 1.8s infinite alternate;
+}
+
+@keyframes lidarPulse {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(1.3); opacity: 1; }
+}
+
+.robotFrame {
   width: 140px;
-  height: 80px;
-  background: linear-gradient(90deg, #1a1a1a 0%, #333 100%);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
+  height: 110px;
+  background: linear-gradient(145deg, #0e1726, #050b14);
+  border: 2px solid #00d4ff;
+  border-radius: 12px;
   position: relative;
-  z-index: 2;
-  border: 2px solid #ffb800;
-}
-
-.trailerPanel {
-  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffb800;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.5rem;
-  letter-spacing: 0.02em;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.35), inset 0 0 15px rgba(0, 212, 255, 0.15);
 }
 
-.trailerWheels {
-  flex: 1;
+.robotPlate {
+  width: 110px;
+  height: 65px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.sponsorScreen {
+  text-align: center;
+}
+
+.screenLabel {
+  display: block;
+  font-size: 0.5rem;
+  color: #7dd3fc;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.screenText {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: #00d4ff;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.9);
+}
+
+.robotWheels {
+  position: absolute;
+  inset: -6px -10px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.mecanumWheel {
+  width: 12px;
+  height: 34px;
+  background: #1e293b;
+  border: 2px solid #00d4ff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+/* 3. Trailer Mockup */
+.trailerMockup {
+  width: 160px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.trailerBody {
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(135deg, #1b1c22 0%, #0d0f14 100%);
+  border: 2px solid #ffb800;
+  border-radius: 10px 18px 4px 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 12px;
+  box-shadow: 0 0 25px rgba(255, 184, 0, 0.25), inset 0 0 15px rgba(255, 184, 0, 0.1);
+}
+
+.trailerHeadlights {
+  position: absolute;
+  right: 6px;
+  top: 14px;
+  width: 6px;
+  height: 14px;
+  background: #ffb800;
+  border-radius: 2px;
+  box-shadow: 0 0 14px #ffb800;
+}
+
+.trailerSponsorPanel {
+  background: rgba(255, 184, 0, 0.08);
+  border: 1px dashed rgba(255, 184, 0, 0.5);
+  border-radius: 6px;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.transportTag {
+  display: block;
+  font-size: 0.5rem;
+  color: #fde047;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.transportBrand {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  color: #ffb800;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 184, 0, 0.8);
+}
+
+.trailerHazard {
+  position: absolute;
+  bottom: 4px;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background: repeating-linear-gradient(45deg, #ffb800, #ffb800 5px, #000 5px, #000 10px);
+}
+
+.trailerUnderglow {
+  position: absolute;
+  bottom: 16px;
+  width: 80%;
+  height: 10px;
+  background: #ffb800;
+  filter: blur(10px);
+  opacity: 0.6;
+}
+
+.trailerAxles {
+  width: 70%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  padding: 0 0.5rem;
+  margin-top: -8px;
+  z-index: 3;
 }
 
-.wheel {
-  width: 20px;
-  height: 20px;
-  background: #000;
+.cyberWheel {
+  width: 26px;
+  height: 26px;
+  background: #090c14;
   border: 2px solid #ffb800;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(255, 184, 0, 0.4);
 }
 
-/* Banner Mockup */
-.banner {
-  width: 180px;
-  height: 80px;
-  background: linear-gradient(90deg, #e10600 0%, #ff2e2e 100%);
-  border-radius: 8px;
+.cyberRim {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffb800;
+}
+
+/* 4. Event Banners Mockup */
+.bannerMockup {
+  width: 165px;
+  height: 130px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 2;
-  box-shadow: 0 10px 30px rgba(225, 6, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.bannerContent {
+.trussRig {
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(45deg, #475569 0px, #475569 4px, #1e293b 4px, #1e293b 8px);
+  border-radius: 4px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--color-white);
+  justify-content: space-around;
+  position: relative;
+}
+
+.stageSpotlight {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ff4444, 0 10px 20px rgba(225, 6, 0, 0.6);
+}
+
+.ledScreen {
+  width: 100%;
+  background: linear-gradient(135deg, #180303 0%, #290505 50%, #150202 100%);
+  border: 2px solid var(--color-red);
+  border-radius: 8px;
+  padding: 10px 8px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(225, 6, 0, 0.45);
+  margin-top: 4px;
 }
 
-.bannerSponsor {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  opacity: 0.9;
+.screenScanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
 }
 
-.bannerBrand {
+.bannerSubtitle {
+  display: block;
+  font-size: 0.52rem;
+  color: #fca5a5;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.bannerTitle {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 900;
-  letter-spacing: 0.05em;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  margin: 2px 0;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 20px rgba(225, 6, 0, 0.8);
+}
+
+.bannerLiveTag {
+  display: block;
+  font-size: 0.48rem;
+  color: #ef4444;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.bannerStand {
+  width: 40%;
+  height: 6px;
+  background: #334155;
+  border-radius: 0 0 4px 4px;
 }
 
 .exposureCard h3 {

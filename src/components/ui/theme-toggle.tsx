@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import styles from './theme-toggle.module.css';
 
 export interface ThemeToggleProps {
   className?: string;
@@ -12,18 +12,18 @@ export interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ className, style }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem('raw_theme');
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setTheme('dark');
-      applyTheme('dark');
-    } else {
+    if (saved === 'light') {
       setTheme('light');
       applyTheme('light');
+    } else {
+      setTheme('dark');
+      applyTheme('dark');
     }
   }, []);
 
@@ -46,13 +46,16 @@ export function ThemeToggle({ className, style }: ThemeToggleProps) {
 
   if (!mounted) {
     return (
-      <div
-        className={cn(
-          'relative flex h-9 w-9 items-center justify-center rounded-full border border-gray-200/60 bg-white/60 dark:border-white/10 dark:bg-white/5',
-          className
-        )}
+      <button
+        type="button"
+        className={`${styles.toggleButton} ${className || ''}`}
         style={style}
-      />
+        aria-label="Theme Toggle Placeholder"
+      >
+        <div className={styles.iconWrapper}>
+          <Sun size={19} color="#fbbf24" />
+        </div>
+      </button>
     );
   }
 
@@ -62,13 +65,7 @@ export function ThemeToggle({ className, style }: ThemeToggleProps) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={cn(
-        'group relative flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50',
-        isDark
-          ? 'border-white/15 bg-white/10 text-yellow-400 hover:border-white/30 hover:bg-white/15 shadow-[0_0_12px_rgba(255,255,255,0.06)]'
-          : 'border-black/10 bg-black/5 text-navy hover:border-black/20 hover:bg-black/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)]',
-        className
-      )}
+      className={`${styles.toggleButton} ${className || ''}`}
       style={style}
       aria-label="Toggle Theme"
       title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
@@ -81,9 +78,9 @@ export function ThemeToggle({ className, style }: ThemeToggleProps) {
             animate={{ rotate: 0, scale: 1, opacity: 1 }}
             exit={{ rotate: 90, scale: 0, opacity: 0 }}
             transition={{ duration: 0.22, ease: 'easeInOut' }}
-            className="flex items-center justify-center text-yellow-400"
+            className={styles.iconWrapper}
           >
-            <Sun className="h-[18px] w-[18px] transition-transform duration-200 group-hover:scale-110" />
+            <Sun size={19} color="#fbbf24" />
           </motion.div>
         ) : (
           <motion.div
@@ -92,9 +89,9 @@ export function ThemeToggle({ className, style }: ThemeToggleProps) {
             animate={{ rotate: 0, scale: 1, opacity: 1 }}
             exit={{ rotate: -90, scale: 0, opacity: 0 }}
             transition={{ duration: 0.22, ease: 'easeInOut' }}
-            className="flex items-center justify-center text-slate-700"
+            className={styles.iconWrapper}
           >
-            <Moon className="h-[18px] w-[18px] transition-transform duration-200 group-hover:scale-110" />
+            <Moon size={19} color="#0A1A3A" />
           </motion.div>
         )}
       </AnimatePresence>

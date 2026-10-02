@@ -454,11 +454,20 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.jersey}>
-                <div className={styles.jerseyTop}>
-                  <span className={styles.sponsor}>SPONSOR</span>
+              <div className={styles.jerseyMockup}>
+                <div className={styles.jerseyCollar} />
+                <div className={styles.jerseySleeves}>
+                  <span className={styles.sleeveBadgeLeft}>SFIT</span>
+                  <span className={styles.sleeveBadgeRight}>RAW</span>
                 </div>
-                <div className={styles.jerseyBody}>TEAM RAW</div>
+                <div className={styles.jerseyChest}>
+                  <div className={styles.jerseySponsorBadge}>
+                    <span className={styles.sponsorLabel}>PRIMARY SPONSOR</span>
+                    <span className={styles.sponsorName}>YOUR LOGO</span>
+                  </div>
+                  <div className={styles.jerseyNumber}>TEAM RAW</div>
+                </div>
+                <div className={styles.jerseyAccentStripes} />
               </div>
             </div>
             <h3>Team Uniforms</h3>
@@ -473,10 +482,24 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.robot}>
-                <div className={styles.robotTop} />
-                <div className={styles.robotSponsorZone}>SPONSOR LOGO</div>
-                <div className={styles.robotBottom} />
+              <div className={styles.robotMockup}>
+                <div className={styles.robotLidar}>
+                  <div className={styles.lidarBeam} />
+                </div>
+                <div className={styles.robotFrame}>
+                  <div className={styles.robotPlate}>
+                    <div className={styles.sponsorScreen}>
+                      <span className={styles.screenLabel}>CHASSIS PARTNER</span>
+                      <strong className={styles.screenText}>SPONSOR LOGO</strong>
+                    </div>
+                  </div>
+                  <div className={styles.robotWheels}>
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                    <div className={styles.mecanumWheel} />
+                  </div>
+                </div>
               </div>
             </div>
             <h3>Robot Chassis</h3>
@@ -491,11 +514,19 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.trailer}>
-                <div className={styles.trailerPanel}>SPONSOR BRANDING</div>
-                <div className={styles.trailerWheels}>
-                  <div className={styles.wheel}></div>
-                  <div className={styles.wheel}></div>
+              <div className={styles.trailerMockup}>
+                <div className={styles.trailerBody}>
+                  <div className={styles.trailerHeadlights} />
+                  <div className={styles.trailerSponsorPanel}>
+                    <span className={styles.transportTag}>LOGISTICS PARTNER</span>
+                    <strong className={styles.transportBrand}>SPONSOR BRANDING</strong>
+                  </div>
+                  <div className={styles.trailerHazard} />
+                </div>
+                <div className={styles.trailerUnderglow} />
+                <div className={styles.trailerAxles}>
+                  <div className={styles.cyberWheel}><div className={styles.cyberRim} /></div>
+                  <div className={styles.cyberWheel}><div className={styles.cyberRim} /></div>
                 </div>
               </div>
             </div>
@@ -511,11 +542,18 @@ const BrandExposure = () => {
             className={styles.exposureCard}
           >
             <div className={styles.mockupContainer}>
-              <div className={styles.banner}>
-                <div className={styles.bannerContent}>
-                  <span className={styles.bannerSponsor}>PRESENTED BY</span>
-                  <span className={styles.bannerBrand}>YOUR BRAND</span>
+              <div className={styles.bannerMockup}>
+                <div className={styles.trussRig}>
+                  <div className={styles.stageSpotlight} />
+                  <div className={styles.stageSpotlight} />
                 </div>
+                <div className={styles.ledScreen}>
+                  <div className={styles.screenScanlines} />
+                  <span className={styles.bannerSubtitle}>EVENT PRESENTED BY</span>
+                  <h4 className={styles.bannerTitle}>YOUR BRAND</h4>
+                  <span className={styles.bannerLiveTag}>● LIVE STREAM & STAGE</span>
+                </div>
+                <div className={styles.bannerStand} />
               </div>
             </div>
             <h3>Event Banners & Digital</h3>
