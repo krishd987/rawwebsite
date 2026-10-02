@@ -300,618 +300,618 @@ export default function RegisterPage() {
             />
           </div>
 
-      {/* Hero Section */}
-      <motion.section
-        className={styles.hero}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className={styles.heroContent}>
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          {/* Hero Section */}
+          <motion.section
+            className={styles.hero}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
           >
-            <span className={styles.redAccent}>Registration</span>
-          </motion.h1>
-        </div>
-      </motion.section>
-
-      {/* Registration Form Section */}
-      <section className={styles.section}>
-        <div className={styles.gridBackground}></div>
-
-        {submitStatus === 'success' ? (
-          /* Success Confirmation */
-          <motion.div
-            className={styles.successContainer}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className={styles.successCard}>
-              <motion.div
-                className={styles.successIcon}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+            <div className={styles.heroContent}>
+              <motion.h1
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
               >
-                ✓
-              </motion.div>
-
-              <h2>Registration Successful</h2>
-
-              <p className={styles.successMessage}>
-                Thank you for registering with Team RAW. Your details have been submitted successfully.
-                Our team will review your application and contact you via your registered email.
-              </p>
-
-              <div className={styles.whatsappCard}>
-                <div className={styles.whatsappHeader}>
-                  <svg className={styles.whatsappIcon} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.455h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                  </svg>
-                  <h3>Join Official WhatsApp Group</h3>
-                </div>
-                <p className={styles.whatsappText}>
-                  It is mandatory for the <strong>Team Leader</strong> to join the WhatsApp group to receive critical announcements, guidelines, and event schedules.
-                </p>
-                <motion.a
-                  href="https://chat.whatsapp.com/IUWSn3zOWUK8Vp5mFJWaeQ?s=cl&p=a&ilr=1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.whatsappBtn}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Join WhatsApp Group
-                </motion.a>
-              </div>
-
-              <div className={styles.successActions}>
-                <motion.a
-                  href="/"
-                  className={styles.primaryBtn}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Back to Home
-                </motion.a>
-
-                <motion.a
-                  href="/about"
-                  className={styles.secondaryBtn}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Explore Team RAW
-                </motion.a>
-              </div>
-
-              <p className={styles.autoRedirect}>
-                Redirecting to home page in <span id="countdown">20</span> seconds...
-              </p>
+                <span className={styles.redAccent}>Registration</span>
+              </motion.h1>
             </div>
-          </motion.div>
-        ) : (
-          /* Registration Form */
-          <div className={`${styles.container} registration-container`}>
-            <motion.div
-              className={styles.formContainer}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className={styles.formHeader}>
-                <h2>Registration Form</h2>
-                <p className={styles.tagline}>
-                  This form is only for students of St. Francis Institute of Technology registering for upcoming robotics registration.
-                </p>
-              </div>
-              <form onSubmit={handleSubmit} className={styles.form}>
-                {/* Registration Details */}
-                <div className={styles.formSection} id="select-competition-section">
-                  <h3 className={styles.sectionTitle}>Select Competition</h3>
-                  <p className={styles.sectionDescription}>Choose the robotics opportunity you want to register for</p>
+          </motion.section>
 
-                  <div className={styles.competitionsGrid}>
-                    {competitionsData.map((comp) => {
-                      const isExpanded = expandedDescriptions[comp._id];
-                      const shouldTruncate = comp.description.length > 120;
-                      const displayDescription = isExpanded || !shouldTruncate
-                        ? comp.description
-                        : comp.description.substring(0, 120) + '...';
+          {/* Registration Form Section */}
+          <section className={styles.section}>
+            <div className={styles.gridBackground}></div>
 
-                      // Check registration status
-                      const now = new Date();
-                      const startDate = comp.registrationStartDate ? new Date(comp.registrationStartDate) : null;
-                      const endDate = comp.registrationEndDate ? new Date(comp.registrationEndDate) : null;
+            {submitStatus === 'success' ? (
+              /* Success Confirmation */
+              <motion.div
+                className={styles.successContainer}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className={styles.successCard}>
+                  <motion.div
+                    className={styles.successIcon}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+                  >
+                    ✓
+                  </motion.div>
 
-                      let canRegister = comp.registrationEnabled !== false;
-                      let registrationMessage = '';
-                      let registrationBadgeStyle = {};
+                  <h2>Registration Successful</h2>
 
-                      if (!comp.registrationEnabled) {
-                        canRegister = false;
-                        registrationMessage = 'Registration Disabled';
-                        registrationBadgeStyle = { backgroundColor: '#666', color: 'white' };
-                      } else if (startDate && now < startDate) {
-                        canRegister = false;
-                        registrationMessage = `Registration Opens: ${startDate.toLocaleDateString()}`;
-                        registrationBadgeStyle = { backgroundColor: '#ff9800', color: 'white' };
-                      } else if (endDate && now > endDate) {
-                        canRegister = false;
-                        registrationMessage = 'Registration Closed';
-                        registrationBadgeStyle = { backgroundColor: '#f44336', color: 'white' };
-                      } else {
-                        registrationMessage = 'Registration Open';
-                        registrationBadgeStyle = { backgroundColor: '#4caf50', color: 'white' };
-                      }
+                  <p className={styles.successMessage}>
+                    Thank you for registering with Team RAW. Your details have been submitted successfully.
+                    Our team will review your application and contact you via your registered email.
+                  </p>
 
-                      return (
-                        <motion.div
-                          key={comp._id}
-                          className={`${styles.competitionCard} competition-card ${selectedCompetition?._id === comp._id ? styles.competitionCardActive : ''
-                            } ${!canRegister ? styles.competitionCardDisabled : ''}`}
-                          whileHover={{ scale: canRegister ? 1.02 : 1 }}
-                          whileTap={{ scale: canRegister ? 0.98 : 1 }}
-                          style={{ opacity: canRegister ? 1 : 0.7 }}
-                        >
-                          {selectedCompetition?._id === comp._id && canRegister && (
-                            <span className={styles.selectedBadge}>✓ Selected</span>
-                          )}
-
-                          <span className={styles.registrationStatusBadge} style={registrationBadgeStyle}>
-                            {registrationMessage}
-                          </span>
-
-                          <div onClick={() => canRegister && handleCompetitionSelect(comp)} style={{ cursor: canRegister ? 'pointer' : 'not-allowed' }}>
-                            {comp.imageUrl && (
-                              <div className={styles.competitionImageWrapper}>
-                                <img
-                                  src={comp.imageUrl}
-                                  alt={comp.name}
-                                  className={styles.competitionImage}
-                                />
-                              </div>
-                            )}
-                            <div className={styles.competitionHeader}>
-                              <h4 className="competition-title">{comp.name}</h4>
-                            </div>
-                            <p className={styles.competitionOrganizer}>{comp.organizer}</p>
-
-                            <div className={`${styles.competitionMeta} competition-meta`}>
-                              <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                  </svg>
-                                </span>
-                                <span>{comp.date}</span>
-                              </span>
-                              <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                  </svg>
-                                </span>
-                                <span>{comp.deadline}</span>
-                              </span>
-                              <span className={styles.competitionMetaItem}>
-                                <span className={styles.metaIcon}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                  </svg>
-                                </span>
-                                <span>{comp.teamSize}</span>
-                              </span>
-                            </div>
-
-                            <p className={`${styles.competitionDescription} competition-description ${isExpanded ? 'expanded' : ''}`}>
-                              {displayDescription}
-                            </p>
-
-                            {canRegister && selectedCompetition?._id !== comp._id && (
-                              <div className={styles.selectPrompt} style={{ color: 'var(--color-red)', fontSize: '0.9rem', fontWeight: 600, marginTop: '1rem', textDecoration: 'underline', textAlign: 'center' }}>
-                                Click here to select this form
-                              </div>
-                            )}
-                          </div>
-
-                          {shouldTruncate && (
-                            <button
-                              type="button"
-                              className={`${styles.readMoreBtn} read-more-btn`}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleDescription(comp._id);
-                              }}
-                            >
-                              {isExpanded ? '▲ Show less' : '▼ Read more'}
-                            </button>
-                          )}
-                        </motion.div>
-                      );
-                    })}
+                  <div className={styles.whatsappCard}>
+                    <div className={styles.whatsappHeader}>
+                      <svg className={styles.whatsappIcon} viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.455h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                      </svg>
+                      <h3>Join Official WhatsApp Group</h3>
+                    </div>
+                    <p className={styles.whatsappText}>
+                      It is mandatory for the <strong>Team Leader</strong> to join the WhatsApp group to receive critical announcements, guidelines, and event schedules.
+                    </p>
+                    <motion.a
+                      href="https://chat.whatsapp.com/GyG30cxCudSK9aPdNLFy6W"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.whatsappBtn}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      Join WhatsApp Group
+                    </motion.a>
                   </div>
+
+                  <div className={styles.successActions}>
+                    <motion.a
+                      href="/"
+                      className={styles.primaryBtn}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Back to Home
+                    </motion.a>
+
+                    <motion.a
+                      href="/about"
+                      className={styles.secondaryBtn}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Explore Team RAW
+                    </motion.a>
+                  </div>
+
+                  <p className={styles.autoRedirect}>
+                    Redirecting to home page in <span id="countdown">20</span> seconds...
+                  </p>
                 </div>
+              </motion.div>
+            ) : (
+              /* Registration Form */
+              <div className={`${styles.container} registration-container`}>
+                <motion.div
+                  className={styles.formContainer}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className={styles.formHeader}>
+                    <h2>Registration Form</h2>
+                    <p className={styles.tagline}>
+                      This form is only for students of St. Francis Institute of Technology registering for upcoming robotics registration.
+                    </p>
+                  </div>
+                  <form onSubmit={handleSubmit} className={styles.form}>
+                    {/* Registration Details */}
+                    <div className={styles.formSection} id="select-competition-section">
+                      <h3 className={styles.sectionTitle}>Select Competition</h3>
+                      <p className={styles.sectionDescription}>Choose the robotics opportunity you want to register for</p>
 
-                {/* Additional Fields - Show only after competition selection */}
-                {selectedCompetition ? (() => {
-                  const hasEmailField = selectedCompetition.customFields?.some(
-                    f => f.type === 'email' || f.label.toLowerCase().includes('email')
-                  ) || false;
+                      <div className={styles.competitionsGrid}>
+                        {competitionsData.map((comp) => {
+                          const isExpanded = expandedDescriptions[comp._id];
+                          const shouldTruncate = comp.description.length > 120;
+                          const displayDescription = isExpanded || !shouldTruncate
+                            ? comp.description
+                            : comp.description.substring(0, 120) + '...';
 
-                  const hasPhoneField = selectedCompetition.customFields?.some(
-                    f => f.type === 'tel' || f.label.toLowerCase().includes('phone') || f.label.toLowerCase().includes('mobile')
-                  ) || false;
+                          // Check registration status
+                          const now = new Date();
+                          const startDate = comp.registrationStartDate ? new Date(comp.registrationStartDate) : null;
+                          const endDate = comp.registrationEndDate ? new Date(comp.registrationEndDate) : null;
 
-                  const hasNameField = selectedCompetition.customFields?.some(
-                    f => f.label.toLowerCase().includes('leader name') || 
-                         f.label.toLowerCase().includes('member 1 name') ||
-                         (f.label.toLowerCase().includes('name') && !f.label.toLowerCase().includes('member') && !f.label.toLowerCase().includes('team'))
-                  ) || false;
+                          let canRegister = comp.registrationEnabled !== false;
+                          let registrationMessage = '';
+                          let registrationBadgeStyle = {};
 
-                  return (
-                    <div id="additional-fields">
-                      {/* Dynamic Custom Fields & Injected Core Fields */}
-                      <div className={styles.formSection}>
-                        <h3 className={styles.sectionTitle}>Registration Form</h3>
-                        <p className={styles.sectionDescription}>
-                          Please fill in the details requested for this registration.
-                        </p>
+                          if (!comp.registrationEnabled) {
+                            canRegister = false;
+                            registrationMessage = 'Registration Disabled';
+                            registrationBadgeStyle = { backgroundColor: '#666', color: 'white' };
+                          } else if (startDate && now < startDate) {
+                            canRegister = false;
+                            registrationMessage = `Registration Opens: ${startDate.toLocaleDateString()}`;
+                            registrationBadgeStyle = { backgroundColor: '#ff9800', color: 'white' };
+                          } else if (endDate && now > endDate) {
+                            canRegister = false;
+                            registrationMessage = 'Registration Closed';
+                            registrationBadgeStyle = { backgroundColor: '#f44336', color: 'white' };
+                          } else {
+                            registrationMessage = 'Registration Open';
+                            registrationBadgeStyle = { backgroundColor: '#4caf50', color: 'white' };
+                          }
 
-                        <div className={styles.additionalFieldsGrid}>
-                          {/* Injected Core Name Field */}
-                          {!hasNameField && (
-                            <div className={styles.formGroup}>
-                              <label htmlFor="fullName">SFIT Student Name *</label>
-                              <input
-                                type="text"
-                                id="fullName"
-                                name="fullName"
-                                value={formData.fullName}
-                                onChange={handleInputChange}
-                                required
-                                placeholder="Enter your full name"
-                              />
-                            </div>
-                          )}
-
-                          {/* Injected Core Email Field */}
-                          {!hasEmailField && (
-                            <div className={styles.formGroup}>
-                              <label htmlFor="email">SFIT Student Email Address *</label>
-                              <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                required
-                                placeholder="your.name@student.sfit.ac.in"
-                                pattern="^[^@\s]+@student\.sfit\.ac\.in$"
-                                title="Use your @student.sfit.ac.in email address"
-                              />
-                            </div>
-                          )}
-
-                          {/* Injected Core Phone Field */}
-                          {!hasPhoneField && (
-                            <div className={styles.formGroup}>
-                              <label htmlFor="phone">Phone Number *</label>
-                              <div className={styles.phoneInputWrapper} style={{ display: 'flex', alignItems: 'center' }}>
-                                <span className={styles.phonePrefix} style={{ marginRight: '0.5rem', fontWeight: 600 }}>+91</span>
-                                <input
-                                  type="tel"
-                                  id="phone"
-                                  name="phone"
-                                  value={formData.phone}
-                                  onChange={handlePhoneChange}
-                                  required
-                                  placeholder="9876543210"
-                                  pattern="[0-9]{10}"
-                                  title="Please enter exactly 10 digits"
-                                  maxLength={10}
-                                  className={styles.phoneInput}
-                                  style={{ flex: 1 }}
-                                />
-                              </div>
-                              {formData.phone && formData.phone.length < 10 && (
-                                <span className={styles.phoneHint} style={{ fontSize: '0.85rem', color: '#ff3b30', marginTop: '0.25rem' }}>
-                                  {10 - formData.phone.length} more digit{10 - formData.phone.length !== 1 ? 's' : ''} required
-                                </span>
+                          return (
+                            <motion.div
+                              key={comp._id}
+                              className={`${styles.competitionCard} competition-card ${selectedCompetition?._id === comp._id ? styles.competitionCardActive : ''
+                                } ${!canRegister ? styles.competitionCardDisabled : ''}`}
+                              whileHover={{ scale: canRegister ? 1.02 : 1 }}
+                              whileTap={{ scale: canRegister ? 0.98 : 1 }}
+                              style={{ opacity: canRegister ? 1 : 0.7 }}
+                            >
+                              {selectedCompetition?._id === comp._id && canRegister && (
+                                <span className={styles.selectedBadge}>✓ Selected</span>
                               )}
-                            </div>
-                          )}
-                          {selectedCompetition.customFields.map((field) => {
-                            const isFullWidth = ['textarea', 'checkbox'].includes(field.type);
 
-                            return (
-                              <div
-                                key={field.id}
-                                className={`${styles.formGroup} ${isFullWidth ? styles.formGroupFull : ''}`}
-                              >
-                                {field.type !== 'checkbox' && (
-                                  <label htmlFor={field.id}>
-                                    {field.label} {field.required && <span className={styles.required}>*</span>}
-                                  </label>
-                                )}
+                              <span className={styles.registrationStatusBadge} style={registrationBadgeStyle}>
+                                {registrationMessage}
+                              </span>
 
-                                {field.type === 'textarea' && (
-                                  <textarea
-                                    id={field.id}
-                                    required={field.required}
-                                    placeholder={field.placeholder || `Enter ${field.label}`}
-                                    value={customFieldValues[field.id] || ''}
-                                    onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                  />
-                                )}
-
-                                {field.type === 'select' && (
-                                  <select
-                                    id={field.id}
-                                    required={field.required}
-                                    value={customFieldValues[field.id] || ''}
-                                    onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                    style={{ appearance: 'auto', WebkitAppearance: 'auto' as any }}
-                                  >
-                                    <option value="">Select an option</option>
-                                    {field.options?.map((opt) => (
-                                      <option key={opt} value={opt}>
-                                        {opt}
-                                      </option>
-                                    ))}
-                                  </select>
-                                )}
-
-                                {field.type === 'checkbox' && (
-                                  <div className={styles.checkboxOptionsGroup}>
-                                    {(field.options && field.options.length > 0) ? (
-                                      // Option-based checkbox/radio group
-                                      field.options.map((opt, oi) => (
-                                        <label key={oi} className={styles.checkboxOptionRow}>
-                                          <input
-                                            type={field.multiSelect ? 'checkbox' : 'radio'}
-                                            name={field.id}
-                                            value={opt}
-                                            required={field.required && oi === 0}
-                                            checked={
-                                              field.multiSelect
-                                                ? Array.isArray(customFieldValues[field.id]) && (customFieldValues[field.id] as string[]).includes(opt)
-                                                : customFieldValues[field.id] === opt
-                                            }
-                                            onChange={(e) => {
-                                              if (field.multiSelect) {
-                                                const current: string[] = Array.isArray(customFieldValues[field.id]) ? customFieldValues[field.id] as string[] : [];
-                                                if (e.target.checked) {
-                                                  handleCustomFieldChange(field.id, [...current, opt]);
-                                                } else {
-                                                  handleCustomFieldChange(field.id, current.filter(v => v !== opt));
-                                                }
-                                              } else {
-                                                handleCustomFieldChange(field.id, opt);
-                                              }
-                                            }}
-                                          />
-                                          <span>{opt}</span>
-                                        </label>
-                                      ))
-                                    ) : (
-                                      // Simple boolean toggle (no options defined)
-                                      <label className={styles.checkboxLabel}>
-                                        <input
-                                          type="checkbox"
-                                          id={field.id}
-                                          required={field.required}
-                                          checked={customFieldValues[field.id] || false}
-                                          onChange={(e) => handleCustomFieldChange(field.id, e.target.checked)}
-                                        />
-                                        <span>
-                                          {field.label} {field.required && <span className={styles.required}>*</span>}
-                                        </span>
-                                      </label>
-                                    )}
+                              <div onClick={() => canRegister && handleCompetitionSelect(comp)} style={{ cursor: canRegister ? 'pointer' : 'not-allowed' }}>
+                                {comp.imageUrl && (
+                                  <div className={styles.competitionImageWrapper}>
+                                    <img
+                                      src={comp.imageUrl}
+                                      alt={comp.name}
+                                      className={styles.competitionImage}
+                                    />
                                   </div>
                                 )}
+                                <div className={styles.competitionHeader}>
+                                  <h4 className="competition-title">{comp.name}</h4>
+                                </div>
+                                <p className={styles.competitionOrganizer}>{comp.organizer}</p>
 
-                                {field.type === 'file' && (
-                                  <div className={styles.fileInputContainer}>
+                                <div className={`${styles.competitionMeta} competition-meta`}>
+                                  <span className={styles.competitionMetaItem}>
+                                    <span className={styles.metaIcon}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                      </svg>
+                                    </span>
+                                    <span>{comp.date}</span>
+                                  </span>
+                                  <span className={styles.competitionMetaItem}>
+                                    <span className={styles.metaIcon}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                      </svg>
+                                    </span>
+                                    <span>{comp.deadline}</span>
+                                  </span>
+                                  <span className={styles.competitionMetaItem}>
+                                    <span className={styles.metaIcon}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                      </svg>
+                                    </span>
+                                    <span>{comp.teamSize}</span>
+                                  </span>
+                                </div>
+
+                                <p className={`${styles.competitionDescription} competition-description ${isExpanded ? 'expanded' : ''}`}>
+                                  {displayDescription}
+                                </p>
+
+                                {canRegister && selectedCompetition?._id !== comp._id && (
+                                  <div className={styles.selectPrompt} style={{ color: 'var(--color-red)', fontSize: '0.9rem', fontWeight: 600, marginTop: '1rem', textDecoration: 'underline', textAlign: 'center' }}>
+                                    Click here to select this form
+                                  </div>
+                                )}
+                              </div>
+
+                              {shouldTruncate && (
+                                <button
+                                  type="button"
+                                  className={`${styles.readMoreBtn} read-more-btn`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleDescription(comp._id);
+                                  }}
+                                >
+                                  {isExpanded ? '▲ Show less' : '▼ Read more'}
+                                </button>
+                              )}
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Additional Fields - Show only after competition selection */}
+                    {selectedCompetition ? (() => {
+                      const hasEmailField = selectedCompetition.customFields?.some(
+                        f => f.type === 'email' || f.label.toLowerCase().includes('email')
+                      ) || false;
+
+                      const hasPhoneField = selectedCompetition.customFields?.some(
+                        f => f.type === 'tel' || f.label.toLowerCase().includes('phone') || f.label.toLowerCase().includes('mobile')
+                      ) || false;
+
+                      const hasNameField = selectedCompetition.customFields?.some(
+                        f => f.label.toLowerCase().includes('leader name') ||
+                          f.label.toLowerCase().includes('member 1 name') ||
+                          (f.label.toLowerCase().includes('name') && !f.label.toLowerCase().includes('member') && !f.label.toLowerCase().includes('team'))
+                      ) || false;
+
+                      return (
+                        <div id="additional-fields">
+                          {/* Dynamic Custom Fields & Injected Core Fields */}
+                          <div className={styles.formSection}>
+                            <h3 className={styles.sectionTitle}>Registration Form</h3>
+                            <p className={styles.sectionDescription}>
+                              Please fill in the details requested for this registration.
+                            </p>
+
+                            <div className={styles.additionalFieldsGrid}>
+                              {/* Injected Core Name Field */}
+                              {!hasNameField && (
+                                <div className={styles.formGroup}>
+                                  <label htmlFor="fullName">SFIT Student Name *</label>
+                                  <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    required
+                                    placeholder="Enter your full name"
+                                  />
+                                </div>
+                              )}
+
+                              {/* Injected Core Email Field */}
+                              {!hasEmailField && (
+                                <div className={styles.formGroup}>
+                                  <label htmlFor="email">SFIT Student Email Address *</label>
+                                  <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                    placeholder="your.name@student.sfit.ac.in"
+                                    pattern="^[^@\s]+@student\.sfit\.ac\.in$"
+                                    title="Use your @student.sfit.ac.in email address"
+                                  />
+                                </div>
+                              )}
+
+                              {/* Injected Core Phone Field */}
+                              {!hasPhoneField && (
+                                <div className={styles.formGroup}>
+                                  <label htmlFor="phone">Phone Number *</label>
+                                  <div className={styles.phoneInputWrapper} style={{ display: 'flex', alignItems: 'center' }}>
+                                    <span className={styles.phonePrefix} style={{ marginRight: '0.5rem', fontWeight: 600 }}>+91</span>
                                     <input
-                                      type="file"
-                                      id={field.id}
-                                      required={field.required && !customFieldValues[field.id]}
-                                      accept={field.fileAccept}
-                                      onChange={(e) => handleCustomFileUpload(field.id, field, e)}
+                                      type="tel"
+                                      id="phone"
+                                      name="phone"
+                                      value={formData.phone}
+                                      onChange={handlePhoneChange}
+                                      required
+                                      placeholder="9876543210"
+                                      pattern="[0-9]{10}"
+                                      title="Please enter exactly 10 digits"
+                                      maxLength={10}
+                                      className={styles.phoneInput}
+                                      style={{ flex: 1 }}
                                     />
-                                    {customFieldValues[field.id] && (
-                                      <div className={styles.fileHint} style={{ color: 'var(--color-navy)', marginTop: '0.5rem' }}>
-                                        Selected file: <strong>{customFieldValues[field.id].name}</strong>
+                                  </div>
+                                  {formData.phone && formData.phone.length < 10 && (
+                                    <span className={styles.phoneHint} style={{ fontSize: '0.85rem', color: '#ff3b30', marginTop: '0.25rem' }}>
+                                      {10 - formData.phone.length} more digit{10 - formData.phone.length !== 1 ? 's' : ''} required
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                              {selectedCompetition.customFields.map((field) => {
+                                const isFullWidth = ['textarea', 'checkbox'].includes(field.type);
+
+                                return (
+                                  <div
+                                    key={field.id}
+                                    className={`${styles.formGroup} ${isFullWidth ? styles.formGroupFull : ''}`}
+                                  >
+                                    {field.type !== 'checkbox' && (
+                                      <label htmlFor={field.id}>
+                                        {field.label} {field.required && <span className={styles.required}>*</span>}
+                                      </label>
+                                    )}
+
+                                    {field.type === 'textarea' && (
+                                      <textarea
+                                        id={field.id}
+                                        required={field.required}
+                                        placeholder={field.placeholder || `Enter ${field.label}`}
+                                        value={customFieldValues[field.id] || ''}
+                                        onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                      />
+                                    )}
+
+                                    {field.type === 'select' && (
+                                      <select
+                                        id={field.id}
+                                        required={field.required}
+                                        value={customFieldValues[field.id] || ''}
+                                        onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                        style={{ appearance: 'auto', WebkitAppearance: 'auto' as any }}
+                                      >
+                                        <option value="">Select an option</option>
+                                        {field.options?.map((opt) => (
+                                          <option key={opt} value={opt}>
+                                            {opt}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    )}
+
+                                    {field.type === 'checkbox' && (
+                                      <div className={styles.checkboxOptionsGroup}>
+                                        {(field.options && field.options.length > 0) ? (
+                                          // Option-based checkbox/radio group
+                                          field.options.map((opt, oi) => (
+                                            <label key={oi} className={styles.checkboxOptionRow}>
+                                              <input
+                                                type={field.multiSelect ? 'checkbox' : 'radio'}
+                                                name={field.id}
+                                                value={opt}
+                                                required={field.required && oi === 0}
+                                                checked={
+                                                  field.multiSelect
+                                                    ? Array.isArray(customFieldValues[field.id]) && (customFieldValues[field.id] as string[]).includes(opt)
+                                                    : customFieldValues[field.id] === opt
+                                                }
+                                                onChange={(e) => {
+                                                  if (field.multiSelect) {
+                                                    const current: string[] = Array.isArray(customFieldValues[field.id]) ? customFieldValues[field.id] as string[] : [];
+                                                    if (e.target.checked) {
+                                                      handleCustomFieldChange(field.id, [...current, opt]);
+                                                    } else {
+                                                      handleCustomFieldChange(field.id, current.filter(v => v !== opt));
+                                                    }
+                                                  } else {
+                                                    handleCustomFieldChange(field.id, opt);
+                                                  }
+                                                }}
+                                              />
+                                              <span>{opt}</span>
+                                            </label>
+                                          ))
+                                        ) : (
+                                          // Simple boolean toggle (no options defined)
+                                          <label className={styles.checkboxLabel}>
+                                            <input
+                                              type="checkbox"
+                                              id={field.id}
+                                              required={field.required}
+                                              checked={customFieldValues[field.id] || false}
+                                              onChange={(e) => handleCustomFieldChange(field.id, e.target.checked)}
+                                            />
+                                            <span>
+                                              {field.label} {field.required && <span className={styles.required}>*</span>}
+                                            </span>
+                                          </label>
+                                        )}
+                                      </div>
+                                    )}
+
+                                    {field.type === 'file' && (
+                                      <div className={styles.fileInputContainer}>
+                                        <input
+                                          type="file"
+                                          id={field.id}
+                                          required={field.required && !customFieldValues[field.id]}
+                                          accept={field.fileAccept}
+                                          onChange={(e) => handleCustomFileUpload(field.id, field, e)}
+                                        />
+                                        {customFieldValues[field.id] && (
+                                          <div className={styles.fileHint} style={{ color: 'var(--color-navy)', marginTop: '0.5rem' }}>
+                                            Selected file: <strong>{customFieldValues[field.id].name}</strong>
+                                          </div>
+                                        )}
+                                      </div>
+                                    )}
+
+                                    {['text', 'email', 'tel'].includes(field.type) && (
+                                      <input
+                                        type={field.type}
+                                        id={field.id}
+                                        required={field.required}
+                                        placeholder={field.placeholder || `Enter ${field.label}`}
+                                        value={customFieldValues[field.id] || ''}
+                                        onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
+                                      />
+                                    )}
+
+                                    {field.type === 'image' && field.imageUrl && (
+                                      <div className={styles.inlineImageDisplay}>
+                                        <img
+                                          src={field.imageUrl}
+                                          alt={field.label}
+                                          className={styles.inlineImageField}
+                                        />
                                       </div>
                                     )}
                                   </div>
-                                )}
+                                );
+                              })}
+                            </div>
+                          </div>
 
-                                {['text', 'email', 'tel'].includes(field.type) && (
-                                  <input
-                                    type={field.type}
-                                    id={field.id}
-                                    required={field.required}
-                                    placeholder={field.placeholder || `Enter ${field.label}`}
-                                    value={customFieldValues[field.id] || ''}
-                                    onChange={(e) => handleCustomFieldChange(field.id, e.target.value)}
-                                  />
-                                )}
+                          {/* Competition Notes Agreement */}
+                          {selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && (
+                            <div className={styles.formSection}>
+                              <div className={styles.instructionCard}>
+                                <div className={styles.instructionHeader}>
+                                  <span className={styles.instructionIcon}>📋</span>
+                                  <h3 className={styles.instructionTitle}>Important Instructions</h3>
+                                </div>
 
-                                {field.type === 'image' && field.imageUrl && (
-                                  <div className={styles.inlineImageDisplay}>
-                                    <img
-                                      src={field.imageUrl}
-                                      alt={field.label}
-                                      className={styles.inlineImageField}
+                                <div className={styles.instructionBody}>
+                                  <p className={styles.instructionText}>{selectedCompetition.notes}</p>
+                                </div>
+
+                                <div className={styles.consentSection}>
+                                  <label className={styles.consentLabel}>
+                                    <input
+                                      type="checkbox"
+                                      className={styles.consentCheckbox}
+                                      checked={notesAgreed}
+                                      onChange={(e) => setNotesAgreed(e.target.checked)}
+                                      required
                                     />
+                                    <span className={styles.consentText}>
+                                      I have read and agree to follow the competition requirements and instructions outlined above
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Submit Button */}
+                          <div className="submit-wrapper">
+                            <motion.button
+                              type="submit"
+                              className={`${styles.submitBtn} submit-btn`}
+                              disabled={
+                                isSubmitting ||
+                                (!!selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && !notesAgreed)
+                              }
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              {isSubmitting ? (
+                                <>
+                                  <span className={styles.spinner}></span>
+                                  Submitting...
+                                </>
+                              ) : (
+                                'Submit Registration'
+                              )}
+                            </motion.button>
+                          </div>
+
+                          {/* Error Message */}
+                          {submitStatus === 'error' && (
+                            <motion.div
+                              className={styles.errorMessage}
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                            >
+                              ✗ {submitError || 'Something went wrong. Please try again.'}
+                            </motion.div>
+                          )}
+
+                          {/* Need Help Section */}
+                          <motion.div
+                            className={styles.needHelpSection}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            <div className={styles.needHelpCard}>
+                              <div className={styles.needHelpIcon}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#ffffff' }}>
+                                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                              </div>
+                              <div className={styles.needHelpContent}>
+                                <h4>Need Help with Registration?</h4>
+                                <p>
+                                  If you have any questions or need assistance, feel free to reach out to us:
+                                </p>
+                                <div className={styles.contactList}>
+                                  <div className={styles.contactItem}>
+                                    <span className={styles.contactIcon}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                      </svg>
+                                    </span>
+                                    <a href="mailto:teamraw@sfit.ac.in">teamraw@sfit.ac.in</a>
                                   </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                    {/* Competition Notes Agreement */}
-                    {selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && (
-                      <div className={styles.formSection}>
-                        <div className={styles.instructionCard}>
-                          <div className={styles.instructionHeader}>
-                            <span className={styles.instructionIcon}>📋</span>
-                            <h3 className={styles.instructionTitle}>Important Instructions</h3>
-                          </div>
-
-                          <div className={styles.instructionBody}>
-                            <p className={styles.instructionText}>{selectedCompetition.notes}</p>
-                          </div>
-
-                          <div className={styles.consentSection}>
-                            <label className={styles.consentLabel}>
-                              <input
-                                type="checkbox"
-                                className={styles.consentCheckbox}
-                                checked={notesAgreed}
-                                onChange={(e) => setNotesAgreed(e.target.checked)}
-                                required
-                              />
-                              <span className={styles.consentText}>
-                                I have read and agree to follow the competition requirements and instructions outlined above
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Submit Button */}
-                    <div className="submit-wrapper">
-                      <motion.button
-                        type="submit"
-                        className={`${styles.submitBtn} submit-btn`}
-                        disabled={
-                          isSubmitting ||
-                          (!!selectedCompetition?.notes && selectedCompetition.notes.trim() !== '' && !notesAgreed)
-                        }
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <span className={styles.spinner}></span>
-                            Submitting...
-                          </>
-                        ) : (
-                          'Submit Registration'
-                        )}
-                      </motion.button>
-                    </div>
-
-                    {/* Error Message */}
-                    {submitStatus === 'error' && (
-                      <motion.div
-                        className={styles.errorMessage}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                      >
-                        ✗ {submitError || 'Something went wrong. Please try again.'}
-                      </motion.div>
-                    )}
-
-                    {/* Need Help Section */}
-                    <motion.div
-                      className={styles.needHelpSection}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      <div className={styles.needHelpCard}>
-                        <div className={styles.needHelpIcon}>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#ffffff' }}>
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                          </svg>
-                        </div>
-                        <div className={styles.needHelpContent}>
-                          <h4>Need Help with Registration?</h4>
-                          <p>
-                            If you have any questions or need assistance, feel free to reach out to us:
-                          </p>
-                          <div className={styles.contactList}>
-                            <div className={styles.contactItem}>
-                              <span className={styles.contactIcon}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
-                                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                  <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                              </span>
-                              <a href="mailto:teamraw@sfit.ac.in">teamraw@sfit.ac.in</a>
-                            </div>
-                            <div className={styles.contactItem}>
-                              <span className={styles.contactIcon}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
-                                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                              </span>
-                              <div className={styles.contactNumbers}>
-                                <a href="tel:+918976357005">Jhoshua Coutinho : 89763 57005</a>
-                                <a href="tel:+917208697241">Pal Rajak : 72086 97241</a>
+                                  <div className={styles.contactItem}>
+                                    <span className={styles.contactIcon}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle', color: 'var(--color-navy)' }}>
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                      </svg>
+                                    </span>
+                                    <div className={styles.contactNumbers}>
+                                      <a href="tel:+918976357005">Jhoshua Coutinho : 89763 57005</a>
+                                      <a href="tel:+917208697241">Pal Rajak : 72086 97241</a>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </motion.div>
                         </div>
+                      );
+                    })() : (
+                      <div className={styles.formSection} style={{ textAlign: 'center', padding: '3.5rem 2rem', background: 'var(--color-bg-secondary)', border: '2px dashed var(--color-border)', borderRadius: '16px', margin: '1rem 0' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 1.25rem', opacity: 0.7, color: 'var(--color-navy)' }}>
+                          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                          <path d="M9 12h6" />
+                          <path d="M9 16h6" />
+                        </svg>
+                        <h4 style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.3rem', color: 'var(--color-navy)', marginBottom: '0.5rem', fontWeight: 600, letterSpacing: '0.03em' }}>
+                          No Competition Selected
+                        </h4>
+                        <p style={{ color: 'var(--color-gray-dark)', fontSize: '1rem', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' }}>
+                          Please select an active competition from the cards above to fill in the registration details. Or{' '}
+                          <span
+                            onClick={() => {
+                              const el = document.getElementById('select-competition-section');
+                              if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            style={{
+                              color: 'var(--color-red)',
+                              textDecoration: 'underline',
+                              cursor: 'pointer',
+                              fontWeight: 600
+                            }}
+                          >
+                            click here
+                          </span>{' '}
+                          to select a form.
+                        </p>
                       </div>
-                    </motion.div>
-                  </div>
-                );
-              })() : (
-                <div className={styles.formSection} style={{ textAlign: 'center', padding: '3.5rem 2rem', background: 'var(--color-bg-secondary)', border: '2px dashed var(--color-border)', borderRadius: '16px', margin: '1rem 0' }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 1.25rem', opacity: 0.7, color: 'var(--color-navy)' }}>
-                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-                    <path d="M9 12h6" />
-                    <path d="M9 16h6" />
-                  </svg>
-                  <h4 style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.3rem', color: 'var(--color-navy)', marginBottom: '0.5rem', fontWeight: 600, letterSpacing: '0.03em' }}>
-                    No Competition Selected
-                  </h4>
-                  <p style={{ color: 'var(--color-gray-dark)', fontSize: '1rem', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' }}>
-                    Please select an active competition from the cards above to fill in the registration details. Or{' '}
-                    <span
-                      onClick={() => {
-                        const el = document.getElementById('select-competition-section');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      style={{
-                        color: 'var(--color-red)',
-                        textDecoration: 'underline',
-                        cursor: 'pointer',
-                        fontWeight: 600
-                      }}
-                    >
-                      click here
-                    </span>{' '}
-                    to select a form.
-                  </p>
-                </div>
-              )}
-            </form>
-          </motion.div>
-        </div>
-      )}
-    </section>
+                    )}
+                  </form>
+                </motion.div>
+              </div>
+            )}
+          </section>
 
         </main>
       </div>
