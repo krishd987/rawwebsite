@@ -130,7 +130,16 @@ export default function Hero() {
               width={450}
               height={520}
               priority
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '28px',
+                clipPath: 'inset(0 round 28px)',
+                WebkitClipPath: 'inset(0 round 28px)',
+                background: 'transparent',
+                display: 'block',
+              }}
             />
           </motion.div>
         </motion.div>

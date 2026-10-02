@@ -10,6 +10,7 @@ import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
 import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
 import KineticGrid from '@/components/ui/kinetic-grid';
+import LogoCloud from '@/components/ui/logo-cloud';
 import styles from '@/app/styles/Sponsors.module.css';
 import {
   Timeline,
@@ -663,6 +664,66 @@ const ContactCTA = () => {
   );
 };
 
+// Softwares & Engineering Tools Section
+const SoftwaresWeUse = () => {
+  return (
+    <section style={{ padding: '6rem 0', position: 'relative' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <motion.div
+          style={{ textAlign: 'center', marginBottom: '3rem' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.4rem 1rem',
+              borderRadius: '20px',
+              background: 'rgba(225, 6, 0, 0.08)',
+              border: '1px solid rgba(225, 6, 0, 0.25)',
+              color: 'var(--color-red)',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              fontFamily: 'Orbitron, sans-serif',
+              marginBottom: '1rem',
+            }}
+          >
+            Engineering Stack & Toolchain
+          </div>
+          <h2
+            style={{
+              fontFamily: 'Orbitron, sans-serif',
+              fontSize: '2.5rem',
+              fontWeight: 800,
+              color: 'var(--color-text-primary)',
+              margin: '0 0 1rem 0',
+            }}
+          >
+            Softwares We <span style={{ color: 'var(--color-red)' }}>Use</span>
+          </h2>
+          <p
+            style={{
+              fontSize: '1.05rem',
+              color: 'var(--color-text-secondary)',
+              maxWidth: '720px',
+              margin: '0 auto',
+              lineHeight: 1.7,
+            }}
+          >
+            From high-fidelity mechanical CAD and multi-layer ECAD routing to autonomous SLAM and computer vision pipelines, our team builds with industry-standard engineering software.
+          </p>
+        </motion.div>
+
+        <LogoCloud />
+      </div>
+    </section>
+  );
+};
+
 export default function SponsorsPage() {
   return (
     <>
@@ -675,6 +736,7 @@ export default function SponsorsPage() {
           <ImpactNumbers />
           <AchievementsHighlights />
           <BrandExposure />
+          <SoftwaresWeUse />
           <ContactCTA />
         </div>
       </div>
