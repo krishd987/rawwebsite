@@ -210,34 +210,40 @@
 .primaryButton {
   background: var(--color-red);
   color: #ffffff;
-  border-color: var(--color-red);
+  border: 1px solid var(--color-red);
+}
 
-  &:hover {
-    background: var(--color-red-hover);
-    color: #ffffff;
-  }
+.primaryButton:hover {
+  background: var(--color-red-hover);
+  color: #ffffff;
+  border-color: var(--color-red-hover);
+  box-shadow: 0 4px 16px rgba(225, 6, 0, 0.35);
+  transform: translateY(-2px);
 }
 
 .secondaryButton {
-  background: var(--color-navy);
-  color: #ffffff;
-  border-color: var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
 
-  &:hover {
-    background: transparent;
-    color: var(--color-text-primary);
-  }
+.secondaryButton:hover {
+  background: rgba(225, 6, 0, 0.12);
+  border-color: var(--color-red);
+  color: var(--color-red);
+  transform: translateY(-2px);
 }
 
 .tertiaryButton {
   background: transparent;
   color: var(--color-red);
-  border-color: var(--color-red);
+  border: 1px solid var(--color-red);
+}
 
-  &:hover {
-    background: var(--color-red);
-    color: #ffffff;
-  }
+.tertiaryButton:hover {
+  background: var(--color-red);
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
 .stats {

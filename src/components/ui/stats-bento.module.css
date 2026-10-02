@@ -91,14 +91,14 @@
 /* Secondary Stat Card (Growth / Sparkline Bars) */
 .secondaryCard {
   grid-column: span 1;
-  background: #ffffff;
+  background: var(--color-bg-card);
   border-radius: 1.5rem;
   padding: 1.75rem 2rem;
-  border: 1px solid rgba(10, 26, 58, 0.1);
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(10, 26, 58, 0.06);
+  box-shadow: var(--shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -110,7 +110,8 @@
 
 .secondaryCard:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(10, 26, 58, 0.12);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(225, 6, 0, 0.3);
 }
 
 .statTag {
@@ -118,7 +119,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-bottom: 0.35rem;
   font-family: 'Montserrat', sans-serif;
 }
@@ -153,16 +154,16 @@
 /* Tertiary Card A */
 .tertiaryCardA {
   grid-column: span 1;
-  background: #ffffff;
+  background: var(--color-bg-card);
   border-radius: 1.5rem;
   padding: 1.75rem;
-  border: 1px solid rgba(10, 26, 58, 0.1);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(10, 26, 58, 0.06);
+  box-shadow: var(--shadow);
   transition: transform 0.2s ease;
 }
 
@@ -174,6 +175,7 @@
 
 .tertiaryCardA:hover {
   transform: translateY(-3px);
+  border-color: rgba(225, 6, 0, 0.3);
 }
 
 .tertiaryValue {
@@ -188,14 +190,14 @@
 /* Tertiary Card B */
 .tertiaryCardB {
   grid-column: span 1;
-  background: #ffffff;
+  background: var(--color-bg-card);
   border-radius: 1.5rem;
   padding: 1.75rem 2rem;
-  border: 1px solid rgba(10, 26, 58, 0.1);
+  border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  box-shadow: 0 4px 20px rgba(10, 26, 58, 0.06);
+  box-shadow: var(--shadow);
   transition: transform 0.2s ease;
 }
 
@@ -207,6 +209,7 @@
 
 .tertiaryCardB:hover {
   transform: translateY(-3px);
+  border-color: rgba(225, 6, 0, 0.3);
 }
 
 .iconCircle {

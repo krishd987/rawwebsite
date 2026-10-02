@@ -892,7 +892,7 @@ export default function RegisterPage() {
                   </div>
                 );
               })() : (
-                <div className={styles.formSection} style={{ textAlign: 'center', padding: '3.5rem 2rem', background: 'rgba(10, 26, 58, 0.01)', border: '2px dashed rgba(10, 26, 58, 0.15)', borderRadius: '16px', margin: '1rem 0' }}>
+                <div className={styles.formSection} style={{ textAlign: 'center', padding: '3.5rem 2rem', background: 'var(--color-bg-secondary)', border: '2px dashed var(--color-border)', borderRadius: '16px', margin: '1rem 0' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 1.25rem', opacity: 0.7, color: 'var(--color-navy)' }}>
                     <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
                     <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
