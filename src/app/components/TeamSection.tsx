@@ -107,21 +107,18 @@ const TeamSection: React.FC = () => {
         style={{ width: '100%', padding: 0 }}
       >
         <div className={styles.memberImageWrapper}>
-          <BlurVignette radius="16px" inset="12px" transitionLength="28px" blur="4px">
-            {(imageErrors[member._id] || !member.imageUrl) ? (
-              <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
-                {getInitials(member.name)}
-              </div>
-            ) : (
-              <img
-                src={member.imageUrl}
-                alt={member.name}
-                className={styles.memberImage}
-                onError={() => handleImageError(member._id)}
-              />
-            )}
-            <BlurVignetteArticle />
-          </BlurVignette>
+          {(imageErrors[member._id] || !member.imageUrl) ? (
+            <div className={styles.initialsAvatar} style={{ backgroundColor: getAvatarColor(member.name) }}>
+              {getInitials(member.name)}
+            </div>
+          ) : (
+            <img
+              src={member.imageUrl}
+              alt={member.name}
+              className={styles.memberImage}
+              onError={() => handleImageError(member._id)}
+            />
+          )}
         </div>
 
         <div className={styles.memberInfo}>
