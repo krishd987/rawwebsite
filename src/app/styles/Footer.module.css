@@ -4,10 +4,10 @@
  */
 
 .footer {
-  background: #070c18;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f8fafc;
-  padding: 5rem 0 2rem;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 4.5rem 0 2rem;
   position: relative;
   overflow: hidden;
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -22,116 +22,118 @@
   z-index: 1;
 }
 
-/* 4-Column Layout */
-.grid {
+/* Main Grid */
+.mainGrid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  grid-template-columns: 1.8fr 1.1fr 1.4fr 1.2fr;
   gap: 3.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
 }
 
 @media (max-width: 1024px) {
-  .grid {
+  .mainGrid {
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .grid {
+  .mainGrid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 }
 
 /* Column 1: Brand & Affiliation */
-.brandCol {
+.brandColumn {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.logoWrap {
-  margin-bottom: 1.25rem;
+.brandLogoWrap {
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
 }
 
 .brandLogoImg {
-  width: 170px;
+  width: 150px;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(225, 6, 0, 0.25));
+  filter: drop-shadow(0 4px 12px rgba(225, 6, 0, 0.3));
 }
 
 .brandTitle {
   font-family: 'Orbitron', sans-serif;
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: #ffffff;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.35rem 0;
 }
 
 .brandSubtitle {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #f1f5f9;
-  margin: 0 0 1rem 0;
-  letter-spacing: 0.01em;
+  margin: 0 0 0.85rem 0;
 }
 
-.brandDescription {
-  font-size: 0.95rem;
+.brandText {
+  font-size: 0.92rem;
   color: #94a3b8;
-  line-height: 1.7;
-  margin: 0 0 1.75rem 0;
-  max-width: 380px;
+  line-height: 1.65;
+  margin: 0 0 1.5rem 0;
+  max-width: 360px;
 }
 
 .divider {
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 1.25rem;
 }
 
-.affiliationSection {
+.affiliationBox {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.6rem;
 }
 
-.affiliationHeader {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
+.affiliationLabel {
+  font-size: 0.75rem;
   font-weight: 700;
   color: #94a3b8;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.collegeBadgeCard {
-  width: 72px;
-  height: 72px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.affiliationBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.collegeBadge {
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 6px;
+  transition: all 0.25s ease;
 }
 
-.collegeBadgeCard:hover {
+.collegeBadge:hover {
   border-color: rgba(225, 6, 0, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(225, 6, 0, 0.2);
 }
 
 .collegeLogoImg {
@@ -140,27 +142,26 @@
   object-fit: contain;
 }
 
-.collegeName {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.95rem;
+.collegeTitle {
+  font-size: 0.9rem;
   font-style: italic;
   color: #cbd5e1;
-  margin: 0;
+  max-width: 180px;
+  line-height: 1.4;
 }
 
-/* Headers for Columns 2, 3, 4 */
-.colHeader {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #ff2a24;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+/* Headings matching reference image */
+.columnTitle {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
   margin: 0 0 1.5rem 0;
 }
 
 /* Column 2: Quick Links */
-.linksCol {
+.navColumn {
   display: flex;
   flex-direction: column;
 }
@@ -174,101 +175,133 @@
   gap: 0.9rem;
 }
 
-.navLink {
-  font-size: 0.95rem;
-  color: #94a3b8;
+.linkItem {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #f1f5f9;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
   display: inline-block;
 }
 
-.navLink:hover {
+.linkItem:hover {
   color: #ff2a24;
   transform: translateX(4px);
 }
 
-/* Column 3: Connect With Us */
-.connectCol {
+/* Column 3: Contact Us */
+.contactColumn {
   display: flex;
   flex-direction: column;
 }
 
-.socialButtonsRow {
+.contactDetails {
   display: flex;
-  align-items: center;
-  gap: 0.85rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.socialCircleBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(225, 6, 0, 0.12);
-  border: 1px solid rgba(225, 6, 0, 0.35);
-  color: #ffffff;
+.addressLine {
+  font-size: 1.02rem;
+  color: #f1f5f9;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.contactEmailRow {
+  font-size: 1.02rem;
+  color: #f1f5f9;
+  margin: 0.6rem 0 0 0;
+}
+
+.emailLink {
+  color: #f1f5f9;
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.2s ease;
+  font-weight: 500;
 }
 
-.socialCircleBtn:hover {
-  background: #ff2a24;
-  border-color: #ff2a24;
-  color: #ffffff;
-  transform: translateY(-3px) scale(1.08);
-  box-shadow: 0 0 20px rgba(225, 6, 0, 0.6);
+.emailLink:hover {
+  color: #ff2a24;
 }
 
-/* Column 4: Contact Info */
-.contactCol {
+/* Column 4: Follow Us */
+.followColumn {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.contactGroup {
+.socialCirclesRow {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.contactSubHeader {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 800;
+.circleIconBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
   color: #ffffff;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.contactLink {
-  font-size: 0.95rem;
-  color: #94a3b8;
   text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.circleIconBtn:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+}
+
+/* Pill Toggle Switch matching reference image */
+.themeToggleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.themeIcon {
+  color: #94a3b8;
   transition: color 0.2s ease;
-  word-break: break-all;
 }
 
-.contactLink:hover {
-  color: #ff2a24;
+.activeIcon {
+  color: #ffffff;
 }
 
-.addressBlock {
-  font-size: 0.95rem;
-  color: #94a3b8;
-  line-height: 1.65;
+.switchTrack {
+  width: 50px;
+  height: 26px;
+  background: #000000;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-.addressBlock p {
-  margin: 0 0 0.25rem 0;
-  color: #94a3b8;
+.switchThumb {
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Bottom Bar */
-.bottomSection {
+.bottomBar {
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -278,31 +311,31 @@
   gap: 1rem;
 }
 
-.copyright {
+.copyrightText {
   font-size: 0.875rem;
   color: #94a3b8;
   margin: 0;
 }
 
-.legalLinks {
+.legalGroup {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-.legalItem {
+.legalLink {
   font-size: 0.875rem;
   color: #94a3b8;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.legalItem:hover {
+.legalLink:hover {
   color: #ffffff;
 }
 
 @media (max-width: 640px) {
-  .bottomSection {
+  .bottomBar {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;

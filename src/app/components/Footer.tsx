@@ -5,14 +5,46 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Linkedin, Youtube } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Instagram, Linkedin, Youtube, Github, Twitter, Sun, Moon } from 'lucide-react';
 import styles from '../styles/Footer.module.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem('raw_theme');
+    if (saved === 'light') {
+      setTheme('light');
+      applyTheme('light');
+    } else {
+      setTheme('dark');
+      applyTheme('dark');
+    }
+  }, []);
+
+  const applyTheme = (t: 'light' | 'dark') => {
+    if (t === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('raw_theme', next);
+    applyTheme(next);
+  };
 
   const quickLinks = [
     { label: 'Home', href: '/' },
@@ -27,83 +59,105 @@ export default function Footer() {
     {
       label: 'Instagram',
       href: 'https://www.instagram.com/teamraw_sfit',
-      icon: <Instagram size={18} />,
+      icon: <Instagram size={17} />,
     },
     {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/company/team-raw-sfit',
-      icon: <Linkedin size={18} />,
+      icon: <Linkedin size={17} />,
     },
     {
       label: 'YouTube',
       href: 'https://www.youtube.com/@teamrawsfit2026',
-      icon: <Youtube size={18} />,
+      icon: <Youtube size={17} />,
+    },
+    {
+      label: 'GitHub',
+      href: 'https://github.com',
+      icon: <Github size={17} />,
+    },
+    {
+      label: 'Twitter',
+      href: 'https://twitter.com',
+      icon: <Twitter size={17} />,
     },
   ];
+
+  const isDark = theme === 'dark';
 
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        {/* Main 4-Column Section */}
-        <div className={styles.grid}>
-          {/* Column 1: Brand, Mission & SFIT Affiliation */}
-          <div className={styles.brandCol}>
-            {/* Team RAW Logo Image */}
-            <div className={styles.logoWrap}>
+        {/* Main Grid */}
+        <div className={styles.mainGrid}>
+          {/* Brand & Affiliation Column */}
+          <div className={styles.brandColumn}>
+            <div className={styles.brandLogoWrap}>
               <Image
                 src="/logo 1.png"
                 alt="Team RAW SFIT Logo"
-                width={170}
-                height={80}
+                width={150}
+                height={65}
                 className={styles.brandLogoImg}
                 priority
               />
             </div>
-
             <h2 className={styles.brandTitle}>TEAM RAW</h2>
             <h3 className={styles.brandSubtitle}>Robotics & Aviation Wing</h3>
-
-            <p className={styles.brandDescription}>
-              Building the next generation of autonomous robots through innovation,
-              engineering excellence, and collaborative teamwork.
+            <p className={styles.brandText}>
+              Building the next generation of autonomous robots through innovation, engineering excellence, and collaborative teamwork.
             </p>
 
             <div className={styles.divider} />
 
-            {/* Official Affiliation Box */}
-            <div className={styles.affiliationSection}>
-              <span className={styles.affiliationHeader}>OFFICIALLY AFFILIATED WITH</span>
-              <div className={styles.collegeBadgeCard}>
-                <Image
-                  src="/collegelogo.png"
-                  alt="St. Francis Institute of Technology Logo"
-                  width={56}
-                  height={56}
-                  className={styles.collegeLogoImg}
-                />
+            <div className={styles.affiliationBox}>
+              <span className={styles.affiliationLabel}>OFFICIALLY AFFILIATED WITH</span>
+              <div className={styles.affiliationBadgeRow}>
+                <div className={styles.collegeBadge}>
+                  <Image
+                    src="/collegelogo.png"
+                    alt="SFIT Logo"
+                    width={48}
+                    height={48}
+                    className={styles.collegeLogoImg}
+                  />
+                </div>
+                <span className={styles.collegeTitle}>St. Francis Institute of Technology</span>
               </div>
-              <p className={styles.collegeName}>St. Francis Institute of Technology</p>
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className={styles.linksCol}>
-            <h3 className={styles.colHeader}>QUICK LINKS</h3>
+          {/* Quick Links Column */}
+          <div className={styles.navColumn}>
+            <h3 className={styles.columnTitle}>Quick Links</h3>
             <ul className={styles.linksList}>
-              {quickLinks.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className={styles.navLink}>
-                    {item.label}
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className={styles.linkItem}>
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Connect With Us */}
-          <div className={styles.connectCol}>
-            <h3 className={styles.colHeader}>CONNECT WITH US</h3>
-            <div className={styles.socialButtonsRow}>
+          {/* Contact Us Column */}
+          <div className={styles.contactColumn}>
+            <h3 className={styles.columnTitle}>Contact Us</h3>
+            <div className={styles.contactDetails}>
+              <p className={styles.addressLine}>St. Francis Institute of Technology</p>
+              <p className={styles.addressLine}>Mount Poinsur, S.V.P. Road</p>
+              <p className={styles.addressLine}>Borivali (West), Mumbai 400103</p>
+              <p className={styles.contactEmailRow}>
+                Email: <a href="mailto:teamraw@sfit.ac.in" className={styles.emailLink}>teamraw@sfit.ac.in</a>
+              </p>
+            </div>
+          </div>
+
+          {/* Follow Us Column with Switch Toggle */}
+          <div className={styles.followColumn}>
+            <h3 className={styles.columnTitle}>Follow Us</h3>
+            <div className={styles.socialCirclesRow}>
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -111,49 +165,44 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className={styles.socialCircleBtn}
+                  className={styles.circleIconBtn}
                 >
                   {social.icon}
                 </a>
               ))}
             </div>
-          </div>
 
-          {/* Column 4: Contact Info */}
-          <div className={styles.contactCol}>
-            <h3 className={styles.colHeader}>CONTACT INFO</h3>
+            {/* Pill Toggle Switch */}
+            <div className={styles.themeToggleContainer}>
+              <Sun size={17} className={`${styles.themeIcon} ${!isDark ? styles.activeIcon : ''}`} />
+              
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={styles.switchTrack}
+                aria-label="Toggle light and dark theme"
+                title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                <motion.div
+                  className={styles.switchThumb}
+                  animate={{ x: isDark ? 22 : 2 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
+              </button>
 
-            <div className={styles.contactGroup}>
-              <h4 className={styles.contactSubHeader}>CONTACT EMAIL</h4>
-              <a href="mailto:teamraw@sfit.ac.in" className={styles.contactLink}>
-                teamraw@sfit.ac.in
-              </a>
-            </div>
-
-            <div className={styles.contactGroup}>
-              <h4 className={styles.contactSubHeader}>ADDRESS</h4>
-              <div className={styles.addressBlock}>
-                <p>St. Francis Institute of Technology</p>
-                <p>Mount Poinsur, S.V.P. Road, Borivali (West)</p>
-                <p>Mumbai - 400103, Maharashtra, India</p>
-              </div>
+              <Moon size={16} className={`${styles.themeIcon} ${isDark ? styles.activeIcon : ''}`} />
             </div>
           </div>
         </div>
 
         {/* Bottom Bar Section */}
-        <div className={styles.bottomSection}>
-          <p className={styles.copyright}>
+        <div className={styles.bottomBar}>
+          <p className={styles.copyrightText}>
             © {currentYear} Team RAW SFIT. All rights reserved.
           </p>
-
-          <div className={styles.legalLinks}>
-            <Link href="/contact" className={styles.legalItem}>
-              Terms and Conditions
-            </Link>
-            <Link href="/contact" className={styles.legalItem}>
-              Privacy Policy
-            </Link>
+          <div className={styles.legalGroup}>
+            <Link href="/contact" className={styles.legalLink}>Terms and Conditions</Link>
+            <Link href="/contact" className={styles.legalLink}>Privacy Policy</Link>
           </div>
         </div>
       </div>
