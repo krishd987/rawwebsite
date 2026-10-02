@@ -22,7 +22,7 @@ export function RobotCursor() {
       raf.current = requestAnimationFrame(render);
     };
 
-    window.addEventListener('mousemove', move);
+    window.addEventListener('mousemove', move, { passive: true });
     raf.current = requestAnimationFrame(render);
 
     return () => {
@@ -42,41 +42,52 @@ export function RobotCursor() {
           pointer-events: none;
           z-index: 99999;
           will-change: transform;
-          margin-left: -12px;
-          margin-top: -12px;
+          margin-left: -2px;
+          margin-top: -2px;
           opacity: 0;
-          transition: opacity 0.2s ease;
+          transition: opacity 0.15s ease;
         }
         .robot-cursor-root svg {
-          filter: drop-shadow(0 2px 6px rgba(225,6,0,0.35));
+          filter: drop-shadow(0 2px 10px rgba(225, 6, 0, 0.45));
         }
       `}</style>
 
       <div ref={cursorRef} className="robot-cursor-root">
-        {/* 32×32 robot cursor SVG */}
+        {/* Sleek High-Tech Robotic Drone Cursor */}
         <svg
-          width="35"
-          height="35"
-          viewBox="0 0 32 32"
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Antenna */}
-          <rect x="14" y="2" width="4" height="6" rx="2" fill="#E10600" stroke="#0A1A3A" strokeWidth="1.5" />
-          {/* Gold tip */}
-          <circle cx="16" cy="1.5" r="2" fill="#FFD700" />
+          {/* Cyber Pointer Arrow Body */}
+          <path
+            d="M2 2L9 22L13 13L22 9L2 2Z"
+            fill="url(#botGrad)"
+            stroke="#0A1A3A"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+          {/* Glowing Red Energy Core / HUD Visor */}
+          <path
+            d="M5 5L9.5 17L12 12L17 9.5L5 5Z"
+            fill="#E10600"
+          />
+          {/* Neon Point Highlight */}
+          <circle cx="2" cy="2" r="1.5" fill="#ffffff" />
+          <circle cx="12" cy="12" r="1.5" fill="#ffffff" opacity="0.9" />
 
-          {/* Head / Body */}
-          <rect x="4" y="8" width="24" height="20" rx="3" fill="#E10600" stroke="#0A1A3A" strokeWidth="1.5" />
-
-          {/* Eyes */}
-          <circle cx="10" cy="14" r="2.5" fill="#ffffff" />
-          <circle cx="22" cy="14" r="2.5" fill="#ffffff" />
-
-          {/* Mouth grill */}
-          <rect x="10" y="18" width="12" height="2" rx="1" fill="#ffffff" />
+          <defs>
+            <linearGradient id="botGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#ffffff" />
+              <stop offset="0.6" stopColor="#E10600" />
+              <stop offset="1" stopColor="#8A0000" />
+            </linearGradient>
+          </defs>
         </svg>
       </div>
     </>
   );
 }
+

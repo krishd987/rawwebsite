@@ -200,38 +200,75 @@ th,
   color: var(--text-primary) !important;
 }
 
-/* Responsive Table Wrapper */
+/* Responsive Table Wrapper - Clean Shadcn Style */
 [class*="tableContainer"] {
   width: 100% !important;
   overflow-x: auto !important;
   -webkit-overflow-scrolling: touch;
   margin-bottom: 1.5rem;
-  border-radius: 12px;
+  border-radius: 10px !important;
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
-/* Table elements */
-table {
+/* Modern Shadcn Table elements */
+table, [class*="table"] {
   border-collapse: collapse !important;
   width: 100% !important;
   color: var(--text-primary) !important;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 0.875rem !important;
 }
 
-th {
-  background: var(--bg-light) !important;
+thead, [class*="table"] thead {
+  background: transparent !important;
+}
+
+th, [class*="table"] th {
+  background: transparent !important;
   color: var(--text-secondary) !important;
-  font-family: 'Orbitron', sans-serif !important;
-  font-size: 0.85rem !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
-  border-bottom: 2px solid var(--border) !important;
-}
-
-td {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  padding: 0.875rem 1.25rem !important;
   border-bottom: 1px solid var(--border) !important;
+  text-align: left;
 }
 
-tr:hover td {
-  background-color: var(--list-hover) !important;
+td, [class*="table"] td {
+  padding: 1rem 1.25rem !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+tbody tr td:first-child:not([data-skip-bold="true"]) {
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+}
+
+tbody tr:hover td {
+  background-color: var(--list-hover, rgba(255, 255, 255, 0.03)) !important;
+}
+
+tfoot, .totalRow {
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+tfoot td, .totalRow td {
+  padding: 1.1rem 1.25rem !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
 }
 
 /* Global Form Controls overrides */

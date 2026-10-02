@@ -54,15 +54,15 @@ export default function Home() {
             <h1 style={{
               fontSize: '2.5rem',
               fontFamily: 'Orbitron, sans-serif',
-              color: 'var(--color-navy)',
+              color: 'var(--color-text-primary)',
               marginBottom: '1rem',
             }}>
-              TEAM RAW – Robotics and Aviation Wing of <span style={{ color: 'var(--color-red)', textShadow: '0 0 10px rgba(225, 6, 0, 0.2)' }}>SFIT</span>
+              TEAM RAW – Robotics and Aviation Wing of <span style={{ color: 'var(--color-red)', textShadow: '0 0 10px rgba(225, 6, 0, 0.3)' }}>SFIT</span>
             </h1>
-            <div style={{ width: '60px', height: '3px', background: 'linear-gradient(90deg, var(--color-red), var(--color-navy))', margin: '1rem auto', borderRadius: '2px' }} />
+            <div style={{ width: '60px', height: '3px', background: 'linear-gradient(90deg, var(--color-red), rgba(225, 6, 0, 0.2))', margin: '1rem auto', borderRadius: '2px' }} />
             <p style={{
               fontSize: '1.1rem',
-              color: 'var(--color-gray-dark)',
+              color: 'var(--color-text-secondary)',
               maxWidth: '800px',
               margin: '0 auto',
               lineHeight: '2',
@@ -76,11 +76,13 @@ export default function Home() {
             style={{
               maxWidth: '800px',
               margin: '2rem auto 0',
-              padding: '1.5rem',
+              padding: '1.25rem 1.75rem',
               background: 'rgba(225, 6, 0, 0.08)',
-              borderRadius: '8px',
+              border: '1px solid rgba(225, 6, 0, 0.25)',
+              borderRadius: '12px',
               borderLeft: '4px solid var(--color-red)',
               textAlign: 'center',
+              backdropFilter: 'blur(8px)',
             }}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +91,7 @@ export default function Home() {
           >
             <p style={{
               fontSize: '1rem',
-              color: 'var(--color-navy)',
+              color: 'var(--color-text-primary)',
               fontStyle: 'italic',
               margin: 0,
               fontWeight: '500',
@@ -125,11 +127,11 @@ export default function Home() {
                 key={idx}
                 href={item.link}
                 style={{
-                  background: 'var(--color-bg-card, #ffffff)',
+                  background: 'var(--color-bg-card)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
-                  borderColor: 'var(--color-border, rgba(10, 26, 58, 0.1))',
-                  borderRadius: '16px',
+                  borderColor: 'var(--color-border)',
+                  borderRadius: '20px',
                   padding: '2rem',
                   textAlign: 'center',
                   textDecoration: 'none',
@@ -138,6 +140,7 @@ export default function Home() {
                   minHeight: '280px',
                   position: 'relative',
                   boxShadow: 'var(--shadow)',
+                  backdropFilter: 'blur(12px)',
                 }}
                 whileHover={{
                   y: -6,
@@ -149,15 +152,16 @@ export default function Home() {
                 <h3 style={{
                   fontFamily: 'Orbitron, sans-serif',
                   fontSize: '1.25rem',
-                  color: 'var(--color-navy)',
-                  marginBottom: '0.5rem',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: '0.75rem',
                 }}>
                   {item.title}
                 </h3>
                 <p style={{
                   fontSize: '0.95rem',
-                  color: 'var(--color-gray-dark)',
+                  color: 'var(--color-text-secondary)',
                   margin: 0,
+                  lineHeight: 1.6,
                 }}>
                   {item.text}
                 </p>
