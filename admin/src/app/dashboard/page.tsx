@@ -7,6 +7,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import StatsBento from '@/components/ui/stats-bento';
+import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 import styles from './dashboard.module.css';
 
 export default function Dashboard() {
@@ -67,25 +69,26 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className={styles.dashboard}>
+    <div className={styles.dashboard} style={{ position: 'relative', overflow: 'hidden' }}>
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.12}
+        width={40}
+        duration={3}
+        repeatDelay={1}
+        strokeDasharray={0}
+        style={{
+          maskImage: 'radial-gradient(500px circle at center, white, transparent)',
+          WebkitMaskImage: 'radial-gradient(500px circle at center, white, transparent)',
+        }}
+        className="pointer-events-none absolute inset-x-0 inset-y-[-30%] h-[200%] w-full skew-y-12"
+      />
       <div className={styles.header}>
         <h1>Dashboard</h1>
         <p>Welcome back! Here&apos;s your team overview.</p>
       </div>
 
-      <div className={styles.statsGrid}>
-        {stats.map((stat, i) => (
-          <div key={i} className={styles.statCard}>
-            <div className={styles.statIcon} style={{ backgroundColor: stat.color }}>
-              {stat.icon}
-            </div>
-            <div className={styles.statContent}>
-              <p className={styles.statLabel}>{stat.label}</p>
-              <h3 className={styles.statValue}>{stat.value}</h3>
-            </div>
-          </div>
-        ))}
-      </div>
+      <StatsBento />
 
       <div className={styles.grid}>
         <div className={styles.card}>

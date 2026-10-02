@@ -133,7 +133,6 @@ export default function RootLayout({
         <RobotCursor />
         <DataProvider>
           {children}
-          <FloatingChatbot />
         </DataProvider>
       </body>
     </html>

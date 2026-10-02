@@ -10,6 +10,16 @@ import Footer from '@/app/components/Footer';
 import { motion } from 'framer-motion';
 import { BarChart3, Trophy, Handshake, FileText, Mail, MapPin, Download } from 'lucide-react';
 import styles from '@/app/styles/Sponsors.module.css';
+import {
+  Timeline,
+  TimelineContent,
+  TimelineDate,
+  TimelineHeader,
+  TimelineIndicator,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineTitle,
+} from '@/components/ui/timeline';
 
 // Sponsor Hero Banner Component
 const SponsorHeroBanner = () => {
@@ -383,23 +393,26 @@ const AchievementsHighlights = () => {
         >
           Our Track Record & <span className={styles.redAccent}>Achievements</span>
         </motion.h2>
-        <div className={styles.timeline}>
-          {achievements.map((achievement, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`${styles.timelineItem} ${idx % 2 === 0 ? styles.left : styles.right}`}
-            >
-              <div className={styles.timelineCard}>
-                <div className={styles.year}>{achievement.year}</div>
-                <h3>{achievement.title}</h3>
-                <p>{achievement.description}</p>
-                <div className={styles.sponsorValue}>{achievement.sponsorValue}</div>
-              </div>
-            </motion.div>
-          ))}
+        
+        <div style={{ marginTop: '2rem', padding: '0 1rem' }}>
+          <Timeline defaultValue={4}>
+            {achievements.map((achievement, idx) => (
+              <TimelineItem key={idx} step={idx + 1}>
+                <TimelineIndicator />
+                {idx < achievements.length - 1 && <TimelineSeparator />}
+                <TimelineHeader>
+                  <TimelineDate>{achievement.year}</TimelineDate>
+                  <TimelineTitle>{achievement.title}</TimelineTitle>
+                </TimelineHeader>
+                <TimelineContent>
+                  <p style={{ margin: '0 0 0.5rem 0' }}>{achievement.description}</p>
+                  <div style={{ color: 'var(--color-red, #E10600)', fontWeight: 600, fontSize: '0.85rem' }}>
+                    {achievement.sponsorValue}
+                  </div>
+                </TimelineContent>
+              </TimelineItem>
+            ))}
+          </Timeline>
         </div>
       </div>
     </section>
@@ -599,9 +612,24 @@ const ContactCTA = () => {
   );
 };
 
+import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
+
 export default function SponsorsPage() {
   return (
-    <>
+    <main style={{ position: 'relative', overflow: 'hidden' }}>
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.1}
+        width={40}
+        duration={3}
+        repeatDelay={1}
+        strokeDasharray={0}
+        style={{
+          maskImage: 'radial-gradient(600px circle at center, white, transparent)',
+          WebkitMaskImage: 'radial-gradient(600px circle at center, white, transparent)',
+        }}
+        className="pointer-events-none absolute inset-x-0 inset-y-[-30%] h-[200%] w-full skew-y-12"
+      />
       <Navbar />
       <SponsorHeroBanner />
       <BenefitsGrid />
@@ -610,6 +638,6 @@ export default function SponsorsPage() {
       <BrandExposure />
       <ContactCTA />
       <Footer />
-    </>
+    </main>
   );
 }
