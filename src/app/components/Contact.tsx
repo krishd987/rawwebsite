@@ -161,7 +161,6 @@ export default function Contact() {
 
   return (
     <section id="contact" className={styles.section}>
-      <TopFadeGrid gridColor="rgba(10, 26, 58, 0.06)" />
       <div className={styles.container} style={{ position: 'relative', zIndex: 1 }}>
         {/* Left Side - Form */}
         <motion.div

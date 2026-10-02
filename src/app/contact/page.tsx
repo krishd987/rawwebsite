@@ -35,10 +35,9 @@ export default function ContactPage() {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <motion.section
             style={{
-              paddingTop: '100px',
-              paddingBottom: '2rem',
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%)',
-              minHeight: '30vh',
+              paddingTop: '40px',
+              paddingBottom: '1.5rem',
+              background: 'transparent',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

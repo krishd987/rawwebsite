@@ -53,6 +53,7 @@ export default function Navbar() {
       {/* SVG filter definition for realistic frosted glass distortion */}
       <svg
         style={{
+          display: 'none',
           position: 'absolute',
           width: 0,
           height: 0,

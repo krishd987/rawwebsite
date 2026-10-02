@@ -11,7 +11,7 @@
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  background: transparent;
 }
 
 /* Hero Section with Team Photo Background */
