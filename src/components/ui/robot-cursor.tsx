@@ -1,93 +1,57 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
+/**
+ * RobotCursor — uses actual CSS `cursor: url(...)` so the custom cursor
+ * shows up in screenshots, works on all browsers, and doesn't create
+ * a fake floating SVG overlay that breaks on mobile / touch devices.
+ *
+ * The SVG is inlined as a data URI so no extra network request is needed.
+ * Hotspot is set to (2, 2) to match the tip of the pointer arrow.
+ */
 export function RobotCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const pos = useRef({ x: -100, y: -100 });
-  const raf = useRef<number>(0);
-
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      pos.current = { x: e.clientX, y: e.clientY };
-      if (cursorRef.current && cursorRef.current.style.opacity !== '1') {
-        cursorRef.current.style.opacity = '1';
+    // Only apply custom cursor on non-touch (pointer: fine) devices
+    const mq = window.matchMedia('(pointer: fine)');
+    if (!mq.matches) return;
+
+    const style = document.createElement('style');
+    style.id = 'robot-cursor-style';
+    style.textContent = `
+      html, html * {
+        cursor: url('/cursors/robot-cursor.svg') 2 2, auto !important;
+      }
+      /* Preserve native pointer cursor on interactive elements */
+      a, button, [role="button"], input[type="submit"],
+      input[type="button"], select, label[for],
+      [onclick], [tabindex]:not([tabindex="-1"]) {
+        cursor: url('/cursors/robot-cursor.svg') 2 2, pointer !important;
+      }
+      input, textarea, [contenteditable="true"] {
+        cursor: url('/cursors/robot-cursor.svg') 2 2, text !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Listen for changes (e.g. external display connected)
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        if (!document.getElementById('robot-cursor-style')) {
+          document.head.appendChild(style);
+        }
+      } else {
+        style.remove();
       }
     };
-
-    const render = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${pos.current.x}px, ${pos.current.y}px)`;
-      }
-      raf.current = requestAnimationFrame(render);
-    };
-
-    window.addEventListener('mousemove', move, { passive: true });
-    raf.current = requestAnimationFrame(render);
+    mq.addEventListener('change', onChange);
 
     return () => {
-      window.removeEventListener('mousemove', move);
-      cancelAnimationFrame(raf.current);
+      style.remove();
+      mq.removeEventListener('change', onChange);
     };
   }, []);
 
-  return (
-    <>
-      <style>{`
-        html, html * { cursor: none !important; }
-        .robot-cursor-root {
-          position: fixed;
-          top: 0;
-          left: 0;
-          pointer-events: none;
-          z-index: 99999;
-          will-change: transform;
-          margin-left: -2px;
-          margin-top: -2px;
-          opacity: 0;
-          transition: opacity 0.15s ease;
-        }
-        .robot-cursor-root svg {
-          filter: drop-shadow(0 2px 10px rgba(225, 6, 0, 0.45));
-        }
-      `}</style>
-
-      <div ref={cursorRef} className="robot-cursor-root">
-        {/* Sleek High-Tech Robotic Drone Cursor */}
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 28 28"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Cyber Pointer Arrow Body */}
-          <path
-            d="M2 2L9 22L13 13L22 9L2 2Z"
-            fill="url(#botGrad)"
-            stroke="#0A1A3A"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-          {/* Glowing Red Energy Core / HUD Visor */}
-          <path
-            d="M5 5L9.5 17L12 12L17 9.5L5 5Z"
-            fill="#E10600"
-          />
-          {/* Neon Point Highlight */}
-          <circle cx="2" cy="2" r="1.5" fill="#ffffff" />
-          <circle cx="12" cy="12" r="1.5" fill="#ffffff" opacity="0.9" />
-
-          <defs>
-            <linearGradient id="botGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#ffffff" />
-              <stop offset="0.6" stopColor="#E10600" />
-              <stop offset="1" stopColor="#8A0000" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    </>
-  );
+  // No DOM element needed — the cursor is entirely CSS-driven
+  return null;
 }
-

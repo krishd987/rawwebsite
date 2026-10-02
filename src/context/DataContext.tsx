@@ -81,16 +81,15 @@ interface DataContextType {
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [robots, setRobots] = useState<Robot[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(galleryData);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(teamData);
+  const [robots, setRobots] = useState<Robot[]>(robotsData);
   const [competitions, setCompetitions] = useState<Competition[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const loadAllData = async () => {
     try {
-      setIsLoading(true);
       setError(null);
 
       // Fetch from Firestore API

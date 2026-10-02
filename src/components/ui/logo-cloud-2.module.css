@@ -1,0 +1,167 @@
+/**
+ * @efferd/logo-cloud-2 styles with full theme responsiveness
+ */
+
+.wrapper {
+  position: relative;
+  max-width: 48rem; /* max-w-3xl */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Horizontal hairline lines stretching across viewport */
+.topHairline,
+.bottomHairline {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  height: 1px;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--color-border, rgba(10, 26, 58, 0.12));
+}
+
+.topHairline {
+  top: -1px;
+}
+
+.bottomHairline {
+  bottom: -1px;
+}
+
+/* 4-column Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--color-border, rgba(10, 26, 58, 0.12));
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Logo Card */
+.logoCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  transition: background-color 0.25s ease;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .logoCard {
+    padding: 2.25rem 2rem;
+  }
+}
+
+/* Checkerboard Backgrounds - Light & Dark Theme */
+.bgPrimary {
+  background-color: var(--color-bg-primary, #ffffff);
+}
+
+.bgSecondary {
+  background-color: var(--color-bg-secondary, #f4f4f5);
+}
+
+:global(html.dark) .bgPrimary,
+:global(html[data-theme="dark"]) .bgPrimary {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
+:global(html.dark) .bgSecondary,
+:global(html[data-theme="dark"]) .bgSecondary {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Borders */
+.borderRight {
+  border-right: 1px solid var(--color-border, rgba(10, 26, 58, 0.12));
+}
+
+.borderBottom {
+  border-bottom: 1px solid var(--color-border, rgba(10, 26, 58, 0.12));
+}
+
+@media (max-width: 768px) {
+  .borderBottomMobile {
+    border-bottom: 1px solid var(--color-border, rgba(10, 26, 58, 0.12));
+  }
+  .noBorderBottomMobile {
+    border-bottom: none;
+  }
+  .borderRightMobile {
+    border-right: 1px solid var(--color-border, rgba(10, 26, 58, 0.12));
+  }
+  .noBorderRightMobile {
+    border-right: none;
+  }
+}
+
+/* Logo Image */
+.logoImg {
+  pointer-events: none;
+  height: 1.25rem; /* h-5 */
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  user-select: none;
+  transition: transform 0.3s ease, filter 0.25s ease;
+}
+
+@media (max-width: 768px) {
+  .logoImg {
+    height: 1.1rem;
+    max-width: 105px;
+  }
+}
+
+.logoCard:hover .logoImg {
+  transform: scale(1.08);
+}
+
+/* Dark mode image inversion so dark/black SVGs become crisp white */
+:global(html.dark) .logoImg,
+:global(html[data-theme="dark"]) .logoImg {
+  filter: brightness(0) invert(1);
+}
+
+:global(html:not(.dark)) .logoImg,
+:global(html[data-theme="light"]) .logoImg {
+  filter: none;
+}
+
+/* DecorIcon Crosshair */
+.decorIcon {
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-text-muted, #94a3b8);
+  stroke-width: 1.2;
+}
+
+:global(html.dark) .decorIcon,
+:global(html[data-theme="dark"]) .decorIcon {
+  stroke: rgba(255, 255, 255, 0.35);
+}
+
+.bottomRight {
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 50%);
+}
+
+.bottomLeft {
+  left: 0;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+}

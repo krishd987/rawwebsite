@@ -6,8 +6,198 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import {
+  Reorder,
+  motion,
+  useDragControls,
+  useMotionValue,
+  animate,
+  type DragControls,
+  type MotionValue,
+} from 'framer-motion';
 import styles from './competitions.module.css';
+
+const inactiveShadow = '0 2px 8px rgba(10, 26, 58, 0.06)';
+
+function useRaisedShadow(value: MotionValue<number>) {
+  const boxShadow = useMotionValue(inactiveShadow);
+
+  useEffect(() => {
+    let isActive = false;
+    const unsubscribe = value.on('change', (latest) => {
+      const wasActive = isActive;
+      if (latest !== 0) {
+        isActive = true;
+        if (isActive !== wasActive) {
+          animate(boxShadow, '0 16px 36px rgba(10, 26, 58, 0.18)');
+        }
+      } else {
+        isActive = false;
+        if (isActive !== wasActive) {
+          animate(boxShadow, inactiveShadow);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [value, boxShadow]);
+
+  return boxShadow;
+}
+
+interface ReorderHandleProps {
+  dragControls: DragControls;
+  isActive: boolean;
+  onPress: () => void;
+}
+
+function ReorderHandle({ dragControls, isActive, onPress }: ReorderHandleProps) {
+  return (
+    <motion.button
+      type="button"
+      aria-label="Reorder field"
+      title="Click and drag to reorder"
+      animate={{ scale: isActive ? 0.88 : 1 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        onPress();
+        dragControls.start(e);
+      }}
+      className={styles.dragHandleBtn}
+      style={{ touchAction: 'none' }}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="currentColor"
+        className={styles.dragHandleIcon}
+      >
+        <circle cx="8" cy="6" r="2" />
+        <circle cx="16" cy="6" r="2" />
+        <circle cx="8" cy="12" r="2" />
+        <circle cx="16" cy="12" r="2" />
+        <circle cx="8" cy="18" r="2" />
+        <circle cx="16" cy="18" r="2" />
+      </svg>
+    </motion.button>
+  );
+}
+
+interface ReorderFieldItemProps {
+  field: CustomField;
+  index: number;
+  isEditing: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+function ReorderFieldItem({ field, index, isEditing, onEdit, onDelete }: ReorderFieldItemProps) {
+  const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
+  const dragControls = useDragControls();
+  const [isDragging, setIsDragging] = useState(false);
+  const [pressed, setPressed] = useState(false);
+
+  return (
+    <Reorder.Item
+      value={field}
+      id={field.id}
+      style={{ boxShadow, y }}
+      dragListener={false}
+      dragControls={dragControls}
+      onDragStart={() => setIsDragging(true)}
+      onDragEnd={() => {
+        setIsDragging(false);
+        setPressed(false);
+      }}
+      onPointerUp={() => setPressed(false)}
+      onPointerCancel={() => setPressed(false)}
+      whileDrag={{
+        scale: 1.015,
+        zIndex: 50,
+        cursor: 'grabbing',
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 400,
+        damping: 35,
+      }}
+      className={`${styles.customFieldItem} ${isDragging ? styles.dragging : ''} ${isEditing ? styles.fieldItemEditing : ''}`}
+    >
+      <ReorderHandle
+        dragControls={dragControls}
+        isActive={isDragging || pressed}
+        onPress={() => setPressed(true)}
+      />
+
+      <div className={styles.fieldOrder}>
+        <span className={styles.orderNumber}>{index + 1}</span>
+      </div>
+
+      <div className={styles.fieldInfo}>
+        <div className={styles.fieldTitleRow}>
+          <strong>{field.label}</strong>
+          {isEditing && <span className={styles.editingBadge}>Editing Now</span>}
+        </div>
+        <span className={styles.fieldMeta}>
+          Type: {field.type}
+          {field.type === 'checkbox' ? ` (${field.multiSelect ? 'multi-select' : 'single-select'})` : ''} •{' '}
+          {field.required ? 'Required' : 'Optional'}
+        </span>
+        {field.placeholder && (
+          <span className={styles.fieldPlaceholder}>
+            Placeholder: &quot;{field.placeholder}&quot;
+          </span>
+        )}
+        {field.options && field.options.length > 0 && (
+          <span className={styles.fieldOptions}>
+            Options: {field.options.join(', ')}
+          </span>
+        )}
+        {field.type === 'file' && (
+          <span className={styles.fieldMeta}>
+            Accept: {field.fileAccept || 'Any'} • Max: {field.fileMaxSizeMB ?? 5}MB
+          </span>
+        )}
+        {field.type === 'image' && field.imageUrl && (
+          <img
+            src={field.imageUrl}
+            alt={field.label}
+            style={{ width: 80, height: 80, objectFit: 'contain', marginTop: 4, borderRadius: 6, border: '1px solid #ddd' }}
+          />
+        )}
+      </div>
+
+      <div className={styles.fieldActions}>
+        <button
+          type="button"
+          onClick={onEdit}
+          className={`${styles.btnEdit} ${isEditing ? styles.btnEditActive : ''}`}
+          title={isEditing ? 'Currently Editing' : 'Edit Field'}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={onDelete}
+          className={styles.btnDelete}
+          title="Remove Field"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </Reorder.Item>
+  );
+}
 
 interface CustomField {
   id: string;
@@ -50,8 +240,19 @@ export default function CompetitionsPage() {
   const [editingCompetition, setEditingCompetition] = useState<Competition | null>(null);
   const [imagePreview, setImagePreview] = useState('');
   const [attachmentNamePreview, setAttachmentNamePreview] = useState('');
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [checkboxOptionInput, setCheckboxOptionInput] = useState('');
+
+  // UX refs for redirecting to editing cards
+  const formContainerRef = useRef<HTMLDivElement>(null);
+  const fieldFormRef = useRef<HTMLDivElement>(null);
+  const customFieldsSectionRef = useRef<HTMLDivElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const fieldLabelInputRef = useRef<HTMLInputElement>(null);
+
+  // Highlighting states for smooth visual redirection
+  const [highlightForm, setHighlightForm] = useState(false);
+  const [highlightFieldForm, setHighlightFieldForm] = useState(false);
+  const [editingFieldId, setEditingFieldId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -183,8 +384,8 @@ export default function CompetitionsPage() {
     reader.readAsDataURL(file);
   };
 
-  const handleAddField = () => {
-    if (!newField.label) {
+  const handleSaveField = () => {
+    if (!newField.label.trim()) {
       alert('Please enter a field label');
       return;
     }
@@ -193,17 +394,45 @@ export default function CompetitionsPage() {
       return;
     }
 
-    const field: CustomField = {
-      ...newField,
-      id: `field_${Date.now()}`,
-    };
+    if (editingFieldId) {
+      // Update field in-place preserving its position in the list
+      setFormData(prev => ({
+        ...prev,
+        customFields: prev.customFields.map(f =>
+          f.id === editingFieldId ? { ...newField, id: editingFieldId } : f
+        ),
+      }));
+      setEditingFieldId(null);
+    } else {
+      const field: CustomField = {
+        ...newField,
+        id: `field_${Date.now()}`,
+      };
 
-    setFormData(prev => ({
-      ...prev,
-      customFields: [...prev.customFields, field],
-    }));
+      setFormData(prev => ({
+        ...prev,
+        customFields: [...prev.customFields, field],
+      }));
+    }
 
     // Reset new field form
+    setNewField({
+      id: '',
+      label: '',
+      type: 'text',
+      required: false,
+      placeholder: '',
+      options: [],
+      multiSelect: false,
+      fileAccept: '',
+      fileMaxSizeMB: 5,
+      imageUrl: '',
+    });
+    setCheckboxOptionInput('');
+  };
+
+  const handleCancelEditField = () => {
+    setEditingFieldId(null);
     setNewField({
       id: '',
       label: '',
@@ -224,59 +453,31 @@ export default function CompetitionsPage() {
       ...prev,
       customFields: prev.customFields.filter(f => f.id !== fieldId),
     }));
+    if (editingFieldId === fieldId) {
+      handleCancelEditField();
+    }
   };
 
-  const handleMoveFieldUp = (index: number) => {
-    if (index === 0) return; // Already at top
-    
-    setFormData(prev => {
-      const newFields = [...prev.customFields];
-      [newFields[index - 1], newFields[index]] = [newFields[index], newFields[index - 1]];
-      return {
-        ...prev,
-        customFields: newFields,
-      };
-    });
-  };
+  const handleEditField = (fieldId: string) => {
+    const field = formData.customFields.find(f => f.id === fieldId);
+    if (!field) return;
 
-  const handleMoveFieldDown = (index: number) => {
-    if (index === formData.customFields.length - 1) return; // Already at bottom
-    
-    setFormData(prev => {
-      const newFields = [...prev.customFields];
-      [newFields[index], newFields[index + 1]] = [newFields[index + 1], newFields[index]];
-      return {
-        ...prev,
-        customFields: newFields,
-      };
-    });
-  };
-
-  const handleEditField = (index: number) => {
-    const field = formData.customFields[index];
-    setNewField(field);
+    setEditingFieldId(fieldId);
+    setNewField({ ...field });
     setCheckboxOptionInput('');
-    handleRemoveField(field.id);
-  };
 
-  // ─── Drag-and-drop handlers ───
-  const handleDragStart = (index: number) => {
-    setDragIndex(index);
+    // Smoothly scroll and redirect user to the field editing card
+    setTimeout(() => {
+      if (fieldFormRef.current) {
+        fieldFormRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      if (fieldLabelInputRef.current) {
+        fieldLabelInputRef.current.focus({ preventScroll: true });
+      }
+      setHighlightFieldForm(true);
+      setTimeout(() => setHighlightFieldForm(false), 1800);
+    }, 60);
   };
-
-  const handleDragOver = (e: React.DragEvent, overIndex: number) => {
-    e.preventDefault();
-    if (dragIndex === null || dragIndex === overIndex) return;
-    setFormData(prev => {
-      const newFields = [...prev.customFields];
-      const [moved] = newFields.splice(dragIndex, 1);
-      newFields.splice(overIndex, 0, moved);
-      return { ...prev, customFields: newFields };
-    });
-    setDragIndex(overIndex);
-  };
-
-  const handleDragEnd = () => setDragIndex(null);
 
   // ─── Checkbox option helpers ───
   const addCheckboxOption = () => {
@@ -345,7 +546,20 @@ export default function CompetitionsPage() {
     });
     setImagePreview(competition.imageUrl || '');
     setAttachmentNamePreview(competition.attachmentName || '');
+    setEditingFieldId(null);
     setShowForm(true);
+
+    // Smoothly scroll and redirect user to the editing card
+    setTimeout(() => {
+      if (formContainerRef.current) {
+        formContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (nameInputRef.current) {
+        nameInputRef.current.focus({ preventScroll: true });
+      }
+      setHighlightForm(true);
+      setTimeout(() => setHighlightForm(false), 2000);
+    }, 60);
   };
 
   const handleDelete = async (id: string) => {
@@ -464,6 +678,8 @@ export default function CompetitionsPage() {
     setImagePreview('');
     setAttachmentNamePreview('');
     setEditingCompetition(null);
+    setEditingFieldId(null);
+    setHighlightForm(false);
     setShowForm(false);
   };
 
@@ -473,15 +689,58 @@ export default function CompetitionsPage() {
         <h1>Competitions Management</h1>
         <button
           className={styles.btnPrimary}
-          onClick={() => setShowForm(!showForm)}
+          onClick={() => {
+            if (!showForm) {
+              setEditingCompetition(null);
+              setEditingFieldId(null);
+              resetForm();
+              setShowForm(true);
+              setTimeout(() => {
+                formContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                nameInputRef.current?.focus({ preventScroll: true });
+                setHighlightForm(true);
+                setTimeout(() => setHighlightForm(false), 1800);
+              }, 60);
+            } else {
+              setShowForm(false);
+            }
+          }}
         >
           {showForm ? 'Cancel' : '+ New Competition'}
         </button>
       </div>
 
       {showForm && (
-        <div className={styles.formContainer}>
-          <h2>{editingCompetition ? 'Edit Competition' : 'Create New Competition'}</h2>
+        <div
+          ref={formContainerRef}
+          className={`${styles.formContainer} ${highlightForm ? styles.formHighlight : ''}`}
+        >
+          <div className={styles.formTitleRow}>
+            <div>
+              <h2>{editingCompetition ? `Edit Competition: ${editingCompetition.name}` : 'Create New Competition'}</h2>
+              {editingCompetition && (
+                <p className={styles.editingSubtitle}>
+                  Updating details for <strong>{editingCompetition.name}</strong>
+                </p>
+              )}
+            </div>
+            <div className={styles.formTopActions}>
+              {editingCompetition && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    customFieldsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className={styles.btnJumpToFields}
+                >
+                  ↓ Jump to Custom Fields ({formData.customFields.length})
+                </button>
+              )}
+              <button type="button" onClick={resetForm} className={styles.btnSecondarySmall}>
+                ✕ Close Form
+              </button>
+            </div>
+          </div>
           
           <form onSubmit={handleSubmit} className={styles.form}>
             {/* Basic Information */}
@@ -491,6 +750,7 @@ export default function CompetitionsPage() {
               <div className={styles.formGroup}>
                 <label>Competition Name *</label>
                 <input
+                  ref={nameInputRef}
                   type="text"
                   name="name"
                   value={formData.name}
@@ -684,93 +944,89 @@ export default function CompetitionsPage() {
             </div>
 
             {/* Custom Fields */}
-            <div className={styles.formSection}>
-              <h3>Custom Form Fields</h3>
-              <p className={styles.helpText}>
-                Add custom fields that students need to fill when registering for this competition
-              </p>
-
-              {/* Display existing custom fields */}
-              {formData.customFields.length > 0 && (
-                <div className={styles.customFieldsList}>
-                  {formData.customFields.map((field, index) => (
-                    <div
-                      key={field.id}
-                      className={`${styles.customFieldItem} ${dragIndex === index ? styles.dragging : ''}`}
-                      draggable
-                      onDragStart={() => handleDragStart(index)}
-                      onDragOver={(e) => handleDragOver(e, index)}
-                      onDragEnd={handleDragEnd}
-                    >
-                      <div className={styles.dragHandle} title="Drag to reorder">⠿</div>
-                      <div className={styles.fieldOrder}>
-                        <span className={styles.orderNumber}>{index + 1}</span>
-                      </div>
-                      <div className={styles.fieldInfo}>
-                        <strong>{field.label}</strong>
-                        <span className={styles.fieldMeta}>
-                          Type: {field.type}{field.type === 'checkbox' ? ` (${field.multiSelect ? 'multi-select' : 'single-select'})` : ''} • {field.required ? 'Required' : 'Optional'}
-                        </span>
-                        {field.placeholder && (
-                          <span className={styles.fieldPlaceholder}>
-                            Placeholder: "{field.placeholder}"
-                          </span>
-                        )}
-                        {field.options && field.options.length > 0 && (
-                          <span className={styles.fieldOptions}>
-                            Options: {field.options.join(', ')}
-                          </span>
-                        )}
-                        {field.type === 'file' && (
-                          <span className={styles.fieldMeta}>
-                            Accept: {field.fileAccept || 'Any'} • Max: {field.fileMaxSizeMB ?? 5}MB
-                          </span>
-                        )}
-                        {field.type === 'image' && field.imageUrl && (
-                          <img
-                            src={field.imageUrl}
-                            alt={field.label}
-                            style={{ width: 80, height: 80, objectFit: 'contain', marginTop: 4, borderRadius: 6, border: '1px solid #ddd' }}
-                          />
-                        )}
-                      </div>
-                      <div className={styles.fieldActions}>
-                        <button
-                          type="button"
-                          onClick={() => handleEditField(index)}
-                          className={styles.btnEdit}
-                          title="Edit Field"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveField(field.id)}
-                          className={styles.btnDelete}
-                          title="Remove Field"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+            <div ref={customFieldsSectionRef} className={styles.formSection}>
+              <div className={styles.sectionHeaderRow}>
+                <div>
+                  <h3>Custom Form Fields ({formData.customFields.length})</h3>
+                  <p className={styles.helpText}>
+                    Drag and reorder fields using the grip handle. Students will see fields in this exact order during registration.
+                  </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    fieldFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    fieldLabelInputRef.current?.focus({ preventScroll: true });
+                  }}
+                  className={styles.btnAddNewFieldQuick}
+                >
+                  + Add New Field
+                </button>
+              </div>
+
+              {/* Display existing custom fields with animated reordering */}
+              {formData.customFields.length === 0 ? (
+                <div className={styles.emptyFieldsBox}>
+                  <p>No custom fields added yet.</p>
+                  <small>Add fields below that students need to fill when registering for this competition.</small>
+                </div>
+              ) : (
+                <Reorder.Group
+                  axis="y"
+                  values={formData.customFields}
+                  onReorder={(newFields) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      customFields: newFields,
+                    }));
+                  }}
+                  className={styles.customFieldsList}
+                >
+                  {formData.customFields.map((field, index) => (
+                    <ReorderFieldItem
+                      key={field.id}
+                      field={field}
+                      index={index}
+                      isEditing={editingFieldId === field.id}
+                      onEdit={() => handleEditField(field.id)}
+                      onDelete={() => handleRemoveField(field.id)}
+                    />
+                  ))}
+                </Reorder.Group>
               )}
 
-              {/* Add new field form */}
-              <div className={styles.addFieldForm}>
-                <h4>Add New Field</h4>
+              {/* Add or Edit field form card */}
+              <div
+                ref={fieldFormRef}
+                className={`${styles.addFieldForm} ${highlightFieldForm ? styles.fieldFormHighlight : ''} ${editingFieldId ? styles.fieldFormEditingMode : ''}`}
+              >
+                <div className={styles.fieldFormHeaderRow}>
+                  <h4>
+                    {editingFieldId ? (
+                      <>
+                        <span style={{ color: '#10b981' }}>✏️ Editing Field:</span>{' '}
+                        {newField.label || 'Untitled'}
+                      </>
+                    ) : (
+                      '+ Add New Custom Field'
+                    )}
+                  </h4>
+                  {editingFieldId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEditField}
+                      className={styles.btnCancelEditField}
+                    >
+                      ✕ Cancel Edit
+                    </button>
+                  )}
+                </div>
                 
                 <div className={styles.formRow}>
                   <div className={styles.formGroup}>
                     <label>Field Label</label>
                     <input
+                      ref={fieldLabelInputRef}
                       type="text"
                       value={newField.label}
                       onChange={(e) => setNewField({ ...newField, label: e.target.value })}
@@ -974,13 +1230,24 @@ export default function CompetitionsPage() {
                 </label>
               </div>
 
-                <button
-                  type="button"
-                  onClick={handleAddField}
-                  className={styles.btnSecondary}
-                >
-                  + Add Field
-                </button>
+                <div className={styles.fieldFormActionsRow}>
+                  <button
+                    type="button"
+                    onClick={handleSaveField}
+                    className={editingFieldId ? styles.btnUpdateField : styles.btnSecondary}
+                  >
+                    {editingFieldId ? '✓ Update Field' : '+ Add Field to List'}
+                  </button>
+                  {editingFieldId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEditField}
+                      className={styles.btnSecondary}
+                    >
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -1030,8 +1297,16 @@ export default function CompetitionsPage() {
                 }
               }
               
+              const isCurrentlyEditing = editingCompetition?._id === competition._id && showForm;
+
               return (
-              <div key={competition._id} className={styles.card}>
+              <div
+                key={competition._id}
+                className={`${styles.card} ${isCurrentlyEditing ? styles.activeEditingCard : ''}`}
+              >
+                {isCurrentlyEditing && (
+                  <span className={styles.activeEditingBadge}>✏️ Editing Now</span>
+                )}
                 <div className={styles.cardHeader}>
                   <h3>{competition.name}</h3>
                   <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
@@ -1070,9 +1345,10 @@ export default function CompetitionsPage() {
                 <div className={styles.cardActions}>
                   <button
                     onClick={() => handleEdit(competition)}
-                    className={styles.btnEdit}
+                    className={`${styles.btnEdit} ${isCurrentlyEditing ? styles.btnEditActive : ''}`}
+                    title={isCurrentlyEditing ? 'Currently Editing this Competition' : 'Edit Competition'}
                   >
-                    Edit
+                    {isCurrentlyEditing ? 'Editing...' : 'Edit'}
                   </button>
                   <button
                     onClick={() => downloadRegistrationsCSV(competition._id, competition.name)}

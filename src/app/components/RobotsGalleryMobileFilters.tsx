@@ -144,13 +144,7 @@ export default function RobotsGalleryEnhanced() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <section id="robots-gallery" style={{ marginBottom: '4rem', textAlign: 'center', padding: '2rem' }}>
-        <p>Loading robots and gallery...</p>
-      </section>
-    );
-  }
+
 
   if (error) {
     return (

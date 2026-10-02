@@ -1045,9 +1045,9 @@
 /* Domain Tab Button - Same style as filterPill */
 .domainTab {
   padding: 0.6rem 1.2rem;
-  border: 2px solid rgba(10, 26, 58, 0.15);
-  background: #ffffff;
-  color: #0A1A3A;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text);
   border-radius: 28px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
@@ -1057,7 +1057,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 2px 8px rgba(10, 26, 58, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   animation: pillStagger 0.5s ease-out backwards;
   white-space: nowrap;
   flex-shrink: 0;
@@ -1127,8 +1127,8 @@
 }
 
 .domainTabCount {
-  background: rgba(10, 26, 58, 0.08);
-  color: #0a1a3a;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
   padding: 0.15rem 0.45rem;
   border-radius: 20px;
   font-size: 0.75rem;
