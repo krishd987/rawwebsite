@@ -72,16 +72,16 @@ export default function Dashboard() {
     <div className={styles.dashboard} style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
         <AnimatedGridPattern
-          numSquares={35}
-          maxOpacity={0.1}
+          numSquares={45}
+          maxOpacity={0.16}
           width={50}
           height={50}
           duration={3.5}
           repeatDelay={1.2}
           strokeDasharray={0}
           style={{
-            maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)',
+            maskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 95% 85% at 50% 30%, black 65%, transparent 100%)',
           }}
           className="pointer-events-none absolute inset-0 h-full w-full"
         />

@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ThemeSwitch } from '@/components/ui/theme-switch-button';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import styles from '../styles/Navbar.module.css';
 
 export default function Navbar() {
@@ -121,7 +121,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <ThemeSwitch />
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -156,7 +156,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <div style={{ paddingTop: '0.75rem', display: 'flex', justifyContent: 'center' }}>
-              <ThemeSwitch />
+              <ThemeToggle />
             </div>
           </motion.div>
         )}

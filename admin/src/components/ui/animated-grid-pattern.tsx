@@ -35,8 +35,8 @@ export function AnimatedGridPattern({
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   const getPos = useCallback((): [number, number] => {
-    const w = dimensions.width || 1200;
-    const h = dimensions.height || 800;
+    const w = dimensions.width || (typeof window !== 'undefined' ? window.innerWidth : 1440);
+    const h = dimensions.height || (typeof window !== 'undefined' ? window.innerHeight : 900);
     return [
       Math.floor((Math.random() * w) / width),
       Math.floor((Math.random() * h) / height),
@@ -66,9 +66,8 @@ export function AnimatedGridPattern({
   }, []);
 
   useEffect(() => {
-    if (dimensions.width && dimensions.height) {
-      setSquares(generateSquares(numSquares));
-    }
+    const count = numSquares || 40;
+    setSquares(generateSquares(count));
   }, [dimensions, numSquares, generateSquares]);
 
   useEffect(() => {
@@ -110,7 +109,7 @@ export function AnimatedGridPattern({
     <svg
       ref={containerRef}
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 h-full w-full stroke-gray-400/15 fill-gray-400/10 text-red-500/20 dark:stroke-white/10 dark:fill-white/5 dark:text-red-500/30 ${className}`}
+      className={`pointer-events-none absolute inset-0 h-full w-full stroke-black/[0.07] fill-black/[0.02] text-red-600/35 dark:stroke-white/[0.08] dark:fill-white/[0.02] dark:text-red-500/40 ${className}`}
       {...props}
     >
       <defs>
@@ -140,7 +139,7 @@ export function AnimatedGridPattern({
               repeat: Infinity,
               repeatType: 'reverse',
               repeatDelay,
-              delay: index * 0.08,
+              delay: index * 0.06,
             }}
             onAnimationComplete={() => updateSquarePosition(squareId)}
             key={`${squareX}-${squareY}-${index}`}
