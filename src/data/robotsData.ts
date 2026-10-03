@@ -34,7 +34,7 @@ export const robotsData: Robot[] = [
     category: 'competition',
     description: 'First robot for DD Robocon 2026 competition featuring SLAM & LiDAR autonomy',
     longDescription: 'Advanced competition robot designed for DD Robocon 2026 with real-time autonomous pathfinding, precision obstacle evasion, and integrated multi-layer sensor fusion.',
-    imageUrl: '/images/bots-hero/2026 r1.jpeg',
+    imageUrl: '/images/robocon 2026.jpeg',
     specs: ['Autonomous Navigation', 'LiDAR SLAM', 'Multi-task Capability', 'High Precision Control'],
     tags: ['DD Robocon', 'Competition', '2026', 'Autonomous'],
     features: [
@@ -56,7 +56,7 @@ export const robotsData: Robot[] = [
     category: 'competition',
     description: 'Second robot for DD Robocon 2026 featuring high-torque pneumatic gripper',
     longDescription: 'Specialized secondary competition robot equipped with custom pneumatic actuators and high-speed servo grippers for cooperative match strategy.',
-    imageUrl: '/images/bots-hero/2026 r2.jpeg',
+    imageUrl: '/images/robocon 2026.jpeg',
     specs: ['Pneumatic Gripper', 'High Speed', 'Cooperative Control', 'Custom Gearbox'],
     tags: ['DD Robocon', 'Competition', '2026', 'Manual'],
     features: [
@@ -78,7 +78,7 @@ export const robotsData: Robot[] = [
     category: 'competition',
     description: 'First robot for DD Robocon 2025 competition',
     longDescription: 'Advanced competition robot designed for DD Robocon 2025 challenges with precise control systems and innovative agricultural harvesting mechanisms.',
-    imageUrl: '/images/bots-hero/2025 r1.png',
+    imageUrl: '/images/2025 bots.jpg',
     specs: ['Autonomous Navigation', 'Manual Control', 'Multi-task Capability', 'High Precision'],
     tags: ['DD Robocon', 'Competition', '2025'],
     features: [

@@ -770,12 +770,28 @@ export default function RobotsGalleryEnhancedPage() {
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
                         <span className={styles.sectionIcon}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
-                        <h3 className={styles.sectionTitle}>Media Upload</h3>
+                        <h3 className={styles.sectionTitle}>Media & Image Management</h3>
                       </div>
                       <div className={styles.formGrid}>
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            Main Image <span className={styles.required}>*</span>
+                            Image URL / Path <span className={styles.required}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.imageUrl || ''}
+                            onChange={(e) => {
+                              const newUrl = e.target.value;
+                              setFormData({ ...formData, imageUrl: newUrl });
+                              setImagePreview(newUrl);
+                            }}
+                            placeholder="e.g., /images/robocon 2026.jpeg or https://..."
+                            className={styles.input}
+                            style={{ marginBottom: '1rem' }}
+                          />
+                          <label className={styles.label}>
+                            Or Upload Image File
                           </label>
                           <div
                             className={`${styles.uploadArea} ${dragOver ? styles.dragOver : ''}`}
@@ -796,7 +812,7 @@ export default function RobotsGalleryEnhancedPage() {
                             />
                           </div>
                           {imagePreview && (
-                            <div className={styles.imagePreview}>
+                            <div className={styles.imagePreview} style={{ marginTop: '1rem' }}>
                               <img
                                 src={imagePreview}
                                 alt="Preview"
@@ -1064,12 +1080,28 @@ export default function RobotsGalleryEnhancedPage() {
                     <div className={styles.formSection}>
                       <div className={styles.sectionHeader}>
                         <span className={styles.sectionIcon}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
-                        <h3 className={styles.sectionTitle}>Media Upload</h3>
+                        <h3 className={styles.sectionTitle}>Media & Image Management</h3>
                       </div>
                       <div className={styles.formGrid}>
                         <div className={styles.formGroup}>
                           <label className={styles.label}>
-                            Main Image <span className={styles.required}>*</span>
+                            Main Image URL / Path <span className={styles.required}>*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.imageUrl || ''}
+                            onChange={(e) => {
+                              const newUrl = e.target.value;
+                              setFormData({ ...formData, imageUrl: newUrl });
+                              setImagePreview(newUrl);
+                            }}
+                            placeholder="e.g., /images/MU Techconnect.jpg or https://..."
+                            className={styles.input}
+                            style={{ marginBottom: '1rem' }}
+                          />
+                          <label className={styles.label}>
+                            Or Upload Main Image File
                           </label>
                           <div
                             className={`${styles.uploadArea} ${dragOver ? styles.dragOver : ''}`}
@@ -1090,7 +1122,7 @@ export default function RobotsGalleryEnhancedPage() {
                             />
                           </div>
                           {imagePreview && (
-                            <div className={styles.imagePreview}>
+                            <div className={styles.imagePreview} style={{ marginTop: '1rem' }}>
                               <img
                                 src={imagePreview}
                                 alt="Main Preview"

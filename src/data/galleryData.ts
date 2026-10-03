@@ -24,6 +24,28 @@ export interface GalleryImage {
 export const galleryImages: GalleryImage[] = [
   // EVENTS
   {
+    _id: 'event-mu-techconnect-2026',
+    title: 'MU TechConnect Robotic Competition 2026',
+    description: 'Team RAW official robotics competition entry at Mumbai University TechConnect. 1st Prize Winner.',
+    detailedDescription: 'Interactive demonstration and competitive exhibition of Team RAW autonomous rovers, sensor telemetry systems, and aviation prototypes presented at Mumbai University TechConnect. Secured 1st Prize.',
+    category: 'competitions',
+    imageUrl: '/images/MU Techconnect.jpg',
+    uploadedBy: 'Team RAW',
+    createdAt: '2026-03-01',
+    year: 2026,
+  },
+  {
+    _id: 'event-prayas-2026',
+    title: 'prayas 2026',
+    description: 'PRAYAS 2026 technical exhibition and live robotics demonstration at SFIT.',
+    detailedDescription: 'Robotics innovation, student project certification, and live hardware demonstration conducted during PRAYAS 2026.',
+    category: 'events',
+    imageUrl: '/images/PRAYAS 2026.jpeg',
+    uploadedBy: 'Team RAW',
+    createdAt: '2026-02-28',
+    year: 2026,
+  },
+  {
     _id: 'event-mosaic-2026',
     title: 'Mosaic 2026 Technical Fest',
     description: 'Team RAW flagship robotics demonstration & arena showcase at SFIT Mosaic techfest.',
