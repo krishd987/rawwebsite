@@ -49,8 +49,12 @@ import initialGalleryData from '@/data/galleryData';
 type ViewMode = 'robots' | 'gallery';
 type FilterCategory = 'all' | 'competition' | 'research' | 'development' | 'robots' | 'events' | 'workshops' | 'competitions' | 'team' | 'milestones';
 
-export default function RobotsGalleryEnhancedPage() {
-  const [viewMode, setViewMode] = useState<ViewMode>('robots');
+interface PageProps {
+  initialViewMode?: ViewMode;
+}
+
+export default function RobotsGalleryEnhancedPage({ initialViewMode }: PageProps = {}) {
+  const [viewMode, setViewMode] = useState<ViewMode>(initialViewMode || 'robots');
   const [robots, setRobots] = useState<Robot[]>([]);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
