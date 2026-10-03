@@ -97,14 +97,25 @@ export async function POST(request: NextRequest) {
   }
 }
 
+import galleryData from '@/data/galleryData';
+
 // GET - Fetch all gallery images
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
 
-    const snapshot = await db.collection('gallery').orderBy('createdAt', 'desc').get();
-    let images = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() as GalleryImage }));
+    let images: any[] = [];
+    try {
+      const snapshot = await db.collection('gallery').orderBy('createdAt', 'desc').get();
+      images = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() as GalleryImage }));
+    } catch (dbErr) {
+      console.warn('Firestore fetch failed, using fallback static data:', dbErr);
+    }
+
+    if (!images || images.length === 0) {
+      images = galleryData;
+    }
 
     if (category && category !== 'all') {
       images = images.filter(img => img.category === category);

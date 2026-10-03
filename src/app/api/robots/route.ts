@@ -99,6 +99,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
+import robotsData from '@/data/robotsData';
+
 // GET - Fetch all robots
 export async function GET(request: NextRequest) {
   try {
@@ -106,8 +108,17 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const status = searchParams.get('status');
 
-    const snapshot = await db.collection('robots').orderBy('createdAt', 'desc').get();
-    let robots = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() as Robot }));
+    let robots: any[] = [];
+    try {
+      const snapshot = await db.collection('robots').orderBy('createdAt', 'desc').get();
+      robots = snapshot.docs.map((doc) => ({ _id: doc.id, ...doc.data() as Robot }));
+    } catch (dbErr) {
+      console.warn('Firestore fetch failed, using fallback static data:', dbErr);
+    }
+
+    if (!robots || robots.length === 0) {
+      robots = robotsData;
+    }
 
     if (category) {
       robots = robots.filter(robot => robot.category === category);
