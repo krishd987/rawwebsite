@@ -82,9 +82,25 @@ export default function RobotsPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Robots Management</h1>
-        <p className={styles.subtitle}>View and manage all robots</p>
+      <div className={styles.header} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <h1 className={styles.title}>Robots Management</h1>
+          <p className={styles.subtitle}>View and manage all robots</p>
+        </div>
+        <a 
+          href="/dashboard/robots-gallery" 
+          style={{
+            padding: '0.75rem 1.25rem',
+            background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
+            color: '#fff',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)'
+          }}
+        >
+          ⚙️ Open Interactive Editor
+        </a>
       </div>
 
       <div className={styles.stats}>

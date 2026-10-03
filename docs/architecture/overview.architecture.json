@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "TEAM RAW — rawwebsite System Architecture",
+    "subtitle": "Two Next.js apps, Firebase backend, Cloudinary media",
+    "output": "docs/architecture/overview.archify.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "visitors", "type": "external", "label": "Visitors", "sublabel": "Public traffic", "pos": [40, 250], "size": [150, 70] },
+    { "id": "editors", "type": "external", "label": "Team Editors", "sublabel": "Authenticated staff", "pos": [40, 400], "size": [150, 70] },
+
+    { "id": "public", "type": "frontend", "label": "Public Site", "sublabel": "Next.js 16 · :3000", "pos": [260, 150], "size": [180, 84], "tag": "App Router" },
+    { "id": "admin", "type": "frontend", "label": "Admin Panel", "sublabel": "Next.js 16 · :3001", "pos": [260, 400], "size": [180, 84], "tag": "jose JWT + bcryptjs" },
+    { "id": "context", "type": "frontend", "label": "DataContext", "sublabel": "client seed data", "pos": [260, 275], "size": [180, 70] },
+
+    { "id": "api", "type": "backend", "label": "API Routes", "sublabel": "15 handlers", "pos": [530, 250], "size": [180, 90], "tag": "Route Handlers" },
+    { "id": "adminapi", "type": "backend", "label": "Admin API", "sublabel": "upload · email", "pos": [530, 425], "size": [180, 76] },
+
+    { "id": "firestore", "type": "database", "label": "Firestore", "sublabel": "firebase-admin", "pos": [810, 110], "size": [170, 80], "tag": "primary datastore" },
+    { "id": "cloudinary", "type": "cloud", "label": "Cloudinary", "sublabel": "images / video", "pos": [810, 225], "size": [170, 80] },
+    { "id": "supabase", "type": "cloud", "label": "Supabase", "sublabel": "ppt-submissions", "pos": [810, 340], "size": [170, 80], "tag": "placeholder creds" },
+    { "id": "openrouter", "type": "external", "label": "OpenRouter", "sublabel": "chat LLM", "pos": [810, 455], "size": [170, 80], "tag": "key missing" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Vercel Deployment", "wraps": ["public", "context", "admin"] },
+    { "kind": "security-group", "label": "Admin auth — jose JWT", "wraps": ["admin", "adminapi"] }
+  ],
+  "connections": [
+    { "id": "v-public", "from": "visitors", "to": "public", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "v-admin", "from": "visitors", "to": "admin", "label": "HTTPS", "variant": "dashed" },
+    { "id": "public-context", "from": "public", "to": "context", "label": "seed data", "fromSide": "bottom", "toSide": "top", "labelDy": 24 },
+    { "id": "public-api", "from": "public", "to": "api", "label": "fetch", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "admin-api", "from": "admin", "to": "adminapi", "label": "POST", "fromSide": "right", "toSide": "left" },
+    { "id": "adminapi-data", "from": "adminapi", "to": "firestore", "label": "CRUD", "variant": "dashed" },
+    { "id": "api-firestore", "from": "api", "to": "firestore", "label": "read / write", "variant": "emphasis", "fromSide": "top", "toSide": "left" },
+    { "id": "api-cloudinary", "from": "api", "to": "cloudinary", "label": "media", "fromSide": "right", "toSide": "left" },
+    { "id": "api-supabase", "from": "api", "to": "supabase", "label": "storage insert", "variant": "dashed", "fromSide": "right", "toSide": "left" },
+    { "id": "api-openrouter", "from": "api", "to": "openrouter", "label": "LLM call", "variant": "dashed", "fromSide": "right", "toSide": "left" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Frontend", "items": ["Public site + admin panel are separate Next.js 16 apps", "Pure CSS Modules, no Tailwind", "framer-motion for selective motion"] },
+    { "dot": "emerald", "title": "Data & Media", "items": ["Firestore is the backend of record", "Cloudinary handles media transform", "Static seed data via DataContext"] },
+    { "dot": "rose", "title": "Known Issues", "items": ["Supabase path uses placeholder credentials", "OPENROUTER_API_KEY absent from env", "Geist font fetch breaks production build"] }
+  ]
+}

@@ -25,9 +25,9 @@ export const galleryImages: GalleryImage[] = [
   // EVENTS
   {
     _id: 'event-mu-techconnect-2026',
-    title: 'MU TechConnect Exhibition 2026',
-    description: 'Team RAW official robotics and technology showcase at Mumbai University TechConnect.',
-    detailedDescription: 'Interactive demonstration of Team RAW autonomous rovers, sensor telemetry systems, and aviation prototypes presented at Mumbai University TechConnect.',
+    title: 'MU TechConnect Robotic Competition 2026',
+    description: 'Team RAW official robotics competition entry at Mumbai University TechConnect. 1st Prize Winner.',
+    detailedDescription: 'Interactive demonstration and competitive exhibition of Team RAW autonomous rovers, sensor telemetry systems, and aviation prototypes presented at Mumbai University TechConnect. Secured 1st Prize.',
     category: 'events',
     imageUrl: '/images/MU Techconnect.jpg',
     uploadedBy: 'Team RAW',
@@ -36,7 +36,7 @@ export const galleryImages: GalleryImage[] = [
   },
   {
     _id: 'event-prayas-2026',
-    title: 'PRAYAS 2026 Robotics Showcase',
+    title: 'prayas 2026',
     description: 'PRAYAS 2026 technical exhibition and live robotics demonstration at SFIT.',
     detailedDescription: 'Robotics innovation, student project certification, and live hardware demonstration conducted during PRAYAS 2026.',
     category: 'events',

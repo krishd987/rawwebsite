@@ -34,8 +34,8 @@ export function getValidRobotImage(name: string = '', year?: number, existingUrl
   const cleanName = (name || '').toLowerCase();
   const yr = year || (cleanName.match(/\b(202\d)\b/) ? parseInt(cleanName.match(/\b(202\d)\b/)![1]) : 2026);
   const isR2 = cleanName.includes('robot 2') || cleanName.includes('r2');
-  if (yr === 2026) return isR2 ? '/images/2026 bots.jpg' : '/images/2026 r1.PNG';
-  if (yr === 2025) return isR2 ? '/images/2025 r1.jpeg' : '/images/2025 r1.jpeg';
+  if (yr === 2026) return isR2 ? '/images/robocon 2026.jpeg' : '/images/2026 r1.PNG';
+  if (yr === 2025) return isR2 ? '/images/2025 bots.jpg' : '/images/2025 r1.jpeg';
   if (yr === 2024) return isR2 ? '/images/2024 r1.jpeg' : '/images/2024 r1.jpeg';
   if (yr === 2023) return isR2 ? '/images/2023 r2.jpeg' : '/images/2023 r1.jpeg';
   if (yr === 2022) return isR2 ? '/images/2022r2.jpeg' : '/images/2022 r1.jpeg';
