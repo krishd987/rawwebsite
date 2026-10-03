@@ -34,7 +34,7 @@ export const robotsData: Robot[] = [
     category: 'competition',
     description: 'First robot for DD Robocon 2026 competition featuring SLAM & LiDAR autonomy',
     longDescription: 'Advanced competition robot designed for DD Robocon 2026 with real-time autonomous pathfinding, precision obstacle evasion, and integrated multi-layer sensor fusion.',
-    imageUrl: '/images/robocon 2026.jpeg',
+    imageUrl: '/images/2026 r1.PNG',
     specs: ['Autonomous Navigation', 'LiDAR SLAM', 'Multi-task Capability', 'High Precision Control'],
     tags: ['DD Robocon', 'Competition', '2026', 'Autonomous'],
     features: [
