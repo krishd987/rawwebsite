@@ -14,6 +14,8 @@ interface GalleryItem {
   createdAt?: string;
 }
 
+import initialGalleryData from '@/data/galleryData';
+
 export default function GalleryPage() {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,15 +32,16 @@ export default function GalleryPage() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rawwebsite-seven.vercel.app';
       const response = await fetch(`${apiUrl}/api/gallery`);
       
-      if (!response.ok) {
-        throw new Error('Failed to fetch gallery');
+      if (response.ok) {
+        const data = await response.json();
+        const items = (data.data && data.data.length > 0) ? data.data : initialGalleryData;
+        setGalleryItems(items);
+      } else {
+        setGalleryItems(initialGalleryData);
       }
-
-      const data = await response.json();
-      setGalleryItems(data.data || []);
     } catch (err) {
-      console.error('Error fetching gallery:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch gallery');
+      console.error('Error fetching gallery, using static fallback:', err);
+      setGalleryItems(initialGalleryData);
     } finally {
       setIsLoading(false);
     }

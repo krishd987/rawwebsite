@@ -43,6 +43,9 @@ interface GalleryItem {
   createdAt?: string;
 }
 
+import initialRobotsData from '@/data/robotsData';
+import initialGalleryData from '@/data/galleryData';
+
 type ViewMode = 'robots' | 'gallery';
 type FilterCategory = 'all' | 'competition' | 'research' | 'development' | 'robots' | 'events' | 'workshops' | 'competitions' | 'team' | 'milestones';
 
@@ -132,12 +135,13 @@ export default function RobotsGalleryEnhancedPage() {
           credentials: 'omit',
         });
         
-        console.log('📡 Response status:', response.status);
-        if (!response.ok) throw new Error(`Failed to fetch robots: ${response.status} ${response.statusText}`);
-        
-        const data = await response.json();
-        console.log(' Robots fetched:', data.data?.length || 0);
-        setRobots(data.data || []);
+        if (response.ok) {
+          const data = await response.json();
+          const items = (data.data && data.data.length > 0) ? data.data : initialRobotsData;
+          setRobots(items);
+        } else {
+          setRobots(initialRobotsData);
+        }
       } else {
         const url = `${apiUrl}/api/gallery`;
         console.log('🔍 Fetching gallery from:', url);
@@ -149,24 +153,21 @@ export default function RobotsGalleryEnhancedPage() {
           credentials: 'omit',
         });
         
-        console.log('📡 Response status:', response.status);
-        if (!response.ok) throw new Error(`Failed to fetch gallery: ${response.status} ${response.statusText}`);
-        
-        const data = await response.json();
-        console.log(' Gallery items fetched:', data.data?.length || 0);
-        setGalleryItems(data.data || []);
+        if (response.ok) {
+          const data = await response.json();
+          const items = (data.data && data.data.length > 0) ? data.data : initialGalleryData;
+          setGalleryItems(items);
+        } else {
+          setGalleryItems(initialGalleryData);
+        }
       }
     } catch (err) {
-      console.error('❌ Error fetching data:', err);
-      
-      let errorMessage = 'Failed to fetch data';
-      if (err instanceof TypeError && err.message.includes('fetch')) {
-        errorMessage = 'Network error - Could not connect to API. Please check if the main app is running or accessible.';
-      } else if (err instanceof Error) {
-        errorMessage = err.message;
+      console.error(' Error fetching data, using static fallback:', err);
+      if (viewMode === 'robots') {
+        setRobots(initialRobotsData);
+      } else {
+        setGalleryItems(initialGalleryData);
       }
-      
-      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

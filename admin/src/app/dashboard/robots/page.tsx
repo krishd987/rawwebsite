@@ -15,6 +15,8 @@ interface Robot {
   createdAt?: string;
 }
 
+import initialRobotsData from '@/data/robotsData';
+
 export default function RobotsPage() {
   const [robots, setRobots] = useState<Robot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,15 +33,16 @@ export default function RobotsPage() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rawwebsite-seven.vercel.app';
       const response = await fetch(`${apiUrl}/api/robots`);
       
-      if (!response.ok) {
-        throw new Error('Failed to fetch robots');
+      if (response.ok) {
+        const data = await response.json();
+        const items = (data.data && data.data.length > 0) ? data.data : initialRobotsData;
+        setRobots(items);
+      } else {
+        setRobots(initialRobotsData);
       }
-
-      const data = await response.json();
-      setRobots(data.data || []);
     } catch (err) {
-      console.error('Error fetching robots:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch robots');
+      console.error('Error fetching robots, using static fallback:', err);
+      setRobots(initialRobotsData);
     } finally {
       setIsLoading(false);
     }
